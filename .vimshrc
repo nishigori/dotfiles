@@ -1,0 +1,20 @@
+alias l = 'ls -l'
+alias ll = 'ls -l'
+alias la = 'ls -al'
+alias lt = 'ls -tl'
+
+alias cl = 'clear'
+alias hl = 'history'
+alias untar = 'tar -xvf'
+
+#rsync
+alias rs = 'rsync -e ssh -az --progress $$args[1] $$args[2]'
+
+#ctags
+alias ctag = 'ctags -R ./'
+
+#git
+alias gitlog = 'git log --graph --all --color --pretty="%x09%h %cn%x09%s %Cred%d"'
+
+#show swap files
+alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'

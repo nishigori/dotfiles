@@ -1,0 +1,117 @@
+" /**
+" * @Author @_nishigori
+" * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+" */
+" # CAUTION Switch ; <-> : !! {{{
+" Don't use ':remap' as possible (for Unaffected).
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+" }}}
+" # COLOR SCHEME {{{
+colorscheme galaxy
+" }}}
+" # BASIC {{{
+set titlestring="Vimp"
+set history=255
+set focuscontent
+set runtimepath=$HOME/.vimperator
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+set scrollbars=false
+
+nnoremap U :undo<Space>
+nnoremap pa :<C-u>panorama<Space>
+nnoremap S :<C-u>panorama<Space>switch<Space>
+
+nnoremap <C-j> <Nop>
+nnoremap <C-h> <Nop>
+" }}}
+" # TOOL_BAR, STATUS_BAR {{{
+set gui=none,tabs,addons
+set wildmode=list:full
+" command line 時にime off
+style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+" }}}
+" # SEARCH {{{
+set complete=l
+set hlsearch
+set ignorecase
+set smartcase
+" }}}
+" # <Tab> & WINDOW {{{
+set tabnumbers
+nnoremap <silent> <C-n> :<C-u>tabnext<Cr>
+" focus Alt key
+nnoremap <silent> <A-C-p> :tabmove! -1<Cr>
+nnoremap <silent> <A-C-n> :tabmove! +1<Cr>
+nnoremap <silent> <A-k> :tabprevious<Cr>
+nnoremap <silent> <A-j> :tabnext<Cr>
+nnoremap <silent> <A-p> :tabprevious<Cr>
+nnoremap <silent> <A-n> :tabnext<Cr>
+" }}}
+" # <Leader> commands {{{
+let mapleader = ","
+
+nnoremap <Leader>u :undo<Space>
+nnoremap <Leader>p :panorama<Space>
+nnoremap <Leader>s :panorama<Space>switch<Space>
+nnoremap <Leader>l :panorama<Space>list<Space>
+nnoremap <Leader>r :panorama<Space>remove<Space>
+
+" }}}
+" # MOVEMENT {{{
+" Scroll's space (_smooziee.js)
+" map j 5<C-e>
+" map k 5<C-y>
+
+" alias shell
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-h> <BS>
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+" FIXME: PATHTHROUGHモードで全選択の方法調べる
+"inoremap <C-S-a> i<C-a>
+inoremap <C-S-k> <S-Up>
+inoremap <C-S-j> <S-Down>
+inoremap <C-S-b> <S-Left>
+inoremap <C-S-f> <S-Right>
+
+" FIXME: Google serviecesでうまく動かない
+"inoremap { {}<LEFT>
+"inoremap [ []<LEFT>
+"inoremap ( ()<LEFT>
+"inoremap "" ""<LEFT>
+"inoremap '' ''<LEFT>
+"cnoremap { {}<LEFT>
+"cnoremap [ []<LEFT>
+"cnoremap ( ()<LEFT>
+"cnoremap "" ""<LEFT>
+"cnoremap '' ''<LEFT>
+
+" alias vimCompletion
+cnoremap <C-p> <S-Tab>
+cnoremap <C-n> <Tab>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-y> <Cr>
+
+" special unmap
+" ERROR: Fx5.0
+"iunmap { -urls='google'
+"iunmap [ -urls='google'
+"iunmap ( -urls='google'
+"iunmap \" -urls='google'
+"iunmap \' -urls='google'
+" }}}
+" # PLUGIN {{{
+"" _smooziee.js
+let g:smooziee_scroll_amount="250"
+"" nextlink.js
+let g:nextlink_followlink="true"
+" }}}
+" echo Calender
+command cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
