@@ -1,7 +1,3 @@
-" /**
-"  * Author: @_nishigori <nishigori.tak@gmail.com>
-"  * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
-"  */
 " ## vundle.vim {{{
 filetype off
 set rtp+=~/.vim/vundle.git/
@@ -209,42 +205,6 @@ if exists('&colorcolumn')
   nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<Cr>
 endif
 " }}}
-" # GUI {{{
-if has('gui_running')
-  set norestorescreen
-  set guioptions=
-  set t_ti=
-  set t_te=
-
-  " Default window size
-  " FIXME: ウィンドウが最大化している場合は無視したい
-  set lines=50
-  set columns=160
-
-  " When double clicked, search on word.
-  nnoremap <2-LeftMouse> g*
-  set mouse=a
-  " Show popup menu if right click.
-  set mousemodel=popup
-  set nomousefocus		" マウス移動によるフォーカス切り替えを無効
-
-  if has('gui_gtk2')
-    " Font_list { common: [Ricty, monofur, Monaco], wide: [めんまフォント] }
-    set guifont=Ricty\ 11
-    set guifontwide=めんまフォント
-  endif
-
-  nnoremap <silent> ZZ :<C-u>close<Cr>
-
-else " For Console
-  set lazyredraw
-  set ttyfast
-  " stopped job
-  nnoremap <silent> gZZ :set t_te = t_ti = <Cr>:quit<Cr>:set t_te& t_ti&<Cr>
-  nnoremap <silent> gsh :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
-  nnoremap <silent> gst :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
-endif
-" }}}
 " # CONSOLE {{{
 " By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
 if has('unix') && !has('gui_running')
@@ -265,6 +225,11 @@ if has('unix') && !has('gui_running')
   call s:use_meta_keys()
   map <NUL> <C-Space>
   map! <NUL> <C-Space>
+
+  " stopped job
+  nnoremap <silent> gZZ :set t_te = t_ti = <Cr>:quit<Cr>:set t_te& t_ti&<Cr>
+  nnoremap <silent> gsh :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
+  nnoremap <silent> gst :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
 endif
 " }}}
 " # INDENT {{{
@@ -720,3 +685,5 @@ nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
 " <Leader>R is Unite ref/$filetype
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 " }}}
+
+"  * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
