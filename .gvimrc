@@ -3,12 +3,9 @@ set guioptions=
 set t_ti=
 set t_te=
 
-" Default window size
-" INFO: Please edit terminal size at .vimrc.local
-if exists('$TERMINAL_HEIGHT') && exists('$TERMINAL_WIDTH')
-  set lines=$TERMINAL_HEIGHT
-  set columns=$TERMINAL_WIDTH
-endif
+" INFO: Please edit default window size @.vimrc.local
+" set lines=
+" set columns=
 
 " When double clicked, search on word.
 nnoremap <2-LeftMouse> g*

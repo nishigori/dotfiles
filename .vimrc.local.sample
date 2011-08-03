@@ -4,6 +4,8 @@ let $BACKUP_DIR           = $HOME . '/tmp/vim/backups'
 let $WEEKDAY_BUFFER_DIR   = $HOME . '/Dropbox/.gtd'
 let $PHPMANUAL_JA_DIR     = $HOME . '/Dropbox/.vim/ref-docs/phpmanual'
 
-" window size for gvim
-let $TERMINAL_HEIGHT = 50
-let $TERMINAL_WIDTH  = 160
+" Default window size
+if has('gui_running')
+  set lines=50
+  set columns=160
+endif
