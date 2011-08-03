@@ -12,7 +12,7 @@ Bundle 'Shougo/vimproc'
 Bundle 'Shougo/vimfiler'
 Bundle 'Shougo/vimshell'
 Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vim-vcs'
+"Bundle 'Shougo/vim-vcs'
 Bundle 'tsukkee/unite-tag'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'Sixeight/unite-grep'
@@ -30,6 +30,7 @@ Bundle 'tyru/open-browser.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 't9md/vim-textmanip'
 Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
+Bundle 'motemen/git-vim'
 Bundle 'nishigori/javaScriptLint.vim'
 
 Bundle 'vim-scripts/current-func-info.vim'
@@ -653,6 +654,21 @@ vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
 " ## zencoding{{{
 let g:user_zen_expandabbr_key = '<C-z>'
+"}}}
+" vim-git.vim {{{
+" Hack#67
+let g:git_no_map_default = 1
+let g:git_command_edit = 'rightbelow vnew'
+nnoremap <Space>gd :<C-u>GitDiff<Enter>
+nnoremap <Space>gD :<C-u>GitDiff --cached<Enter>
+nnoremap <Space>gs :<C-u>GitStatus<Enter>
+nnoremap <Space>gl :<C-u>GitLog<Enter>
+nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
+nnoremap <Space>ga :<C-u>GitAdd<Enter>
+nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
+nnoremap <Space>gc :<C-u>GitCommit<Enter>
+nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
+nnoremap <Space>gp :<C-u>Git push
 "}}}
 " # <Leader> mappings{{{
 " window move
