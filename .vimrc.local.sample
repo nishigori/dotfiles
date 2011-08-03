@@ -1,0 +1,5 @@
+" directory variables
+let $SWAP_DIR             = $HOME . '/tmp/vim/swaps'
+let $BACKUP_DIR           = $HOME . '/tmp/vim/backups'
+let $WEEKDAY_BUFFER_DIR   = $HOME . '/Dropbox/.gtd'
+let $PHPMANUAL_JA_DIR     = $HOME . '/Dropbox/.vim/ref-docs/phpmanual'
