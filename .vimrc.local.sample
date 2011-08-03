@@ -6,4 +6,4 @@ let $PHPMANUAL_JA_DIR     = $HOME . '/Dropbox/.vim/ref-docs/phpmanual'
 
 " window size for gvim
 let $TERMINAL_HEIGHT = 50
-let $TERMINAL_WIDTH = 160
+let $TERMINAL_WIDTH  = 160
