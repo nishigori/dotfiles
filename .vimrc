@@ -119,10 +119,12 @@ endif
 " }}}
 " vimrc.local {{{
 if filereadable(expand('~/.vimrc.local'))
+  " Please edit directory_variable
+  " for $SWAP_DIR, $BACKUP_DIR, $WEEKDAY_BUFFER_DIR, $PHPMANUAL_JA_DIR .
   source ~/.vimrc.local
 else
-  let $TEMP_DIR = $HOME . '/tmp/'
-  let $DROPBOX_DIR = $HOME . '/Dropbox'
+  let $SWAP_DIR   = './'
+  let $BACKUP_DIR = './'
 endif
 " }}}
 " # BASIC {{{
@@ -138,16 +140,16 @@ set backspace=indent,eol,start" Allow backspacing over everything in insert mode
 set ambiwidth=double
 set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
 set swapfile
-set directory=$TEMP_DIR/vim/swaps
+set directory=$SWAP_DIR
 set backup
-set backupdir=$TEMP_DIR/vim/backups
+set backupdir=$BACKUP_DIR
 set dictionary=$HOME/.vim/dict/default.dict
 
 let mapleader = " "
 
 set relativenumber
 set numberwidth=4
-" FIXME: ,nでset numberとrelativenumberを交互に設定できるようにしたい
+" TODO: ,nでset numberとrelativenumberを交互に設定できるようにしたい
 nnoremap <silent> ,n :<C-u>setlocal relativenumber!<Cr>
 vnoremap <silent> ,n :<C-u>setlocal relativenumber!<Cr>
 nnoremap <silent> ,N :<C-u>setlocal number!<Cr>
@@ -168,7 +170,7 @@ if has("autocmd")
   augroup END
 endif
 
-" FIXME: 効いてないよ
+" TODO: 下のmap 効いてないよ
 "nnoremap <C-s> :<C-u>setfiletype<Space>
 "vnoremap <C-s> :<C-u>setfiletype<Space>
 
@@ -468,20 +470,41 @@ if has("migemo")
     set migemo
 endif
 " }}}
+" # cscope {{{
+" TODO: I Want to use sometime ...
+"if has("cscope") && filereadable("/usr/bin/cscope")
+" set csprg=/usr/bin/cscope
+" set csto=0
+" set cst
+" set nocsverb
+" " add any database in current directory
+" if filereadable("cscope.out")
+" cs add cscope.out
+" " else add database pointed to by environment
+" elseif $CSCOPE_DB != ""
+" cs add $CSCOPE_DB
+" endif
+" set csverb
+"endif
+" }}}
 " # WEEKDAY_BUFFER {{{
-function! GetWeekday()
-  let $today = strftime('%Y%m%d')
-  let $day_of_the_week = strftime("%w")
-  " Son. = 0, Mon. = 1, Tue. = 2 ...  
-  if !exists($weekday) || $day_of_the_week == 0 || $day_of_the_week == 6
-    let start_week = $today - $day_of_the_week + 1
-    let end_week   = $today - $day_of_the_week + 5
-    let $weekday = start_week . '_' . end_week
-  endif
-  return $weekday
-endfunction
-let $weekday = GetWeekday()
-nnoremap <silent> <S-t><S-t> :<c-u>10new<Space>$DROPBOX_DIR/.gtd/$weekday.txt<Cr>
+if !exists('$WEEKDAY_BUFFER_DIR')
+  nnoremap <silent> <S-t><S-t> :<c-u>echo 'WARNING: Please edit $WEEKDAY_BUFFER_DIR from .vimrc.local'<CR>
+else
+  function! GetWeekday() "{{{
+    let $today = strftime('%Y%m%d')
+    let $day_of_the_week = strftime('%w')
+    " Son. = 0, Mon. = 1, Tue. = 2 ...  
+    if !exists($weekday) || $day_of_the_week == 0 || $day_of_the_week == 6
+      let start_week = $today - $day_of_the_week + 1
+      let end_week   = $today - $day_of_the_week + 5
+      let $weekday = start_week . '_' . end_week
+    endif
+    return $weekday
+  endfunction " }}}
+  let $weekday = GetWeekday()
+  nnoremap <silent> <S-t><S-t> :<c-u>10new<Space>$WEEKDAY_BUFFER_DIR/$weekday.txt<Cr>
+endif
 " }}}
 " # ANOTER {{{
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
@@ -514,35 +537,35 @@ let g:vimshell_split_height = 10
 let g:vimshell_split_command = 'split'
 
 if has('win32') || has('win64')
-" Display user name on Windows.
-let g:vimshell_prompt = $USERNAME." % "
+  " Display user name on Windows.
+  let g:vimshell_prompt = $USERNAME." % "
 else
-" Display user name on Linux.
-let g:vimshell_prompt = $USER." % "
-call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-call vimshell#set_execute_file('tgz,gz', 'gzcat')
-call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+  " Display user name on Linux.
+  let g:vimshell_prompt = $USER." % "
+  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+  call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+  call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+  call vimshell#set_execute_file('tgz,gz', 'gzcat')
+  call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
 
 function! g:my_chpwd(args, context)
-call vimshell#execute('echo "chpwd"')
+  call vimshell#execute('echo "chpwd"')
 endfunction
 function! g:my_emptycmd(cmdline, context)
-call vimshell#execute('echo "emptycmd"')
-return a:cmdline
+  call vimshell#execute('echo "emptycmd"')
+  return a:cmdline
 endfunction
 function! g:my_preprompt(args, context)
-call vimshell#execute('echo "preprompt"')
-endfunction
+  call vimshell#execute('echo "preprompt"')
+  endfunction
 function! g:my_preexec(cmdline, context)
-call vimshell#execute('echo "preexec"')
+  call vimshell#execute('echo "preexec"')
 
-if a:cmdline =~# '^\s*diff\>'
-  call vimshell#set_syntax('diff')
-endif
-return a:cmdline
+  if a:cmdline =~# '^\s*diff\>'
+    call vimshell#set_syntax('diff')
+  endif
+  return a:cmdline
 endfunction
 " }}}
 " ## neocomplcache {{{
@@ -617,10 +640,13 @@ nnoremap <C-b> :<C-u>UniteBookmarkAdd<Cr>
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
 " }}}
 " ## vim-ref & ref-unite {{{
-" let g:ref_phpmanual_cmd = 'w3m -dump %s'
-let g:ref_phpmanual_path = $DROPBOX_DIR . '/.vim/ref-docs/phpmanual'
-" FIXME: Pydocも日本語の使えるようにしなくては
+" TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
+if exists('$PHPMANUAL_JA_DIR')
+  let g:ref_phpmanual_path = $PHPMANUAL_JA_DIR
+else
+  let g:ref_phpmanual_cmd = 'w3m -dump %s'
+endif
 " }}}
 " ## TwitVim {{{
 if has('python')
@@ -628,23 +654,6 @@ if has('python')
 endif
 let twitvim_browser_cmd = 'firefox'
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
-" }}}
-" ## cscope {{{
-" FIXME: I Want to use sometime ...
-"if has("cscope") && filereadable("/usr/bin/cscope")
-" set csprg=/usr/bin/cscope
-" set csto=0
-" set cst
-" set nocsverb
-" " add any database in current directory
-" if filereadable("cscope.out")
-" cs add cscope.out
-" " else add database pointed to by environment
-" elseif $CSCOPE_DB != ""
-" cs add $CSCOPE_DB
-" endif
-" set csverb
-"endif
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:loaded_quicklaunch = 1
@@ -717,4 +726,4 @@ nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 " }}}
 
-"  * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+" vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
