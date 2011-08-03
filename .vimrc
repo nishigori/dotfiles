@@ -489,7 +489,7 @@ endif
 " }}}
 " # WEEKDAY_BUFFER {{{
 if !exists('$WEEKDAY_BUFFER_DIR')
-  nnoremap <silent> <S-t><S-t> :<c-u>echo 'WARNING: Please edit $WEEKDAY_BUFFER_DIR from .vimrc.local'<CR>
+  nnoremap <silent> <S-t><S-t> :<c-u>echo 'WARNING: Please edit $WEEKDAY_BUFFER_DIR from .vimrc.local'<Cr>
 else
   function! GetWeekday() "{{{
     let $today = strftime('%Y%m%d')
@@ -536,36 +536,48 @@ let g:vimshell_max_list = 15
 let g:vimshell_split_height = 10
 let g:vimshell_split_command = 'split'
 
+" almost paste from vimshll-examples
+" Initialize execute file list.
+let g:vimshell_execute_file_list = {}
+call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+let g:vimshell_execute_file_list['rb'] = 'ruby'
+let g:vimshell_execute_file_list['pl'] = 'perl'
+let g:vimshell_execute_file_list['py'] = 'python'
+let g:vimshell_execute_file_list['php'] = 'php'
+let g:vimshell_execute_file_list['git'] = 'git'
+call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+
+let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
+let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+let g:vimshell_enable_smart_case = 1
+
 if has('win32') || has('win64')
   " Display user name on Windows.
   let g:vimshell_prompt = $USERNAME." % "
 else
   " Display user name on Linux.
   let g:vimshell_prompt = $USER." % "
-  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+
   call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
   call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
   call vimshell#set_execute_file('tgz,gz', 'gzcat')
   call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
 
-function! g:my_chpwd(args, context)
-  call vimshell#execute('echo "chpwd"')
-endfunction
-function! g:my_emptycmd(cmdline, context)
-  call vimshell#execute('echo "emptycmd"')
-  return a:cmdline
-endfunction
-function! g:my_preprompt(args, context)
-  call vimshell#execute('echo "preprompt"')
-  endfunction
-function! g:my_preexec(cmdline, context)
-  call vimshell#execute('echo "preexec"')
+autocmd FileType vimshell
+\ call vimshell#altercmd#define('g', 'git')
+\| call vimshell#altercmd#define('i', 'iexe')
+\| call vimshell#altercmd#define('l', 'll')
+\| call vimshell#altercmd#define('ll', 'ls -l')
+\| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
 
-  if a:cmdline =~# '^\s*diff\>'
-    call vimshell#set_syntax('diff')
-  endif
-  return a:cmdline
+function! g:my_chpwd(args, context)
+  call vimshell#execute('ls')
+endfunction
+
+autocmd FileType int-* call s:interactive_settings()
+function! s:interactive_settings()
 endfunction
 " }}}
 " ## neocomplcache {{{
@@ -636,7 +648,7 @@ nnoremap <C-p> :<C-u>Unite buffer file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Cr>
 " }}}
 " ## unite-tag {{{
-" FIXME: 下のマップの詳細を理解しなくては。。。
+" TODO: 下のマップの詳細を理解しなくては。。。
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
 " }}}
 " ## vim-ref & ref-unite {{{
@@ -688,16 +700,17 @@ let g:user_zen_expandabbr_key = '<C-z>'
 " Hack#67
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Space>gd :<C-u>GitDiff --cached<Enter>
-nnoremap <Space>gD :<C-u>GitDiff<Enter>
-nnoremap <Space>gs :<C-u>GitStatus<Enter>
-nnoremap <Space>gl :<C-u>GitLog<Enter>
-nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
-nnoremap <Space>ga :<C-u>GitAdd<Enter>
-nnoremap <Space>gA :<C-u>GitAdd <cfile><Enter>
-nnoremap <Space>gc :<C-u>GitCommit<Enter>
-nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
+nnoremap <Space>gd :<C-u>GitDiff --cached<Cr>
+nnoremap <Space>gD :<C-u>GitDiff<Cr>
+nnoremap <Space>gs :<C-u>GitStatus<Cr>
+nnoremap <Space>gl :<C-u>GitLog<Cr>
+nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Cr>
+nnoremap <Space>ga :<C-u>GitAdd<Cr>
+nnoremap <Space>gA :<C-u>GitAdd <cfile><Cr>
+nnoremap <Space>gc :<C-u>GitCommit<Cr>
+nnoremap <Space>gC :<C-u>GitCommit --amend<Cr>
 nnoremap <Space>gp :<C-u>Git push
+nnoremap <Space>gP :<C-u>Git pull
 "}}}
 " # <Leader> mappings for plugins{{{
 " kwbd.vim @nanasi.jp
