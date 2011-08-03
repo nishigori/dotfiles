@@ -93,6 +93,7 @@ set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
 if has('syntax')
   " zg (z-good), zw (z-warning)
   syntax enable
+  set synmaxcol=1500
   setlocal nospell
 
   set list
@@ -647,6 +648,8 @@ nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:loaded_quicklaunch = 1
+"TODO: xUnit用のsyntaxを用意する
+"autocmd ufNewFile,BufRead *quickrun*output* set filetype=vimshell
 " }}}
 " ## jslint.vim {{{
 "let g:JSLintHighlightErrorLine = 0
@@ -676,8 +679,8 @@ let g:user_zen_expandabbr_key = '<C-z>'
 " Hack#67
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Space>gd :<C-u>GitDiff<Enter>
-nnoremap <Space>gD :<C-u>GitDiff --cached<Enter>
+nnoremap <Space>gd :<C-u>GitDiff --cached<Enter>
+nnoremap <Space>gD :<C-u>GitDiff<Enter>
 nnoremap <Space>gs :<C-u>GitStatus<Enter>
 nnoremap <Space>gl :<C-u>GitLog<Enter>
 nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Enter>
