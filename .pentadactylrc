@@ -1,0 +1,182 @@
+"1.0b3 (created: 2010/11/06 12:31:35)
+
+set guioptions=T
+set runtimepath=/home/takuya/.pentadactyl
+
+" vim: set ft=pentadactyl:
+
+" 基本設定 <<<<<<<<<<
+
+" title
+set titlestring=Firefox
+
+" >>>>>>>>
+
+" set 系 <<<<<<<<<<
+
+" 詳細表示レベル？ 内容確認中、左下のステータス状況か？
+" →「:javascript! 」で表示される内容レベル
+"set verbose=9
+
+" ワイドに？
+"set wildmode=list:full
+
+" 検索：大文字小文字を無視
+set ignorecase
+
+" 入力欄にフォーカスを奪われるのを防ぐため。でもたまに奪われる。
+"
+" 基本設定 <<<<<<<<<<
+
+" title
+"set titlestring=Firefox
+
+" >>>>>>>>
+
+" set 系 <<<<<<<<<<
+
+" メニューバー、ツールバーなどを表示
+"set guioptions=m
+
+" 詳細表示レベル？ 内容確認中、左下のステータス状況か？
+" →「:javascript! 」で表示される内容レベル
+"set verbose=9
+
+" スクロールの端などの際に出るbeepをoff
+" UbuntuではbeepOptionがないらしい...
+" set nobeep
+
+" ワイドに？
+"set wildmode=list:full
+
+" 検索：大文字小文字を無視
+set ignorecase
+
+" 入力欄にフォーカスを奪われるのを防ぐため。でもたまに奪われる。
+" set focuscontent
+
+" 補完機能強化
+"set wildoptions=auto
+
+" searchEngineが邪魔
+set complete=l
+
+" >>>>>>>>
+
+" map系 (コマンド拡張) <<<<<<<<<<<<<<<<<<
+
+" tabremove後のタブ位置を逆に
+noremap d D
+noremap D d
+
+"左右のタブに切り替え
+map s gt
+map a gT
+map <S-j> gt
+map <S-k> gT
+
+" j/k でのスクロール幅を 1行 から n行 に変更(_smooziee.jsを入れてる間は必要なし)
+" map j 5<C-e>
+" map k 5<C-y>
+
+"Shift + ← → で現在のタブの位置変更
+map <S-Right> :tabmove! +1<CR>
+map <S-Left> :tabmove! -1<CR>
+
+" >>>>>>>>>>>>
+
+" copy & paste <<<<<<<<<<<<<<<<<<<<<<<
+noremap <C-q> <C-v>
+noremap <C-S-q> <C-z>
+noremap <C-s> <C-c>
+
+inoremap <C-q> <C-v>
+inoremap <C-S-q> <C-z>
+inoremap <C-s> <C-c>
+
+noremap <C-a> <C-v><C-a>
+noremap <C-c> <C-v><C-c>
+noremap <C-v> <C-v><C-v>
+noremap <C-x> <C-v><C-x>
+noremap <C-z> <C-v><C-z>
+noremap <C-y> <C-v><C-y>
+
+cnoremap <C-a> <C-v><C-a>
+cnoremap <C-c> <C-v><C-c>
+cnoremap <C-v> <C-v><C-v>
+cnoremap <S-Insert> <C-v><C-v>
+cnoremap <C-x> <C-v><C-x>
+cnoremap <C-z> <C-v><C-z>
+cnoremap <C-y> <C-v><C-y>
+
+inoremap <C-a> <C-v><C-a>
+inoremap <C-c> <C-v><C-c>
+inoremap <C-v> <C-v><C-v>
+inoremap <S-Insert> <C-v><C-v>
+inoremap <C-x> <C-v><C-x>
+inoremap <C-z> <C-v><C-z>
+inoremap <C-y> <C-v><C-y>
+
+" >>>>>>>>>>>>>>>>
+
+" searchEngineが邪魔
+set complete=l
+
+" >>>>>>>>
+
+" map系 (コマンド拡張) <<<<<<<<<<<<<<<<<<
+
+" tabremove後のタブ位置を逆に
+noremap d D
+noremap D d
+
+"左右のタブに切り替え
+map s gt
+map a gT
+map <S-j> gt
+map <S-k> gT
+
+" j/k でのスクロール幅を 1行 から n行 に変更(_smooziee.jsを入れてる間は必要なし)
+map j 5<C-e>
+map k 5<C-y>
+
+"Shift + ← → で現在のタブの位置変更
+map <S-Right> :tabmove! +1<CR>
+map <S-Left> :tabmove! -1<CR>
+
+" >>>>>>>>>>>>
+
+" copy & paste <<<<<<<<<<<<<<<<<<<<<<<
+noremap <C-q> <C-v>
+noremap <C-S-q> <C-z>
+noremap <C-s> <C-c>
+
+inoremap <C-q> <C-v>
+inoremap <C-S-q> <C-z>
+inoremap <C-s> <C-c>
+
+noremap <C-a> <C-v><C-a>
+noremap <C-c> <C-v><C-c>
+noremap <C-v> <C-v><C-v>
+noremap <C-x> <C-v><C-x>
+noremap <C-z> <C-v><C-z>
+noremap <C-y> <C-v><C-y>
+
+cnoremap <C-a> <C-v><C-a>
+cnoremap <C-c> <C-v><C-c>
+cnoremap <C-v> <C-v><C-v>
+cnoremap <S-Insert> <C-v><C-v>
+cnoremap <C-x> <C-v><C-x>
+cnoremap <C-z> <C-v><C-z>
+cnoremap <C-y> <C-v><C-y>
+
+inoremap <C-a> <C-v><C-a>
+inoremap <C-c> <C-v><C-c>
+inoremap <C-v> <C-v><C-v>
+inoremap <S-Insert> <C-v><C-v>
+inoremap <C-x> <C-v><C-x>
+inoremap <C-z> <C-v><C-z>
+inoremap <C-y> <C-v><C-y>
+
+" >>>>>>>>>>>>>>>>
+
