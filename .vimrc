@@ -31,6 +31,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 't9md/vim-textmanip'
 Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
 Bundle 'motemen/git-vim'
+Bundle 'soh335/vim-ref-jquery'
 Bundle 'nishigori/javaScriptLint.vim'
 
 Bundle 'vim-scripts/current-func-info.vim'
@@ -654,10 +655,15 @@ nnoremap <C-b> :<C-u>UniteBookmarkAdd<Cr>
 " ## vim-ref & ref-unite {{{
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
-if exists('$PHPMANUAL_JA_DIR')
+if exists('$REF_PHPMANUAL_PATH')
   let g:ref_phpmanual_path = $PHPMANUAL_JA_DIR
 else
   let g:ref_phpmanual_cmd = 'w3m -dump %s'
+endif
+if exists('$REF_JQUERY_PATH')
+  let g:ref_jquery_path = $REF_JQUERY_PATH
+else
+  let g:ref_jquery_cmd = 'w3m -dump %s'
 endif
 " }}}
 " ## TwitVim {{{
