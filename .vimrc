@@ -119,7 +119,7 @@ endif
 " }}}
 " vimrc.local {{{
 if filereadable(expand('~/.vimrc.local'))
-  " Please edit directory_variable
+  " INFO: Please edit directory_variable
   " for $SWAP_DIR, $BACKUP_DIR, $WEEKDAY_BUFFER_DIR, $PHPMANUAL_JA_DIR .
   source ~/.vimrc.local
 else
@@ -489,7 +489,7 @@ endif
 " }}}
 " # WEEKDAY_BUFFER {{{
 if !exists('$WEEKDAY_BUFFER_DIR')
-  nnoremap <silent> <S-t><S-t> :<c-u>echo 'WARNING: Please edit $WEEKDAY_BUFFER_DIR from .vimrc.local'<Cr>
+  nnoremap <silent> <S-t><S-t> :<c-u>echo 'INFO: Please edit $WEEKDAY_BUFFER_DIR from .vimrc.local'<Cr>
 else
   function! GetWeekday() "{{{
     let $today = strftime('%Y%m%d')
