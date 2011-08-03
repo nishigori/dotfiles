@@ -203,8 +203,19 @@ highlight CursorColumn ctermbg=black guibg=black
 " color column 長い行をハイライト
 if exists('&colorcolumn')
   set colorcolumn=+1
-  nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<Cr>
+  "nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<Cr>
+  nnoremap <silent> <Leader>l :<C-u>set<Space>list!<Space>colorcolumn=-1<Cr>
 endif
+
+"# HIGHLIGHT_CURRENT_LINE
+nnoremap <silent> <Leader>h :<C-u>HighlightCurrentLine DiffAdd<Cr>
+"nnoremap <silent> <Leader>HA :<c-U>hIGHLIGHTcURRENTlINE sEARCH<Cr>
+"nnoremap <silent> <Leader>hb :<C-u>HighlightCurrentLine DiffAdd<Cr>
+"nnoremap <silent> <Leader>hc :<C-u>HighlightCurrentLine Error<Cr>
+nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<Cr>
+
+command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
+command! -nargs=0 UnHighlightCurrentLine match
 " }}}
 " # CONSOLE {{{
 " By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
@@ -426,16 +437,6 @@ inoremap <silent> <C-o> <C-x><C-o>
 " dict
 " TODO: <Up>と重なってるため別マップを考えなくては
 "inoremap <silent> <C-k> <C-x><C-k>
-" }}}
-"# HIGHLIGHT_CURRENT_LINE {{{
-nnoremap <silent> <Leader>h :<C-u>HighlightCurrentLine DiffAdd<Cr>
-"nnoremap <silent> <Leader>HA :<c-U>hIGHLIGHTcURRENTlINE sEARCH<Cr>
-"nnoremap <silent> <Leader>hb :<C-u>HighlightCurrentLine DiffAdd<Cr>
-"nnoremap <silent> <Leader>hc :<C-u>HighlightCurrentLine Error<Cr>
-nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<Cr>
-
-command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
-command! -nargs=0 UnHighlightCurrentLine match
 " }}}
 " # UNDO_PERSISTENCE (version 7.3~) {{{
 if has('persistent_undo')
@@ -670,12 +671,7 @@ nnoremap <Space>gc :<C-u>GitCommit<Enter>
 nnoremap <Space>gC :<C-u>GitCommit --amend<Enter>
 nnoremap <Space>gp :<C-u>Git push
 "}}}
-" # <Leader> mappings{{{
-" window move
-nnoremap <silent> <Leader>h <C-w>h
-nnoremap <silent> <Leader>j <C-w>j
-nnoremap <silent> <Leader>k <C-w>k
-nnoremap <silent> <Leader>h <C-w>l
+" # <Leader> mappings for plugins{{{
 " kwbd.vim @nanasi.jp
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
 " open-browser.vim
