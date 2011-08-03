@@ -734,6 +734,7 @@ nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
 nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
+nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
 "inoremap <C-S-h> <Esc>:<C-u>Unite history/search -start-insert<Cr>
 " <Leader>R is Unite ref/$filetype
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
