@@ -185,6 +185,13 @@ set title
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 " }}}
+" filetype {{{
+augroup filetypedetect
+  au! BufRead,BufNewFile *.mine		setfiletype mine
+  au! BufRead,BufNewFile *.xyz		setfiletype drawing
+  au! BufRead,BufNewFile,BufWinEnter *Test.php setfiletype php.phpunit
+augroup END
+" }}}
 " # COLOR SCHEME {{{
 set t_Co=256
 colorscheme candycode
@@ -551,14 +558,23 @@ let g:neocomplcache_enable_underbar_completion = 0
 let g:neocomplcache_max_list = 50
 " dictionary
 let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default' : '',
-  \ 'vimshell' : $HOME.'/.vim/dict/.vimshell.dist',
-  \ 'java' : $HOME.'/.vim/dict/java.dict',
-  \ 'c' : $HOME.'/.vim/dict/c.dict',
-  \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-  \ 'php' : $HOME.'/.vim/dict/php.dict',
-  \ 'python' : $HOME.'/.vim/dict/python.dict',
+  \ 'default'    : '',
+  \ 'vimshell'   : $HOME . '/.vim/dict/.vimshell.dist',
+  \ 'java'       : $HOME . '/.vim/dict/java.dict',
+  \ 'c'          : $HOME . '/.vim/dict/c.dict',
+  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
+  \ 'php'        : $HOME . '/.vim/dict/php.dict',
+  \ 'phpunit'    : $HOME . '/.vim/dict/php.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'python'     : $HOME . '/.vim/dict/python.dict',
+  \ 'pyunit'     : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
   \ }
+
+" xUnit filetype dict
+" g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
+" g:neocomplcache_same_filetype_listsで相互互換指定する必要がある。
+"let g:neocomplcache_same_filetype_lists = {
+  "\ 'phpunit' : 'php',
+  "\ }
 
 " 補完を選択後popupを閉じる
 " FIXME: ネオコンでsnipMate選択したら自動で展開してくれないの？？
