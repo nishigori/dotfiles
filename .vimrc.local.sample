@@ -1,8 +1,11 @@
-" directory variables
-let $SWAP_DIR             = $HOME . '/tmp/vim/swaps'
-let $BACKUP_DIR           = $HOME . '/tmp/vim/backups'
-let $WEEKDAY_BUFFER_DIR   = $HOME . '/Dropbox/.gtd'
-let $PHPMANUAL_JA_DIR     = $HOME . '/Dropbox/.vim/ref-docs/phpmanual'
+" basic directories
+let $SWAP_DIR           = $HOME . '/tmp/vim/swaps'
+let $BACKUP_DIR         = $HOME . '/tmp/vim/backups'
+let $WEEKDAY_BUFFER_DIR = $HOME . '/tmp/.gtd'
+
+" ref directories for off-line
+let $REF_PHPMANUAL_PATH = $HOME . '/.vim/ref-docs/phpmanual'
+let $REF_JQUERY_PATH    = $HOME . '/.vim/ref-docs/jqapi-latest'
 
 " Default window size
 if has('gui_running')
