@@ -646,7 +646,7 @@ call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
 nnoremap <C-n> :<C-u>Unite buffer<Cr>
 nnoremap <C-p> :<C-u>Unite buffer file_mru<Cr>
-nnoremap <C-b> :<C-u>UniteBookmarkAdd<Cr>
+nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " ## unite-tag {{{
 " TODO: 下のマップの詳細を理解しなくては。。。
@@ -734,7 +734,7 @@ nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
 nnoremap <silent> <Leader>uf :<C-u>Unite file -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite file_mru<Cr>
-nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Space>
+nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite buffer file_mru<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
