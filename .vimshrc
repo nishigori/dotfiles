@@ -1,5 +1,6 @@
-alias l = 'ls -l'
+alias l  = 'ls -l'
 alias ll = 'ls -l'
+alias a  = 'ls -al'
 alias la = 'ls -al'
 alias lt = 'ls -tl'
 
@@ -20,4 +21,7 @@ alias gitlog = 'git log --graph --all --color --pretty="%x09%h %cn%x09%s %Cred%d
 alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
 
 # throw watchr's path
+# for phpunit-stack
 #PATH='/var/lib/gems/1.8/bin:$PATH'
+alias phppwatchr = '/var/lib/gems/1.8/binwatchr $HOME/workspace/phpunit-stack/watchr.rb'
+

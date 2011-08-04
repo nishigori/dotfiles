@@ -282,7 +282,9 @@ esac
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 # throw watchr's path
-PATH+='/var/lib/gems/1.8/bin:$PATH'
+# for phpunit-stack
+PATH="/var/lib/gems/1.8/bin:$PATH"
+alias phpwatchr='watchr $HOME/workspace/phpunit-stack/watchr.rb'
 
 
 # vim:set foldmethod=marker expandtab ts=4 sw=4 sts=0:
