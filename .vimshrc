@@ -23,5 +23,5 @@ alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
 # throw watchr's path
 # for phpunit-stack
 #PATH='/var/lib/gems/1.8/bin:$PATH'
-alias phpwatchr = '/var/lib/gems/1.8/binwatchr $HOME/workspace/phpunit-stack/watchr.rb'
+alias phpwatchr = '/var/lib/gems/1.8/bin/watchr $HOME/workspace/phpunit-stack/watchr.rb'
 
