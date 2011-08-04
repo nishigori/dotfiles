@@ -702,21 +702,21 @@ vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 " ## zencoding{{{
 let g:user_zen_expandabbr_key = '<C-z>'
 "}}}
-" vim-git.vim {{{
+" ## vim-git.vim {{{
 " Hack#67
 let g:git_no_map_default = 1
 let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Space>gd :<C-u>GitDiff --cached<Cr>
-nnoremap <Space>gD :<C-u>GitDiff<Cr>
-nnoremap <Space>gs :<C-u>GitStatus<Cr>
-nnoremap <Space>gl :<C-u>GitLog<Cr>
-nnoremap <Space>gL :<C-u>GitLog -u \| head -10000<Cr>
-nnoremap <Space>ga :<C-u>GitAdd<Cr>
-nnoremap <Space>gA :<C-u>GitAdd <cfile><Cr>
-nnoremap <Space>gc :<C-u>GitCommit<Cr>
-nnoremap <Space>gC :<C-u>GitCommit --amend<Cr>
-nnoremap <Space>gp :<C-u>Git push
-nnoremap <Space>gP :<C-u>Git pull
+nnoremap <Leader>gd :<C-u>GitDiff --cached<Cr>
+nnoremap <Leader>gD :<C-u>GitDiff<Cr>
+nnoremap <Leader>gs :<C-u>GitStatus<Cr>
+nnoremap <Leader>gl :<C-u>GitLog<Cr>
+nnoremap <Leader>gL :<C-u>GitLog -u \| head -10000<Cr>
+nnoremap <Leader>ga :<C-u>GitAdd<Cr>
+nnoremap <Leader>gA :<C-u>GitAdd <cfile><Cr>
+nnoremap <Leader>gc :<C-u>GitCommit<Cr>
+nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
+nnoremap <Leader>gp :<C-u>Git push
+nnoremap <Leader>gP :<C-u>Git pull
 "}}}
 " # <Leader> mappings for plugins{{{
 " kwbd.vim @nanasi.jp
