@@ -282,7 +282,7 @@ esac
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 # throw watchr's path
-PATH='/var/lib/gems/1.8/bin:$PATH'
+PATH+='/var/lib/gems/1.8/bin:$PATH'
 
 
 # vim:set foldmethod=marker expandtab ts=4 sw=4 sts=0:

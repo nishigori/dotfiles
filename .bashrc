@@ -118,7 +118,7 @@ alias gitlog='git log --graph --color --pretty="%x09%h %cn%x09%s %Cred%d"'
 alias ctag='ctags -R ./'
 
 # throw watchr's path
-PATH='/var/lib/gems/1.8/bin:$PATH'
+PATH+='/var/lib/gems/1.8/bin:$PATH'
 
 
 # vim:set foldmethod=marker ts=2 sw=2 sts=0 expandtab:
