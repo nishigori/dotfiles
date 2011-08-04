@@ -1,6 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+>/home/takuya/workspace/dotfiles/
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -117,6 +117,9 @@ alias gitlog='git log --graph --color --pretty="%x09%h %cn%x09%s %Cred%d"'
 # ctags
 # ctag config file is .ctags
 alias ctag='ctags -R ./'
+
+# throw watchr's path
+PATH='/var/lib/gems/1.8/bin:$PATH'
 
 
 # vim:set foldmethod=marker ts=2 sw=2 sts=0 expandtab:

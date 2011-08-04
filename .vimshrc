@@ -7,14 +7,17 @@ alias cl = 'clear'
 alias hl = 'history'
 alias untar = 'tar -xvf'
 
-#rsync
+# rsync
 alias rs = 'rsync -e ssh -az --progress $$args[1] $$args[2]'
 
-#ctags
+# ctags
 alias ctag = 'ctags -R ./'
 
-#git
+# git
 alias gitlog = 'git log --graph --all --color --pretty="%x09%h %cn%x09%s %Cred%d"'
 
-#show swap files
+# show swap files
 alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
+
+# throw watchr's path
+#PATH='/var/lib/gems/1.8/bin:$PATH'
