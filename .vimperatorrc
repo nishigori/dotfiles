@@ -21,7 +21,12 @@ set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
 
 nnoremap U :undo<Space>
-nnoremap pa :<C-u>panorama<Space>
+nnoremap pa :<C-u>panorama<Space>add<Space>
+nnoremap pl :<C-u>panorama<Space>list<Cr>
+nnoremap pp :<C-u>panorama<Space>pushtab<Space>
+nnoremap pP :<C-u>panorama<Space>pultab<Space>
+nnoremap pr :<C-u>panorama<Space>remove<Space>
+nnoremap ps :<C-u>panorama<Space>switch<Space>
 nnoremap S :<C-u>panorama<Space>switch<Space>
 
 nnoremap <C-j> <Nop>
