@@ -3,7 +3,7 @@ filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
-" github {{{
+" ### github {{{
 " yankringのdefault-key-mappingが衝突する…
 "Bundle 'richleland/vim-yankring'
 "Bundle 'Shougo/echodoc'
@@ -32,8 +32,10 @@ Bundle 't9md/vim-textmanip'
 Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
 Bundle 'motemen/git-vim'
 Bundle 'soh335/vim-ref-jquery'
+Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/javaScriptLint.vim'
 
+" alias vim.org
 Bundle 'vim-scripts/current-func-info.vim'
 Bundle 'vim-scripts/surround.vim'
 Bundle 'vim-scripts/snipMate'
@@ -62,8 +64,9 @@ Bundle 'ujihisa/mrkn256.vim'
 Bundle 'vim-scripts/Lucius'
 Bundle 'peaksea'
 " }}}
-" non github repos"{{{
-"Bundle 'git://git.wincent.com/command-t.git'"}}}
+" ### non github repos"{{{
+"Bundle 'git://git.wincent.com/command-t.git'
+"}}}
 " ### xUnit {{{
 "Bundle 'vimUnit'
 "Bundle 'pyunit'
@@ -189,7 +192,7 @@ set title
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 " }}}
-" filetype {{{
+" # FILETYPE {{{
 augroup filetypedetect
   au! BufRead,BufNewFile *.mine		setfiletype mine
   au! BufRead,BufNewFile *.xyz		setfiletype drawing
@@ -571,6 +574,8 @@ autocmd FileType vimshell
 \| call vimshell#altercmd#define('i', 'iexe')
 \| call vimshell#altercmd#define('l', 'll')
 \| call vimshell#altercmd#define('ll', 'ls -l')
+\| call vimshell#altercmd#define('a', 'ls -la')
+\| call vimshell#altercmd#define('la', 'ls -la')
 \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
 
 function! g:my_chpwd(args, context)
