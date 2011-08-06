@@ -197,8 +197,8 @@ if has("autocmd")
 endif
 
 " TODO: 下のmap 効いてないよ
-"nnoremap <C-s> :<C-u>setfiletype<Space>
-"vnoremap <C-s> :<C-u>setfiletype<Space>
+"nnoremap <C-s> :<C-u>setfiletype<Space>
+"vnoremap <C-s> :<C-u>setfiletype<Space>
 
 nnoremap <C-h> :<C-u>help<Space>@ja<left><left><left>
 
