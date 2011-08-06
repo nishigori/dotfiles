@@ -3,78 +3,100 @@ filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
-" ### github {{{
-" yankringのdefault-key-mappingが衝突する…
-"Bundle 'richleland/vim-yankring'
-"Bundle 'Shougo/echodoc'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/vimfiler'
-Bundle 'Shougo/vimshell'
+" unite
+"""""""
 Bundle 'Shougo/unite.vim'
-"Bundle 'Shougo/vim-vcs'
 Bundle 'tsukkee/unite-tag'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'Sixeight/unite-grep'
 Bundle 'ujihisa/unite-colorscheme'
-Bundle 'ujihisa/vimshell-ssh'
 Bundle 'ujihisa/unite-font'
-Bundle 'mattn/zencoding-vim'
-"Bundle 'ujihisa/vital.vim'
 Bundle 'thinca/vim-unite-history'
-Bundle 'thinca/vim-ft-svn_diff'
-Bundle 'thinca/vim-ref'
+Bundle 'tacroe/unite-mark'
+
+" buffer, tag
+"""""""""""""
+Bundle 'Shougo/vimshell'
+Bundle 'ujihisa/vimshell-ssh'
+Bundle 'Shougo/vimfiler'
 Bundle 'thinca/vim-quickrun'
-"Bundle 'tyru/operator-star.vim'
-Bundle 'tyru/open-browser.vim'
+Bundle 'vim-scripts/current-func-info.vim'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'taglist-plus'
+Bundle 'sudo.vim'
+"Bundle 'Shougo/echodoc'
+
+" complement
+""""""""""""
+Bundle 'Shougo/neocomplcache'
+"Bundle 'neco-look'
+
+" snipMate
+""""""""""
+Bundle 'vim-scripts/snipMate'
+Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
+
+" text object
+"""""""""""""
+Bundle 'mattn/zencoding-vim'
+Bundle 'vim-scripts/surround.vim'
+Bundle 'smartchr'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 't9md/vim-textmanip'
-Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
-Bundle 'motemen/git-vim'
+"Bundle 'tyru/operator-star.vim'
+" yankringのdefault-key-mappingが衝突する…
+"Bundle 'richleland/vim-yankring'
+
+" ref, help
+"""""""""""
+Bundle 'thinca/vim-ref'
 Bundle 'soh335/vim-ref-jquery'
+
+" filetype
+""""""""""
+Bundle 'basyura/jslint.vim'
 Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/javaScriptLint.vim'
-
-" alias vim.org
-Bundle 'vim-scripts/current-func-info.vim'
-Bundle 'vim-scripts/surround.vim'
-Bundle 'vim-scripts/snipMate'
-Bundle 'vim-scripts/smartchr'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'vim-scripts/TwitVim.git'
-Bundle 'basyura/jslint.vim'
 " snipMateとの相性悪し
-" Bundle 'vim-scripts/JavaScript-syntax'
-" }}}
-" ### vim-scripts repos {{{
-"Bundle 'neco-look'
-Bundle 'taglist-plus'
-Bundle 'smartchr'
-Bundle 'sudo.vim'
-" }}}
-" ### color sheme {{{
+"Bundle 'vim-scripts/JavaScript-syntax'
+
+" color sheme
+"""""""""""""
 Bundle 'vim-scripts/molokai'
 Bundle 'desert256.vim'
 Bundle 'wombat256.vim'
- " :colorscheme wombat256mod
+" :colorscheme wombat256mod
 Bundle 'Diablo3'
 Bundle 'candycode.vim'
 Bundle 'xoria256.vim'
 Bundle 'ujihisa/mrkn256.vim'
 Bundle 'vim-scripts/Lucius'
 Bundle 'peaksea'
-" }}}
-" ### non github repos"{{{
-"Bundle 'git://git.wincent.com/command-t.git'
-"}}}
-" ### xUnit {{{
+
+" browser
+"""""""""
+Bundle 'tyru/open-browser.vim'
+Bundle 'vim-scripts/TwitVim.git'
+
+" VCS
+"""""
+"Bundle 'Shougo/vim-vcs'
+Bundle 'motemen/git-vim'
+Bundle 'mattn/gist-vim'
+"Bundle 'thinca/vim-ft-svn_diff'
+
+" xUnit
+""""""""
 "Bundle 'vimUnit'
 "Bundle 'pyunit'
 "Bundle 'toggle_unit_tests'
-" phpunitはデフォでキーマッピングが定義済みな為扱いづらいから却下
+" phpunitはデフォのキーマッピングがアレな為、却下
 "Bundle 'phpunit'
-Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
-" }}}
+
+" debug, backend
+"""""""""""""""""
+Bundle 'Shougo/vimproc'
+"Bundle 'ujihisa/vital.vim'
 
 filetype plugin indent on
 " }}}
