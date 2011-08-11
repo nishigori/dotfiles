@@ -559,7 +559,7 @@ let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
 let g:vimshell_max_list = 15
-let g:vimshell_split_height = 10
+let g:vimshell_split_height = 15
 let g:vimshell_split_command = 'split'
 
 " almost paste from vimshll-examples
