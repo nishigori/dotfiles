@@ -77,6 +77,8 @@ Bundle 'peaksea'
 """""""""
 Bundle 'tyru/open-browser.vim'
 Bundle 'vim-scripts/TwitVim.git'
+" evervim 重すぎ
+"Bundle 'kakkyz81/evervim.git'
 
 " VCS
 """""
@@ -683,7 +685,7 @@ nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
 if exists('$REF_PHPMANUAL_PATH')
-  let g:ref_phpmanual_path = $PHPMANUAL_JA_DIR
+  let g:ref_phpmanual_path = $REF_PHPMANUAL_PATH
 else
   let g:ref_phpmanual_cmd = 'w3m -dump %s'
 endif
