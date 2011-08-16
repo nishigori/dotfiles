@@ -114,11 +114,13 @@ cnoremap <C-y> <Cr>
 "iunmap \" -urls='google'
 "iunmap \' -urls='google'
 " }}}
-" # PLUGIN {{{
-"" _smooziee.js
+" # PLUGIN
+"" ## _smooziee.js
 let g:smooziee_scroll_amount="250"
-"" nextlink.js
+"" ## nextlink.js
 let g:nextlink_followlink="true"
-" }}}
+"" ## google-translator.js
+nnoremap <C-t> :<C-u>gtrans<Space>
+
 " echo Calender
 command cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
