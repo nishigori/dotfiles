@@ -116,8 +116,8 @@ cnoremap <C-y> <Cr>
 "iunmap \' -urls='google'
 " }}}
 " # EASY EDIT RC_FILE {{{
-nnoremap e. :<C-u>!gvim $HOME/.vimperatorrc
-nnoremap es :<C-u>source $HOME/.vimperatorrc
+nnoremap e. :<C-u>!gvim $HOME/.vimperatorrc<Cr>
+nnoremap es :<C-u>source $HOME/.vimperatorrc<Cr>
 " }}}
 " # PLUGIN
 "" ## _smooziee.js
