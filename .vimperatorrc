@@ -19,6 +19,7 @@ set focuscontent
 set runtimepath=$HOME/.vimperator
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
+set editor=gvim\ -f
 
 nnoremap U :undo<Space>
 nnoremap pa :<C-u>panorama<Space>add<Space>
@@ -114,6 +115,10 @@ cnoremap <C-y> <Cr>
 "iunmap \" -urls='google'
 "iunmap \' -urls='google'
 " }}}
+" # EASY EDIT RC_FILE {{{
+nnoremap e. :<C-u>!gvim $HOME/.vimperatorrc
+nnoremap es :<C-u>source $HOME/.vimperatorrc
+" }}}
 " # PLUGIN
 "" ## _smooziee.js
 let g:smooziee_scroll_amount="250"
@@ -124,3 +129,5 @@ nnoremap <C-t> :<C-u>gtrans<Space>
 
 " echo Calender
 command cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
+" Evernote Web Clipper
+command clip javascript Evernote.Overlay.init(null)
