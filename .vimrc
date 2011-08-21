@@ -31,11 +31,6 @@ Bundle 'sudo.vim'
 Bundle 'Shougo/neocomplcache'
 "Bundle 'neco-look'
 
-" snipMate
-""""""""""
-Bundle 'vim-scripts/snipMate'
-Bundle 'nfedyashev/vim-snipmate-phpunit-snippets'
-
 " text object
 """""""""""""
 Bundle 'mattn/zencoding-vim'
@@ -217,11 +212,11 @@ set title
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 " }}}
 " # FILETYPE {{{
-augroup filetypedetect
-  au! BufRead,BufNewFile *.mine		setfiletype mine
-  au! BufRead,BufNewFile *.xyz		setfiletype drawing
-  au! BufRead,BufNewFile,BufWinEnter *Test.php setfiletype php.phpunit
-augroup END
+"augroup filetypedetect
+  "au! BufRead,BufNewFile *.mine		setfiletype mine
+  "au! BufRead,BufNewFile *.xyz		setfiletype drawing
+  "au! BufRead,BufNewFile,BufWinEnter *Test.php setfiletype php.phpunit
+"augroup END
 " }}}
 " # COLOR SCHEME {{{
 set t_Co=256
@@ -600,6 +595,7 @@ autocmd FileType vimshell
 \| call vimshell#altercmd#define('ll', 'ls -l')
 \| call vimshell#altercmd#define('a', 'ls -la')
 \| call vimshell#altercmd#define('la', 'ls -la')
+\| call vimshell#altercmd#define('cl', 'clear')
 \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
 
 function! g:my_chpwd(args, context)
@@ -643,10 +639,18 @@ let g:neocomplcache_dictionary_filetype_lists = {
   "\ }
 
 " 補完を選択後popupを閉じる
-" FIXME: ネオコンでsnipMate選択したら自動で展開してくれないの？？
 imap <expr><C-y> neocomplcache#close_popup()
 imap <C-s> <Plug>(neocomplcache_start_unite_snippet)
 imap <C-u> <Plug>(neocomplcache_start_unite_complete)
+" }}}
+" ## neocomplcache_snippetcomplete {{{
+let g:neocomplcache_snippets_dir = $HOME.'/workspace/neocomplcache_phpunit_snip/autoload/neocomplcache/snippet_complete'
+nmap <C-l>    <Plug>(neocomplcache_snippets_expand)
+imap <C-l>    <Plug>(neocomplcache_snippets_expand)
+smap <C-l>    <Plug>(neocomplcache_snippets_expand)
+
+" 一時的
+nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
 " }}}
 " ## unite.vim {{{
 let g:unite_winheight = 12
@@ -720,10 +724,10 @@ let g:loaded_quicklaunch = 1
 " }}}
 " ## vim-textmanip {{{
 " 選択したテキストの移動
-vmap <C-j> <Plug>(Textmanip.move_selection_down)
-vmap <C-k> <Plug>(Textmanip.move_selection_up)
-vmap <C-h> <Plug>(Textmanip.move_selection_left)
-vmap <C-l> <Plug>(Textmanip.move_selection_right)
+"xmap <C-j> <Plug>(Textmanip.move_selection_down)
+"xmap <C-k> <Plug>(Textmanip.move_selection_up)
+"xmap <C-h> <Plug>(Textmanip.move_selection_left)
+"xmap <C-l> <Plug>(Textmanip.move_selection_right)
 
 " 行の複製
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
