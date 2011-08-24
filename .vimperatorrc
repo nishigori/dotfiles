@@ -118,6 +118,8 @@ cnoremap <C-y> <Cr>
 " # EASY EDIT RC_FILE {{{
 nnoremap e. :<C-u>!gvim $HOME/.vimperatorrc<Cr>
 nnoremap es :<C-u>source $HOME/.vimperatorrc<Cr>
+":set editor='bash -lc "mvim -f \$*" mvim '
+":set editor='bash -lc "gvim -f \$*" gvim '
 " }}}
 " # PLUGIN
 "" ## _smooziee.js
