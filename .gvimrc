@@ -14,9 +14,14 @@ set mouse=a
 set mousemodel=popup
 set nomousefocus    " マウス移動によるフォーカス切り替えを無効
 
-if has('gui_gtk2')
+if has('gui_gtk2') || has('gui_macvim')
   set guifont=Ricty\ 11
   set guifontwide=めんまフォント
+endif
+
+" For MacVim
+if has('kaoriya')
+  set transparency = 90
 endif
 
 nnoremap <silent> ZZ :<C-u>close<Cr>

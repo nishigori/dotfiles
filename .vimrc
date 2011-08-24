@@ -108,8 +108,10 @@ vnoremap q; q:
 " }}}
 " # ENCODE {{{
 "" If encode is fixed, :e ++enc = {encoding-name}
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
+if !has('kaoriya')
+  set encoding=utf-8
+  set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
+endif
 " }}}
 " # SYNTAX {{{
 if has('syntax')
@@ -129,14 +131,19 @@ if has('syntax')
   highlight WhitespaceEOL ctermbg=red guibg=red
   match WhitespaceEOL /s+$/
 
-  function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-    silent! match ZenkakuSpace /　/
-  endfunction
-  augroup ZenkakuSpace
-    autocmd!
-    autocmd VimEnter,BufEnter * call ZenkakuSpace()
-  augroup END
+
+  if has('kaoriya')
+    set noimdisableactivate
+  else
+    function! ZenkakuSpace()
+      highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
+      silent! match ZenkakuSpace /　/
+    endfunction
+    augroup ZenkakuSpace
+      autocmd!
+      autocmd VimEnter,BufEnter * call ZenkakuSpace()
+    augroup END
+  endif
 endif
 " }}}
 " vimrc.local {{{
