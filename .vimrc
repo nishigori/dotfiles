@@ -26,9 +26,10 @@ Bundle 'taglist-plus'
 Bundle 'sudo.vim'
 "Bundle 'Shougo/echodoc'
 
-" complement
-""""""""""""
+" complement + snippet
+""""""""""""""""""""""
 Bundle 'Shougo/neocomplcache'
+Bundle 'nishigori/neocomplcache_phpunit_snippet'
 "Bundle 'neco-look'
 
 " text object
@@ -52,8 +53,6 @@ Bundle 'soh335/vim-ref-jquery'
 Bundle 'basyura/jslint.vim'
 Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/javaScriptLint.vim'
-" snipMateとの相性悪し
-"Bundle 'vim-scripts/JavaScript-syntax'
 
 " color sheme
 """""""""""""
@@ -644,7 +643,6 @@ imap <C-s> <Plug>(neocomplcache_start_unite_snippet)
 imap <C-u> <Plug>(neocomplcache_start_unite_complete)
 " }}}
 " ## neocomplcache_snippetcomplete {{{
-let g:neocomplcache_snippets_dir = $HOME.'/workspace/neocomplcache_phpunit_snip/autoload/neocomplcache/snippet_complete'
 nmap <C-l>    <Plug>(neocomplcache_snippets_expand)
 imap <C-l>    <Plug>(neocomplcache_snippets_expand)
 smap <C-l>    <Plug>(neocomplcache_snippets_expand)
