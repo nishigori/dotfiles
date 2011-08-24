@@ -651,6 +651,8 @@ smap <C-l>    <Plug>(neocomplcache_snippets_expand)
 nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
 " }}}
 " ## unite.vim {{{
+let g:unite_data_directory = $HOME . '/tmp/vim/unite'
+
 let g:unite_winheight = 12
 let g:unite_source_file_mru_limit = 120
 let g:unite_update_time = 150
