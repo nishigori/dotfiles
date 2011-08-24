@@ -78,7 +78,7 @@ fi
 
 # some more ls aliases
 alias ll='ls -lF'
-alias la='ls -Al'
+alias la='ls -al'
 alias l='ls -lF'
 
 # Alias definitions.
