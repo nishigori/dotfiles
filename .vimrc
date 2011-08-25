@@ -339,8 +339,6 @@ if has('clipboard')
   vnoremap <C-v> d"+P
   cnoremap <C-v> <C-R>+
   inoremap <C-v> <ESC>"+pa
-  " :h gui-clipboard
-  set guioptions+=a
   " source $VIMRUNTIME/mswin.vim
 endif
 " }}}

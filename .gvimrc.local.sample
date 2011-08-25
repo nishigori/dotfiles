@@ -1,0 +1,4 @@
+" Default window size
+set lines=80
+set columns=165
+

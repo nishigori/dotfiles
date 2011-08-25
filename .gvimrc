@@ -1,11 +1,17 @@
+colorscheme candycode
 set norestorescreen
 set guioptions=
 set t_ti=
 set t_te=
 
-" INFO: Please edit default window size @.vimrc.local
-" set lines=
-" set columns=
+" INFO: Please edit default window size @.gvimrc.local
+" set lines= columns=
+source $HOME '/.gvimrc.local'
+
+if has('clipboard')
+  " :h gui-clipboard
+  set guioptions+=a
+endif
 
 " When double clicked, search on word.
 nnoremap <2-LeftMouse> g*
@@ -15,13 +21,17 @@ set mousemodel=popup
 set nomousefocus    " マウス移動によるフォーカス切り替えを無効
 
 if has('gui_gtk2') || has('gui_macvim')
-  set guifont=Ricty\ 11
-  set guifontwide=めんまフォント
+  "set guifont=Ricty\ 11
+  "set guifontwide=めんまフォント
 endif
 
 " For MacVim
-if has('kaoriya')
-  set transparency = 90
+if has('gui_macvim')
+  set transparency=11
+  set antialias
+  " MacVimではhlsearchをgvimrcに書かないといけないらしい
+  " 詳細: $VIM/gvimrc
+  set hlsearch
 endif
 
 nnoremap <silent> ZZ :<C-u>close<Cr>
