@@ -161,7 +161,7 @@ endif
 set nocompatible              " Use Vim defaults (much better!)
 set showcmd                   " 括弧の対応をハイライト
 set hidden                    " 編集中でも他のファイルを開けるようにする
-set helplang=en,ja
+set helplang=ja,en
 set autoread
 set history=255
 set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
@@ -176,7 +176,7 @@ set dictionary=$HOME/.vim/dict/default.dict
 
 let mapleader = " "
 
-set relativenumber
+set number
 set numberwidth=4
 " TODO: ,nでset numberとrelativenumberを交互に設定できるようにしたい
 nnoremap <silent> ,n :<C-u>setlocal relativenumber!<Cr>
@@ -239,6 +239,7 @@ augroup cch
 augroup END
 highlight CursorLine ctermbg=black guibg=black
 highlight CursorColumn ctermbg=black guibg=black
+
 " color column 長い行をハイライト
 if exists('&colorcolumn')
   set colorcolumn=+1
@@ -353,8 +354,8 @@ nnoremap <C-k> <C-b>
 
 " .bash like
 " ただしp,nの上下はj,kにしてる
-inoremap <C-a> <Home>
-inoremap <C-e> <END>
+inoremap <C-a> <C-o>0
+inoremap <C-e> <C-o>$
 inoremap <C-k> <Up>
 inoremap <C-j> <Down>
 inoremap <C-b> <Left>
@@ -477,14 +478,14 @@ inoremap <silent> <C-o> <C-x><C-o>
 " }}}
 " # UNDO_PERSISTENCE (version 7.3~) {{{
 if has('persistent_undo')
-set undofile
-set undodir=./.vimundo,$HOME/.vimundo
-"silent! call mkdir(&undodir, 'p')
+  set undofile
+  set undodir=./.vimundo,$HOME/.vimundo
+  "silent! call mkdir(&undodir, 'p')
 
-" augroup vimrc-undofile
-"  autocmd!
-"  autocmd BufReadPre $HOME/sources/* setlocal undofile
-"augroup END
+  " augroup vimrc-undofile
+  "  autocmd!
+  "  autocmd BufReadPre $HOME/sources/* setlocal undofile
+  "augroup END
 endif
 " }}}
 " # SUPPORT_INPUT_DATE {{{
@@ -493,7 +494,7 @@ inoremap <expr> ,dd strftime('%Y-%m-%d')
 inoremap <expr> ,dt strftime('%H:%M:%S')
 " }}}
 " # &MIGEMO {{{
-if has("migemo")
+if has('migemo')
     set migemo
 endif
 " }}}
@@ -532,9 +533,6 @@ else
   let $weekday = GetWeekday()
   nnoremap <silent> <S-t><S-t> :<c-u>10new<Space>$WEEKDAY_BUFFER_DIR/$weekday.txt<Cr>
 endif
-" }}}
-" # ANOTER {{{
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 " }}}
 " # PLUGIN
 " ## taglist.vim (need ctags) {{{
