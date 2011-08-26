@@ -146,7 +146,7 @@ if has('syntax')
   endif
 endif
 " }}}
-" # Dependency local vimrc {{{
+" # Dependency vimrc local {{{
 if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
@@ -173,6 +173,8 @@ if exists('g:dependency_local_lists')
     endif
 
     execute '7new ' . g:weekday_buffer
+    " TODO: filetype refにしているが、将来的に変わるかもしれないので、
+    "       というかautocommandに変えるべき
     execute 'setlocal filetype=rst'
   endfunction " }}}
 
