@@ -6,8 +6,8 @@ let g:dependency_local_lists = {
   \ }
 
 " ステートメントに空白を含められないSuckな仕様
-set directory=$HOME.'/tmp/vim/swaps',.,/tmp
-set backupdir=$HOME.'/tmp/vim/backups',.,/tmp
+set directory=$HOME.'/tmp/vim/swaps',/tmp,.
+set backupdir=$HOME.'/tmp/vim/backups',/tmp,.
 
 " TwitVim
 let twitvim_browser_cmd = 'firefox.exe'

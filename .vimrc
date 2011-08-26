@@ -97,7 +97,7 @@ Bundle 'Shougo/vimproc'
 
 filetype plugin indent on
 " }}}
-" # CAUTION 'SWITCH ; <-> :' {{{
+" # CAUTION 'Switch ; <-> :' {{{
 " Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
 nnoremap : ;
@@ -107,14 +107,14 @@ vnoremap : ;
 nnoremap q; q:
 vnoremap q; q:
 " }}}
-" # ENCODE {{{
+" # Encode {{{
 "" If encode is fixed, :e ++enc = {encoding-name}
 if !has('kaoriya')
   set encoding=utf-8
   set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
 endif
 " }}}
-" # SYNTAX {{{
+" # Syntax {{{
 if has('syntax')
   " zg (z-good), zw (z-warning)
   syntax enable
@@ -146,7 +146,7 @@ if has('syntax')
   endif
 endif
 " }}}
-" # DEPENDENCY_VIMRC_LOCAL {{{
+" # Dependency local vimrc {{{
 if filereadable(expand($HOME . '/.vimrc.local'))
   source $HOME/.vimrc.local
 endif
@@ -188,7 +188,7 @@ elseif
         \ 'INFO: Please edit g:dependency_local_lists['weekday_buffer_dir'] from .vimrc.local'<Cr>
 endif
 " }}}
-" # BASIC {{{
+" # Basic {{{
 "filetype plugin indent on
 set nocompatible              " Use Vim defaults (much better!)
 set showcmd                   " 括弧の対応をハイライト
@@ -249,14 +249,14 @@ set title
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 " }}}
-" # FILETYPE {{{
+" # Filetype {{{
 "augroup filetypedetect
   "au! BufRead,BufNewFile *.mine		setfiletype mine
   "au! BufRead,BufNewFile *.xyz		setfiletype drawing
   "au! BufRead,BufNewFile,BufWinEnter *Test.php setfiletype php.phpunit
 "augroup END
 " }}}
-" # COLOR SCHEME {{{
+" # Color Scheme {{{
 set t_Co=256
 colorscheme candycode
 "if exists('g:diablo3_longline')
@@ -289,7 +289,7 @@ nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<Cr>
 command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
 command! -nargs=0 UnHighlightCurrentLine match
 " }}}
-" # CONSOLE {{{
+" # Console {{{
 " By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
 if has('unix') && !has('gui_running')
   " Use meta keys in console.
@@ -316,13 +316,13 @@ if has('unix') && !has('gui_running')
   nnoremap <silent> gst :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
 endif
 " }}}
-" # INDENT {{{
+" # Indent {{{
 set autoindent
 set expandtab " replaced Tab with Indent
 setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
 inoremap <C-=> <Esc>==i
 " }}}
-" # STATUS_BAR {{{
+" # Status Bar {{{
 set ruler
 set showcmd
 set showmode
@@ -341,7 +341,7 @@ nnoremap tn :<C-u>tabnew<Space>
 nnoremap <silent> <Tab> :<C-u>tabnext<Cr>
 nnoremap <silent> <S-Tab> :<C-u>tabprevious<Cr>
 " }}}
-" # TAGS {{{
+" # Tags {{{
 if has('path_extra')
   set tags+=.;
   set tags+=tags;
@@ -349,7 +349,7 @@ endif
 set showfulltag
 set notagbsearch
 " }}}
-" # SEARCH {{{
+" # Search {{{
 set hlsearch    " Highlight search option
 set incsearch   " typed so far, matches
 set ignorecase  " 検索の時に大文字小文字を区別しない
@@ -358,7 +358,7 @@ set nowrapscan  " 検索を折り返さない
 "nnoremap * g*
 "nnoremap g* *
 " }}}
-" # COPY & PASTE {{{
+" # Copy & Paste {{{
 " Like nmap 'D' and 'C'
 nnoremap Y y$
 "set paste " When you're setting paste, can't use inoremap extend ;-<
@@ -375,7 +375,7 @@ if has('clipboard')
   " source $VIMRUNTIME/mswin.vim
 endif
 " }}}
-" # MOVEMENT {{{
+" # Movement {{{
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
@@ -417,11 +417,11 @@ onoremap ( t(
 vnoremap ) t)
 vnoremap ( t(
 " }}}
-" # QUICK_START $MYVIMRC {{{
+" # Quick Start $MYVIMRC {{{
 nnoremap <silent> e. :<C-u>edit $MYVIMRC<Cr>
 nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
 " }}}
-" # WINDOW {{{
+" # Window {{{
 "set splitright " Default vsplit, left
 set splitbelow  " Default split, top
 " vim-users.jp Hack #42
@@ -435,11 +435,11 @@ function! s:good_width()
   endif
 endfunction
 " }}}
-" # BUFFER {{{
+" # Buffer {{{
 nnoremap <silent> <Leader>b :<C-u>bnext<Cr>
 nnoremap <silent> <Leader>B :<C-u>bprevious<Cr>
 " }}}
-" # FOLDING {{{
+" # Folding {{{
 nnoremap <Leader>f za
 set foldcolumn=4
 " moved filetype plugin
@@ -453,7 +453,7 @@ if expand('%') !~ 'vim' && expand('%') !~ 'php' && expand('%') != '' && &buftype
   setlocal viewoptions-=options
 endif
 " }}}
-" # EDIT {{{
+" # Edit {{{
 " <ESC> insert mode, IME off
 set noimdisable
 set iminsert=0 imsearch=0
@@ -473,7 +473,7 @@ cnoremap ( ()<LEFT>
 cnoremap "" ""<LEFT>
 cnoremap '' ''<LEFT>
 " }}}
-" # DIRECTORY {{{
+" # Directory {{{
 " カレントディレクトリをファイルと同じディレクトリに移動
 " set autochdir
 augroup AUTOCHDIR
@@ -508,7 +508,7 @@ inoremap <silent> <C-o> <C-x><C-o>
 " TODO: <Up>と重なってるため別マップを考えなくては
 "inoremap <silent> <C-k> <C-x><C-k>
 " }}}
-" # UNDO_PERSISTENCE (version 7.3~) {{{
+" # Undo persistence (Version 7.3~) {{{
 if has('persistent_undo')
   set undofile
   set undodir=./.vimundo,$HOME/.vimundo
@@ -520,17 +520,17 @@ if has('persistent_undo')
   "augroup END
 endif
 " }}}
-" # SUPPORT_INPUT_DATE {{{
+" # Support Input Date {{{
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
 inoremap <expr> ,dd strftime('%Y-%m-%d')
 inoremap <expr> ,dt strftime('%H:%M:%S')
 " }}}
-" # &MIGEMO {{{
+" # Migemo {{{
 if has('migemo')
     set migemo
 endif
 " }}}
-" # cscope {{{
+" # Cscope {{{
 " TODO: I Want to use sometime ...
 "if has("cscope") && filereadable("/usr/bin/cscope")
 " set csprg=/usr/bin/cscope
@@ -547,7 +547,7 @@ endif
 " set csverb
 "endif
 " }}}
-" # PLUGIN
+" # Plugin
 " ## taglist.vim (need ctags) {{{
 nnoremap <silent> tl :<C-u>Tlist<Cr>
 let Tlist_Exit_OnlyWindow = 1 "taglistのウィンドーが最後のウィンドーならばVimを閉じる
@@ -771,7 +771,7 @@ nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
 nnoremap <Leader>gp :<C-u>Git push
 nnoremap <Leader>gP :<C-u>Git pull
 "}}}
-" # <Leader> mappings for plugins{{{
+" # <Leader> Mappings For Plugins{{{
 " kwbd.vim @nanasi.jp
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
 " open-browser.vim
