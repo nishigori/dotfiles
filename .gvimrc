@@ -5,8 +5,10 @@ set t_ti=
 set t_te=
 
 " INFO: Please edit default window size @.gvimrc.local
-" set lines= columns=
-source $HOME '/.gvimrc.local'
+if filereadable(expand($HOME . '/.gvimrc.local'))
+  source $HOME/.gvimrc.local
+  " set lines= columns=
+endif
 
 if has('clipboard')
   " :h gui-clipboard
