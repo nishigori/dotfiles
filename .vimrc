@@ -608,6 +608,10 @@ autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
 " }}}
+" ## vimfiler {{{
+let g:vimfiler_sort_type = 'name'
+"let g:vimfiler_trashbox_directory = $HOME . '/tmp/vim/vimfiler_transhbox'
+" }}}
 " ## neocomplcache {{{
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_max_filename_width = 20
