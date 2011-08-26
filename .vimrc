@@ -13,6 +13,7 @@ Bundle 'ujihisa/unite-colorscheme'
 Bundle 'ujihisa/unite-font'
 Bundle 'thinca/vim-unite-history'
 Bundle 'tacroe/unite-mark'
+Bundle 'tsukkee/unite-help'
 
 " buffer, tag
 """""""""""""
