@@ -161,7 +161,6 @@ endif
 set nocompatible              " Use Vim defaults (much better!)
 set showcmd                   " 括弧の対応をハイライト
 set hidden                    " 編集中でも他のファイルを開けるようにする
-set helplang=ja,en
 set autoread
 set history=255
 set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
@@ -175,6 +174,11 @@ set backupdir=$BACKUP_DIR
 set dictionary=$HOME/.vim/dict/default.dict
 
 let mapleader = " "
+
+" help
+set helplang=ja,en
+nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 set number
 set numberwidth=4
@@ -202,8 +206,6 @@ endif
 " TODO: 下のmap 効いてないよ
 "nnoremap <C-s> :<C-u>setfiletype<Space>
 "vnoremap <C-s> :<C-u>setfiletype<Space>
-
-nnoremap <C-h> :<C-u>help<Space>@ja<left><left><left>
 
 set title
 "function! s:titlestring() "{{{
