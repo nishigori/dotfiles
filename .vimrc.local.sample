@@ -1,14 +1,24 @@
-" basic directories
-let $SWAP_DIR           = $HOME . '/tmp/vim/swaps'
-let $BACKUP_DIR         = $HOME . '/tmp/vim/backups'
-let $WEEKDAY_BUFFER_DIR = $HOME . '/tmp/.gtd'
+let g:dependency_local_lists = {
+  \ 'dotfiles_dir'       : $HOME . '/workspace/dotfiles',
+  \ 'weekday_buffer_dir' : $HOME . '/tmp/.gtd',
+  \ 'ref_phpmanual_path' : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',
+  \ 'ref_jquery_path'    : $HOME . '/Dropbox/.vim/ref-docs/jqapi-latest',
+  \ }
 
-" ref directories for off-line
-let $REF_PHPMANUAL_PATH = $HOME . '/.vim/ref-docs/phpmanual'
-let $REF_JQUERY_PATH    = $HOME . '/.vim/ref-docs/jqapi-latest'
+" ステートメントに空白を含められないSuckな仕様
+set directory=$HOME.'/tmp/vim/swaps',.,/tmp
+set backupdir=$HOME.'/tmp/vim/backups',.,/tmp
 
-" Default window size
-if has('gui_running')
-  set lines=50
-  set columns=160
-endif
+" TwitVim
+let twitvim_browser_cmd = 'firefox.exe'
+let twitvim_login_b64   = ''
+let twitvim_count       = 120
+let twitvim_bitly_user  = ''
+let twitvim_bitly_key   = ''
+
+" github
+let g:github_user  = ''
+let g:github_token = ''
+
+
+" vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

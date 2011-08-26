@@ -131,7 +131,6 @@ if has('syntax')
   highlight WhitespaceEOL ctermbg=red guibg=red
   match WhitespaceEOL /s+$/
 
-
   if has('kaoriya')
     set noimdisableactivate
   else
@@ -146,14 +145,46 @@ if has('syntax')
   endif
 endif
 " }}}
-" vimrc.local {{{
-if filereadable(expand('~/.vimrc.local'))
-  " INFO: Please edit directory_variable
-  " for $SWAP_DIR, $BACKUP_DIR, $WEEKDAY_BUFFER_DIR, $PHPMANUAL_JA_DIR .
-  source ~/.vimrc.local
-else
-  let $SWAP_DIR   = './'
-  let $BACKUP_DIR = './'
+" # DEPENDENCY_VIMRC_LOCAL {{{
+if filereadable(expand($HOME . '/.vimrc.local'))
+  source $HOME/.vimrc.local
+endif
+
+if exists('g:dependency_local_lists')
+  let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
+
+  " Use weekday buffer for GTD tool.
+  function! OpenWeekdayBuffer() "{{{
+    if !exists('g:weekday_buffer')
+      let today = strftime('%Y%m%d')
+      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
+
+      if day_of_week == 0 || day_of_week == 6
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      else
+        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      endif
+      let g:weekday_buffer = g:dependency_local_lists['weekday_buffer_dir'] . '/'
+            \ . start_week . '_' . end_week
+    endif
+
+    execute '7new ' . g:weekday_buffer
+    execute 'setlocal filetype=rst'
+  endfunction " }}}
+
+  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも
+  " TODO: s:の関数名に変える(<SID>の理解が必要)
+  "function! s:open_weekday_buffer()
+  "command! -nargs=0 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
+
+  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
+  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
+elseif
+  nnoremap <silent> <S-t><S-t> :<C-u>echo 
+        \ 'INFO: Please edit g:dependency_local_lists['weekday_buffer_dir'] from .vimrc.local'<Cr>
 endif
 " }}}
 " # BASIC {{{
@@ -168,9 +199,7 @@ set backspace=indent,eol,start" Allow backspacing over everything in insert mode
 set ambiwidth=double
 set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
 set swapfile
-set directory=$SWAP_DIR
 set backup
-set backupdir=$BACKUP_DIR
 set dictionary=$HOME/.vim/dict/default.dict
 
 let mapleader = " "
@@ -517,25 +546,6 @@ endif
 " set csverb
 "endif
 " }}}
-" # WEEKDAY_BUFFER {{{
-if !exists('$WEEKDAY_BUFFER_DIR')
-  nnoremap <silent> <S-t><S-t> :<c-u>echo 'INFO: Please edit $WEEKDAY_BUFFER_DIR from .vimrc.local'<Cr>
-else
-  function! GetWeekday() "{{{
-    let $today = strftime('%Y%m%d')
-    let $day_of_the_week = strftime('%w')
-    " Son. = 0, Mon. = 1, Tue. = 2 ...  
-    if !exists($weekday) || $day_of_the_week == 0 || $day_of_the_week == 6
-      let start_week = $today - $day_of_the_week + 1
-      let end_week   = $today - $day_of_the_week + 5
-      let $weekday = start_week . '_' . end_week
-    endif
-    return $weekday
-  endfunction " }}}
-  let $weekday = GetWeekday()
-  nnoremap <silent> <S-t><S-t> :<c-u>10new<Space>$WEEKDAY_BUFFER_DIR/$weekday.txt<Cr>
-endif
-" }}}
 " # PLUGIN
 " ## taglist.vim (need ctags) {{{
 nnoremap <silent> tl :<C-u>Tlist<Cr>
@@ -697,13 +707,13 @@ nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " ## vim-ref & ref-unite {{{
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
-if exists('$REF_PHPMANUAL_PATH')
-  let g:ref_phpmanual_path = $REF_PHPMANUAL_PATH
+if exists('g:dependency_local_lists["ref_phpmanual_path"]')
+  let g:ref_phpmanual_path = g:dependency_local_lists['ref_phpmanual_path']
 else
   let g:ref_phpmanual_cmd = 'w3m -dump %s'
 endif
-if exists('$REF_JQUERY_PATH')
-  let g:ref_jquery_path = $REF_JQUERY_PATH
+if exists('g:dependency_local_lists["ref_jquery_path"]')
+  let g:ref_jquery_path = g:dependency_local_lists['ref_jquery_path']
 else
   let g:ref_jquery_cmd = 'w3m -dump %s'
 endif
