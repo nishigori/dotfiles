@@ -512,14 +512,25 @@ inoremap <silent> <C-o> <C-x><C-o>
 " }}}
 " # Undo persistence (Version 7.3~) {{{
 if has('persistent_undo')
-  set undofile
-  set undodir=./.vimundo,$HOME/.vimundo
-  "silent! call mkdir(&undodir, 'p')
+  " When declare au for persistent_undo, no set undofile
+  " :help persistent-undo
+  "set undofile
+  set undodir-=.
+  au BufReadPost * call ReadUndo()
+  au BufWritePost * call WriteUndo()
 
-  " augroup vimrc-undofile
-  "  autocmd!
-  "  autocmd BufReadPre $HOME/sources/* setlocal undofile
-  "augroup END
+  function! ReadUndo()
+    if filereadable(expand('%:h'). '/.vimundo/' . expand('%:t'))
+      rundo %:h/.vimundo/%:t
+    endif
+  endfunction
+  function! WriteUndo()
+    let dirname = expand('%:h') . '/.vimundo'
+    if !isdirectory(dirname)
+      call mkdir(dirname)
+    endif
+    wundo %:h/.vimundo/%:t
+  endfunction
 endif
 " }}}
 " # Support Input Date {{{
