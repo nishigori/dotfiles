@@ -557,13 +557,6 @@ let g:tlist_javascript_settings = 'javascript;s:string;a:array;o:object;f:functi
 let Tlist_Process_File_Always = 1
 " let Tlist_Show_One_File = 1 "現在編集中のソースのタグしか表示しない
 " }}}
-" ## Yankring {{{
-if exists('g:yankring_clipboard_monitor')
-  let g:yankring_max_history = 50
-  let g:yankring_max_display = 50
-  let g:yankring_history_dir = $HOME . '/.vim/tmp/'
-endif
-" }}}
 " ## Vimshell {{{
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
