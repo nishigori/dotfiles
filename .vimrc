@@ -246,11 +246,11 @@ set title
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 " }}}
 " # Filetype {{{
-"augroup filetypedetect
-  "au! BufRead,BufNewFile *.mine		setfiletype mine
-  "au! BufRead,BufNewFile *.xyz		setfiletype drawing
-  "au! BufRead,BufNewFile,BufWinEnter *Test.php setfiletype php.phpunit
-"augroup END
+augroup FiletypeDetect
+  au! BufRead,BufNewFile,BufWinEnter *.mine     setfiletype mine
+  au! BufRead,BufNewFile,BufWinEnter *.xyz      setfiletype drawing
+  au! BufRead,BufNewFile,BufWinEnter *Test.php  setfiletype php.phpunit
+augroup END
 " }}}
 " # Color Scheme {{{
 set t_Co=256
