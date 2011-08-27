@@ -225,19 +225,13 @@ hi ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue
 match ZenkakuSpace /　/
 
 " Only do this part when compiled with support for autocommands
-if has("autocmd")
-  augroup redhat
-    " When editing a file, always jump to the last cursor position
-    autocmd BufReadPost *
-          \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-          \   exe "normal! g'\"" |
-          \ endif
-  augroup END
-endif
-
-" TODO: 下のmap 効いてないよ
-"nnoremap <C-s> :<C-u>setfiletype<Space>
-"vnoremap <C-s> :<C-u>setfiletype<Space>
+augroup redhat
+  " When editing a file, always jump to the last cursor position
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \   exe "normal! g'\"" |
+        \ endif
+augroup END
 
 set title
 "function! s:titlestring() "{{{
