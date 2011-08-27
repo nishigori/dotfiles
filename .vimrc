@@ -436,6 +436,9 @@ function! s:good_width()
     vertical resize 84
   endif
 endfunction
+
+" inspaired @taku-o
+:com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn 
 " }}}
 " # Buffer {{{
 nnoremap <silent> <Leader>b :<C-u>bnext<Cr>
@@ -513,7 +516,7 @@ inoremap <silent> <C-o> <C-x><C-o>
 " # Undo persistence (Version 7.3~) {{{
 if has('persistent_undo')
   " When declare au for persistent_undo, no set undofile
-  " :help persistent-undo
+  " About: :help persistent-undo
   "set undofile
   set undodir-=.
   au BufReadPost * call ReadUndo()
