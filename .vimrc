@@ -469,15 +469,15 @@ set foldcolumn=4
 " NOTE: foldlevel moved to fplugin
 "setlocal foldlevel=0
 setlocal fillchars+=fold:-
-if expand('%') !~ 'vim' && expand('%') !~ 'php' && expand('%') != '' && &buftype !~ 'nofile'
+if expand('%') !~ 'vim\|php' && expand('%') != '' && &buftype != 'nofile'
   " Save fold settings. More Vim-user.jp Hack #84
   autocmd BufWritePost * mkview
   autocmd BufRead * silent loadview
   " Don't save options.
   set viewoptions-=options
-  if has('win32')
-    set viewoptions+=unix
-  endif
+endif
+if has('win32')
+  set viewoptions+=unix
 endif
 " }}}
 " # Directory {{{
