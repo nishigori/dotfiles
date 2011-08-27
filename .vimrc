@@ -522,12 +522,19 @@ if has('persistent_undo')
   au BufReadPost * call ReadUndo()
   au BufWritePost * call WriteUndo()
 
+  " No read & write file pattern (.git|)
   function! ReadUndo()
+    if expand('%:p') =~ '.git/'
+      return
+    endif
     if filereadable(expand('%:h'). '/.vimundo/' . expand('%:t'))
       rundo %:h/.vimundo/%:t
     endif
   endfunction
   function! WriteUndo()
+    if expand('%:p') =~ '.git/'
+      return
+    endif
     let dirname = expand('%:h') . '/.vimundo'
     if !isdirectory(dirname)
       call mkdir(dirname)
