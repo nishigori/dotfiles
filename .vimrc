@@ -52,8 +52,9 @@ Bundle 'soh335/vim-ref-jquery'
 " filetype
 """"""""""
 Bundle 'basyura/jslint.vim'
-Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/javaScriptLint.vim'
+Bundle 'jtriley/vim-rst-headings'
+Bundle 'nishigori/phpfolding.vim'
 
 " color sheme
 """""""""""""
