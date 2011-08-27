@@ -746,17 +746,6 @@ let g:loaded_quicklaunch = 1
 "TODO: xUnit用のsyntaxを用意する
 "autocmd ufNewFile,BufRead *quickrun*output* set filetype=vimshell
 " }}}
-" ## jslint.vim {{{
-"let g:JSLintHighlightErrorLine = 0
-
-"" FIXME: Whay Outputted Error ;(
-"function! s:javascript_filetype_settings()
-  "autocmd BufLeave     <buffer> call jslint#clear()
-  "autocmd BufWritePost <buffer> call jslint#check()
-  "autocmd CursorMoved  <buffer> call jslint#message()
-"endfunction
-"autocmd FileType javascript call s:javascript_filetype_settings()
-" }}}
 " ## vim-textmanip {{{
 " It's moved selected test-object.
 " TODO: snippet's imap dependency check.
