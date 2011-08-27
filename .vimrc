@@ -438,8 +438,8 @@ nnoremap <silent> e. :<C-u>edit $MYVIMRC<Cr>
 nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
 " }}}
 " # Window, Buffer {{{
-set splitright " Default vsplit, left
-"set splitbelow  " Default split, top
+set splitright  " Default vsplit, left
+set splitbelow  " Default split, top
 
 " vim-users.jp Hack #42
 nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<Cr>
