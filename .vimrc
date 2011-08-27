@@ -134,15 +134,17 @@ if has('syntax')
 
   if has('kaoriya')
     set noimdisableactivate
+    highlight ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue
+    match ZenkakuSpace /　/
   else
-    function! ZenkakuSpace()
+    function! ZenkakuSpace() "{{{
       highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
       silent! match ZenkakuSpace /　/
-    endfunction
-    augroup ZenkakuSpace
+    endfunction "}}}
+    augroup ZenkakuSpace "{{{
       autocmd!
       autocmd VimEnter,BufEnter * call ZenkakuSpace()
-    augroup END
+    augroup END "}}}
   endif
 endif
 " }}}
@@ -220,18 +222,14 @@ vnoremap <silent> ,n :<C-u>setlocal relativenumber!<Cr>
 nnoremap <silent> ,N :<C-u>setlocal number!<Cr>
 vnoremap <silent> ,N :<C-u>setlocal number!<Cr>
 
-" 全角スペース色定義
-hi ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue
-match ZenkakuSpace /　/
-
-" Only do this part when compiled with support for autocommands
-augroup redhat
+" Only do this part, when compiled with support for autocommands
+augroup redhat  "{{{
   " When editing a file, always jump to the last cursor position
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line ("'\"") <= line("$") |
         \   exe "normal! g'\"" |
         \ endif
-augroup END
+augroup END "}}}
 
 set title
 "function! s:titlestring() "{{{
