@@ -246,7 +246,7 @@ set title
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 " }}}
-" # Filetype {{{
+" # Filetype Detect {{{
 augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.mine     setfiletype mine
   au! BufRead,BufNewFile,BufWinEnter *.xyz      setfiletype drawing
@@ -677,7 +677,7 @@ imap <expr><C-y> neocomplcache#close_popup()
 imap <C-s> <Plug>(neocomplcache_start_unite_snippet)
 imap <C-u> <Plug>(neocomplcache_start_unite_complete)
 " }}}
-" ## neocomplcache_snippetcomplete {{{
+" ## neocomplcache_snippet_complete {{{
 nmap <C-l>    <Plug>(neocomplcache_snippets_expand)
 imap <C-l>    <Plug>(neocomplcache_snippets_expand)
 smap <C-l>    <Plug>(neocomplcache_snippets_expand)
@@ -743,8 +743,8 @@ nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:loaded_quicklaunch = 1
-"TODO: xUnit用のsyntaxを用意する
-"autocmd ufNewFile,BufRead *quickrun*output* set filetype=vimshell
+" TODO: xUnit用のquickrun syntaxを用意する
+"autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=vimshell
 " }}}
 " ## vim-textmanip {{{
 " It's moved selected test-object.
@@ -789,7 +789,7 @@ nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
 nnoremap <silent> <Leader>uf :<C-u>Unite file -start-insert<Cr>
-nnoremap <silent> <Leader>um :<C-u>Unite file_mru<Cr>
+nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite buffer file_mru<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
