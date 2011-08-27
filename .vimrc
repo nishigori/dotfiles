@@ -340,6 +340,9 @@ set smartcase   " 検索時に大文字を含んでいたら大/小を区別
 set nowrapscan  " 検索を折り返さない
 "nnoremap * g*
 "nnoremap g* *
+
+" regex pattern
+nnoremap // /^
 " }}}
 " # Copy & Paste {{{
 " Like nmap 'D' and 'C'
