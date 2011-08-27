@@ -146,6 +146,19 @@ if has('syntax')
       autocmd VimEnter,BufEnter * call ZenkakuSpace()
     augroup END "}}}
   endif
+
+  set number
+  set numberwidth=4
+  nnoremap <silent> ,n :<C-u>SwitchNumber<Cr>
+  vnoremap <silent> ,n :<C-u>SwitchNumber<Cr>
+  command! -nargs=0 SwitchNumber call SwitchNumberSetting()
+  function! SwitchNumberSetting() " {{{
+    if &number
+      set relativenumber
+    else
+      set number
+    endif
+  endfunction " }}}
 endif
 " }}}
 " # Dependency vimrc local {{{
@@ -213,14 +226,6 @@ let mapleader = " "
 set helplang=ja,en
 nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
-
-set number
-set numberwidth=4
-" TODO: ,nでset numberとrelativenumberを交互に設定できるようにしたい
-nnoremap <silent> ,n :<C-u>setlocal relativenumber!<Cr>
-vnoremap <silent> ,n :<C-u>setlocal relativenumber!<Cr>
-nnoremap <silent> ,N :<C-u>setlocal number!<Cr>
-vnoremap <silent> ,N :<C-u>setlocal number!<Cr>
 
 " Only do this part, when compiled with support for autocommands
 augroup redhat  "{{{
