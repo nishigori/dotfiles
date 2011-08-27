@@ -41,7 +41,7 @@ Bundle 'smartchr'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 't9md/vim-textmanip'
 "Bundle 'tyru/operator-star.vim'
-" yankringのdefault-key-mappingが衝突する…
+" NOTE: yankring dependence suck key map.
 "Bundle 'richleland/vim-yankring'
 
 " ref, help
@@ -125,7 +125,7 @@ if has('syntax')
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
   set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
 
-  " PODバグ対策
+  " POD bug (version 7.3?)
   syn sync fromstart
 
   " whitespaceEOL on highlight via. gunyara. alias lists[trail]
@@ -218,12 +218,11 @@ set ambiwidth=double
 set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
 set swapfile
 set backup
-set dictionary=$HOME/.vim/dict/default.dict
 
 let mapleader = " "
 
 " help
-set helplang=ja,en
+set helplang=en,ja
 nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
@@ -258,11 +257,11 @@ augroup END
 " # Color Scheme {{{
 set t_Co=256
 colorscheme candycode
-"if exists('g:diablo3_longline')
+if !exists('g:diablo3_longline')
   let g:diablo3_longline = 1
-"endif
+endif
 highlight StatusLine term=NONE cterm=NONE ctermfg=white ctermbg=black
-" カレントウィンドウにのみ罫線を引く
+" add cursorline at the current window.
 augroup cch
   autocmd!
   autocmd WinLeave * set nocursorline
@@ -271,7 +270,7 @@ augroup END
 highlight CursorLine ctermbg=black guibg=black
 highlight CursorColumn ctermbg=black guibg=black
 
-" color column 長い行をハイライト
+" highlighting target of long line.
 if exists('&colorcolumn')
   set colorcolumn=+1
   "nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<Cr>
@@ -284,7 +283,6 @@ nnoremap <silent> <Leader>h :<C-u>HighlightCurrentLine DiffAdd<Cr>
 "nnoremap <silent> <Leader>hb :<C-u>HighlightCurrentLine DiffAdd<Cr>
 "nnoremap <silent> <Leader>hc :<C-u>HighlightCurrentLine Error<Cr>
 nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<Cr>
-
 command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
 command! -nargs=0 UnHighlightCurrentLine match
 " }}}
@@ -434,7 +432,7 @@ function! s:good_width()
   endif
 endfunction
 
-" inspaired @taku-o
+" inspaired @taku-o's Kwdb.vim
 :com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn 
 " }}}
 " # Buffer {{{
@@ -444,7 +442,7 @@ nnoremap <silent> <Leader>B :<C-u>bprevious<Cr>
 " # Folding {{{
 nnoremap <Leader>f za
 set foldcolumn=4
-" moved filetype plugin
+" NOTE: foldlevel moved to fplugin
 "setlocal foldlevel=0
 setlocal fillchars+=fold:-
 if expand('%') !~ 'vim' && expand('%') !~ 'php' && expand('%') != '' && &buftype !~ 'nofile'
@@ -482,11 +480,14 @@ augroup AUTOCHDIR
   autocmd!
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
 augroup END
-" vim-users.jp Hack #69
+" Change directory. vim-users.jp Hack #69
+nnoremap <silent> CD :<C-u>CD<Cr>
+nnoremap <silent> gu :<C-u>GU<Cr>
+nnoremap <silent> gU :<C-u>GUH<Cr>
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
 command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>') 
 command! -nargs=? -complete=dir -bang GUH  call s:ChangeCurrentDir('$HOME', '<bang>') 
-function! s:ChangeCurrentDir(directory, bang)
+function! s:ChangeCurrentDir(directory, bang) "{{{
   if a:directory == ''
     lcd %:p:h
   else
@@ -496,39 +497,36 @@ function! s:ChangeCurrentDir(directory, bang)
   if a:bang == ''
     pwd
   endif
-endfunction
-
-" Change directory.
-nnoremap <silent> CD :<C-u>CD<Cr>
-nnoremap <silent> gu :<C-u>GU<Cr>
-nnoremap <silent> gU :<C-u>GUH<Cr>
+endfunction "}}}
 " }}}
-" # Ex-mode {{{
-" omni_complete, completed ftplugin
-inoremap <silent> <C-o> <C-x><C-o>
-" dict
+" # Dictionary {{{
+set dictionary=$HOME/.vim/dict/default.dict
 " TODO: <Up>と重なってるため別マップを考えなくては
 "inoremap <silent> <C-k> <C-x><C-k>
 " }}}
+" # Omni complete {{{
+" omni_complete, completed ftplugin
+inoremap <silent> <C-o> <C-x><C-o>
+" }}}
 " # Undo persistence (Version 7.3~) {{{
 if has('persistent_undo')
-  " When declare au for persistent_undo, no set undofile
-  " About: :help persistent-undo
+  " NOTE: When declare au for persistent_undo, no set undofile
+  "       :help persistent-undo
   "set undofile
   set undodir-=.
   au BufReadPost * call ReadUndo()
   au BufWritePost * call WriteUndo()
 
   " No read & write file pattern (.git|)
-  function! ReadUndo()
+  function! ReadUndo()  "{{{
     if expand('%:p') =~ '.git/'
       return
     endif
     if filereadable(expand('%:h'). '/.vimundo/' . expand('%:t'))
       rundo %:h/.vimundo/%:t
     endif
-  endfunction
-  function! WriteUndo()
+  endfunction "}}}
+  function! WriteUndo() "{{{
     if expand('%:p') =~ '.git/'
       return
     endif
@@ -537,7 +535,7 @@ if has('persistent_undo')
       call mkdir(dirname)
     endif
     wundo %:h/.vimundo/%:t
-  endfunction
+  endfunction "}}}
 endif
 " }}}
 " # Support Input Date {{{
@@ -711,7 +709,7 @@ call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
 nnoremap <C-n> :<C-u>Unite buffer<Cr>
-nnoremap <C-p> :<C-u>Unite buffer file_mru<Cr>
+nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " ## unite-tag {{{
@@ -747,7 +745,7 @@ let g:loaded_quicklaunch = 1
 " ## jslint.vim {{{
 "let g:JSLintHighlightErrorLine = 0
 
-"" FIXME: えーい、なぜerrorが出る!!
+"" FIXME: Whay Outputted Error ;(
 "function! s:javascript_filetype_settings()
   "autocmd BufLeave     <buffer> call jslint#clear()
   "autocmd BufWritePost <buffer> call jslint#check()
@@ -756,13 +754,14 @@ let g:loaded_quicklaunch = 1
 "autocmd FileType javascript call s:javascript_filetype_settings()
 " }}}
 " ## vim-textmanip {{{
-" 選択したテキストの移動
-"xmap <C-j> <Plug>(Textmanip.move_selection_down)
-"xmap <C-k> <Plug>(Textmanip.move_selection_up)
-"xmap <C-h> <Plug>(Textmanip.move_selection_left)
-"xmap <C-l> <Plug>(Textmanip.move_selection_right)
+" It's moved selected test-object.
+" TODO: snippet's imap dependency check.
+xmap <C-j> <Plug>(Textmanip.move_selection_down)
+xmap <C-k> <Plug>(Textmanip.move_selection_up)
+xmap <C-h> <Plug>(Textmanip.move_selection_left)
+xmap <C-l> <Plug>(Textmanip.move_selection_right)
 
-" 行の複製
+" copy selected text-object.
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
 " ## zencoding{{{
