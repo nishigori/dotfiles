@@ -116,7 +116,13 @@ endif
 if exists('g:dependency_local_lists')
   let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
 
+  " INFO: declare swapdir, backupdir, viewdir from .vimrc.local
+  set swapfile
+  set backup
+
   " Use weekday buffer for GTD tool.
+  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
+  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
   function! OpenWeekdayBuffer() "{{{
     if !exists('g:weekday_buffer')
       let today = strftime('%Y%m%d')
@@ -139,14 +145,11 @@ if exists('g:dependency_local_lists')
     "       というかautocommandに変えるべき
     execute 'setlocal filetype=rst'
   endfunction " }}}
-
-  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも
+  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも {{{
   "       s:の関数名に変える(<SID>の理解が必要)
   "function! s:open_weekday_buffer()
   "command! -nargs=1 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
-
-  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
-  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
+  "}}}
 elseif
   nnoremap <silent> <S-t><S-t> :<C-u>echo 
         \ 'INFO: Please edit g:dependency_local_lists['weekday_buffer_dir'] from .vimrc.local'<Cr>
@@ -224,8 +227,6 @@ set viminfo='20,\"50          " Read/write a .viminfo file, don't store more tha
 set backspace=indent,eol,start" Allow backspacing over everything in insert mode
 set ambiwidth=double
 set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
-set swapfile
-set backup
 
 let mapleader = " "
 
@@ -470,7 +471,10 @@ if expand('%') !~ 'vim' && expand('%') !~ 'php' && expand('%') != '' && &buftype
   autocmd BufWritePost * mkview
   autocmd BufRead * silent loadview
   " Don't save options.
-  setlocal viewoptions-=options
+  set viewoptions-=options
+  if has('win32')
+    set viewoptions+=unix
+  endif
 endif
 " }}}
 " # Directory {{{
