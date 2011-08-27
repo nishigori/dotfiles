@@ -98,8 +98,8 @@ Bundle 'Shougo/vimproc'
 
 filetype plugin indent on
 " }}}
-" # CAUTION 'Switch ; <-> :' {{{
-" Don't use ':remap' as possible (for Unaffected).
+" # Switch ; <-> : {{{
+" Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
@@ -108,9 +108,54 @@ vnoremap : ;
 nnoremap q; q:
 vnoremap q; q:
 " }}}
-" # Encode {{{
-"" If encode is fixed, :e ++enc = {encoding-name}
+" # Dependency vimrc local {{{
+if filereadable(expand($HOME . '/.vimrc.local'))
+  source $HOME/.vimrc.local
+endif
+
+if exists('g:dependency_local_lists')
+  let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
+
+  " Use weekday buffer for GTD tool.
+  function! OpenWeekdayBuffer() "{{{
+    if !exists('g:weekday_buffer')
+      let today = strftime('%Y%m%d')
+      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
+
+      if day_of_week == 0 || day_of_week == 6
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      else
+        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      endif
+      let g:weekday_buffer = g:dependency_local_lists['weekday_buffer_dir'] . '/'
+            \ . start_week . '_' . end_week
+    endif
+
+    execute '7new ' . g:weekday_buffer
+    " TODO: filetype refにしているが、将来的に変わるかもしれないので、
+    "       というかautocommandに変えるべき
+    execute 'setlocal filetype=rst'
+  endfunction " }}}
+
+  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも
+  "       s:の関数名に変える(<SID>の理解が必要)
+  "function! s:open_weekday_buffer()
+  "command! -nargs=1 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
+
+  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
+  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
+elseif
+  nnoremap <silent> <S-t><S-t> :<C-u>echo 
+        \ 'INFO: Please edit g:dependency_local_lists['weekday_buffer_dir'] from .vimrc.local'<Cr>
+endif
+" }}}
+" # Encoding {{{
+" Note: Kaoriya MacVim is needless encoding.
 if !has('kaoriya')
+  " If encode is fixed, :e ++enc = {encoding-name}
   set encoding=utf-8
   set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
 endif
@@ -162,49 +207,11 @@ if has('syntax')
   endfunction " }}}
 endif
 " }}}
-" # Dependency vimrc local {{{
-if filereadable(expand($HOME . '/.vimrc.local'))
-  source $HOME/.vimrc.local
-endif
-
-if exists('g:dependency_local_lists')
-  let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
-
-  " Use weekday buffer for GTD tool.
-  function! OpenWeekdayBuffer() "{{{
-    if !exists('g:weekday_buffer')
-      let today = strftime('%Y%m%d')
-      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
-
-      if day_of_week == 0 || day_of_week == 6
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      else
-        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      endif
-      let g:weekday_buffer = g:dependency_local_lists['weekday_buffer_dir'] . '/'
-            \ . start_week . '_' . end_week
-    endif
-
-    execute '7new ' . g:weekday_buffer
-    " TODO: filetype refにしているが、将来的に変わるかもしれないので、
-    "       というかautocommandに変えるべき
-    execute 'setlocal filetype=rst'
-  endfunction " }}}
-
-  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも
-  " TODO: s:の関数名に変える(<SID>の理解が必要)
-  "function! s:open_weekday_buffer()
-  "command! -nargs=0 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
-
-  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
-  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
-elseif
-  nnoremap <silent> <S-t><S-t> :<C-u>echo 
-        \ 'INFO: Please edit g:dependency_local_lists['weekday_buffer_dir'] from .vimrc.local'<Cr>
-endif
+" # Indent {{{
+set autoindent
+set expandtab " replaced Tab with Indent
+setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
+inoremap <C-=> <Esc>==i
 " }}}
 " # Basic {{{
 "filetype plugin indent on
@@ -226,15 +233,6 @@ let mapleader = " "
 set helplang=en,ja
 nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
-
-" Only do this part, when compiled with support for autocommands
-augroup redhat  "{{{
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost *
-        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-        \   exe "normal! g'\"" |
-        \ endif
-augroup END "}}}
 
 set title
 "function! s:titlestring() "{{{
@@ -314,12 +312,6 @@ if has('unix') && !has('gui_running')
   nnoremap <silent> gst :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
 endif
 " }}}
-" # Indent {{{
-set autoindent
-set expandtab " replaced Tab with Indent
-setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
-inoremap <C-=> <Esc>==i
-" }}}
 " # Status Bar {{{
 set ruler
 set showcmd
@@ -338,14 +330,6 @@ set showtabline=1 " :h tabline
 nnoremap tn :<C-u>tabnew<Space>
 nnoremap <silent> <Tab> :<C-u>tabnext<Cr>
 nnoremap <silent> <S-Tab> :<C-u>tabprevious<Cr>
-" }}}
-" # Tags {{{
-if has('path_extra')
-  set tags+=.;
-  set tags+=tags;
-endif
-set showfulltag
-set notagbsearch
 " }}}
 " # Search {{{
 set hlsearch    " Highlight search option
@@ -373,7 +357,32 @@ if has('clipboard')
   " source $VIMRUNTIME/mswin.vim
 endif
 " }}}
-" # Movement {{{
+" # Insert {{{
+" <ESC> insert mode, IME off
+set noimdisable
+set iminsert=0 imsearch=0
+set noimcmdline
+inoremap <C-]> <ESC>:set iminsert=0<Cr>
+
+" 括弧を自動補完
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
+inoremap "" ""<LEFT>
+inoremap '' ''<LEFT>
+
+cnoremap { {}<LEFT>
+cnoremap [ []<LEFT>
+cnoremap ( ()<LEFT>
+cnoremap "" ""<LEFT>
+cnoremap '' ''<LEFT>
+
+" Support Input Date
+inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
+inoremap <expr> ,dd strftime('%Y-%m-%d')
+inoremap <expr> ,dt strftime('%H:%M:%S')
+" }}}
+" # Moving Cursole {{{
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
@@ -383,7 +392,7 @@ nnoremap <C-j> <C-f>
 nnoremap <C-k> <C-b>
 
 " .bash like
-" ただしp,nの上下はj,kにしてる
+" but up-down mapped j-k
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
 inoremap <C-k> <Up>
@@ -403,7 +412,7 @@ nnoremap cw ciw
 nnoremap dw diw
 inoremap <C-w> <ESC>ciw
 
-" 最後に変更したテキストの選択
+" selected at last editting text.
 "" ちなみにVisualModeで最後に選択したテキストのに戻るはgv
 nnoremap gc '[v']
 vnoremap <silent>gc :<C-u>normal gc<Cr>
@@ -414,33 +423,43 @@ onoremap ) t)
 onoremap ( t(
 vnoremap ) t)
 vnoremap ( t(
+
+" Only do this part, when compiled with support for autocommands
+augroup redhat  "{{{
+  " When editing a file, always jump to the last cursor position
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \   exe "normal! g'\"" |
+        \ endif
+augroup END "}}}
 " }}}
 " # Quick Start $MYVIMRC {{{
 nnoremap <silent> e. :<C-u>edit $MYVIMRC<Cr>
 nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
 " }}}
-" # Window {{{
-"set splitright " Default vsplit, left
-set splitbelow  " Default split, top
+" # Window, Buffer {{{
+set splitright " Default vsplit, left
+"set splitbelow  " Default split, top
+
 " vim-users.jp Hack #42
 nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<Cr>
 nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<Cr>
 nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<Cr>
 nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<Cr>
-function! s:good_width()
+function! s:good_width()  "{{{
   if winwidth(0) < 84 && expand('%') != '__Tag_List__' && expand('%') != '[quickrun output]'
     vertical resize 84
   endif
-endfunction
+endfunction "}}}
+
+nnoremap <silent> <Leader>b :<C-u>bnext<Cr>
+nnoremap <silent> <Leader>B :<C-u>bprevious<Cr>
 
 " inspaired @taku-o's Kwdb.vim
 :com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn 
+nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
 " }}}
-" # Buffer {{{
-nnoremap <silent> <Leader>b :<C-u>bnext<Cr>
-nnoremap <silent> <Leader>B :<C-u>bprevious<Cr>
-" }}}
-" # Folding {{{
+" # Fold, View {{{
 nnoremap <Leader>f za
 set foldcolumn=4
 " NOTE: foldlevel moved to fplugin
@@ -453,26 +472,6 @@ if expand('%') !~ 'vim' && expand('%') !~ 'php' && expand('%') != '' && &buftype
   " Don't save options.
   setlocal viewoptions-=options
 endif
-" }}}
-" # Edit {{{
-" <ESC> insert mode, IME off
-set noimdisable
-set iminsert=0 imsearch=0
-set noimcmdline
-inoremap <C-]> <ESC>:set iminsert=0<Cr>
-
-" 括弧を自動補完
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap "" ""<LEFT>
-inoremap '' ''<LEFT>
-
-cnoremap { {}<LEFT>
-cnoremap [ []<LEFT>
-cnoremap ( ()<LEFT>
-cnoremap "" ""<LEFT>
-cnoremap '' ''<LEFT>
 " }}}
 " # Directory {{{
 " カレントディレクトリをファイルと同じディレクトリに移動
@@ -505,11 +504,41 @@ set dictionary=$HOME/.vim/dict/default.dict
 " TODO: <Up>と重なってるため別マップを考えなくては
 "inoremap <silent> <C-k> <C-x><C-k>
 " }}}
+" # Ctags {{{
+if has('path_extra')
+  set tags+=.;
+  set tags+=tags;
+endif
+set showfulltag
+set notagbsearch
+" }}}
+" # Cscope {{{
+" TODO: I Want to use sometime ...
+"if has("cscope") && filereadable("/usr/bin/cscope")
+" set csprg=/usr/bin/cscope
+" set csto=0
+" set cst
+" set nocsverb
+" " add any database in current directory
+" if filereadable("cscope.out")
+" cs add cscope.out
+" " else add database pointed to by environment
+" elseif $CSCOPE_DB != ""
+" cs add $CSCOPE_DB
+" endif
+" set csverb
+"endif
+" }}}
+" # Migemo {{{
+if has('migemo')
+    set migemo
+endif
+" }}}
 " # Omni complete {{{
 " omni_complete, completed ftplugin
 inoremap <silent> <C-o> <C-x><C-o>
 " }}}
-" # Undo persistence (Version 7.3~) {{{
+" # Undo persistence {{{
 if has('persistent_undo')
   " NOTE: When declare au for persistent_undo, no set undofile
   "       :help persistent-undo
@@ -539,42 +568,16 @@ if has('persistent_undo')
   endfunction "}}}
 endif
 " }}}
-" # Support Input Date {{{
-inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
-inoremap <expr> ,dd strftime('%Y-%m-%d')
-inoremap <expr> ,dt strftime('%H:%M:%S')
-" }}}
-" # Migemo {{{
-if has('migemo')
-    set migemo
-endif
-" }}}
-" # Cscope {{{
-" TODO: I Want to use sometime ...
-"if has("cscope") && filereadable("/usr/bin/cscope")
-" set csprg=/usr/bin/cscope
-" set csto=0
-" set cst
-" set nocsverb
-" " add any database in current directory
-" if filereadable("cscope.out")
-" cs add cscope.out
-" " else add database pointed to by environment
-" elseif $CSCOPE_DB != ""
-" cs add $CSCOPE_DB
-" endif
-" set csverb
-"endif
-" }}}
 " # Plugin
-" ## taglist.vim (need ctags) {{{
-nnoremap <silent> tl :<C-u>Tlist<Cr>
-let Tlist_Exit_OnlyWindow = 1 "taglistのウィンドーが最後のウィンドーならばVimを閉じる
-let Tlist_WinWidth = 40
-let Tlist_Enable_Fold_Column = 3
-let g:tlist_javascript_settings = 'javascript;s:string;a:array;o:object;f:function'
-let Tlist_Process_File_Always = 1
-" let Tlist_Show_One_File = 1 "現在編集中のソースのタグしか表示しない
+" ## taglist.vim {{{
+if has('path_extra')
+  nnoremap <silent> tl :<C-u>Tlist<Cr>
+  let Tlist_Exit_OnlyWindow = 1       "taglistのウィンドーが最後のウィンドーならばVimを閉じる
+  let Tlist_WinWidth = 40
+  let Tlist_Enable_Fold_Column = 3
+  let Tlist_Process_File_Always = 1
+  " let Tlist_Show_One_File = 1       "現在編集中のソースのタグしか表示しない
+endif
 " }}}
 " ## Vimshell {{{
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
@@ -784,9 +787,7 @@ nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
 nnoremap <Leader>gp :<C-u>Git push
 nnoremap <Leader>gP :<C-u>Git pull
 "}}}
-" # <Leader> Mappings For Plugins{{{
-" kwbd.vim @nanasi.jp
-nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
+" # <Leader> Mappings For Plugins {{{
 " open-browser.vim
 nmap <Leader>w <Plug>(openbrowser-smart-search)
 " vimshell
