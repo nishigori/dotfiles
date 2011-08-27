@@ -630,8 +630,8 @@ autocmd FileType vimshell
 \| call vimshell#altercmd#define('i', 'iexe')
 \| call vimshell#altercmd#define('l', 'll')
 \| call vimshell#altercmd#define('ll', 'ls -l')
-\| call vimshell#altercmd#define('a', 'ls -la')
-\| call vimshell#altercmd#define('la', 'ls -la')
+\| call vimshell#altercmd#define('a', 'ls -al')
+\| call vimshell#altercmd#define('la', 'ls -al')
 \| call vimshell#altercmd#define('cl', 'clear')
 \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
 
