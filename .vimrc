@@ -110,6 +110,11 @@ vnoremap q; q:
 " }}}
 " # Dependency vimrc local {{{
 if filereadable(expand($HOME . '/.vimrc.local'))
+  " initialize
+  set directory=
+  set backupdir=
+  set viewdir=
+
   source $HOME/.vimrc.local
 endif
 
