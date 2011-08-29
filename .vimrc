@@ -55,7 +55,7 @@ Bundle 'basyura/jslint.vim'
 Bundle 'nishigori/javaScriptLint.vim'
 Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/phpfolding.vim'
-Bundle 'yamlvim'
+Bundle 'heavenshell/unite-sf2'
 
 " color sheme
 """""""""""""
