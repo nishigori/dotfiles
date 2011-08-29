@@ -55,6 +55,7 @@ Bundle 'basyura/jslint.vim'
 Bundle 'nishigori/javaScriptLint.vim'
 Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/phpfolding.vim'
+Bundle 'yamlvim'
 
 " color sheme
 """""""""""""
@@ -517,12 +518,15 @@ set dictionary=$HOME/.vim/dict/default.dict
 "inoremap <silent> <C-k> <C-x><C-k>
 " }}}
 " # Ctags {{{
-if has('path_extra')
-  set tags+=.;
-  set tags+=tags;
+if has('path_extra') && &filetype !~ 'zsh\|conf'
+  setlocal tags+=.
+  if filereadable("tags")
+    setlocal tags+=tags
+  endif
+
+  set showfulltag
+  set notagbsearch
 endif
-set showfulltag
-set notagbsearch
 " }}}
 " # Cscope {{{
 " TODO: I Want to use sometime ...
