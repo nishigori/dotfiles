@@ -162,7 +162,7 @@ endif
 " }}}
 " # Encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
-if !has('kaoriya')
+if !has('gui_macvim')
   " If encode is fixed, :e ++enc = {encoding-name}
   set encoding=utf-8
   set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
@@ -746,10 +746,13 @@ else
 endif
 " }}}
 " ## TwitVim {{{
-if has('python')
+if has('python') && !has('gui_macvim')
   let twitvim_enable_python = 1
 endif
-let twitvim_browser_cmd = 'firefox'
+if has('ruby')
+  let twitvim_enable_ruby = 1
+endif
+let twitvim_browser_cmd = 'open -a firefox'
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
@@ -789,12 +792,11 @@ nnoremap <Leader>gP :<C-u>Git pull
 "}}}
 " # <Leader> Mappings For Plugins {{{
 " open-browser.vim
-nmap <Leader>w <Plug>(openbrowser-smart-search)
+nmap <Leader>o <Plug>(openbrowser-smart-search)
 " vimshell
 nnoremap <silent> <Leader>vs :<C-u>VimShell<Cr>
 nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 nnoremap <silent> <Leader>s :<C-u>VimShell<Cr>
-nnoremap <silent> <Leader>S :<C-u>VimShellPop<Cr>
 " vimfiler
 nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
