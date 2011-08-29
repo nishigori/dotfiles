@@ -659,8 +659,9 @@ let g:neocomplcache_auto_completion_start_length = 4
 let g:neocomplcache_manual_completion_start_length = 3
 let g:neocomplcache_min_syntax_length = 5
 let g:neocomplcache_enable_smart_case = 1
+" FIXME: ver6.0になってからエラー出るので鬼畜回避策
+let g:neocomplcache_force_overwrite_completefunc = 1
 " -を入力すると候補横の数字で選択可になる
-let g:neocomplcache_enable_quick_match = 1
 let g:neocomplcache_enable_camel_case_completion = 0
 let g:neocomplcache_enable_underbar_completion = 0
 let g:neocomplcache_max_list = 50

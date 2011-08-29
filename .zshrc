@@ -286,5 +286,7 @@ esac
 PATH="/var/lib/gems/1.8/bin:$PATH"
 alias phpwatchr='watchr $HOME/workspace/phpunit-stack/watchr.rb'
 
+# MacPort
+alias port='/opt/local/bin/port'
 
 # vim:set foldmethod=marker expandtab ts=4 sw=4 sts=0:
