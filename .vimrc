@@ -796,6 +796,9 @@ nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
 nnoremap <Leader>gp :<C-u>Git push
 nnoremap <Leader>gP :<C-u>Git pull
 "}}}
+" ## vim-ambicmd {{{
+cnoremap <expr> <Space> ambicmd#expand('\<Space>')
+" }}}
 " # <Leader> Mappings For Plugins {{{
 " open-browser.vim
 nmap <Leader>o <Plug>(openbrowser-smart-search)
