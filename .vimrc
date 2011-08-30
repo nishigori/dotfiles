@@ -160,7 +160,7 @@ if exists('g:dependency_local_lists')
   "}}}
 elseif
   nnoremap <silent> <S-t><S-t> :<C-u>echo 
-        \ 'INFO: Please edit g:dependency_local_lists['weekday_buffer_dir'] from .vimrc.local'<Cr>
+        \ 'INFO: Please edit g:dependency_local_lists from .vimrc.local'<Cr>
 endif
 " }}}
 " # Encoding {{{
@@ -819,7 +819,6 @@ nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
 nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
 nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
-"inoremap <C-S-h> <Esc>:<C-u>Unite history/search -start-insert<Cr>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
