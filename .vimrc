@@ -236,8 +236,6 @@ set backspace=indent,eol,start" Allow backspacing over everything in insert mode
 set ambiwidth=double
 set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
 
-let mapleader = " "
-
 " help
 set helplang=en,ja
 nnoremap <C-h><C-h> :<C-u>help<Space>
@@ -801,6 +799,7 @@ nnoremap <Leader>gP :<C-u>Git pull
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
 " # <Leader> Mappings For Plugins {{{
+let mapleader = " "
 " open-browser.vim
 nmap <Leader>o <Plug>(openbrowser-smart-search)
 " vimshell
