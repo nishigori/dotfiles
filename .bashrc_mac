@@ -118,11 +118,15 @@ alias gitlog='git log --graph --color --pretty="%x09%h %cn%x09%s %Cred%d"'
 #alias ctag='`brew --prefix`/bin/ctags -R ./'
 alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
 
-# throw watchr's path
-# for phpunit-stack
-PATH="/var/lib/gems/1.8/bin:$PATH"
-#alias phpwatchr='watchr $HOME/workspace/phpunit-stack/watchr.rb'
-alias phpwatchr='cd $HOME/workspace/phpunit-stack; watchr watchr.rb'
+# TODO: this is set code for Ubuntu. edit Mac.
+## throw watchr's path
+## for phpunit-stack
+#PATH="/var/lib/gems/1.8/bin:$PATH"
+##alias phpwatchr='watchr $HOME/workspace/phpunit-stack/watchr.rb'
+#alias phpwatchr='cd $HOME/workspace/phpunit-stack; watchr watchr.rb'
+
+#homebrew
+export PATH="$(brew --prefix)/bin:$PATH"
 
 # For MacVim Kaoriya
 alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
