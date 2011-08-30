@@ -18,6 +18,7 @@ alias ctag = 'ctags -R ./'
 alias gitlog = 'git log --graph --all --color --pretty="%x09%h %cn%x09%s %Cred%d"'
 
 # show swap files
+# TODO: removed $TEMP_DIR (I must read ~/.vimrc.local. about g:dependency_XXXX)
 alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
 
 # throw watchr's path

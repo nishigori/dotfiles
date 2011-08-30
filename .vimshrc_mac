@@ -25,5 +25,8 @@ alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
 #PATH='/var/lib/gems/1.8/bin:$PATH'
 alias phpwatchr = '/var/lib/gems/1.8/bin/watchr $HOME/workspace/phpunit-stack/watchr.rb'
 
+# MacPorts
+alias port = '/opt/local/bin/port'
 
-# vim: set filetype=vimshrc :
+
+# vim: set filetype=vimshrc syntax=vimshrc :
