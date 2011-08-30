@@ -820,8 +820,10 @@ nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
 nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
 "inoremap <C-S-h> <Esc>:<C-u>Unite history/search -start-insert<Cr>
-" <Leader>R is Unite ref/$filetype
+" NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
+"       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 " }}}
+
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
