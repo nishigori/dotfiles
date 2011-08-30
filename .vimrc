@@ -31,6 +31,7 @@ Bundle 'sudo.vim'
 """"""""""""""""""""""
 Bundle 'Shougo/neocomplcache'
 Bundle 'nishigori/neocomplcache_phpunit_snippet'
+Bundle 'thinca/vim-ambicmd'
 "Bundle 'neco-look'
 
 " text object
@@ -55,6 +56,7 @@ Bundle 'basyura/jslint.vim'
 Bundle 'nishigori/javaScriptLint.vim'
 Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/phpfolding.vim'
+Bundle 'nishigori/vim-twig'
 Bundle 'heavenshell/unite-sf2'
 
 " color sheme
