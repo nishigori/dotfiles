@@ -797,7 +797,8 @@ nnoremap <Leader>gp :<C-u>Git push
 nnoremap <Leader>gP :<C-u>Git pull
 "}}}
 " ## vim-ambicmd {{{
-cnoremap <expr> <Space> ambicmd#expand('\<Space>')
+" FIXME: <Space>打つと何故かバックスラッシュ入る
+"cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
 " # <Leader> Mappings For Plugins {{{
 " open-browser.vim
