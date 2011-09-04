@@ -252,12 +252,18 @@ set title
   "endif
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
+
+" <Leader>
+let mapleader = " "
 " }}}
 " # Filetype Detect {{{
 augroup FiletypeDetect
-  au! BufRead,BufNewFile,BufWinEnter *.mine     setfiletype mine
-  au! BufRead,BufNewFile,BufWinEnter *.xyz      setfiletype drawing
-  au! BufRead,BufNewFile,BufWinEnter *Test.php  setfiletype php.phpunit
+  au! BufRead,BufNewFile,BufWinEnter *.mine         setfiletype mine
+  au! BufRead,BufNewFile,BufWinEnter *.xyz          setfiletype drawing
+  au! BufRead,BufNewFile,BufWinEnter *.tt           setfiletype html
+  au! BufRead,BufNewFile,BufWinEnter *.vimp         setfiletype vimperator
+  au! BufRead,BufNewFile,BufWinEnter *.vimperatorrc setfiletype vimperator
+  au! BufRead,BufNewFile,BufWinEnter *Test.php      setfiletype php.phpunit
 augroup END
 " }}}
 " # Color Scheme {{{
@@ -799,7 +805,6 @@ nnoremap <Leader>gP :<C-u>Git pull
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
 " # <Leader> Mappings For Plugins {{{
-let mapleader = " "
 " open-browser.vim
 nmap <Leader>o <Plug>(openbrowser-smart-search)
 " vimshell
