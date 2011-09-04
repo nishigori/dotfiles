@@ -46,7 +46,20 @@ set ignorecase
 set smartcase
 " }}}
 " # <Tab> & WINDOW {{{
-set tabnumbers
+"set tabnumbers
+" set tabnumber @left
+style -name tabnum chrome://* <<EOM
+#TabsToolbar{
+  counter-reset:tabnumber;
+}
+#TabsToolbar tab:before {
+  counter-increment:tabnumber;
+  content:counter(tabnumber);
+  display:-moz-box;
+  -moz-align: center;
+  font:bold 0.84em monospace;
+}
+EOM
 nnoremap <silent> <C-n> :<C-u>tabnext<Cr>
 " focus Alt key
 nnoremap <silent> <A-C-p> :tabmove! -1<Cr>
