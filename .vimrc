@@ -663,6 +663,8 @@ let g:vimfiler_sort_type = 'name'
 "let g:vimfiler_trashbox_directory = $HOME . '/tmp/vim/vimfiler_transhbox'
 " }}}
 " ## neocomplcache {{{
+let g:neocomplcache_temporary_dir = $HOME . '/tmp/vim/neocom'
+
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_max_filename_width = 20
 let g:neocomplcache_auto_completion_start_length = 4
