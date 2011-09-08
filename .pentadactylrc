@@ -15,7 +15,7 @@ colorscheme desert
 " # Basic {{{
 set titlestring="Pentadactyl"
 set history=255
-set guioptions=cM
+set guioptions=cMN
 "set runtimepath=~/.pentadactyl
 set hintkeys=asdfg;lkjh
 "set editor=gvim\ -f
@@ -117,3 +117,8 @@ inoremap <C-z> <C-v><C-z>
 inoremap <C-y> <C-v><C-y>
 
 " }}}
+" ## Plugins
+" smooth scroll
+set scrollsteps = 20
+set scrolltime = 50
+
