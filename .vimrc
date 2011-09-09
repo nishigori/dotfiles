@@ -806,6 +806,40 @@ nnoremap <Leader>gP :<C-u>Git pull
 " FIXME: <Space>打つと何故かバックスラッシュ入る
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
+" ## zen-conding.vim {{{
+let g:user_zen_settings = {
+      \  'lang' : 'ja',
+      \  'html' : {
+      \    'filters' : 'html',
+      \    'indentation' : ' '
+      \  },
+      \  'perl' : {
+      \    'indentation' : '  ',
+      \    'aliases' : {
+      \      'req' : "require '|'"
+      \    },
+      \    'snippets' : {
+      \      'use' : "use strict\nuse warnings\n\n",
+      \      'w' : "warn \"${cursor}\";",
+      \    },
+      \  },
+      \  'php' : {
+      \    'extends' : 'html',
+      \    'filters' : 'html,c',
+      \  },
+      \  'css' : {
+      \    'filters' : 'fc',
+      \  },
+      \  'javascript' : {
+      \    'snippets' : {
+      \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+      \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+      \      'fn' : "(function() {\n\t${cursor}\n})();",
+      \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+      \    },
+      \  },
+      \ }
+" }}}
 " # <Leader> Mappings For Plugins {{{
 " open-browser.vim
 nmap <Leader>o <Plug>(openbrowser-smart-search)
