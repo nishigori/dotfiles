@@ -58,6 +58,8 @@ Bundle 'jtriley/vim-rst-headings'
 Bundle 'nishigori/phpfolding.vim'
 Bundle 'nishigori/vim-twig'
 Bundle 'heavenshell/unite-sf2'
+Bundle 'vim-scripts/css.vim'
+Bundle 'vim-scripts/css3'
 
 " color sheme
 """""""""""""
