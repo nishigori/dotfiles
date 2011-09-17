@@ -735,7 +735,7 @@ call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
 call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
-nnoremap <C-n> :<C-u>Unite buffer<Cr>
+nnoremap <C-n> :<C-u>Unite buffer -start-insert<Cr>
 nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
@@ -785,28 +785,6 @@ vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
 " ## zencoding{{{
 let g:user_zen_expandabbr_key = '<C-z>'
-"}}}
-" ## vim-git.vim {{{
-" Hack#67
-let g:git_no_map_default = 1
-let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Leader>gd :<C-u>GitDiff --cached<Cr>
-nnoremap <Leader>gD :<C-u>GitDiff<Cr>
-nnoremap <Leader>gs :<C-u>GitStatus<Cr>
-nnoremap <Leader>gl :<C-u>GitLog<Cr>
-nnoremap <Leader>gL :<C-u>GitLog -u \| head -10000<Cr>
-nnoremap <Leader>ga :<C-u>GitAdd<Cr>
-nnoremap <Leader>gA :<C-u>GitAdd <cfile><Cr>
-nnoremap <Leader>gc :<C-u>GitCommit<Cr>
-nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
-nnoremap <Leader>gp :<C-u>Git push
-nnoremap <Leader>gP :<C-u>Git pull
-"}}}
-" ## vim-ambicmd {{{
-" FIXME: <Space>打つと何故かバックスラッシュ入る
-"cnoremap <expr> <Space> ambicmd#expand('\<Space>')
-" }}}
-" ## zen-conding.vim {{{
 let g:user_zen_settings = {
       \  'lang' : 'ja',
       \  'html' : {
@@ -839,6 +817,26 @@ let g:user_zen_settings = {
       \    },
       \  },
       \ }
+"}}}
+" ## vim-git.vim {{{
+" Hack#67
+let g:git_no_map_default = 1
+let g:git_command_edit = 'rightbelow vnew'
+nnoremap <Leader>gd :<C-u>GitDiff --cached<Cr>
+nnoremap <Leader>gD :<C-u>GitDiff<Cr>
+nnoremap <Leader>gs :<C-u>GitStatus<Cr>
+nnoremap <Leader>gl :<C-u>GitLog<Cr>
+nnoremap <Leader>gL :<C-u>GitLog -u \| head -10000<Cr>
+nnoremap <Leader>ga :<C-u>GitAdd<Cr>
+nnoremap <Leader>gA :<C-u>GitAdd <cfile><Cr>
+nnoremap <Leader>gc :<C-u>GitCommit<Cr>
+nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
+nnoremap <Leader>gp :<C-u>Git push
+nnoremap <Leader>gP :<C-u>Git pull
+"}}}
+" ## vim-ambicmd {{{
+" FIXME: <Space>打つと何故かバックスラッシュ入る
+"cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
 " # <Leader> Mappings For Plugins {{{
 " open-browser.vim
