@@ -374,12 +374,6 @@ if has('clipboard')
 endif
 " }}}
 " # Insert {{{
-" <ESC> insert mode, IME off
-set noimdisable
-set iminsert=0 imsearch=0
-set noimcmdline
-inoremap <C-]> <ESC>:set iminsert=0<Cr>
-
 " 括弧を自動補完
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
@@ -397,6 +391,24 @@ cnoremap '' ''<LEFT>
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
 inoremap <expr> ,dd strftime('%Y-%m-%d')
 inoremap <expr> ,dt strftime('%H:%M:%S')
+" }}}
+" # IME Control {{{
+" <ESC> insert mode, IME off
+set noimdisable
+set iminsert=0 imsearch=0
+set noimcmdline
+inoremap <C-]> <ESC>:set iminsert=0<Cr>
+inoremap <ESC> <ESC>:set iminsert=0<Cr>
+"IME状態に応じたカーソル色を設定
+if has('multi_byte_ime')
+  highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
+  highlight CursorIM guifg=NONE guibg=#ecbcbc
+endif
+augroup InsModeAu
+    autocmd!
+    autocmd InsertEnter,CmdwinEnter * set noimdisable
+    autocmd InsertLeave,CmdwinLeave * set imdisable
+augroup END
 " }}}
 " # Moving Cursole {{{
 nnoremap j gj
