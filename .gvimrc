@@ -4,7 +4,7 @@ set guioptions=
 set t_ti=
 set t_te=
 
-" MacVimではhlsearchをgvimrcに書かないといけないらしい
+" need gvimrc on MacVim??
 set hlsearch
 
 colorscheme candycode
@@ -18,7 +18,7 @@ nnoremap <2-LeftMouse> g*
 set mouse=a
 " Show popup menu if right click.
 set mousemodel=popup
-set nomousefocus    " マウス移動によるフォーカス切り替えを無効
+set nomousefocus
 " }}}
 " # Quick Start $MYGVIMRC {{{
 if exists('g:dependency_local_lists')
@@ -65,7 +65,7 @@ elseif has('win32')
 endif
 
 if has('kaoriya')
-  " 行間隔の設定 TODO: 要Windows検証
+  " TODO: need checking Windows
   set linespace=2
   set ambiwidth=auto
 endif
