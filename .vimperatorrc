@@ -41,9 +41,9 @@ style -name commandline-ime chrome://* #liberator-commandline-command input {ime
 " }}}
 " # SEARCH {{{
 set complete=l
-set hlsearch
 set ignorecase
 set smartcase
+set hlsearch
 " }}}
 " # <Tab> & WINDOW {{{
 "set tabnumbers
@@ -85,16 +85,20 @@ nnoremap <Leader>r :panorama<Space>remove<Space>
 " map k 5<C-y>
 
 " bash like
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-h> <BS>
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
-inoremap <C-p> <Up>
-inoremap <C-n> <Down>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
-" FIXME: PATHTHROUGHモードで全選択の方法調べる
+" INFO: C-(a,e,h,b,j,b,f) settings 
+"       AutoHotKey on Windows
+"       Default on MacOS
+"inoremap <C-a> <Home>
+"inoremap <C-e> <End>
+"inoremap <C-h> <BS>
+"inoremap <C-k> <Up>
+"inoremap <C-j> <Down>
+"inoremap <C-p> <Up>
+"inoremap <C-n> <Down>
+"inoremap <C-b> <Left>
+"inoremap <C-f> <Right>
+
+" TODO: PATHTHROUGHモードで全選択の方法調べる
 "inoremap <C-S-a> i<C-a>
 inoremap <C-S-k> <S-Up>
 inoremap <C-S-j> <S-Down>
