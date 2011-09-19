@@ -769,15 +769,25 @@ if exists('g:dependency_local_lists["ref_jquery_path"]')
 else
   let g:ref_jquery_cmd = 'w3m -dump %s'
 endif
+if has('mac')
+  let g:ref_alc_cmd = 'lynx -dump -display_charset=' . &encoding . ' -nonumbers %s'
+endif
 " }}}
 " ## TwitVim {{{
 if has('python') && !has('gui_macvim')
   let twitvim_enable_python = 1
 endif
-if has('ruby')
+if has('ruby') && !has('mac')
+  " MacVim with ruby, unknown crash.
   let twitvim_enable_ruby = 1
 endif
-let twitvim_browser_cmd = 'open -a firefox'
+if has('mac')
+  let twitvim_browser_cmd = 'open -a firefox'
+"elseif has('win32')
+  "let twitvim_browser_cmd = 'firefox'
+else
+  let twitvim_browser_cmd = 'firefox'
+endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
