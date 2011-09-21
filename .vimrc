@@ -72,6 +72,7 @@ Bundle 'xoria256.vim'
 Bundle 'ujihisa/mrkn256.vim'
 Bundle 'vim-scripts/Lucius'
 Bundle 'peaksea'
+Bundle 'Zenburn'
 
 " browser
 """""""""
@@ -152,7 +153,9 @@ if exists('g:dependency_local_lists')
     execute '7new ' . g:weekday_buffer
     " TODO: filetype refにしているが、将来的に変わるかもしれないので、
     "       というかautocommandに変えるべき
-    execute 'setlocal filetype=rst'
+    if has('python')
+      execute 'setlocal filetype=rst'
+    endif
   endfunction " }}}
   " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも {{{
   "       s:の関数名に変える(<SID>の理解が必要)
