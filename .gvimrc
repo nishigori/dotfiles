@@ -67,7 +67,8 @@ endif
 if has('kaoriya')
   " TODO: need checking Windows
   set linespace=2
-  set ambiwidth=auto
+  " ?? ambiwidth=single
+  "set ambiwidth=auto
 endif
 " }}}
 " # Depends On OS {{{
