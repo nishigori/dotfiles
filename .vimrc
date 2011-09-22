@@ -7,6 +7,7 @@ if has('win32')
   " }}}
 else
   " ## vundle.vim {{{
+  helptags ~/.vim/vundle.git/doc
   filetype off
   set rtp+=~/.vim/vundle.git/
   call vundle#rc()
@@ -101,7 +102,7 @@ else
   "Bundle 'vimUnit'
   "Bundle 'pyunit'
   "Bundle 'toggle_unit_tests'
-  " WARNING: phpunit plugin is needless, because defalut key-mapping is suck!!
+  " WARNING: Needless phpunit plugin, because defalut key-mapping is suck!!
   "Bundle 'phpunit'
 
   " debug, backend
@@ -178,10 +179,10 @@ endif
 " }}}
 " # Encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
-if !has('gui_macvim')
+if !has('gui_macvim') || !has('kaoriya')
   " If encode is fixed, :e ++enc = {encoding-name}
   set encoding=utf-8
-  set fileencodings=ucs-bom,utf-8,euc-jp,shitjis,iso-2022-jp,latin1
+  set fileencodings=utf-8,euc-jp,shitjis,iso-2022-jp,latin1
 endif
 " }}}
 " # Syntax {{{
@@ -240,8 +241,8 @@ inoremap <C-=> <Esc>==i
 " # Basic {{{
 "filetype plugin indent on
 set nocompatible              " Use Vim defaults (much better!)
-set showcmd                   " 括弧の対応をハイライト
-set hidden                    " 編集中でも他のファイルを開けるようにする
+set showcmd                   " Highliting bracket set.
+set hidden                    " Enable open new file, when while editing other file.
 set autoread
 set history=255
 set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
@@ -765,8 +766,7 @@ nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " ## unite-tag {{{
-" TODO: 下のマップの詳細を理解しなくては。。。
-"nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
+nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
 " }}}
 " ## vim-ref & ref-unite {{{
 " TODO: Pydocも日本語の使えるようにしなくては
