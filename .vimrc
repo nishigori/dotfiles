@@ -43,13 +43,14 @@ else
   Bundle 'thinca/vim-ambicmd'
   "Bundle 'neco-look'
 
-  " text object
-  """""""""""""
+  " text operation
+  """"""""""""""""
   Bundle 'mattn/zencoding-vim'
   Bundle 'vim-scripts/surround.vim'
   Bundle 'smartchr'
   Bundle 'scrooloose/nerdcommenter'
   Bundle 't9md/vim-textmanip'
+  Bundle 'visualstar.vim'
   "Bundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
   "Bundle 'richleland/vim-yankring'
@@ -366,11 +367,11 @@ set incsearch   " typed so far, matches
 set ignorecase  " 検索の時に大文字小文字を区別しない
 set smartcase   " 検索時に大文字を含んでいたら大/小を区別
 set nowrapscan  " 検索を折り返さない
-"nnoremap * g*
-"nnoremap g* *
 
+nnoremap * *N
+nnoremap # #N
 " regex pattern
-nnoremap // /^
+nnoremap \ /^
 " }}}
 " # Copy & Paste {{{
 " Like nmap 'D' and 'C'
@@ -580,6 +581,7 @@ endif
 "endif
 " }}}
 " # Migemo {{{
+" Howto: g/, g?
 if has('migemo')
   set migemo
 endif
@@ -619,6 +621,13 @@ if has('persistent_undo')
 endif
 " }}}
 " # Plugin
+" ## visualstar.vim {{{
+" search extended plugin.
+if exists('g:loaded_visualstar')
+  map * <Plug>(visualstar-*)N
+  map # <Plug>(visualstar-#)N
+endif
+" }}}
 " ## taglist.vim {{{
 if has('path_extra')
   nnoremap <silent> tl :<C-u>Tlist<Cr>
@@ -763,7 +772,7 @@ call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
 call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
-nnoremap <C-n> :<C-u>Unite buffer -start-insert<Cr>
+nnoremap <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
 nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
@@ -876,6 +885,8 @@ nnoremap <Leader>gP :<C-u>Git pull
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
 " # <Leader> Mappings For Plugins {{{
+" change just before buffer
+nnoremap <silent> <Leader>a :<C-u>b#<Cr>
 " open-browser.vim
 nmap <Leader>o <Plug>(openbrowser-smart-search)
 " vimshell
@@ -886,12 +897,14 @@ nnoremap <silent> <Leader>s :<C-u>VimShell<Cr>
 nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
-nnoremap <silent> <Leader>uf :<C-u>Unite file -start-insert<Cr>
+nnoremap <silent> <Leader>uf :<C-u>Unite file_rec -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Cr>
-nnoremap <silent> <Leader>uu :<C-u>Unite buffer file_mru<Cr>
+nnoremap <silent> <Leader>uu :<C-u>Unite -buffer-name=files buffer file_mru<Cr>
+nnoremap <silent> <Leader>ur :<C-u>Unite resume source -start-insert<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
+nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
 nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
 nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
