@@ -59,6 +59,7 @@ Bundle 'nishigori/phpfolding.vim'
 Bundle 'nishigori/vim-twig'
 Bundle 'heavenshell/unite-sf2'
 Bundle 'vim-scripts/css3'
+Bundle 'beyondwords/vim-twig'
 
 " color sheme
 """""""""""""
@@ -72,7 +73,6 @@ Bundle 'xoria256.vim'
 Bundle 'ujihisa/mrkn256.vim'
 Bundle 'vim-scripts/Lucius'
 Bundle 'peaksea'
-Bundle 'Zenburn'
 
 " browser
 """""""""
