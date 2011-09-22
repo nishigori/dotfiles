@@ -1,108 +1,117 @@
-" ## vundle.vim {{{
-filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+if has('win32')
+  " ## pathogen.vim {{{
+  " INFO: https://github.com/tpope/vim-pathogen.git
+  "       Cause, It's has dependency (HTTP Proxy etc..) on the work.
+  call pathogen#runtime_append_all_bundles()
+  call pathogen#helptags()
+  " }}}
+else
+  " ## vundle.vim {{{
+  filetype off
+  set rtp+=~/.vim/vundle.git/
+  call vundle#rc()
 
-" unite
-"""""""
-Bundle 'Shougo/unite.vim'
-Bundle 'tsukkee/unite-tag'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'Sixeight/unite-grep'
-Bundle 'ujihisa/unite-colorscheme'
-Bundle 'ujihisa/unite-font'
-Bundle 'thinca/vim-unite-history'
-Bundle 'tacroe/unite-mark'
-Bundle 'tsukkee/unite-help'
+  " unite source
+  """"""""""""""
+  Bundle 'Shougo/unite.vim'
+  Bundle 'tsukkee/unite-tag'
+  Bundle 'h1mesuke/unite-outline'
+  Bundle 'Sixeight/unite-grep'
+  Bundle 'ujihisa/unite-colorscheme'
+  Bundle 'ujihisa/unite-font'
+  Bundle 'thinca/vim-unite-history'
+  Bundle 'tacroe/unite-mark'
+  Bundle 'tsukkee/unite-help'
 
-" buffer, tag
-"""""""""""""
-Bundle 'Shougo/vimshell'
-Bundle 'ujihisa/vimshell-ssh'
-Bundle 'Shougo/vimfiler'
-Bundle 'thinca/vim-quickrun'
-Bundle 'vim-scripts/current-func-info.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'taglist-plus'
-Bundle 'sudo.vim'
-"Bundle 'Shougo/echodoc'
+  " buffer, tag
+  """""""""""""
+  Bundle 'Shougo/vimshell'
+  Bundle 'ujihisa/vimshell-ssh'
+  Bundle 'Shougo/vimfiler'
+  Bundle 'thinca/vim-quickrun'
+  Bundle 'vim-scripts/current-func-info.vim'
+  Bundle 'vim-scripts/taglist.vim'
+  Bundle 'taglist-plus'
+  Bundle 'sudo.vim'
+  "Bundle 'Shougo/echodoc'
 
-" complement + snippet
-""""""""""""""""""""""
-Bundle 'Shougo/neocomplcache'
-Bundle 'nishigori/neocomplcache_phpunit_snippet'
-Bundle 'thinca/vim-ambicmd'
-"Bundle 'neco-look'
+  " complete, snippet
+  """"""""""""""""""""""
+  Bundle 'Shougo/neocomplcache'
+  Bundle 'nishigori/neocomplcache_phpunit_snippet'
+  Bundle 'thinca/vim-ambicmd'
+  "Bundle 'neco-look'
 
-" text object
-"""""""""""""
-Bundle 'mattn/zencoding-vim'
-Bundle 'vim-scripts/surround.vim'
-Bundle 'smartchr'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 't9md/vim-textmanip'
-"Bundle 'tyru/operator-star.vim'
-" NOTE: yankring dependence suck key map.
-"Bundle 'richleland/vim-yankring'
+  " text object
+  """""""""""""
+  Bundle 'mattn/zencoding-vim'
+  Bundle 'vim-scripts/surround.vim'
+  Bundle 'smartchr'
+  Bundle 'scrooloose/nerdcommenter'
+  Bundle 't9md/vim-textmanip'
+  "Bundle 'tyru/operator-star.vim'
+  " NOTE: yankring dependence suck key map.
+  "Bundle 'richleland/vim-yankring'
 
-" ref, help
-"""""""""""
-Bundle 'thinca/vim-ref'
-Bundle 'soh335/vim-ref-jquery'
+  " ref, help
+  """""""""""
+  Bundle 'thinca/vim-ref'
+  Bundle 'soh335/vim-ref-jquery'
 
-" filetype
-""""""""""
-Bundle 'basyura/jslint.vim'
-Bundle 'nishigori/javaScriptLint.vim'
-Bundle 'jtriley/vim-rst-headings'
-Bundle 'nishigori/phpfolding.vim'
-Bundle 'nishigori/vim-twig'
-Bundle 'heavenshell/unite-sf2'
-Bundle 'vim-scripts/css3'
-Bundle 'beyondwords/vim-twig'
+  " filetype
+  """"""""""
+  Bundle 'basyura/jslint.vim'
+  Bundle 'nishigori/javaScriptLint.vim'
+  Bundle 'jtriley/vim-rst-headings'
+  Bundle 'nishigori/phpfolding.vim'
+  Bundle 'nishigori/vim-twig'
+  Bundle 'heavenshell/unite-sf2'
+  Bundle 'vim-scripts/css3'
+  Bundle 'beyondwords/vim-twig'
 
-" color sheme
-"""""""""""""
-Bundle 'vim-scripts/molokai'
-Bundle 'desert256.vim'
-Bundle 'wombat256.vim'
-" :colorscheme wombat256mod
-Bundle 'Diablo3'
-Bundle 'candycode.vim'
-Bundle 'xoria256.vim'
-Bundle 'ujihisa/mrkn256.vim'
-Bundle 'vim-scripts/Lucius'
-Bundle 'peaksea'
+  " color sheme
+  """""""""""""
+  Bundle 'vim-scripts/molokai'
+  Bundle 'desert256.vim'
+  Bundle 'wombat256.vim'
+  " :colorscheme wombat256mod
+  Bundle 'Diablo3'
+  Bundle 'candycode.vim'
+  Bundle 'xoria256.vim'
+  Bundle 'ujihisa/mrkn256.vim'
+  Bundle 'vim-scripts/Lucius'
+  Bundle 'peaksea'
 
-" browser
-"""""""""
-Bundle 'tyru/open-browser.vim'
-Bundle 'vim-scripts/TwitVim.git'
-" evervim 重すぎ
-"Bundle 'kakkyz81/evervim.git'
+  " browse
+  """""""""
+  Bundle 'tyru/open-browser.vim'
+  Bundle 'vim-scripts/TwitVim.git'
+  " evervim 重すぎ
+  "Bundle 'kakkyz81/evervim.git'
 
-" VCS
-"""""
-"Bundle 'Shougo/vim-vcs'
-Bundle 'motemen/git-vim'
-Bundle 'mattn/gist-vim'
-"Bundle 'thinca/vim-ft-svn_diff'
+  " VCS
+  """""
+  "Bundle 'Shougo/vim-vcs'
+  Bundle 'motemen/git-vim'
+  Bundle 'mattn/gist-vim'
+  Bundle 'thinca/vim-ft-svn_diff'
 
-" xUnit
-""""""""
-"Bundle 'vimUnit'
-"Bundle 'pyunit'
-"Bundle 'toggle_unit_tests'
-" phpunitはデフォのキーマッピングがアレな為、却下
-"Bundle 'phpunit'
+  " xUnit
+  """"""""
+  "Bundle 'vimUnit'
+  "Bundle 'pyunit'
+  "Bundle 'toggle_unit_tests'
+  " WARNING: phpunit plugin is needless, because defalut key-mapping is suck!!
+  "Bundle 'phpunit'
 
-" debug, backend
-"""""""""""""""""
-Bundle 'Shougo/vimproc'
-"Bundle 'ujihisa/vital.vim'
+  " debug, backend
+  """""""""""""""""
+  Bundle 'Shougo/vimproc'
+  "Bundle 'ujihisa/vital.vim'
 
-filetype plugin indent on
-" }}}
+  filetype plugin indent on
+  " }}}
+endif
 " # Switch ; <-> : {{{
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
