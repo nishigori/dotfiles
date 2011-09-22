@@ -51,6 +51,7 @@ else
   Bundle 'scrooloose/nerdcommenter'
   Bundle 't9md/vim-textmanip'
   Bundle 'visualstar.vim'
+  Bundle 'matchit.vim'
   "Bundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
   "Bundle 'richleland/vim-yankring'
@@ -626,6 +627,14 @@ endif
 if exists('g:loaded_visualstar')
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
+endif
+" }}}
+" ## matchit.vim {{{
+" INFO: Extended % command.
+if filereadable($HOME . '/macros/matchit.vim')
+  runtime macros/matchit.vim
+  let b:match_words = 'if:endif'
+  let b:match_ignorecase = 1
 endif
 " }}}
 " ## taglist.vim {{{
