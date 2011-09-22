@@ -52,6 +52,7 @@ else
   Bundle 't9md/vim-textmanip'
   Bundle 'visualstar.vim'
   Bundle 'matchit.vim'
+  Bundle 'nathanaelkane/vim-indent-guides'
   "Bundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
   "Bundle 'richleland/vim-yankring'
@@ -636,6 +637,10 @@ if filereadable($HOME . '/macros/matchit.vim')
   let b:match_words = 'if:endif'
   let b:match_ignorecase = 1
 endif
+" }}}
+" ## indent-guides {{{
+" INFO: auto highlight indent-space.
+let g:indent_guides_enable_on_vim_startup = 1
 " }}}
 " ## taglist.vim {{{
 if has('path_extra')
