@@ -272,12 +272,12 @@ let mapleader = " "
 " }}}
 " # Filetype Detect {{{
 augroup FiletypeDetect
-  au! BufRead,BufNewFile,BufWinEnter *.mine     setfiletype mine
-  au! BufRead,BufNewFile,BufWinEnter *.xyz      setfiletype drawing
-  au! BufRead,BufNewFile,BufWinEnter *.tt       setfiletype html
-  au! BufRead,BufNewFile,BufWinEnter *Test.php  setfiletype php.phpunit
-  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp    setfiletype vimperator
-  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator  setfiletype muttator
+  au! BufRead,BufNewFile,BufWinEnter *.mine    setfiletype mine
+  au! BufRead,BufNewFile,BufWinEnter *.xyz     setfiletype drawing
+  au! BufRead,BufNewFile,BufWinEnter *.tt      setfiletype html
+  au! BufRead,BufNewFile,BufWinEnter *Test.php setfiletype php.phpunit
+  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp   setfiletype vimperator
+  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator setfiletype muttator
 augroup END
 " }}}
 " # Color Scheme {{{
