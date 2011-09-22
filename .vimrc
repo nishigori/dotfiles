@@ -220,16 +220,18 @@ if has('syntax')
 
   set number
   set numberwidth=4
-  nnoremap <silent> ,n :<C-u>SwitchNumber<Cr>
-  vnoremap <silent> ,n :<C-u>SwitchNumber<Cr>
-  command! -nargs=0 SwitchNumber call SwitchNumberSetting()
-  function! SwitchNumberSetting() " {{{
-    if &number
-      set relativenumber
-    else
-      set number
-    endif
-  endfunction " }}}
+  if version > 700
+    nnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
+    vnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
+    command! -nargs=0 ToggleNumber call ToggleNumberOption()
+    function! ToggleNumberOption() " {{{
+      if &number
+        set relativenumber
+      else
+        set number
+      endif
+    endfunction " }}}
+  endif
 endif
 " }}}
 " # Indent {{{
@@ -579,7 +581,7 @@ endif
 " }}}
 " # Migemo {{{
 if has('migemo')
-    set migemo
+  set migemo
 endif
 " }}}
 " # Omni complete {{{
