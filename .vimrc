@@ -51,7 +51,7 @@ else
   Bundle 'scrooloose/nerdcommenter'
   Bundle 't9md/vim-textmanip'
   Bundle 'visualstar.vim'
-  Bundle 'matchit.vim'
+  Bundle 'vim-scripts/matchit.zip'
   Bundle 'nathanaelkane/vim-indent-guides'
   "Bundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
