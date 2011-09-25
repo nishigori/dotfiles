@@ -662,7 +662,7 @@ let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
 let g:vimshell_max_list = 15
-let g:vimshell_split_height = 15
+let g:vimshell_split_height = 18
 let g:vimshell_split_command = 'split'
 
 " almost paste from vimshll-examples
@@ -917,8 +917,7 @@ nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 nnoremap <silent> <Leader>uf :<C-u>Unite file_rec -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Cr>
-nnoremap <silent> <Leader>uu :<C-u>Unite -buffer-name=files buffer file_mru<Cr>
-nnoremap <silent> <Leader>ur :<C-u>Unite resume source -start-insert<Cr>
+nnoremap <silent> <Leader>uu :<C-u>Unite resume source -start-insert<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
 nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
