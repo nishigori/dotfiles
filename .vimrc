@@ -916,7 +916,7 @@ nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
 nnoremap <silent> <Leader>uf :<C-u>Unite file_rec -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
-nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Cr>
+nnoremap <silent> <Leader>ub :<C-u>Unite bookmark default-action=vimshell<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite resume source -start-insert<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
