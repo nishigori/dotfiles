@@ -86,6 +86,9 @@ else
   Bundle 'vim-scripts/Lucius'
   Bundle 'peaksea'
 
+  " dictionary
+  Bundle 'nishigori/vim-php-dictionary'
+
   " browse
   """""""""
   Bundle 'tyru/open-browser.vim'
@@ -733,8 +736,8 @@ let g:neocomplcache_dictionary_filetype_lists = {
   \ 'java'       : $HOME . '/.vim/dict/java.dict',
   \ 'c'          : $HOME . '/.vim/dict/c.dict',
   \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
-  \ 'php'        : $HOME . '/.vim/dict/php.dict',
-  \ 'phpunit'    : $HOME . '/.vim/dict/php.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'php'        : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict',
+  \ 'phpunit'    : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
   \ 'python'     : $HOME . '/.vim/dict/python.dict',
   \ 'pyunit'     : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
   \ }
