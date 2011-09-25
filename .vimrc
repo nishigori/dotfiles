@@ -200,7 +200,7 @@ if has('syntax')
   set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
 
   " POD bug (version 7.3?)
-  syn sync fromstart
+  autocmd BufEnter * :syntax sync fromstart
 
   " whitespaceEOL on highlight via. gunyara. alias lists[trail]
   highlight WhitespaceEOL ctermbg=red guibg=red
@@ -211,14 +211,14 @@ if has('syntax')
     highlight ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue
     match ZenkakuSpace /　/
   else
-    function! ZenkakuSpace() "{{{
-      highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-      silent! match ZenkakuSpace /　/
-    endfunction "}}}
     augroup ZenkakuSpace "{{{
       autocmd!
       autocmd VimEnter,BufEnter * call ZenkakuSpace()
     augroup END "}}}
+    function! ZenkakuSpace() "{{{
+      highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
+      silent! match ZenkakuSpace /　/
+    endfunction "}}}
   endif
 
   set number
