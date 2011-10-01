@@ -26,7 +26,10 @@ alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
 alias phpwatchr = '/var/lib/gems/1.8/bin/watchr $HOME/workspace/phpunit-stack/watchr.rb'
 
 # MacPorts
-alias port = '/opt/local/bin/port'
+#alias port = '/opt/local/bin/port'
+
+# Synergy(Server)
+alias synergy = '`brew --prefix`/bin/synergys --config $HOME/Dropbox/conf/synergy.conf'
 
 
 # vim: set filetype=vimshrc syntax=vimshrc :
