@@ -29,7 +29,7 @@ alias phpwatchr = '/var/lib/gems/1.8/bin/watchr $HOME/workspace/phpunit-stack/wa
 #alias port = '/opt/local/bin/port'
 
 # Synergy(Server)
-alias synergy = '`brew --prefix`/bin/synergys --config $HOME/Dropbox/conf/synergy.conf'
+alias synergy = '`brew --prefix`/bin/synergys --config $HOME/Dropbox/conf/synergy.conf --log /var/log/synergyc.log'
 
 
 # vim: set filetype=vimshrc syntax=vimshrc :
