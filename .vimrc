@@ -1,12 +1,67 @@
-if has('win32')
-  " ## pathogen.vim {{{
-  " INFO: https://github.com/tpope/vim-pathogen.git
-  "       Cause, It's has dependency (HTTP Proxy etc..) on the work.
-  call pathogen#runtime_append_all_bundles()
-  call pathogen#helptags()
-  " }}}
-else
-  " ## vundle.vim {{{
+" # Dependency vimrc.local {{{
+if filereadable(expand($HOME . '/.vimrc.local'))
+  " initialize
+  set directory=
+  set backupdir=
+  set viewdir=
+  if has('persistent_undo')
+    set undodir=
+  endif
+
+  source $HOME/.vimrc.local
+endif
+
+if exists('g:dependency_local_lists')
+  let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
+
+  " INFO: declare swapdir, backupdir, viewdir from .vimrc.local
+  set swapfile
+  set backup
+
+  " Use weekday buffer for GTD tool.
+  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
+  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
+  function! OpenWeekdayBuffer() "{{{2
+    if !exists('g:weekday_buffer')
+      let today = strftime('%Y%m%d')
+      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
+
+      if day_of_week == 0 || day_of_week == 6
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      else
+        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      endif
+      let g:weekday_buffer = g:dependency_local_lists['weekday_buffer_dir'] . '/'
+            \ . start_week . '_' . end_week
+    endif
+
+    execute '7new ' . g:weekday_buffer
+    " TODO: filetype refにしているが、将来的に変わるかもしれないので、
+    "       というかautocommandに変えるべき
+    if has('python')
+      execute 'setlocal filetype=rst'
+    endif
+  endfunction " }}}
+  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも {{{2
+  "       s:の関数名に変える(<SID>の理解が必要)
+  "function! s:open_weekday_buffer()
+  "command! -nargs=1 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
+  "}}}
+elseif
+  nnoremap <silent> <S-t><S-t> :<C-u>echo
+        \ 'INFO: Please edit g:dependency_local_lists from .vimrc.local'<Cr>
+endif
+" }}}
+" # Plugin Manager {{{
+let s:vimbundle = exists('g:dependency_local_lists')
+      \ && has_key(g:dependency_local_lists, 'plugin-manager') ?
+      \ g:dependency_local_lists['plugin-manager'] :
+      \ ''
+if s:vimbundle == 'vundle'
+  " ## vundle.vim {{{2
   helptags ~/.vim/vundle.git/doc
   filetype off
   set rtp+=~/.vim/vundle.git/
@@ -87,6 +142,7 @@ else
   Bundle 'peaksea'
 
   " dictionary
+  """"""""""""
   Bundle 'nishigori/vim-php-dictionary'
 
   " browse
@@ -118,7 +174,15 @@ else
 
   filetype plugin indent on
   " }}}
+elseif s:vimbundle == 'pathogen'
+  " ## pathogen.vim {{{2
+  " INFO: https://github.com/tpope/vim-pathogen.git
+  "       Cause, It's has dependency (HTTP Proxy etc..) on the work.
+  call pathogen#runtime_append_all_bundles()
+  call pathogen#helptags()
+  " }}}
 endif
+" }}}
 " # Switch ; <-> : {{{
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
@@ -128,60 +192,6 @@ vnoremap : ;
 
 nnoremap q; q:
 vnoremap q; q:
-" }}}
-" # Dependency vimrc local {{{
-if filereadable(expand($HOME . '/.vimrc.local'))
-  " initialize
-  set directory=
-  set backupdir=
-  set viewdir=
-
-  source $HOME/.vimrc.local
-endif
-
-if exists('g:dependency_local_lists')
-  let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
-
-  " INFO: declare swapdir, backupdir, viewdir from .vimrc.local
-  set swapfile
-  set backup
-
-  " Use weekday buffer for GTD tool.
-  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
-  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
-  function! OpenWeekdayBuffer() "{{{
-    if !exists('g:weekday_buffer')
-      let today = strftime('%Y%m%d')
-      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
-
-      if day_of_week == 0 || day_of_week == 6
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      else
-        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      endif
-      let g:weekday_buffer = g:dependency_local_lists['weekday_buffer_dir'] . '/'
-            \ . start_week . '_' . end_week
-    endif
-
-    execute '7new ' . g:weekday_buffer
-    " TODO: filetype refにしているが、将来的に変わるかもしれないので、
-    "       というかautocommandに変えるべき
-    if has('python')
-      execute 'setlocal filetype=rst'
-    endif
-  endfunction " }}}
-  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも {{{
-  "       s:の関数名に変える(<SID>の理解が必要)
-  "function! s:open_weekday_buffer()
-  "command! -nargs=1 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
-  "}}}
-elseif
-  nnoremap <silent> <S-t><S-t> :<C-u>echo 
-        \ 'INFO: Please edit g:dependency_local_lists from .vimrc.local'<Cr>
-endif
 " }}}
 " # Encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
