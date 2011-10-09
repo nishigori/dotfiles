@@ -849,12 +849,12 @@ endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
-nnoremap <silent> <Leader>r :<C-u>:QuickRun -runner vimproc:50 -split 'rightbelow 50vsp'<Cr>
+nnoremap <silent> <Leader>r :<C-u>:QuickRun -runner vimproc:80 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
   \   'runner/vimproc' : 80,
-  \   'runner/vimproc/updatetime' : 50,
+  \   'runner/vimproc/updatetime' : 80,
   \ }
   let g:quickrun_config = {
   \   '_' : {
