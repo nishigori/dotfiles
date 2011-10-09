@@ -1,4 +1,5 @@
 let g:dependency_local_lists = {
+  \ 'plugin-manager'     : 'vundle' " OR pathogen
   \ 'dotfiles_dir'       : $HOME . '/workspace/dotfiles',
   \ 'weekday_buffer_dir' : $HOME . '/tmp/.gtd',
   \ 'ref_phpmanual_path' : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',
@@ -9,6 +10,9 @@ let g:dependency_local_lists = {
 set directory=~/tmp/vim/swaps,/tmp,.
 set backupdir=~/tmp/vim/backups,/tmp,.
 set viewdir=~/tmp/vim/view
+if has('persistent_undo')
+  set undodir=~/tmp/vim/view
+endif
 
 " TwitVim
 let twitvim_browser_cmd = 'firefox.exe'
