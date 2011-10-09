@@ -837,9 +837,40 @@ endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
-let g:loaded_quicklaunch = 1
-" TODO: xUnit用のquickrun syntaxを用意する
-"autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=vimshell
+nnoremap <silent> <Leader>r :<C-u>:QuickRun -runner vimproc:50 -split 'rightbelow 50vsp'<Cr>
+if has('clientserver')
+"if has('clientserver') && !empty(v:servername)
+  let b:quickrun_config = {
+  \   'runner/vimproc' : 80,
+  \   'runner/vimproc/updatetime' : 50,
+  \ }
+  let g:quickrun_config = {
+  \   '_' : {
+  \     'runner/vimproc' : 80,
+  \     'runner/vimproc/updatetime' : 80,
+  \     'outputter' : 'buffer',
+  \     'splist' : '{"rigitbelow 50vsp"}',
+  \   },
+  \   'run/vimproc' : {
+  \     'exec' : '%s:p:r %a',
+  \     'runner' : 'vimproc',
+  \     'outputter' : 'buffer',
+  \   },
+  \   'ruby.rspec' : {
+  \     'command' : "spec -l {line('.')",
+  \   },
+  \   'php.phpunit' : {
+  \     'command' : 'phpunit',
+  \   },
+  \ }
+endif
+if has('mac')
+  let g:quickrun_config['php.phpunit'] = {
+  \   'command' : '/usr/local/Cellar/php/5.3.8/bin/phpunit',
+  \ }
+endif
+" TODO: Add QuickRun's syntax for xUnit
+"autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
 " }}}
 " ## vim-textmanip {{{
 " It's moved selected test-object.
