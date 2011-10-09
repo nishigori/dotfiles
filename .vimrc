@@ -274,7 +274,7 @@ nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 set title
-"function! s:titlestring() "{{{
+"function! s:titlestring() "{{{2
   "if exists('t:cwd')
     "return t:cwd . ' (tab)'
   "elseif haslocaldir()
@@ -336,7 +336,7 @@ command! -nargs=0 UnHighlightCurrentLine match
 " By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
 if has('unix') && !has('gui_running')
   " Use meta keys in console.
-  function! s:use_meta_keys()  " {{{
+  function! s:use_meta_keys()  " {{{2
     for i in map(
     \   range(char2nr('a'), char2nr('z'))
     \ + range(char2nr('A'), char2nr('Z'))
@@ -414,6 +414,7 @@ inoremap [ []<LEFT>
 inoremap ( ()<LEFT>
 inoremap "" ""<LEFT>
 inoremap '' ''<LEFT>
+inoremap `` ``<LEFT>
 
 cnoremap { {}<LEFT>
 cnoremap [ []<LEFT>
@@ -487,7 +488,7 @@ vnoremap ) t)
 vnoremap ( t(
 
 " Only do this part, when compiled with support for autocommands
-augroup redhat  "{{{
+augroup redhat  "{{{2
   " When editing a file, always jump to the last cursor position
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line ("'\"") <= line("$") |
@@ -508,7 +509,7 @@ nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<Cr>
 nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<Cr>
 nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<Cr>
 nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<Cr>
-function! s:good_width()  "{{{
+function! s:good_width()  "{{{2
   if winwidth(0) < 84 && expand('%') != '__Tag_List__' && expand('%') != '[quickrun output]'
     vertical resize 84
   endif
@@ -552,7 +553,7 @@ nnoremap <silent> gU :<C-u>GUH<Cr>
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
 command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>') 
 command! -nargs=? -complete=dir -bang GUH  call s:ChangeCurrentDir('$HOME', '<bang>') 
-function! s:ChangeCurrentDir(directory, bang) "{{{
+function! s:ChangeCurrentDir(directory, bang) "{{{2
   if a:directory == ''
     lcd %:p:h
   else
@@ -617,7 +618,7 @@ if has('persistent_undo')
   au BufWritePost * call WriteUndo()
 
   " No read & write file pattern (.git|)
-  function! ReadUndo()  "{{{
+  function! ReadUndo()  "{{{2
     if expand('%:p') =~ '.git/'
       return
     endif
@@ -625,7 +626,7 @@ if has('persistent_undo')
       rundo %:h/.vimundo/%:t
     endif
   endfunction "}}}
-  function! WriteUndo() "{{{
+  function! WriteUndo() "{{{2
     if expand('%:p') =~ '.git/'
       return
     endif
