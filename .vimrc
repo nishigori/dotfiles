@@ -734,7 +734,7 @@ let g:vimfiler_sort_type = 'name'
 let g:neocomplcache_temporary_dir = $HOME . '/tmp/vim/neocom'
 
 let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_max_filename_width = 20
+let g:neocomplcache_max_menu_width = 20
 let g:neocomplcache_auto_completion_start_length = 4
 let g:neocomplcache_manual_completion_start_length = 3
 let g:neocomplcache_min_syntax_length = 5
@@ -850,17 +850,17 @@ endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
-nnoremap <silent> <Leader>r :<C-u>:QuickRun -runner vimproc:80 -split 'rightbelow 50vsp'<Cr>
+nnoremap <silent> <Leader>r :<C-u>:QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
-  \   'runner/vimproc' : 80,
-  \   'runner/vimproc/updatetime' : 80,
+  \   'runner/vimproc' : 90,
+  \   'runner/vimproc/updatetime' : 90,
   \ }
   let g:quickrun_config = {
   \   '_' : {
-  \     'runner/vimproc' : 80,
-  \     'runner/vimproc/updatetime' : 80,
+  \     'runner/vimproc' : 90,
+  \     'runner/vimproc/updatetime' : 90,
   \     'outputter' : 'buffer',
   \     'splist' : '{"rigitbelow 50vsp"}',
   \   },
