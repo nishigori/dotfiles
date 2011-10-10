@@ -769,10 +769,10 @@ imap <C-s> <Plug>(neocomplcache_start_unite_snippet)
 imap <C-u> <Plug>(neocomplcache_start_unite_complete)
 " }}}
 " ## neocomplcache_snippet_complete {{{
-nmap <C-l>    <Plug>(neocomplcache_snippets_expand)
-imap <C-l>    <Plug>(neocomplcache_snippets_expand)
-smap <C-l>    <Plug>(neocomplcache_snippets_expand)
-imap <C-s>    <Plug>(neocomplcache_start_unite_complete)
+nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
 
 " 一時的
 nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
