@@ -786,19 +786,20 @@ let g:unite_update_time = 150
 " For optimize.
 let g:unite_source_file_mru_filename_format = ''
 "let g:unite_update_time = 1000
+" ignore match patterns (Default: autoload/unite/source/file.vim)
+let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
+let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+let g:unite_source_directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+let g:unite_source_file_rec_ignore_pattern = '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
 
 call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-
 call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
 call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
-
 call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
 call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
 call unite#set_substitute_pattern('file', '^\\', '~/*')
-
 call unite#set_substitute_pattern('file', '^;v', '~/.vim/*')
 call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
-
 call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
 call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
 call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
