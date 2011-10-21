@@ -197,7 +197,7 @@ vnoremap q; q:
 " # Encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
 if !has('gui_macvim') || !has('kaoriya')
-  " If encode is fixed, :e ++enc = {encoding-name}
+  " INFO: If encode is fixed, :e ++enc = {encoding-name}
   set encoding=utf-8
   set fileencodings=utf-8,euc-jp,shitjis,iso-2022-jp,latin1
 endif
@@ -220,7 +220,7 @@ if has('syntax')
   highlight WhitespaceEOL ctermbg=red guibg=red
   match WhitespaceEOL /s+$/
 
-  if has('kaoriya')
+  if has('mac')
     set noimdisableactivate
     highlight ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue
     match ZenkakuSpace /　/
