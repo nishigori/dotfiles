@@ -20,19 +20,33 @@ set mouse=a
 set mousemodel=popup
 set nomousefocus
 " }}}
-" # Quick Start $MYGVIMRC {{{
-if exists('g:dependency_local_lists')
-  let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.gvimrc'
-else
-  let $MYGVIMRC = $HOME . '/.gvimrc'
+" # Encoding {{{
+if has('win32')
+  set encoding=utf-8
+  scriptencoding cp932
 endif
+" }}}
+" # Quick Start $MYGVIMRC {{{
+if has('win32')
+  s:gvimrc = '_gvimrc'
+  s:gvimrc_local = '_gvimrc.local'
+else
+  s:gvimrc = '.gvimrc'
+  s:gvimrc_local = '.gvimrc.local'
+endif
+if exists('g:dependency_local_lists')
+  let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/' . s:gvimrc
+else
+  let $MYGVIMRC = $HOME . '/' . s:gvimrc
+endif
+let $MYGVIMRC_LOCAL = $HOME . '/' . s:gvimrc_local
 nnoremap e> :<C-u>edit $MYGVIMRC<Cr>
 nnoremap eS :<C-u>source $MYGVIMRC<Cr>
 " }}}
 " # Window {{{
 " INFO: Please edit default window size @.gvimrc.local
-if filereadable(expand($HOME . '/.gvimrc.local'))
-  source $HOME/.gvimrc.local
+if filereadable(expand($MYGVIMRC_LOCAL))
+  source $MYGVIMRC_LOCAL
   " set lines= columns=
 endif
 
@@ -72,7 +86,8 @@ if has('kaoriya')
 endif
 " }}}
 " # Depends On OS {{{
-if has('gui_macvim')
+"if has('gui_macvim')
+if has('kaoriya')
   set transparency=11
 endif
 
