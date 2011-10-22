@@ -805,6 +805,7 @@ call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
 call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
+nnoremap U :<C-u>Unite<Space>
 nnoremap <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
 nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
@@ -815,6 +816,13 @@ autocmd BufEnter *
       \   if empty(&buftype)
       \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<Cr>
       \|  endif
+" }}}
+" ## unite-sf2 {{{
+let g:unite_source_sf2_bundles = {
+    \ 'EloquentBoxbarHelloBundle'  : 'Eloquent/Boxbar/HelloBundle',
+    \ 'EloquentBoxbarUserBundle'   : 'Eloquent/Boxbar/UserBundle',
+    \ 'EloquentBoxbarCompanyBundle': 'Eloquent/Boxbar/CompanyBundle',
+    \ }
 " }}}
 " ## vim-ref & ref-unite {{{
 " TODO: Pydocも日本語の使えるようにしなくては
@@ -1056,6 +1064,7 @@ nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 nnoremap <silent> <Leader>uf :<C-u>Unite file_rec -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=vimshell<Cr>
+nnoremap <silent> <Leader>uB :<C-u>Unite buffer<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite resume source -start-insert<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
