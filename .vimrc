@@ -296,7 +296,7 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
   au! BufRead,BufNewFile,BufWinEnter *.txt        setfiletype txt
   au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype php
-  au! BufRead,BufNewFile,BufWinEnter *.html.twig  setfiletype htmltwig
+  au! BufRead,BufNewFile,BufWinEnter *.html.twig  setfiletype htmltwig " depends plugin (vim-twig)
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
   au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp   setfiletype vimperator
   au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator setfiletype muttator
