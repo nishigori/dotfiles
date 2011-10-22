@@ -28,11 +28,11 @@ endif
 " }}}
 " # Quick Start $MYGVIMRC {{{
 if has('win32')
-  s:gvimrc = '_gvimrc'
-  s:gvimrc_local = '_gvimrc.local'
+  let s:gvimrc = '_gvimrc'
+  let s:gvimrc_local = '_gvimrc.local'
 else
-  s:gvimrc = '.gvimrc'
-  s:gvimrc_local = '.gvimrc.local'
+  let s:gvimrc = '.gvimrc'
+  let s:gvimrc_local = '.gvimrc.local'
 endif
 if exists('g:dependency_local_lists')
   let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/' . s:gvimrc
@@ -46,6 +46,7 @@ nnoremap eS :<C-u>source $MYGVIMRC<Cr>
 " # Window {{{
 " INFO: Please edit default window size @.gvimrc.local
 if filereadable(expand($MYGVIMRC_LOCAL))
+  echo 'test'
   source $MYGVIMRC_LOCAL
   " set lines= columns=
 endif
