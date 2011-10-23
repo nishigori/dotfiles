@@ -577,6 +577,9 @@ if has('path_extra') && &filetype !~ 'zsh\|conf'
   if filereadable("tags")
     setlocal tags+=tags
   endif
+  if filereadable("tags-ja")
+    setlocal tags+=tags-ja
+  endif
 
   set showfulltag
   set notagbsearch
@@ -1062,6 +1065,7 @@ nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
 nnoremap <silent> <Leader>uf :<C-u>Unite file_rec -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
+nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=cd<Cr>
 nnoremap <silent> <Leader>uB :<C-u>Unite buffer<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite resume source -start-insert<Cr>
@@ -1075,6 +1079,7 @@ nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 
+nnoremap <Silent> <Leader>sb :<C-u>Unite sf2/bundles
 nnoremap <Leader>s :<C-u>Unite<Space>sf2/
 " }}}
 
