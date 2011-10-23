@@ -806,9 +806,9 @@ call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
 nnoremap U :<C-u>Unite<Space>
-nnoremap <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
-nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
+nnoremap <Silent> <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
+nnoremap <Silent> <C-p> :<C-u>Unite file_mru<Cr>
 " }}}
 " ## unite-tag {{{
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
@@ -1056,14 +1056,13 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 " vimshell
 nnoremap <silent> <Leader>vs :<C-u>VimShell<Cr>
 nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
-nnoremap <silent> <Leader>s :<C-u>VimShell<Cr>
 " vimfiler
 nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
 nnoremap <silent> <Leader>uf :<C-u>Unite file_rec -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
-nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=vimshell<Cr>
+nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=cd<Cr>
 nnoremap <silent> <Leader>uB :<C-u>Unite buffer<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite resume source -start-insert<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
@@ -1075,6 +1074,8 @@ nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
+
+nnoremap <Leader>s :<C-u>Unite<Space>sf2/
 " }}}
 
 
