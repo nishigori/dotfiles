@@ -325,10 +325,9 @@ if exists('&colorcolumn')
 endif
 
 "# HIGHLIGHT_CURRENT_LINE
-nnoremap <silent> <Leader>h :<C-u>HighlightCurrentLine DiffAdd<Cr>
-"nnoremap <silent> <Leader>HA :<c-U>hIGHLIGHTcURRENTlINE sEARCH<Cr>
-"nnoremap <silent> <Leader>hb :<C-u>HighlightCurrentLine DiffAdd<Cr>
-"nnoremap <silent> <Leader>hc :<C-u>HighlightCurrentLine Error<Cr>
+nnoremap <silent> <Leader>hs :<C-u>HighlightCurrentLine Search<Cr>
+nnoremap <silent> <Leader>hd :<C-u>HighlightCurrentLine DiffAdd<Cr>
+nnoremap <silent> <Leader>he :<C-u>HighlightCurrentLine Error<Cr>
 nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<Cr>
 command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
 command! -nargs=0 UnHighlightCurrentLine match
@@ -862,7 +861,7 @@ endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
-nnoremap <silent> <Leader>r :<C-u>:QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
+nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
@@ -893,6 +892,8 @@ if has('mac')
   let g:quickrun_config['php.phpunit'] = {
   \   'command' : '/usr/local/Cellar/php/5.3.8/bin/phpunit',
   \ }
+else
+  let g:quickrun_config['php.phpunit'] = {'command' : 'phpunit'}
 endif
 " TODO: Add QuickRun's syntax for xUnit
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
@@ -1079,8 +1080,9 @@ nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 
-nnoremap <Silent> <Leader>sb :<C-u>Unite sf2/bundles
-nnoremap <Leader>s :<C-u>Unite<Space>sf2/
+nnoremap <Leader>S :<C-u>Unite<Space>sf2/
+nnoremap <Leader>sb :<C-u>Unite sf2/bundles<Cr>
+nnoremap <Leader>sc :<C-u>Unite sf2/app/config<Cr>
 " }}}
 
 
