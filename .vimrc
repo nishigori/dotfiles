@@ -254,7 +254,10 @@ endif
 " # Indent {{{
 set autoindent
 set expandtab " replaced Tab with Indent
-setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
+"setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
 inoremap <C-=> <Esc>==i
 " }}}
 " # Basic {{{
@@ -808,9 +811,9 @@ call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
 nnoremap U :<C-u>Unite<Space>
+nnoremap <C-p> :<C-u>Unite file_mru<Cr>
+nnoremap <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
-nnoremap <Silent> <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
-nnoremap <Silent> <C-p> :<C-u>Unite file_mru<Cr>
 " }}}
 " ## unite-tag {{{
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
