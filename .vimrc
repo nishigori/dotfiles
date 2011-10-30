@@ -959,6 +959,7 @@ nnoremap <Leader>gd :<C-u>Gdiff<Cr>
 nnoremap <Leader>gs :<C-u>Gstatus<Cr>
 nnoremap <Leader>ga :<C-u>Gwrite<Cr>
 nnoremap <Leader>gA :<C-u>Gwrite <cfile><Cr>
+nnoremap <Leader>gc :<C-u>Gcommit<Cr>
 "}}}
 " ## vim-ambicmd {{{
 " FIXME: <Space>打つと何故かバックスラッシュ入る
