@@ -125,8 +125,7 @@ endif
   " }}}
   " VCS {{{3
   "NeoBundle 'Shougo/vim-vcs'
-  NeoBundle 'motemen/git-vim'
-  "NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'mattn/gist-vim'
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
@@ -946,20 +945,20 @@ let g:user_zen_settings = {
       \ }
 "}}}
 " ## vim-git.vim {{{
-" Hack#67
-let g:git_no_map_default = 1
-let g:git_command_edit = 'rightbelow vnew'
-nnoremap <Leader>gd :<C-u>GitDiff --cached<Cr>
-nnoremap <Leader>gD :<C-u>GitDiff<Cr>
-nnoremap <Leader>gs :<C-u>GitStatus<Cr>
-nnoremap <Leader>gl :<C-u>GitLog<Cr>
-nnoremap <Leader>gL :<C-u>GitLog -u \| head -10000<Cr>
-nnoremap <Leader>ga :<C-u>GitAdd<Cr>
-nnoremap <Leader>gA :<C-u>GitAdd <cfile><Cr>
-nnoremap <Leader>gc :<C-u>GitCommit<Cr>
-nnoremap <Leader>gC :<C-u>GitCommit --amend<Cr>
-nnoremap <Leader>gp :<C-u>Git push
-nnoremap <Leader>gP :<C-u>Git pull
+" Gstatus
+"    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
+"        Dで:Gdiff起動(差分表示)
+"        -でstageとunstageの切り替え
+"        pでパッチを表示
+"        Enterでファイル表示
+"    :Gstatusの画面上で
+"        Cでcommit
+"    * help ：Gstatus
+nnoremap <Leader>gb :<C-u>Gblame<Cr>
+nnoremap <Leader>gd :<C-u>Gdiff<Cr>
+nnoremap <Leader>gs :<C-u>Gstatus<Cr>
+nnoremap <Leader>ga :<C-u>Gwrite<Cr>
+nnoremap <Leader>gA :<C-u>Gwrite <cfile><Cr>
 "}}}
 " ## vim-ambicmd {{{
 " FIXME: <Space>打つと何故かバックスラッシュ入る
