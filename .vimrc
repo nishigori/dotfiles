@@ -1,59 +1,32 @@
-" # Dependency vimrc.local {{{
-if filereadable(expand($HOME . '/.vimrc.local'))
-  " initialize
-  set directory=
-  set backupdir=
-  set viewdir=
+" # Initialize {{{
+" ## Dependency Operating System {{{2
+if has('win32')
+  let $VIMRC = '_vimrc'
+  let $VIMDIR = 'vimfiles'
+else " for Unix, MacVim
+  let $VIMRC = '.vimrc'
+  let $VIMDIR = '.vim'
+endif
+" }}}
+" ## Dependency vimrc.local "{{{2
+if !filereadable(expand($HOME. '/' . $VIMRC . '.local'))
+  set directory= backupdir= viewdir=
   if has('persistent_undo')
     set undodir=
   endif
 
-  source $HOME/.vimrc.local
-endif
+else
+  " INFO: read .vimrc.local.sample
+  source $HOME/$VIMRC.local
 
-if exists('g:dependency_local_lists')
-  let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
+  if exists('g:dependency_local_lists')
+    let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/' . $VIMRC
 
-  " INFO: declare swapdir, backupdir, viewdir from .vimrc.local
-  set swapfile
-  set backup
+    set swapfile
+    set backup
+  endif
+endif " }}}
 
-  " Use weekday buffer for GTD tool.
-  nnoremap <silent> <S-t><S-t> :<C-u>OpenWeekdayBuffer<Cr>
-  command! -nargs=0 OpenWeekdayBuffer call OpenWeekdayBuffer()
-  function! OpenWeekdayBuffer() "{{{2
-    if !exists('g:weekday_buffer')
-      let today = strftime('%Y%m%d')
-      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
-
-      if day_of_week == 0 || day_of_week == 6
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      else
-        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      endif
-      let g:weekday_buffer = g:dependency_local_lists['weekday_buffer_dir'] . '/'
-            \ . start_week . '_' . end_week
-    endif
-
-    execute '7new ' . g:weekday_buffer
-    " TODO: filetype refにしているが、将来的に変わるかもしれないので、
-    "       というかautocommandに変えるべき
-    if has('python')
-      execute 'setlocal filetype=rst'
-    endif
-  endfunction " }}}
-  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも {{{2
-  "       s:の関数名に変える(<SID>の理解が必要)
-  "function! s:open_weekday_buffer()
-  "command! -nargs=1 OpenWeekdayBuffer call s:open_weekday_buffer(<q-args>)
-  "}}}
-elseif
-  nnoremap <silent> <S-t><S-t> :<C-u>echo
-        \ 'INFO: Please edit g:dependency_local_lists from .vimrc.local'<Cr>
-endif
 " }}}
 " # Plugin Manager {{{
 let s:vimbundle = exists('g:dependency_local_lists')
@@ -62,9 +35,9 @@ let s:vimbundle = exists('g:dependency_local_lists')
       \ ''
 if s:vimbundle == 'vundle'
   " ## vundle.vim {{{2
-  helptags ~/.vim/vundle.git/doc
+  helptags ~/$VIMDIR/vundle.git/doc
   filetype off
-  set rtp+=~/.vim/vundle.git/
+  set rtp+=~/$VIMDIR/vundle.git/
   call vundle#rc()
 
   " unite source {{{3
@@ -562,7 +535,7 @@ function! s:ChangeCurrentDir(directory, bang) "{{{2
 endfunction "}}}
 " }}}
 " # Dictionary {{{
-set dictionary=$HOME/.vim/dict/default.dict
+set dictionary=$HOME/$VIMDIR/dict/default.dict
 " TODO: <Up>と重なってるため別マップを考えなくては
 "inoremap <silent> <C-k> <C-x><C-k>
 " }}}
@@ -611,30 +584,54 @@ inoremap <silent> <C-o> <C-x><C-o>
 if has('persistent_undo')
   " NOTE: When declare au for persistent_undo, no set undofile
   "       :help persistent-undo
-  "set undofile
-  set undodir-=.
-  au BufReadPost * call ReadUndo()
-  au BufWritePost * call WriteUndo()
+  augroup UNDO_PERSISTENCE
+    au BufReadPost * call ReadUndo()
+    au BufWritePost * call WriteUndo()
+  augroup END
 
-  " No read & write file pattern (.git|)
   function! ReadUndo()  "{{{2
-    if expand('%:p') =~ '.git/'
-      return
-    endif
-    if filereadable(expand('%:h'). '/.vimundo/' . expand('%:t'))
-      rundo %:h/.vimundo/%:t
+    let undo_file = substitute(expand('%:p'), '\/\|\\', '\_', 'g')
+    if filereadable(&undodir .'/'. undo_file)
+      execute 'rundo' &undodir.'/'.undo_file
     endif
   endfunction "}}}
   function! WriteUndo() "{{{2
-    if expand('%:p') =~ '.git/'
-      return
+    if !isdirectory(&undodir)
+      call mkdir(&undodir)
     endif
-    let dirname = expand('%:h') . '/.vimundo'
-    if !isdirectory(dirname)
-      call mkdir(dirname)
-    endif
-    wundo %:h/.vimundo/%:t
+    let undo_file = substitute(expand('%:p'), '\/\|\\', '\_', 'g')
+    execute 'wundo' &undodir.'/'.undo_file
   endfunction "}}}
+endif
+" }}}
+" # Weekly Buffer {{{
+if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
+  " Use weekly buffer for GTD tool.
+  nnoremap <silent> <S-t><S-t> :<C-u>OpenweeklyBuffer<Cr>
+  command! -nargs=0 OpenweeklyBuffer call OpenweeklyBuffer()
+  function! OpenweeklyBuffer() "{{{2
+    if !exists('g:weekly_buffer')
+      let today = strftime('%Y%m%d')
+      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
+      if day_of_week == 0 || day_of_week == 6
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      else
+        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
+        let start_week = today - day_of_week + 1
+        let end_week   = today - day_of_week + 5
+      endif
+
+      let g:weekly_buffer = g:dependency_local_lists['weekly_buffer_dir'] . '/'
+            \ . start_week . '_' . end_week
+    endif
+
+    execute '7new ' . g:weekly_buffer
+  endfunction " }}}
+  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも
+  "       s:の関数名に変える(<SID>の理解が必要)
+  "function! s:open_weekly_buffer()
+  "command! -nargs=1 OpenweeklyBuffer call s:open_weekly_buffer(<q-args>)
 endif
 " }}}
 " # Plugin

@@ -1,7 +1,7 @@
 let g:dependency_local_lists = {
-  \ 'plugin-manager'     : 'vundle', " OR pathogen
+  \ 'plugin-manager'     : 'vundle', " (pathogen|neobundle)
   \ 'dotfiles_dir'       : $HOME . '/workspace/dotfiles',
-  \ 'weekday_buffer_dir' : $HOME . '/tmp/.gtd',
+  \ 'weekly_buffer_dir'  : $HOME . '/tmp/.gtd',
   \ 'ref_phpmanual_path' : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',
   \ 'ref_jquery_path'    : $HOME . '/Dropbox/.vim/ref-docs/jqapi-latest',
   \ }
@@ -11,7 +11,7 @@ set directory=~/tmp/vim/swaps,/tmp,.
 set backupdir=~/tmp/vim/backups,/tmp,.
 set viewdir=~/tmp/vim/view
 if has('persistent_undo')
-  set undodir=~/tmp/vim/view
+  set undodir=~/tmp/vim/undo
 endif
 
 " TwitVim
