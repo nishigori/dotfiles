@@ -944,7 +944,7 @@ let g:user_zen_settings = {
       \  },
       \ }
 "}}}
-" ## vim-git.vim {{{
+" ## vim-fugitive {{{
 " Gstatus
 "    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
 "        Dで:Gdiff起動(差分表示)
