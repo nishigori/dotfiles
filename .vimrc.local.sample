@@ -1,5 +1,5 @@
 let g:dependency_local_lists = {
-  \ 'plugin-manager'     : 'vundle', " (pathogen|neobundle)
+  \ 'plugin-manager'     : 'neobundle', " (pathogen|vundle)
   \ 'dotfiles_dir'       : $HOME . '/workspace/dotfiles',
   \ 'weekly_buffer_dir'  : $HOME . '/tmp/.gtd',
   \ 'ref_phpmanual_path' : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',

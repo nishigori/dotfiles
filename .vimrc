@@ -33,113 +33,116 @@ let s:vimbundle = exists('g:dependency_local_lists')
       \ && has_key(g:dependency_local_lists, 'plugin-manager') ?
       \ g:dependency_local_lists['plugin-manager'] :
       \ ''
-if s:vimbundle == 'vundle'
-  " ## vundle.vim {{{2
-  helptags ~/$VIMDIR/vundle.git/doc
-  filetype off
-  set rtp+=~/$VIMDIR/vundle.git/
-  call vundle#rc()
-
+if s:vimbundle == 'neobundle'
+  " ## neobundle.vim {{{2
+set nocompatible
+filetype off
+if has('vim_starting')
+  set runtimepath+=~/$VIMDIR/neobundle.vim.git
+  call neobundle#rc(expand($HOME.'/'.$VIMDIR.'/bundle'))
+endif
   " unite source {{{3
-  Bundle 'Shougo/unite.vim'
-  Bundle 'tsukkee/unite-tag'
-  Bundle 'h1mesuke/unite-outline'
-  Bundle 'Sixeight/unite-grep'
-  Bundle 'ujihisa/unite-colorscheme'
-  Bundle 'ujihisa/unite-font'
-  Bundle 'thinca/vim-unite-history'
-  Bundle 'tacroe/unite-mark'
-  Bundle 'tsukkee/unite-help'
+  NeoBundle 'Shougo/unite.vim'
+  NeoBundle 'tsukkee/unite-tag'
+  NeoBundle 'h1mesuke/unite-outline'
+  NeoBundle 'Sixeight/unite-grep'
+  NeoBundle 'ujihisa/unite-colorscheme'
+  NeoBundle 'ujihisa/unite-font'
+  NeoBundle 'thinca/vim-unite-history'
+  NeoBundle 'tacroe/unite-mark'
+  NeoBundle 'tsukkee/unite-help'
   " }}}
   " buffer, tag {{{3
-  Bundle 'Shougo/vimshell'
-  Bundle 'ujihisa/vimshell-ssh'
-  Bundle 'Shougo/vimfiler'
-  Bundle 'thinca/vim-quickrun'
-  Bundle 'vim-scripts/current-func-info.vim'
-  Bundle 'vim-scripts/taglist.vim'
-  Bundle 'taglist-plus'
-  Bundle 'sudo.vim'
-  "Bundle 'Shougo/echodoc'
+  NeoBundle 'Shougo/vimshell'
+  NeoBundle 'ujihisa/vimshell-ssh'
+  NeoBundle 'Shougo/vimfiler'
+  NeoBundle 'thinca/vim-quickrun'
+  NeoBundle 'vim-scripts/current-func-info.vim'
+  NeoBundle 'vim-scripts/taglist.vim'
+  NeoBundle 'sudo.vim'
+  "NeoBundle 'Shougo/echodoc'
   " }}}
   " complete, snippet {{{3
-  Bundle 'Shougo/neocomplcache'
-  Bundle 'nishigori/neocomplcache_phpunit_snippet'
-  Bundle 'thinca/vim-ambicmd'
-  "Bundle 'neco-look'
+  NeoBundle 'Shougo/neocomplcache'
+  NeoBundle 'nishigori/neocomplcache_phpunit_snippet'
+  NeoBundle 'thinca/vim-ambicmd'
+  "NeoBundle 'neco-look'
   " }}}
   " text operation {{{3
-  Bundle 'mattn/zencoding-vim'
-  Bundle 'tpope/vim-surround'
-  Bundle 'smartchr'
-  Bundle 'scrooloose/nerdcommenter'
-  Bundle 't9md/vim-textmanip'
-  Bundle 'visualstar.vim'
-  Bundle 'vim-scripts/matchit.zip'
-  Bundle 'nathanaelkane/vim-indent-guides'
-  Bundle 'nishigori/vim-sunday'
-  "Bundle 'tyru/operator-star.vim'
+  NeoBundle 'mattn/zencoding-vim'
+  NeoBundle 'tpope/vim-surround'
+  NeoBundle 'smartchr'
+  NeoBundle 'scrooloose/nerdcommenter'
+  NeoBundle 't9md/vim-textmanip'
+  NeoBundle 'visualstar.vim'
+  NeoBundle 'vim-scripts/matchit.zip'
+  NeoBundle 'nathanaelkane/vim-indent-guides'
+  NeoBundle 'nishigori/vim-sunday'
+  "NeoBundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
-  "Bundle 'richleland/vim-yankring'
+  "NeoBundle 'richleland/vim-yankring'
   " }}}
   " marks {{{3
-  "Bundle 'vim-scripts/ShowMarks'
-  "Bundle 'vim-scripts/number-marks'
+  "NeoBundle 'vim-scripts/ShowMarks'
+  "NeoBundle 'vim-scripts/number-marks'
   " }}}
   " ref, help {{{3
-  Bundle 'thinca/vim-ref'
-  Bundle 'soh335/vim-ref-jquery'
+  NeoBundle 'thinca/vim-ref'
+  NeoBundle 'soh335/vim-ref-jquery'
   " }}}
   " filetype {{{3
-  Bundle 'basyura/jslint.vim'
-  Bundle 'nishigori/javaScriptLint.vim'
-  Bundle 'jtriley/vim-rst-headings'
-  Bundle 'nishigori/phpfolding.vim'
-  Bundle 'nishigori/vim-twig'
-  Bundle 'heavenshell/unite-sf2'
-  Bundle 'vim-scripts/css3'
-  Bundle 'beyondwords/vim-twig'
+  NeoBundle 'basyura/jslint.vim'
+  NeoBundle 'nishigori/javaScriptLint.vim'
+  NeoBundle 'jtriley/vim-rst-headings'
+  NeoBundle 'nishigori/phpfolding.vim'
+  NeoBundle 'nishigori/vim-twig'
+  NeoBundle 'heavenshell/unite-sf2'
+  NeoBundle 'vim-scripts/css3'
+  NeoBundle 'beyondwords/vim-twig'
+  NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
   " }}}
   " color sheme & font {{{3
-  Bundle 'vim-scripts/molokai'
-  Bundle 'desert256.vim'
-  Bundle 'wombat256.vim'
+  NeoBundle 'vim-scripts/molokai'
+  NeoBundle 'desert256.vim'
+  NeoBundle 'wombat256.vim'
   " :colorscheme wombat256mod
-  Bundle 'Diablo3'
-  Bundle 'candycode.vim'
-  Bundle 'xoria256.vim'
-  Bundle 'ujihisa/mrkn256.vim'
-  Bundle 'vim-scripts/Lucius'
-  Bundle 'peaksea'
-  Bundle 'thinca/vim-fontzoom'
+  NeoBundle 'Diablo3'
+  NeoBundle 'candycode.vim'
+  NeoBundle 'xoria256.vim'
+  NeoBundle 'ujihisa/mrkn256.vim'
+  NeoBundle 'vim-scripts/Lucius'
+  NeoBundle 'peaksea'
+  NeoBundle 'thinca/vim-fontzoom'
   " }}}
   " dictionary {{{3
-  Bundle 'nishigori/vim-php-dictionary'
+  NeoBundle 'nishigori/vim-php-dictionary'
   " }}}
   " browse {{{3
-  Bundle 'tyru/open-browser.vim'
-  Bundle 'vim-scripts/TwitVim.git'
+  NeoBundle 'tyru/open-browser.vim'
+  NeoBundle 'vim-scripts/TwitVim.git'
   " evervim 重すぎ
-  "Bundle 'kakkyz81/evervim.git'
+  "NeoBundle 'kakkyz81/evervim.git'
   " }}}
   " VCS {{{3
-  "Bundle 'Shougo/vim-vcs'
-  Bundle 'motemen/git-vim'
-  Bundle 'mattn/gist-vim'
-  Bundle 'thinca/vim-ft-svn_diff'
+  "NeoBundle 'Shougo/vim-vcs'
+  NeoBundle 'motemen/git-vim'
+  "NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'mattn/gist-vim'
+  "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
   " xUnit {{{3
-  "Bundle 'vimUnit'
-  "Bundle 'pyunit'
-  "Bundle 'toggle_unit_tests'
+  "NeoBundle 'vimUnit'
+  "NeoBundle 'pyunit'
+  "NeoBundle 'toggle_unit_tests'
   " WARNING: Needless phpunit plugin, because defalut key-mapping is suck!!
-  "Bundle 'phpunit'
+  "NeoBundle 'phpunit'
   " }}}
   " debug, backend {{{3
-  Bundle 'Shougo/vimproc'
-  "Bundle 'ujihisa/vital.vim'
+  NeoBundle 'Shougo/vimproc'
+  "NeoBundle 'ujihisa/vital.vim'
   " }}}
-  filetype plugin indent on
+  filetype plugin on
+  filetype indent on
   " }}}
 elseif s:vimbundle == 'pathogen'
   " ## pathogen.vim {{{2
@@ -1074,6 +1077,8 @@ nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
 nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
 nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
+nnoremap <silent> <Leader>un :<C-u>Unite neobundle/install:!<Cr>
+nnoremap <silent> <Leader>uN :<C-u>Unite neobundle/install<Cr>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
