@@ -26,7 +26,7 @@ let g:github_user  = ''
 let g:github_token = ''
 
 " Calendar.vim
-let g:calendar_diary = $HOME.'/tmp/diary',
+let g:calendar_diary = $HOME.'/tmp/diary'
 
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
