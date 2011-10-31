@@ -33,12 +33,12 @@ endif " }}}
 " # Plugin Manager {{{
 if s:vimbundle == 'neobundle'
   " ## neobundle.vim {{{2
-set nocompatible
-filetype off
-if has('vim_starting')
-  set runtimepath+=~/.vim/neobundle.vim.git
-  call neobundle#rc(expand($HOME.'/.vim/bundle'))
-endif
+  set nocompatible
+  filetype off
+  if has('vim_starting')
+    set runtimepath+=~/.vim/neobundle.vim.git
+    call neobundle#rc()
+  endif
   " unite source {{{3
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'tsukkee/unite-tag'
@@ -206,15 +206,15 @@ if has('syntax')
 
   set number
   set numberwidth=4
-  if version > 700
+  if version >= 703
     nnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
     vnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
     command! -nargs=0 ToggleNumber call ToggleNumberOption()
     function! ToggleNumberOption() " {{{
       if &number
-        set relativenumber
+        set relativenumber numberwidth+=1
       else
-        set number
+        set number numberwidth-=1
       endif
     endfunction " }}}
   endif
@@ -242,7 +242,7 @@ set ambiwidth=double
 set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
 
 " help
-set helplang=en,ja
+set helplang=ja,en
 nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
@@ -608,8 +608,8 @@ if has('persistent_undo')
 endif
 " }}}
 " # Weekly Buffer {{{
+" Use weekly buffer for GTD tool.
 if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
-  " Use weekly buffer for GTD tool.
   let g:local#weekly_buffer_dir = g:dependency_local_lists['weekly_buffer_dir']
   nnoremap <silent> <S-t><S-t> :<C-u>OpenweeklyBuffer<Cr>
   command! -nargs=0 OpenweeklyBuffer call OpenweeklyBuffer()
