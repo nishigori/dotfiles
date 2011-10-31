@@ -140,6 +140,9 @@ endif
   NeoBundle 'Shougo/vimproc'
   "NeoBundle 'ujihisa/vital.vim'
   " }}}
+  " tools {{{3
+  NeoBundle 'mattn/calendar-vim'
+  " }}}
   filetype plugin on
   filetype indent on
   " }}}
@@ -1052,6 +1055,10 @@ let g:sunday_pairs = [
   \ ['extends', 'implements'],
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
   \ ]
+" }}}
+" ## calendar.vim {{{
+let g:calendar_wruler = '日 月 火 水 木 金 土 '
+let g:calendar_weeknm = 1 " WK01
 " }}}
 " # <Leader> Mappings For Plugins {{{
 " change just before buffer

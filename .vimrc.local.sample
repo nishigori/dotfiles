@@ -1,9 +1,9 @@
 let g:dependency_local_lists = {
-  \ 'plugin-manager'     : 'neobundle', " (pathogen|vundle)
-  \ 'dotfiles_dir'       : $HOME . '/workspace/dotfiles',
-  \ 'weekly_buffer_dir'  : $HOME . '/tmp/.gtd',
-  \ 'ref_phpmanual_path' : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',
-  \ 'ref_jquery_path'    : $HOME . '/Dropbox/.vim/ref-docs/jqapi-latest',
+  \ 'plugin-manager'      : 'neobundle', " (pathogen|vundle)
+  \ 'dotfiles_dir'        : $HOME . '/workspace/dotfiles',
+  \ 'weekly_buffer_dir'   : $HOME . '/tmp/.gtd',
+  \ 'ref_phpmanual_path'  : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',
+  \ 'ref_jquery_path'     : $HOME . '/Dropbox/.vim/ref-docs/jqapi-latest',
   \ }
 
 " ステートメントに空白を含められないSuckな仕様
@@ -24,6 +24,9 @@ let twitvim_bitly_key   = ''
 " github
 let g:github_user  = ''
 let g:github_token = ''
+
+" Calendar.vim
+let g:calendar_diary = $HOME.'/tmp/diary',
 
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
