@@ -1,45 +1,43 @@
 " # Initialize {{{
 " ## Dependency Operating System {{{2
 if has('win32')
-  let $VIMRC = '_vimrc'
-  let $VIMDIR = 'vimfiles'
-else " for Unix, MacVim
-  let $VIMRC = '.vimrc'
-  let $VIMDIR = '.vim'
+  " INFO: .vimrc unifies vimrc
+  "       .vim   unifies vimfiles
+  set runtimepath^=$HOME/.vim
+  set runtimepath+=$HOME/.vim/after
 endif
 " }}}
 " ## Dependency vimrc.local "{{{2
-if !filereadable(expand($HOME. '/' . $VIMRC . '.local'))
+let s:vimbundle = ''
+if !filereadable(expand($HOME. '/.vimrc.local'))
   set directory= backupdir= viewdir=
   if has('persistent_undo')
     set undodir=
   endif
 
 else
-  " INFO: read .vimrc.local.sample
-  source $HOME/$VIMRC.local
+  " INFO: Read .vimrc.local.sample
+  source $HOME/.vimrc.local
 
   if exists('g:dependency_local_lists')
-    let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/' . $VIMRC
+    let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
+    if has_key(g:dependency_local_lists, 'plugin-manager')
+      let s:vimbundle = g:dependency_local_lists['plugin-manager']
+    endif
 
     set swapfile
     set backup
   endif
 endif " }}}
-
 " }}}
 " # Plugin Manager {{{
-let s:vimbundle = exists('g:dependency_local_lists')
-      \ && has_key(g:dependency_local_lists, 'plugin-manager') ?
-      \ g:dependency_local_lists['plugin-manager'] :
-      \ ''
 if s:vimbundle == 'neobundle'
   " ## neobundle.vim {{{2
 set nocompatible
 filetype off
 if has('vim_starting')
-  set runtimepath+=~/$VIMDIR/neobundle.vim.git
-  call neobundle#rc(expand($HOME.'/'.$VIMDIR.'/bundle'))
+  set runtimepath+=~/.vim/neobundle.vim.git
+  call neobundle#rc(expand($HOME.'/.vim/bundle'))
 endif
   " unite source {{{3
   NeoBundle 'Shougo/unite.vim'
@@ -540,7 +538,7 @@ function! s:ChangeCurrentDir(directory, bang) "{{{2
 endfunction "}}}
 " }}}
 " # Dictionary {{{
-set dictionary=$HOME/$VIMDIR/dict/default.dict
+set dictionary=$HOME/.vim/dict/default.dict
 " TODO: <Up>と重なってるため別マップを考えなくては
 "inoremap <silent> <C-k> <C-x><C-k>
 " }}}
@@ -612,6 +610,7 @@ endif
 " # Weekly Buffer {{{
 if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
   " Use weekly buffer for GTD tool.
+  let g:local#weekly_buffer_dir = g:dependency_local_lists['weekly_buffer_dir']
   nnoremap <silent> <S-t><S-t> :<C-u>OpenweeklyBuffer<Cr>
   command! -nargs=0 OpenweeklyBuffer call OpenweeklyBuffer()
   function! OpenweeklyBuffer() "{{{2
@@ -627,8 +626,7 @@ if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
         let end_week   = today - day_of_week + 5
       endif
 
-      let g:weekly_buffer = g:dependency_local_lists['weekly_buffer_dir'] . '/'
-            \ . start_week . '_' . end_week
+      let g:weekly_buffer = g:local#weekly_buffer_dir .'/'. start_week .'_'. end_week
     endif
 
     execute '7new ' . g:weekly_buffer
