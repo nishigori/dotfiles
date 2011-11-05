@@ -90,7 +90,6 @@ if s:vimbundle == 'neobundle'
   " }}}
   " filetype {{{3
   NeoBundle 'basyura/jslint.vim'
-  NeoBundle 'nishigori/javaScriptLint.vim'
   NeoBundle 'jtriley/vim-rst-headings'
   NeoBundle 'nishigori/phpfolding.vim'
   NeoBundle 'nishigori/vim-twig'
@@ -111,6 +110,7 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'vim-scripts/Lucius'
   NeoBundle 'peaksea'
   NeoBundle 'thinca/vim-fontzoom'
+  NeoBundle 'altercation/vim-colors-solarized'
   " }}}
   " dictionary {{{3
   NeoBundle 'nishigori/vim-php-dictionary'
@@ -268,17 +268,18 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
   au! BufRead,BufNewFile,BufWinEnter *.txt        setfiletype txt
   au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype html.php
+  au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype html.php
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
+  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/* set filetype=apache
   au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp   setfiletype vimperator
   au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator setfiletype muttator
 augroup END
 " }}}
 " # Color Scheme {{{
 set t_Co=256
-colorscheme candycode
-if !exists('g:diablo3_longline')
-  let g:diablo3_longline = 1
-endif
+let g:solarized_termcolors = 256  " CASE: g:colors_name is solarized
+colorscheme diablo3
+set background=dark
 highlight StatusLine term=NONE cterm=NONE ctermfg=white ctermbg=black
 " add cursorline at the current window.
 augroup cch
