@@ -6,29 +6,11 @@ setlocal shiftwidth=4
 setlocal softtabstop=0
 setlocal foldlevelstart=2       " open buffer's foldlevel
 
-noremap <F9> :w<CR>:!php %<CR>
 let php_sql_query = 1           " highlight SQL into the strings
 let php_htmlInStrings = 1       " highlight HTML into the strings
 let php_folding = 1             " enable folding of Class & function
 let php_parent_error_close = 1  " highlight error compatible [], ()
 "let php_noShortTags = 1         " disable PHP's short tag
-
-" PHP Lint
-" Syntax check. cmd :make
-"setlocal makeprg=php\ -l\ %
-setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-autocmd BufWritePost *.php :call PHPLint()
-nnoremap <silent> ,l :call PHPLint()<CR>
-function! PHPLint() "{{{
-  if &filetype != 'php'
-    return
-  endif
-  let result   = system('php -l ' . expand('%:p'))
-  let headPart = strpart(result, 0, 32)
-  if headPart !~ 'No syntax errors'
-    echo headPart
-  endif
-endfunction "}}}
 
 " Add semicolon for line end
 function! IsEndSemicolon()  "{{{
