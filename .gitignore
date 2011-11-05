@@ -1,3 +1,4 @@
 .vimundo
+bundle
 neobundle.vim.git
-
+view
