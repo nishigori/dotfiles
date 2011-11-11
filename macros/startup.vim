@@ -9,35 +9,17 @@ let b:need_directories = {
       \ 'swapdir'     : $HOME . '/tmp/vim/swaps',
       \ 'backupdir'   : $HOME . '/tmp/vim/backups',
       \ 'viewdir'     : $HOME . '/tmp/vim/view',
+      \ 'undo'        : $HOME . '/tmp/vim/undo',
+      \ 'unite'       : $HOME . '/tmp/vim/unite',
+      \ 'neocom'      : $HOME . '/tmp/vim/neocom',
       \ }
 
-for [key, value] in items(b:need_directories)
-  if !isdirectory(value)
+for [key, dir] in items(b:need_directories)
+  if !isdirectory(dir)
     " FUTURE: When account has no permission, echo error.
-    call mkdir(value)
+    call mkdir(dir)
   endif
 endfor
-
-" Note: そもそもsymbolic linksは他のスクリプトでいい気がする。。。
-"       git cloneも含め、ね
-
-"let b:need_symbolic_links = {
-      "\ 'vimrc'   : $HOME . '',
-      "\ 'gvimrc'  : $HOME . ''
-      "\ 'vimshrc' : $HOME . '',
-      "\ 'gtd_dir' : $HOME . '/Dropbox/.gtd',
-      "\ }
-
-"let b:rc_local_list = {
-      "\ 'vimrc.local'  : $HOME . '/workspace/dotfiles/.vimrc.local.sample',
-      "\ 'gvimrc.local' : $HOME . '/workspace/dotfiles/.gvimrc.local.sample',
-      "\ }
-
-
-" TODO: VimScript上でshellコマンド使う方法を調べる
-"       has('win32') の処理も付け加える
-"       git clone 'nishigori/dotfiles'
-"       add Vundle plugin
 
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
