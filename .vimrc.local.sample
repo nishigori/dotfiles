@@ -2,11 +2,11 @@ let g:dependency_local_lists = {
   \ 'plugin-manager'      : 'neobundle', " (pathogen|vundle)
   \ 'dotfiles_dir'        : $HOME . '/workspace/dotfiles',
   \ 'weekly_buffer_dir'   : $HOME . '/tmp/.gtd',
-  \ 'ref_phpmanual_path'  : $HOME . '/Dropbox/.vim/ref-docs/phpmanual',
-  \ 'ref_jquery_path'     : $HOME . '/Dropbox/.vim/ref-docs/jqapi-latest',
+  \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref-docs/phpmanual',
+  \ 'ref_jquery_path'     : $HOME . '/.vim/ref-docs/jqapi-latest',
   \ }
 
-" ステートメントに空白を含められないSuckな仕様
+" Not use white space into the statement (Suck!!)
 set directory=~/tmp/vim/swaps,/tmp,.
 set backupdir=~/tmp/vim/backups,/tmp,.
 set viewdir=~/tmp/vim/view
