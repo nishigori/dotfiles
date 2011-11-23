@@ -270,9 +270,10 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype html.php
   au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype html.php
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
-  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/* set filetype=apache
-  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp   setfiletype vimperator
-  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator setfiletype muttator
+  au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
+  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/* setfiletype apache
+  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp     setfiletype vimperator
+  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator   setfiletype muttator
 augroup END
 " }}}
 " # Color Scheme {{{
@@ -894,8 +895,12 @@ if has('mac')
   let g:quickrun_config['php.phpunit'] = {
   \   'command' : '/usr/local/Cellar/php/5.3.8/bin/phpunit',
   \ }
-else
-  let g:quickrun_config['php.phpunit'] = {'command' : 'phpunit'}
+  " TODO: Sikuli 起動は引数渡さねば??
+  "let g:quickrun_config['python.sikuli'] = {
+  "\     'command' : '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
+  "\   }
+elseif has('win32')
+else  " Linux
 endif
 " TODO: Add QuickRun's syntax for xUnit
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
