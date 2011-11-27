@@ -212,9 +212,10 @@ if has('syntax')
     command! -nargs=0 ToggleNumber call ToggleNumberOption()
     function! ToggleNumberOption() " {{{
       if &number
-        set relativenumber numberwidth+=1
+        set relativenumber
       else
-        set number numberwidth-=1
+        set number
+        "set number numberwidth-=1
       endif
     endfunction " }}}
   endif
@@ -1076,8 +1077,8 @@ nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
-nnoremap <silent> <Leader>uf :<C-u>Unite file -start-insert<Cr>
 nnoremap <silent> <Leader>uF :<C-u>Unite file_rec -start-insert<Cr>
+nnoremap <silent> <Leader>uf :<C-u>Unite file -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=cd<Cr>
