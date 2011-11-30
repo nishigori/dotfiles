@@ -97,6 +97,9 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'vim-scripts/css3'
   NeoBundle 'beyondwords/vim-twig'
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
+  " INFO: dbext.vim' latest version is into the vim.org.
+  "       http://vim.sourceforge.net/scripts/script.php?script_id=356
+  NeoBundle 'vim-scripts/dbext.vim'
   " }}}
   " color sheme & font {{{3
   NeoBundle 'vim-scripts/molokai'
@@ -272,10 +275,14 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype html.php
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
   au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
+  au! BufRead,BufNewFile,BufWinEnter,BufReadPre *quickrun\ output*        set syntax=vimshell
   au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/* setfiletype apache
   au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp     setfiletype vimperator
   au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator   setfiletype muttator
 augroup END
+
+" SQL
+let g:sql_type_default = 'mysql'
 " }}}
 " # Color Scheme {{{
 set t_Co=256
@@ -291,6 +298,8 @@ augroup cch
 augroup END
 highlight CursorLine ctermbg=black guibg=black
 highlight CursorColumn ctermbg=black guibg=black
+
+let apache_version = '2.0' " apache highliting
 
 " highlighting target of long line.
 if exists('&colorcolumn')
@@ -1065,6 +1074,9 @@ let g:sunday_pairs = [
 " ## calendar.vim {{{
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
+" }}}
+" ## dbext.vim {{{
+let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 " }}}
 " # <Leader> Mappings For Plugins {{{
 " change just before buffer
