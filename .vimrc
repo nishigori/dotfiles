@@ -902,6 +902,7 @@ if has('mac')
   "\   }
 elseif has('win32')
 else  " Linux
+  let g:quickrun_config['php.phpunit'] = { 'command' : 'phpunit' }
 endif
 " TODO: Add QuickRun's syntax for xUnit
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
