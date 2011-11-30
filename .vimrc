@@ -1087,9 +1087,8 @@ function! s:resizeWindow()
   call submode#leave_with('winsize', 'n', '', '<Esc>')
 
   let curwin = winnr()
-  wincmd j | let target1 = winnr() | exe curwin "wincmd w"
-  wincmd l | let target2 = winnr() | exe curwin "wincmd w"
-
+  wincmd j | let target1 = winnr() | execute curwin "wincmd w"
+  wincmd l | let target2 = winnr() | execute curwin "wincmd w"
 
   execute printf("call submode#map ('winsize', 'n', 'r', 'j', '<C-w>%s')", curwin == target1 ? "-" : "+")
   execute printf("call submode#map ('winsize', 'n', 'r', 'k', '<C-w>%s')", curwin == target1 ? "+" : "-")
