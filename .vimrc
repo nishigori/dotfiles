@@ -97,9 +97,6 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'vim-scripts/css3'
   NeoBundle 'beyondwords/vim-twig'
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
-  " INFO: dbext.vim' latest version is into the vim.org.
-  "       http://vim.sourceforge.net/scripts/script.php?script_id=356
-  NeoBundle 'vim-scripts/dbext.vim'
   " }}}
   " color sheme & font {{{3
   NeoBundle 'vim-scripts/molokai'
@@ -137,12 +134,18 @@ if s:vimbundle == 'neobundle'
   " WARNING: Needless phpunit plugin, because defalut key-mapping is suck!!
   "NeoBundle 'phpunit'
   " }}}
+  " DB {{{3
+  " INFO: dbext.vim' latest version is into the vim.org.
+  "       http://vim.sourceforge.net/scripts/script.php?script_id=356
+  NeoBundle 'vim-scripts/dbext.vim'
+  " }}}
   " debug, backend {{{3
   NeoBundle 'Shougo/vimproc'
   "NeoBundle 'ujihisa/vital.vim'
   " }}}
   " tools {{{3
   NeoBundle 'mattn/calendar-vim'
+  NeoBundle 'vim-scripts/submode'
   " }}}
   filetype plugin on
   filetype indent on
@@ -1077,6 +1080,24 @@ let g:calendar_weeknm = 1 " WK01
 " }}}
 " ## dbext.vim {{{
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
+" }}}
+" ## submode.vim (Reside Window) {{{
+function! s:resizeWindow()
+  call submode#enter_with('winsize', 'n', '', 'mws', '<Nop>')
+  call submode#leave_with('winsize', 'n', '', '<Esc>')
+
+  let curwin = winnr()
+  wincmd j | let target1 = winnr() | exe curwin "wincmd w"
+  wincmd l | let target2 = winnr() | exe curwin "wincmd w"
+
+
+  execute printf("call submode#map ('winsize', 'n', 'r', 'j', '<C-w>%s')", curwin == target1 ? "-" : "+")
+  execute printf("call submode#map ('winsize', 'n', 'r', 'k', '<C-w>%s')", curwin == target1 ? "+" : "-")
+  execute printf("call submode#map ('winsize', 'n', 'r', 'h', '<C-w>%s')", curwin == target2 ? ">" : "<")
+  execute printf("call submode#map ('winsize', 'n', 'r', 'l', '<C-w>%s')", curwin == target2 ? "<" : ">")
+endfunction
+
+nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " }}}
 " # <Leader> Mappings For Plugins {{{
 " change just before buffer
