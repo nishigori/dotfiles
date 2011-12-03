@@ -14,18 +14,6 @@ setlocal commentstring=\ #\ %s
 
 let python_highlight_all = 1
 
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap "" ""<LEFT>
-inoremap '' ''<LEFT>
-
-cnoremap { {}<LEFT>
-cnoremap [ []<LEFT>
-cnoremap ( ()<LEFT>
-cnoremap "" ""<LEFT>
-cnoremap '' ''<LEFT>
-
 nnoremap <F5>	:!/usr/bin/python %<CR>
 nnoremap <F12>	:!/usr/lib/python2.4/pdb.py %<CR>
 
