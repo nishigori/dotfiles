@@ -138,6 +138,7 @@ if s:vimbundle == 'neobundle'
   " INFO: dbext.vim' latest version is into the vim.org.
   "       http://vim.sourceforge.net/scripts/script.php?script_id=356
   NeoBundle 'vim-scripts/dbext.vim'
+  NeoBundle 'xenoterracide/sql_iabbr'
   " }}}
   " debug, backend {{{3
   NeoBundle 'Shougo/vimproc'
