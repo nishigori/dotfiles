@@ -39,7 +39,7 @@ if s:vimbundle == 'neobundle'
     set runtimepath+=~/.vim/neobundle.vim.git
     call neobundle#rc()
   endif
-  " unite source {{{3
+  " unite source {{{
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'tsukkee/unite-tag'
   NeoBundle 'h1mesuke/unite-outline'
@@ -50,7 +50,7 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'tacroe/unite-mark'
   NeoBundle 'tsukkee/unite-help'
   " }}}
-  " buffer, tag {{{3
+  " buffer, tag {{{
   NeoBundle 'Shougo/vimshell'
   NeoBundle 'ujihisa/vimshell-ssh'
   NeoBundle 'Shougo/vimfiler'
@@ -60,13 +60,12 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'sudo.vim'
   "NeoBundle 'Shougo/echodoc'
   " }}}
-  " complete, snippet {{{3
+  " complete, snippet {{{
   NeoBundle 'Shougo/neocomplcache'
-  NeoBundle 'nishigori/neocomplcache_phpunit_snippet'
   NeoBundle 'thinca/vim-ambicmd'
   "NeoBundle 'neco-look'
   " }}}
-  " text operation {{{3
+  " text operation {{{
   NeoBundle 'mattn/zencoding-vim'
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'smartchr'
@@ -75,30 +74,27 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'visualstar.vim'
   NeoBundle 'vim-scripts/matchit.zip'
   NeoBundle 'nathanaelkane/vim-indent-guides'
-  NeoBundle 'nishigori/vim-sunday'
   "NeoBundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
   "NeoBundle 'richleland/vim-yankring'
   " }}}
-  " marks {{{3
+  " marks {{{
   "NeoBundle 'vim-scripts/ShowMarks'
   "NeoBundle 'vim-scripts/number-marks'
   " }}}
-  " ref, help {{{3
+  " ref, help {{{
   NeoBundle 'thinca/vim-ref'
   NeoBundle 'soh335/vim-ref-jquery'
   " }}}
-  " filetype {{{3
+  " filetype {{{
   NeoBundle 'basyura/jslint.vim'
   NeoBundle 'jtriley/vim-rst-headings'
-  NeoBundle 'nishigori/phpfolding.vim'
-  NeoBundle 'nishigori/vim-twig'
   NeoBundle 'heavenshell/unite-sf2'
   NeoBundle 'vim-scripts/css3'
   NeoBundle 'beyondwords/vim-twig'
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
   " }}}
-  " color sheme & font {{{3
+  " color sheme & font {{{
   NeoBundle 'vim-scripts/molokai'
   NeoBundle 'desert256.vim'
   NeoBundle 'wombat256.vim'
@@ -112,41 +108,46 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'thinca/vim-fontzoom'
   NeoBundle 'altercation/vim-colors-solarized'
   " }}}
-  " dictionary {{{3
-  NeoBundle 'nishigori/vim-php-dictionary'
-  " }}}
-  " browse {{{3
+  " browse {{{
   NeoBundle 'tyru/open-browser.vim'
   NeoBundle 'vim-scripts/TwitVim.git'
   " evervim 重すぎ
   "NeoBundle 'kakkyz81/evervim.git'
   " }}}
-  " VCS {{{3
+  " VCS {{{
   "NeoBundle 'Shougo/vim-vcs'
   NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'mattn/gist-vim'
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
-  " xUnit {{{3
+  " xUnit {{{
   "NeoBundle 'vimUnit'
   "NeoBundle 'pyunit'
   "NeoBundle 'toggle_unit_tests'
   " WARNING: Needless phpunit plugin, because defalut key-mapping is suck!!
   "NeoBundle 'phpunit'
   " }}}
-  " DB {{{3
+  " DB {{{
   " INFO: dbext.vim' latest version is into the vim.org.
   "       http://vim.sourceforge.net/scripts/script.php?script_id=356
   NeoBundle 'vim-scripts/dbext.vim'
   NeoBundle 'xenoterracide/sql_iabbr'
   " }}}
-  " debug, backend {{{3
+  " debug, backend {{{
   NeoBundle 'Shougo/vimproc'
   "NeoBundle 'ujihisa/vital.vim'
   " }}}
-  " tools {{{3
+  " tools {{{
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'vim-scripts/submode'
+  " }}}
+  " My Plugins {{{
+  NeoBundle 'nishigori/vim-sunday'
+  NeoBundle 'nishigori/vim-php-dictionary'
+  NeoBundle 'nishigori/phpfolding.vim'
+  NeoBundle 'nishigori/vim-twig'
+  NeoBundle 'nishigori/neocomplcache_phpunit_snippet'
+  NeoBundle 'nishigori/vim-phpunit-snippets'
   " }}}
   filetype plugin on
   filetype indent on
@@ -1111,8 +1112,8 @@ nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
+nnoremap <Leader>uf :<C-u>Unite file -start-insert<Cr>
 nnoremap <silent> <Leader>uF :<C-u>Unite file_rec -start-insert<Cr>
-nnoremap <silent> <Leader>uf :<C-u>Unite file -start-insert<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=cd<Cr>
@@ -1123,7 +1124,7 @@ nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
 nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
 nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
-nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
+nnoremap <silent> <Leader>us :<C-u>Unite snippet -start-insert<Cr>
 nnoremap <silent> <Leader>un :<C-u>Unite neobundle/install:!<Cr>
 nnoremap <silent> <Leader>uN :<C-u>Unite neobundle/install<Cr>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
