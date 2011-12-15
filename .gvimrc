@@ -29,26 +29,26 @@ if has('win32')
 endif
 " }}}
 " # Quick Start $MYGVIMRC {{{
-if has('win32')
-  let s:gvimrc = '_gvimrc'
-  let s:gvimrc_local = '_gvimrc.local'
-else
-  let s:gvimrc = '.gvimrc'
-  let s:gvimrc_local = '.gvimrc.local'
-endif
 if exists('g:dependency_local_lists')
-  let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/' . s:gvimrc
+  let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.gvimrc'
+  let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
 else
+  if has('win32')
+    let s:gvimrc = '_gvimrc'
+    let s:gvimrc_local = '_gvimrc.local'
+  else
+    let s:gvimrc = '.gvimrc'
+    let s:gvimrc_local = '.gvimrc.local'
+  endif
   let $MYGVIMRC = $HOME . '/' . s:gvimrc
+  let $MYGVIMRC_LOCAL = $HOME . '/' . s:gvimrc_local
 endif
-let $MYGVIMRC_LOCAL = $HOME . '/' . s:gvimrc_local
 nnoremap e> :<C-u>edit $MYGVIMRC<Cr>
 nnoremap eS :<C-u>source $MYGVIMRC<Cr>
 " }}}
 " # Window {{{
 " INFO: Please edit default window size @.gvimrc.local
 if filereadable(expand($MYGVIMRC_LOCAL))
-  echo 'test'
   source $MYGVIMRC_LOCAL
   " set lines= columns=
 endif
@@ -92,11 +92,10 @@ endif
 "if has('gui_macvim')
 if has('mac')
   set transparency=11
-endif
-
-if has('win32')
-  set guioptions+=C
-  set transparency=233
+elseif has('win32')
+  "set guioptions+=C
+  gui
+  set transparency=222
 endif
 " }}}
 
