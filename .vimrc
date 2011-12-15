@@ -33,12 +33,13 @@ endif " }}}
 " # Plugin Manager {{{
 if s:vimbundle == 'neobundle'
   " ## neobundle.vim {{{2
-  set nocompatible
-  filetype off
+  set nocompatible           " be iMproved
+  filetype plugin indent off " required!!
   if has('vim_starting')
-    set runtimepath+=~/.vim/neobundle.vim.git
-    call neobundle#rc()
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    call neobundle#rc(expand('~/.vim/bundle/'))
   endif
+  NeoBundle 'Shougo/neobundle.vim'
   " unite source {{{
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'tsukkee/unite-tag'
@@ -122,6 +123,7 @@ if s:vimbundle == 'neobundle'
   " }}}
   " xUnit {{{
   "NeoBundle 'vimUnit'
+  NeoBundle 'dsummersl/vimunit'
   "NeoBundle 'pyunit'
   "NeoBundle 'toggle_unit_tests'
   " WARNING: Needless phpunit plugin, because defalut key-mapping is suck!!
@@ -149,8 +151,7 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'nishigori/neocomplcache_phpunit_snippet'
   NeoBundle 'nishigori/vim-phpunit-snippets'
   " }}}
-  filetype plugin on
-  filetype indent on
+  filetype plugin indent on " required!
   " }}}
 elseif s:vimbundle == 'pathogen'
   " ## pathogen.vim {{{2
@@ -276,8 +277,8 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.xyz        setfiletype drawing
   au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
   au! BufRead,BufNewFile,BufWinEnter *.txt        setfiletype txt
-  au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype html.php
-  au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype html.php
+  au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype php.html
+  au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype php.html
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
   au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
   au! BufRead,BufNewFile,BufWinEnter,BufReadPre *quickrun\ output*        set syntax=vimshell
@@ -471,6 +472,8 @@ vnoremap <silent>gc :<C-u>normal gc<Cr>
 onoremap <silent>gc :<C-u>normal gc<Cr>
 
 " vim-users.jp Hack #214
+nnoremap ) t)
+nnoremap ( t(
 onoremap ) t)
 onoremap ( t(
 vnoremap ) t)
@@ -494,10 +497,10 @@ set splitright  " Default vsplit, left
 set splitbelow  " Default split, top
 
 " vim-users.jp Hack #42
-nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<Cr>
-nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<Cr>
-nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<Cr>
-nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<Cr>
+"nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<Cr>
+"nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<Cr>
+"nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<Cr>
+"nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<Cr>
 function! s:good_width()  "{{{2
   if winwidth(0) < 84 && expand('%') != '__Tag_List__' && expand('%') != '[quickrun output]'
     vertical resize 84
@@ -785,8 +788,6 @@ let g:neocomplcache_dictionary_filetype_lists = {
 
 " 補完を選択後popupを閉じる
 imap <expr><C-y> neocomplcache#close_popup()
-imap <C-s> <Plug>(neocomplcache_start_unite_snippet)
-imap <C-u> <Plug>(neocomplcache_start_unite_complete)
 " }}}
 " ## neocomplcache_snippet_complete {{{
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
