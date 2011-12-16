@@ -44,9 +44,11 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'tsukkee/unite-tag'
   NeoBundle 'h1mesuke/unite-outline'
-  NeoBundle 'Sixeight/unite-grep'
+  "NeoBundle 'Sixeight/unite-grep'
+  "NeoBundle 'choplin/unite-vim_hacks'
   NeoBundle 'ujihisa/unite-colorscheme'
   NeoBundle 'ujihisa/unite-font'
+  NeoBundle 'ujihisa/unite-locate'
   NeoBundle 'thinca/vim-unite-history'
   NeoBundle 'tacroe/unite-mark'
   NeoBundle 'tsukkee/unite-help'
@@ -77,6 +79,7 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'nathanaelkane/vim-indent-guides'
   "NeoBundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
+  "       using unite history/yank
   "NeoBundle 'richleland/vim-yankring'
   " }}}
   " marks {{{
@@ -807,6 +810,9 @@ let g:unite_update_time = 150
 " For optimize.
 let g:unite_source_file_mru_filename_format = ''
 "let g:unite_update_time = 1000
+let g:unite_source_history_yank_enable = 1
+let g:unite_enable_start_insert = 1
+
 " ignore match patterns (Default: autoload/unite/source/file.vim)
 let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
 let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
@@ -828,7 +834,7 @@ call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
 nnoremap U :<C-u>Unite<Space>
 nnoremap <C-p> :<C-u>Unite file_mru<Cr>
-nnoremap <C-n> :<C-u>Unite buffer_tab -start-insert<Cr>
+nnoremap <C-n> :<C-u>Unite buffer_tab<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " ## unite-tag {{{
@@ -844,6 +850,10 @@ let g:unite_source_sf2_bundles = {
     \ 'EloquentBoxbarUserBundle'   : 'Eloquent/Boxbar/UserBundle',
     \ 'EloquentBoxbarCompanyBundle': 'Eloquent/Boxbar/CompanyBundle',
     \ }
+" }}}
+" ## unite-grep{{{
+let g:unite_source_grep_default_opts = '-Hn'  " default
+let g:unite_source_grep_recursive_opt = '-R'  " default
 " }}}
 " ## vim-ref & ref-unite {{{
 " TODO: Pydocも日本語の使えるようにしなくては
@@ -880,6 +890,7 @@ endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
+let g:quickrun_config = {}
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
@@ -1113,28 +1124,32 @@ nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
 nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
-nnoremap <Leader>uf :<C-u>Unite file -start-insert<Cr>
-nnoremap <silent> <Leader>uF :<C-u>Unite file_rec -start-insert<Cr>
+nnoremap <Leader>uf :<C-u>Unite file<Cr>
+nnoremap <Leader>uF :<C-u>Unite file_rec<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=cd<Cr>
 nnoremap <silent> <Leader>uB :<C-u>Unite buffer<Cr>
-nnoremap <silent> <Leader>uu :<C-u>Unite resume source -start-insert<Cr>
+nnoremap <silent> <Leader>uu :<C-u>Unite resume source<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
-nnoremap <silent> <Leader>ug :<C-u>Unite grep:%:-iHRn<Cr>
+" for current buffer
+nnoremap <Leader>ug :<C-u>Unite grep:%:-iR:<Cr>
+" for all buffer
+nnoremap <Leader>uG :<C-u>Unite grep:$:-iR:<Cr>
 nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
 nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
-nnoremap <silent> <Leader>uh :<C-u>Unite history/command -start-insert<Cr>
-nnoremap <silent> <Leader>us :<C-u>Unite snippet -start-insert<Cr>
+nnoremap <silent> <Leader>uh :<C-u>Unite history/command<Cr>
+nnoremap <silent> <Leader>uy :<C-u>Unite history/yank<Cr>
+nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
 nnoremap <silent> <Leader>un :<C-u>Unite neobundle/install:!<Cr>
 nnoremap <silent> <Leader>uN :<C-u>Unite neobundle/install<Cr>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 
-nnoremap <Leader>S :<C-u>Unite<Space>sf2/
-nnoremap <Leader>sb :<C-u>Unite sf2/bundles<Cr>
-nnoremap <Leader>sc :<C-u>Unite sf2/app/config<Cr>
+"nnoremap <Leader>S :<C-u>Unite<Space>sf2/
+"nnoremap <Leader>sb :<C-u>Unite sf2/bundles<Cr>
+"nnoremap <Leader>sc :<C-u>Unite sf2/app/config<Cr>
 " }}}
 
 
