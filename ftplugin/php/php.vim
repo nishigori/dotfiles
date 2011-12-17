@@ -40,10 +40,10 @@ function! s:php_smart_bracket(last_char) "{{{
   endif
 endfunction "}}}
 
-" Plugin:unite-ref
+" Plugin: unite-ref
 nnoremap <silent> <Leader>ur :<C-u>Unite ref/phpmanual<CR>
 
-" Plugin:smartchr
+" Plugin: smartchr
 inoremap <expr> = smartchr#one_of(' = ', ' === ', ' == ', '=')
 "inoremap <expr> = smartchr#one_of('\!', ' \!== ', ' \!= ', '\!')
 
