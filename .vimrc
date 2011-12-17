@@ -145,6 +145,9 @@ if s:vimbundle == 'neobundle'
   " tools {{{
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'vim-scripts/submode'
+  NeoBundle 'mattn/learn-vimscript'
+  NeoBundle 'mattn/salaryman-complete-vim'
+  NeoBundle 'mattn/unite-nyancat'
   " }}}
   " My Plugins {{{
   NeoBundle 'nishigori/vim-sunday'
@@ -661,6 +664,10 @@ if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
 endif
 " }}}
 " # Plugin
+" ## vim-phpunit-snippets {{{
+let g:phpunit_snippets_default_snip = 'hoge'
+"let g:phpunit_snippet_dir = 
+" }}}
 " ## visualstar.vim {{{
 " search extended plugin.
 if exists('g:loaded_visualstar')
@@ -871,6 +878,14 @@ endif
 if has('mac')
   let g:ref_alc_cmd = 'lynx -dump -display_charset=' . &encoding . ' -nonumbers %s'
 endif
+
+" My ref filetype mapping
+let g:ref_cmd_filetype_map = {
+      \ 'php' : 'php',
+      \ 'python' : 'pydoc',
+      \ 'perl' : 'perldoc',
+      \ }
+      "\ 'php.phpunit' : 'phpunit',
 " }}}
 " ## TwitVim {{{
 if has('python') && !has('gui_macvim')
@@ -884,13 +899,15 @@ if has('mac')
   let twitvim_browser_cmd = 'open -a firefox'
 "elseif has('win32')
   "let twitvim_browser_cmd = 'firefox'
+elseif has('win32')
+  let twitvim_browser_cmd = 'firefox.exe'
 else
   let twitvim_browser_cmd = 'firefox'
 endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
-let g:quickrun_config = {}
+let g:quickrun_config = get(g:, 'quickrun_config', {})
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
@@ -1000,89 +1017,8 @@ nnoremap <Leader>gc :<C-u>Gcommit<Cr>
 " FIXME: <Space>打つと何故かバックスラッシュ入る
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
 " }}}
-" ## toggle.vim {{{
-"let g:toggle_pairs = {
-      "\ 'extends' : 'implements',
-      "\ 'implements' : 'extends',
-        "\   '@assert'            : '@depends',
-        "\   '@depends'           : '@dataProvider',
-        "\   '@dataProvider'      : '@expectedException',
-        "\   '@expectedException' : '@group',
-        "\   '@group'             : '@test',
-        "\   '@test'              : '@assert',
-      "\ }
-"augroup xUnitToggle  "{{{2
-  "au! BufRead,BufNewFile,BufWinEnter *Test.*
-        "\ let g:toggle_pairs = {
-        "\   'assertArrayHasKey'    : 'assertArrayNotHasKey',
-        "\   'assertArrayNotHasKey' : 'assertArrayHasKey',
-        "\   'assertClassHasAttribute'    : 'assertClassNotHasAttribute',
-        "\   'assertClassNotHasAttribute' : 'assertClassHasAttribute',
-        "\   'assertClassHasStaticAttribute'    : 'assertClassNotHasStaticAttribute',
-        "\   'assertClassNotHasStaticAttribute' : 'assertClassHasStaticAttribute',
-        "\   'assertContains'    : 'assertNotContains',
-        "\   'assertNotContains' : 'assertContains',
-        "\   'assertAttributeContains'    : 'assertAttributeNotContains',
-        "\   'assertAttributeNotContains' : 'assertAttributeContains',
-        "\   'assertContainsOnly'    : 'assertNotContainsOnly',
-        "\   'assertNotContainsOnly' : 'assertContainsOnly',
-        "\   'assertAttributeContainsOnly'    : 'assertAttributeNotContainsOnly',
-        "\   'assertAttributeNotContainsOnly' : 'assertAttributeContainsOnly',
-        "\   'assertEmpty'    : 'assertNotEmpty',
-        "\   'assertNotEmpty' : 'assertEmpty',
-        "\   'assertAttributeEmpty'    : 'assertAttributeNotEmpty',
-        "\   'assertAttributeNotEmpty' : 'assertAttributeEmpty',
-        "\   'assertEquals'    : 'assertNotEquals',
-        "\   'assertNotEquals' : 'assertEquals',
-        "\   'assertAttributeEquals'    : 'assertAttributeNotEquals',
-        "\   'assertAttributeNotEquals' : 'assertAttributeEquals',
-        "\   'assertFileEquals'    : 'assertFileNotEquals',
-        "\   'assertFileNotEquals' : 'assertFileEquals',
-        "\   'assertFileExists'    : 'assertFileNotExists',
-        "\   'assertFileNotExists' : 'assertFileExists',
-        "\   'assertInstanceOf'    : 'assertNotInstanceOf',
-        "\   'assertNotInstanceOf' : 'assertInstanceOf',
-        "\   'assertAttributeInstanceOf'    : 'assertAttributeNotInstanceOf',
-        "\   'assertAttributeNotInstanceOf' : 'assertAttributeInstanceOf',
-        "\   'assertInternalType'    : 'assertNotInternalType',
-        "\   'assertNotInternalType' : 'assertInternalType',
-        "\   'assertAttributeInternalType'    : 'assertAttributeNotInternalType',
-        "\   'assertAttributeNotInternalType' : 'assertAttributeInternalType',
-        "\   'assertNull'    : 'assertNotNull',
-        "\   'assertNotNull' : 'assertNull',
-        "\   'assertObjectHasAttribute'    : 'assertObjectNotHasAttribute',
-        "\   'assertObjectNotHasAttribute' : 'assertObjectHasAttribute',
-        "\   'assertRegExp'    : 'assertNotRegExp',
-        "\   'assertNotRegExp' : 'assertRegExp',
-        "\   'assertStringMatchesFormat'    : 'assertStringNotMatchesFormat',
-        "\   'assertStringNotMatchesFormat' : 'assertStringMatchesFormat',
-        "\   'assertStringMatchesFormatFile'    : 'assertStringNotMatchesFormatFile',
-        "\   'assertStringNotMatchesFormatFile' : 'assertStringMatchesFormatFile',
-        "\   'assertSame'    : 'assertNotSame',
-        "\   'assertNotSame' : 'assertSame',
-        "\   'assertAttributeSame'    : 'assertAttributeNotSame',
-        "\   'assertAttributeNotSame' : 'assertAttributeSame',
-        "\   'assertStringEndsWith'    : 'assertStringEndsNotWith',
-        "\   'assertStringEndsNotWith' : 'assertStringEndsWith',
-        "\   'assertStringEqualsFile'    : 'assertStringNotEqualsFile',
-        "\   'assertStringNotEqualsFile' : 'assertStringEqualsFile',
-        "\   'assertStringStartsWith'    : 'assertStringStartsNotWith',
-        "\   'assertStringStartsNotWith' : 'assertStringStartsWith',
-        "\   'assertTag'    : 'assertNotTag',
-        "\   'assertNotTag' : 'assertTag',
-        "\   'assertAttributeType'    : 'assertAttributeNotType',
-        "\   'assertAttributeNotType' : 'assertAttributeType',
-        "\   'assertXmlFileEqualsXmlFile'    : 'assertXmlFileNotEqualsXmlFile',
-        "\   'assertXmlFileNotEqualsXmlFile' : 'assertXmlFileEqualsXmlFile',
-        "\   'assertXmlStringEqualsXmlFile'    : 'assertXmlStringNotEqualsXmlFile',
-        "\   'assertXmlStringNotEqualsXmlFile' : 'assertXmlStringEqualsXmlFile',
-        "\   'assertXmlStringEqualsXmlString'    : 'assertXmlStringNotEqualsXmlString',
-        "\   'assertXmlStringNotEqualsXmlString' : 'assertXmlStringEqualsXmlString',
-        "\ }
-  " Not into removed PHPUnit 3.6 functions. (ex. asertType, assertNotType)
-"augroup END "}}}
-" }}}
 " ## vim-sunday {{{
+" My plugin. inspaired toggle.vim, monday.vim
 let g:sunday_pairs = [
   \ ['extends', 'implements'],
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
@@ -1146,6 +1082,7 @@ nnoremap <silent> <Leader>uN :<C-u>Unite neobundle/install<Cr>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 nnoremap <Leader>ur :<C-u>Unite<Space>ref/
+"nmap <silent> <Leader>ur <Plug>(ref_filetype_complete)
 
 "nnoremap <Leader>S :<C-u>Unite<Space>sf2/
 "nnoremap <Leader>sb :<C-u>Unite sf2/bundles<Cr>
