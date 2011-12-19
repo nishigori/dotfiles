@@ -4,6 +4,7 @@ let g:dependency_local_lists = {
   \ 'weekly_buffer_dir'   : $HOME . '/tmp/.gtd',
   \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref-docs/phpmanual',
   \ 'ref_jquery_path'     : $HOME . '/.vim/ref-docs/jqapi-latest',
+  \ 'phpunit_dir'         : 'ctags_dir',
   \ }
 
 " Not use white space into the statement (Suck!!)
