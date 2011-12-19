@@ -6,8 +6,9 @@ if has('win32')
   set runtimepath^=$HOME/.vim
   set runtimepath+=$HOME/.vim/after
 endif
-" }}}
-" ## Dependency vimrc.local "{{{2
+" }}}2
+" ## Vimrc Local "{{{2
+" ## Dependency vimrc.local "{{{3
 let s:vimbundle = ''
 if !filereadable(expand($HOME. '/.vimrc.local'))
   set directory= backupdir= viewdir=
@@ -29,10 +30,21 @@ else
     set backup
   endif
 endif " }}}
-" }}}
-" # Plugin Manager {{{
-if s:vimbundle == 'neobundle'
-  " ## neobundle.vim {{{2
+" Load settings for each location." {{{3
+augroup vimrc-local "{{{
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END "}}}
+function! s:vimrc_local(loc) " {{{
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction " }}}
+" }}}3
+" }}}2
+" # Plugin Manager {{{2
+if s:vimbundle == 'neobundle' " {{{3
   set nocompatible           " be iMproved
   filetype plugin indent off " required!!
   if has('vim_starting')
@@ -158,17 +170,15 @@ if s:vimbundle == 'neobundle'
   NeoBundle 'nishigori/vim-phpunit-snippets'
   " }}}
   filetype plugin indent on " required!
-  " }}}
-elseif s:vimbundle == 'pathogen'
-  " ## pathogen.vim {{{2
+  " }}}3
+elseif s:vimbundle == 'pathogen' " {{{3
   " INFO: https://github.com/tpope/vim-pathogen.git
   "       Cause, It's has dependency (HTTP Proxy etc..) on the work.
   call pathogen#runtime_append_all_bundles()
   call pathogen#helptags()
-  " }}}
-endif
-" }}}
-" # Switch ; <-> : {{{
+  " }}}3
+endif " }}}2
+" # Switch ; <-> : {{{2
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
 nnoremap : ;
@@ -177,7 +187,8 @@ vnoremap : ;
 
 nnoremap q; q:
 vnoremap q; q:
-" }}}
+" }}}2
+" }}} End Initialize
 " # Encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
 if !has('gui_macvim') || !has('kaoriya')
@@ -245,7 +256,7 @@ set shiftwidth=4
 set softtabstop=0
 inoremap <C-=> <Esc>==i
 " }}}
-" # Basic {{{
+" # Basic "{{{
 "filetype plugin indent on
 set nocompatible              " Use Vim defaults (much better!)
 set showcmd                   " Highliting bracket set.
@@ -263,7 +274,7 @@ nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 set title
-"function! s:titlestring() "{{{2
+"function! s:titlestring() "{{{
   "if exists('t:cwd')
     "return t:cwd . ' (tab)'
   "elseif haslocaldir()
@@ -286,8 +297,7 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype php.html
   au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype php.html
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
-  au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
-  au! BufRead,BufNewFile,BufWinEnter,BufReadPre *quickrun\ output*        set syntax=vimshell
+  "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
   au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/* setfiletype apache
   au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp     setfiletype vimperator
   au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator   setfiletype muttator
@@ -343,7 +353,7 @@ if has('unix') && !has('gui_running')
         execute 'nmap <ESC>' . i '<M-' . i . '>'
       endif
     endfor
-  endfunction  " }}}
+  endfunction  " }}}2
 
   call s:use_meta_keys()
   map <NUL> <C-Space>
@@ -572,7 +582,7 @@ set dictionary=$HOME/.vim/dict/default.dict
 if has('path_extra') && &filetype !~ 'zsh\|conf'
   setlocal tags+=.
   if filereadable("tags")
-    setlocal tags+=tags
+    setlocal tags+=tags;$HOME
   endif
   if filereadable("tags-ja")
     setlocal tags+=tags-ja
@@ -663,19 +673,19 @@ if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
   "command! -nargs=1 OpenweeklyBuffer call s:open_weekly_buffer(<q-args>)
 endif
 " }}}
-" # Plugin
-" ## vim-phpunit-snippets {{{
-let g:phpunit_snippets_default_snip = 'hoge'
+" # Plugin "{{{
+" ## vim-phpunit-snippets {{{2
+"let g:phpunit_snippets_default_snip = 'hoge'
 "let g:phpunit_snippet_dir = 
-" }}}
-" ## visualstar.vim {{{
+" }}}2
+" ## visualstar.vim {{{2
 " search extended plugin.
 if exists('g:loaded_visualstar')
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
 endif
-" }}}
-" ## matchit.vim {{{
+" }}}2
+" ## matchit.vim {{{2
 " INFO: Extended % command.
 "if filereadable($HOME . '/macros/matchit.vim')
 if filereadable($HOME . '/.vim/bundle/matchit.zip/plugin/matchit.vim')
@@ -683,14 +693,14 @@ if filereadable($HOME . '/.vim/bundle/matchit.zip/plugin/matchit.vim')
   let b:match_words = 'if:endif'
   let b:match_ignorecase = 1
 endif
-" }}}
-" ## indent-guides {{{
+" }}}2
+" ## indent-guides {{{2
 " INFO: auto highlight indent-space.
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-" }}}
-" ## taglist.vim {{{
+" }}}2
+" ## taglist.vim {{{2
 if has('path_extra')
   nnoremap <silent> tl :<C-u>Tlist<Cr>
   let Tlist_Exit_OnlyWindow = 1       "taglistのウィンドーが最後のウィンドーならばVimを閉じる
@@ -699,8 +709,8 @@ if has('path_extra')
   let Tlist_Process_File_Always = 1
   " let Tlist_Show_One_File = 1       "現在編集中のソースのタグしか表示しない
 endif
-" }}}
-" ## vimshell {{{
+" }}}2
+" ## vimshell {{{2
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
@@ -756,14 +766,14 @@ endfunction
 autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
-" }}}
-" ## vimfiler {{{
+" }}}2
+" ## vimfiler {{{2
 let g:vimfiler_sort_type = 'name'
 let g:vimfiler_as_default_explorer = 1
 
 "let g:vimfiler_trashbox_directory = $HOME . '/tmp/vim/vimfiler_transhbox'
-" }}}
-" ## neocomplcache {{{
+" }}}2
+" ## neocomplcache {{{2
 let g:neocomplcache_temporary_dir = $HOME . '/tmp/vim/neocom'
 
 let g:neocomplcache_enable_at_startup = 1
@@ -798,8 +808,8 @@ let g:neocomplcache_dictionary_filetype_lists = {
 
 " 補完を選択後popupを閉じる
 imap <expr><C-y> neocomplcache#close_popup()
-" }}}
-" ## neocomplcache_snippet_complete {{{
+" }}}2
+" ## neocomplcache_snippet_complete {{{2
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -807,8 +817,8 @@ imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
 
 " 一時的
 nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
-" }}}
-" ## unite.vim {{{
+" }}}2
+" ## unite.vim {{{2
 let g:unite_data_directory = $HOME . '/tmp/vim/unite'
 
 let g:unite_winheight = 12
@@ -843,26 +853,26 @@ nnoremap U :<C-u>Unite<Space>
 nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-n> :<C-u>Unite buffer_tab<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
-" }}}
-" ## unite-tag {{{
+" }}}2
+" ## unite-tag {{{2
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
 autocmd BufEnter *
       \   if empty(&buftype)
       \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<Cr>
       \|  endif
-" }}}
-" ## unite-sf2 {{{
+" }}}2
+" ## unite-sf2 {{{2
 let g:unite_source_sf2_bundles = {
     \ 'EloquentBoxbarHelloBundle'  : 'Eloquent/Boxbar/HelloBundle',
     \ 'EloquentBoxbarUserBundle'   : 'Eloquent/Boxbar/UserBundle',
     \ 'EloquentBoxbarCompanyBundle': 'Eloquent/Boxbar/CompanyBundle',
     \ }
-" }}}
-" ## unite-grep{{{
+" }}}2
+" ## unite-grep {{{2
 let g:unite_source_grep_default_opts = '-Hn'  " default
 let g:unite_source_grep_recursive_opt = '-R'  " default
-" }}}
-" ## vim-ref & ref-unite {{{
+" }}}2
+" ## vim-ref & ref-unite {{{2
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
 if exists('g:dependency_local_lists["ref_phpmanual_path"]')
@@ -886,8 +896,8 @@ let g:ref_cmd_filetype_map = {
       \ 'perl' : 'perldoc',
       \ }
       "\ 'php.phpunit' : 'phpunit',
-" }}}
-" ## TwitVim {{{
+" }}}2
+" ## TwitVim {{{2
 if has('python') && !has('gui_macvim')
   let twitvim_enable_python = 1
 endif
@@ -905,8 +915,8 @@ else
   let twitvim_browser_cmd = 'firefox'
 endif
 nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
-" }}}
-" ## QuickRun, Quicklaunch & xUnit {{{
+" }}}2
+" ## QuickRun, Quicklaunch & xUnit {{{2
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
@@ -949,8 +959,8 @@ else  " Linux
 endif
 " TODO: Add QuickRun's syntax for xUnit
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
-" }}}
-" ## vim-textmanip {{{
+" }}}2
+" ## vim-textmanip {{{2
 " It's moved selected test-object.
 " TODO: snippet's imap dependency check.
 xmap <C-j> <Plug>(Textmanip.move_selection_down)
@@ -960,8 +970,8 @@ xmap <C-l> <Plug>(Textmanip.move_selection_right)
 
 " copy selected text-object.
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-"}}}
-" ## zencoding{{{
+"}}}2
+" ## zencoding{{{2
 let g:user_zen_expandabbr_key = '<C-z>'
 let g:user_zen_settings = {
       \  'lang' : 'ja',
@@ -995,8 +1005,8 @@ let g:user_zen_settings = {
       \    },
       \  },
       \ }
-"}}}
-" ## vim-fugitive {{{
+"}}}2
+" ## vim-fugitive {{{2
 " Gstatus
 "    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
 "        Dで:Gdiff起動(差分表示)
@@ -1012,26 +1022,26 @@ nnoremap <Leader>gs :<C-u>Gstatus<Cr>
 nnoremap <Leader>ga :<C-u>Gwrite<Cr>
 nnoremap <Leader>gA :<C-u>Gwrite <cfile><Cr>
 nnoremap <Leader>gc :<C-u>Gcommit<Cr>
-"}}}
-" ## vim-ambicmd {{{
+"}}}2
+" ## vim-ambicmd {{{2
 " FIXME: <Space>打つと何故かバックスラッシュ入る
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
-" }}}
-" ## vim-sunday {{{
+" }}}2
+" ## vim-sunday {{{2
 " My plugin. inspaired toggle.vim, monday.vim
 let g:sunday_pairs = [
   \ ['extends', 'implements'],
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
   \ ]
-" }}}
-" ## calendar.vim {{{
+" }}}2
+" ## calendar.vim {{{2
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
-" }}}
-" ## dbext.vim {{{
+" }}}2
+" ## dbext.vim {{{2
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
-" }}}
-" ## submode.vim (Reside Window) {{{
+" }}}2
+" ## submode.vim (Reside Window) {{{2
 function! s:resizeWindow()
   call submode#enter_with('winsize', 'n', '', 'mws', '<Nop>')
   call submode#leave_with('winsize', 'n', '', '<Esc>')
@@ -1047,8 +1057,9 @@ function! s:resizeWindow()
 endfunction
 
 nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
-" }}}
-" # <Leader> Mappings For Plugins {{{
+" }}}2
+" }}} End Plugin
+" # <Leader> Mappings "{{{
 " change just before buffer
 nnoremap <silent> <Leader>a :<C-u>b#<Cr>
 " open-browser.vim
