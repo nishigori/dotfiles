@@ -77,5 +77,10 @@ let php_htmlInStrings=1  " 文字列中のHTMLをハイライトする
   " Not into removed PHPUnit 3.6 functions. (ex. asertType, assertNotType)
 "}}}
 
+" Set tags for PHPUnit sources
+let s:phpunit_tags = get(g:, 'dependency_local_lists["phpunit_dir"]', '')
+if s:phpunit_tags != ''
+  execute 'setlocal tags+='.s:phpunit_tags.'/tags'
+endif
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
