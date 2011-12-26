@@ -56,7 +56,6 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'Shougo/unite.vim'
   NeoBundle 'tsukkee/unite-tag'
   NeoBundle 'h1mesuke/unite-outline'
-  "NeoBundle 'Sixeight/unite-grep'
   "NeoBundle 'choplin/unite-vim_hacks'
   NeoBundle 'ujihisa/unite-colorscheme'
   NeoBundle 'ujihisa/unite-font'
@@ -64,6 +63,8 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'thinca/vim-unite-history'
   NeoBundle 'tacroe/unite-mark'
   NeoBundle 'tsukkee/unite-help'
+  NeoBundle 'mattn/unite-nyancat'
+  NeoBundle 'mattn/unite-advent_calendar'
   " }}}
   " buffer, tag {{{
   NeoBundle 'Shougo/vimshell'
@@ -78,7 +79,8 @@ if s:vimbundle == 'neobundle' " {{{3
   " complete, snippet {{{
   NeoBundle 'Shougo/neocomplcache'
   NeoBundle 'thinca/vim-ambicmd'
-  "NeoBundle 'neco-look'
+  NeoBundle 'mattn/salaryman-complete-vim'
+  NeoBundle 'neco-look'
   " }}}
   " text operation {{{
   NeoBundle 'mattn/zencoding-vim'
@@ -86,9 +88,11 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'smartchr'
   NeoBundle 'scrooloose/nerdcommenter'
   NeoBundle 't9md/vim-textmanip'
+  NeoBundle 't9md/vim-quickhl'
   NeoBundle 'visualstar.vim'
   NeoBundle 'vim-scripts/matchit.zip'
   NeoBundle 'nathanaelkane/vim-indent-guides'
+  NeoBundle 'vim-scripts/Align'
   "NeoBundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
   "       using unite history/yank
@@ -126,6 +130,8 @@ if s:vimbundle == 'neobundle' " {{{3
   " }}}
   " browse {{{
   NeoBundle 'tyru/open-browser.vim'
+  NeoBundle 'tyru/urilib.vim'
+  NeoBundle 'mattn/webapi-vim'
   NeoBundle 'vim-scripts/TwitVim.git'
   " evervim 重すぎ
   "NeoBundle 'kakkyz81/evervim.git'
@@ -159,7 +165,6 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'vim-scripts/submode'
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/salaryman-complete-vim'
-  NeoBundle 'mattn/unite-nyancat'
   " }}}
   " My Plugins {{{
   NeoBundle 'nishigori/vim-sunday'
@@ -717,7 +722,7 @@ let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
 let g:vimshell_max_list = 15
-let g:vimshell_split_height = 18
+let g:vimshell_split_height = 22
 let g:vimshell_split_command = 'split'
 
 " almost paste from vimshll-examples
@@ -807,7 +812,12 @@ let g:neocomplcache_dictionary_filetype_lists = {
   "\ }
 
 " 補完を選択後popupを閉じる
-imap <expr><C-y> neocomplcache#close_popup()
+"imap <expr><C-y> neocomplcache#close_popup()
+
+" for salaryman-omni-complete
+let g:neocomplcache_omni_patterns = {
+      \ 'txt' : '*'
+      \ }
 " }}}2
 " ## neocomplcache_snippet_complete {{{2
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -1041,6 +1051,14 @@ let g:calendar_weeknm = 1 " WK01
 " ## dbext.vim {{{2
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 " }}}2
+" ## Align.vim {{{2
+vnoremap <silent> <Leader>aa :Align = + - | ,<CR>
+vnoremap <silent> <Leader>a= :Align =<CR>
+vnoremap <silent> <Leader>a+ :Align +<CR>
++noremap <silent> <Leader>a- :Align -<CR>
+vnoremap <silent> <Leader>a, :Align ,<CR>
+vnoremap <silent> <Leader>a| :Align |<CR>
+" }}}
 " ## submode.vim (Reside Window) {{{2
 function! s:resizeWindow()
   call submode#enter_with('winsize', 'n', '', 'mws', '<Nop>')
@@ -1075,8 +1093,8 @@ nnoremap <Leader>uf :<C-u>Unite file<Cr>
 nnoremap <Leader>uF :<C-u>Unite file_rec<Cr>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
-nnoremap <silent> <Leader>ub :<C-u>Unite bookmark -default-action=cd<Cr>
-nnoremap <silent> <Leader>uB :<C-u>Unite buffer<Cr>
+nnoremap <silent> <Leader>ub :<C-u>Unite buffer<Cr>
+nnoremap <silent> <Leader>uB :<C-u>Unite bookmark -default-action=cd<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite resume source<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
 " for current buffer
@@ -1098,6 +1116,12 @@ nnoremap <Leader>ur :<C-u>Unite<Space>ref/
 "nnoremap <Leader>S :<C-u>Unite<Space>sf2/
 "nnoremap <Leader>sb :<C-u>Unite sf2/bundles<Cr>
 "nnoremap <Leader>sc :<C-u>Unite sf2/app/config<Cr>
+" Quickhl
+nmap <silent> <Leader>m <Plug>(quickhl-toggle)
+xmap <silent> <Leader>m <Plug>(quickhl-toggle)
+nmap <silent> <Leader>M <Plug>(quickhl-reset)
+xmap <silent> <Leader>M <Plug>(quickhl-reset)
+nmap <silent> <Leader>j <Plug>(quickhl-match)
 " }}}
 
 
