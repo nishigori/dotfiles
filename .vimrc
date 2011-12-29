@@ -1053,12 +1053,12 @@ let g:calendar_weeknm = 1 " WK01
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 " }}}2
 " ## Align.vim {{{2
-vnoremap <silent> <Leader>aa :Align = + - | ,<CR>
-vnoremap <silent> <Leader>a= :Align =<CR>
-vnoremap <silent> <Leader>a+ :Align +<CR>
-+noremap <silent> <Leader>a- :Align -<CR>
-vnoremap <silent> <Leader>a, :Align ,<CR>
-vnoremap <silent> <Leader>a| :Align |<CR>
+vnoremap <silent> <Leader>aa  :Align = + - \| ,<CR>
+vnoremap <silent> <Leader>a=  :Align =<CR>
+vnoremap <silent> <Leader>a+  :Align +<CR>
++noremap <silent> <Leader>a-  :Align -<CR>
+vnoremap <silent> <Leader>a,  :Align ,<CR>
+vnoremap <silent> <Leader>a\| :Align \|<CR>
 " }}}
 " ## submode.vim (Reside Window) {{{2
 function! s:resizeWindow()
