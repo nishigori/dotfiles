@@ -1028,6 +1028,7 @@ let g:user_zen_settings = {
 "    * help ：Gstatus
 nnoremap <Leader>gb :<C-u>Gblame<Cr>
 nnoremap <Leader>gd :<C-u>Gdiff<Cr>
+nnoremap <Leader>gD :<C-u>Gdiff --cached<Cr>
 nnoremap <Leader>gs :<C-u>Gstatus<Cr>
 nnoremap <Leader>ga :<C-u>Gwrite<Cr>
 nnoremap <Leader>gA :<C-u>Gwrite <cfile><Cr>
