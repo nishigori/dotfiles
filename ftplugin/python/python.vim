@@ -14,8 +14,8 @@ setlocal commentstring=\ #\ %s
 
 let python_highlight_all = 1
 
-nnoremap <F5>	:!/usr/bin/python %<CR>
-nnoremap <F12>	:!/usr/lib/python2.4/pdb.py %<CR>
+"nnoremap <F12> :!/usr/lib/python2.4/pdb.py %<CR>
+autocmd BufWritePost *.py :call lint#python()
 
 " # PLUGIN
 " ## unite-ref {{{

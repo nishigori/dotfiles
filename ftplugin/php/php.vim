@@ -12,6 +12,13 @@ let php_folding = 1             " enable folding of Class & function
 let php_parent_error_close = 1  " highlight error compatible [], ()
 "let php_noShortTags = 1         " disable PHP's short tag
 
+setlocal errorformat=%m\ in\ %f\ on\ line\ %l
+autocmd BufWritePost *.php :call lint#php()
+nnoremap <silent> ,l :call lint#php()<CR>
+
+" Syntax check. cmd :make
+"setlocal makeprg=php\ -l\ %
+"
 " Add semicolon for line end
 function! IsEndSemicolon()  "{{{
   let c = getline(".")[col("$")-2]

@@ -10,10 +10,5 @@ let ruby_operators  =  1
 let ruby_space_errors = 1
 
 " RubyLint
-autocmd BufWritePost *.rb :call RubyLint()
-nmap ,l :call RubyLint()<CR>
-
-function RubyLint()
-	let result  =  system( &ft . ' -c ' . bufname(""))
-	echo result
-endfunction
+autocmd BufWritePost *.rb :call lint#ruby()
+nmap ,l :call lint#ruby()<CR>
