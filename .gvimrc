@@ -75,7 +75,7 @@ elseif has('win32')
   " not checked guifont.
   " http://q.hatena.ne.jp/1138349864
   " http://magicant.txt-nifty.com/main/2009/03/gvim-on-windows.html
-  set guifont=Inconsolata:h12
+  set guifont=Inconsolata:h11
   "set guifontwide=ゆたぽん（コーディング）:みかちゃん:めんまフォント:MS_Gothic
 
   "set encoding=utf-8
