@@ -1056,7 +1056,7 @@ let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 vnoremap <silent> <Leader>aa  :Align = + - \| ,<CR>
 vnoremap <silent> <Leader>a=  :Align =<CR>
 vnoremap <silent> <Leader>a+  :Align +<CR>
-+noremap <silent> <Leader>a-  :Align -<CR>
+nnoremap <silent> <Leader>a-  :Align -<CR>
 vnoremap <silent> <Leader>a,  :Align ,<CR>
 vnoremap <silent> <Leader>a\| :Align \|<CR>
 " }}}
