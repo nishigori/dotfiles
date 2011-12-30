@@ -1,0 +1,6 @@
+*.pyc
+*.dcu
+
+.vimrc.local
+.gvimrc.local
+
