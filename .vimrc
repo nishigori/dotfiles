@@ -132,7 +132,9 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'tyru/open-browser.vim'
   NeoBundle 'tyru/urilib.vim'
   NeoBundle 'mattn/webapi-vim'
-  NeoBundle 'vim-scripts/TwitVim.git'
+  NeoBundle 'basyura/twibill.vim'
+  NeoBundle 'basyura/bitly.vim'
+  NeoBundle 'basyura/TweetVim'
   " evervim 重すぎ
   "NeoBundle 'kakkyz81/evervim.git'
   " }}}
@@ -907,24 +909,9 @@ let g:ref_cmd_filetype_map = {
       \ }
       "\ 'php.phpunit' : 'phpunit',
 " }}}2
-" ## TwitVim {{{2
-if has('python') && !has('gui_macvim')
-  let twitvim_enable_python = 1
-endif
-if has('ruby') && !has('mac')
-  " MacVim with ruby, unknown crash.
-  let twitvim_enable_ruby = 1
-endif
-if has('mac')
-  let twitvim_browser_cmd = 'open -a firefox'
-"elseif has('win32')
-  "let twitvim_browser_cmd = 'firefox'
-elseif has('win32')
-  let twitvim_browser_cmd = 'firefox.exe'
-else
-  let twitvim_browser_cmd = 'firefox'
-endif
-nnoremap <silent><F8> :<C-u>RefreshTwitter<Cr>
+" ## TweetVim {{{
+let g:tweetvim_config_dir = $HOME . '/tmp/vim/.tweetvim'
+let g:tweetvim_include_rts = 1
 " }}}2
 " ## QuickRun, Quicklaunch & xUnit {{{2
 let g:quickrun_config = get(g:, 'quickrun_config', {})
@@ -1098,6 +1085,7 @@ nnoremap <silent> <Leader>ub :<C-u>Unite buffer<Cr>
 nnoremap <silent> <Leader>uB :<C-u>Unite bookmark -default-action=cd<Cr>
 nnoremap <silent> <Leader>uu :<C-u>Unite resume source<Cr>
 nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
+nnoremap <silent> <Leader>ut :<C-u>Unite tweetvim<Cr>
 " for current buffer
 nnoremap <Leader>ug :<C-u>Unite grep:%:-iR:<Cr>
 " for all buffer
@@ -1123,6 +1111,9 @@ xmap <silent> <Leader>m <Plug>(quickhl-toggle)
 nmap <silent> <Leader>M <Plug>(quickhl-reset)
 xmap <silent> <Leader>M <Plug>(quickhl-reset)
 nmap <silent> <Leader>j <Plug>(quickhl-match)
+
+" TweetVim
+nnoremap <silent> <Leader>t :TweetVimHomeTimeline<Cr>
 " }}}
 
 
