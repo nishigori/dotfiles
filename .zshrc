@@ -23,14 +23,13 @@ ZSH_THEME="murilasso"
 # DISABLE_COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
 case "${OSTYPE}" in
     freebsd*|darwin*)
-        plugins=(osx brew git github ssh-agent mercurial python pip phing)
+        plugins=(osx brew git github ssh-agent mercurial python pip phing symfony2 ruby rvm gem rails3 vagrant)
         ;;
     linux*)
         if [ -f /etc/redhat-release ]; then
-            plugins=(git mercurial ssh-agent python phing)
+            plugins=(yum git mercurial ssh-agent python phing)
         else
             plugins=(debian gnu-utils python pip phing ruby gem git github ssh-agent mercurial)
         fi
@@ -38,5 +37,3 @@ case "${OSTYPE}" in
 esac
 
 source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
