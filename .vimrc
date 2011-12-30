@@ -781,7 +781,7 @@ let g:vimfiler_as_default_explorer = 1
 "let g:vimfiler_trashbox_directory = $HOME . '/tmp/vim/vimfiler_transhbox'
 " }}}2
 " ## vimproc {{{2
-let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
+"let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
 " }}}2
 " ## neocomplcache {{{2
 let g:neocomplcache_temporary_dir = $HOME . '/tmp/vim/neocom'
@@ -1116,7 +1116,9 @@ xmap <silent> <Leader>M <Plug>(quickhl-reset)
 nmap <silent> <Leader>j <Plug>(quickhl-match)
 
 " TweetVim
-nnoremap <silent> <Leader>t :TweetVimHomeTimeline<Cr>
+nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<Cr>
+nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<Cr>
+nnoremap <silent> <Leader>ts :TweetVimSay<Cr>
 " }}}
 
 
