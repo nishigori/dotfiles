@@ -34,7 +34,7 @@ nnoremap <C-j> <Nop>
 nnoremap <C-h> <Nop>
 " }}}
 " # TOOL_BAR, STATUS_BAR {{{
-set gui=none,tabs,addons
+set gui=none,tabs
 set wildmode=list:full
 " command line 時にime off
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
