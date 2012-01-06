@@ -168,6 +168,12 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/salaryman-complete-vim'
   " }}}
+  " Ruby {{{
+  " need ruby-debug-ide19
+  " $ gem install ruby-debug-ide19
+  NeoBundle 'astashov/vim-ruby-debugger'
+  NeoBundle 'vim-scripts/rails.vim'
+  " }}}
   " My Plugins {{{
   NeoBundle 'nishigori/vim-sunday'
   NeoBundle 'nishigori/vim-php-dictionary'
@@ -258,9 +264,9 @@ endif
 set autoindent
 set expandtab " replaced Tab with Indent
 "setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
-set tabstop=4
-set shiftwidth=4
-set softtabstop=0
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal softtabstop=0
 inoremap <C-=> <Esc>==i
 " }}}
 " # Basic "{{{
@@ -425,15 +431,28 @@ endif
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 inoremap ( ()<LEFT>
-inoremap "" ""<LEFT>
-inoremap '' ''<LEFT>
-inoremap `` ``<LEFT>
+inoremap \| \|\|<LEFT>
+inoremap " ""<LEFT>
+inoremap ' ''<LEFT>
+inoremap ` ``<LEFT>
+inoremap \|\| \|
+inoremap "" "
+inoremap '' '
+inoremap `` `
+
+inoremap <C-r> \n
 
 cnoremap { {}<LEFT>
 cnoremap [ []<LEFT>
 cnoremap ( ()<LEFT>
-cnoremap "" ""<LEFT>
-cnoremap '' ''<LEFT>
+cnoremap \| \|\|<LEFT>
+cnoremap " ""<LEFT>
+cnoremap ' ''<LEFT>
+cnoremap ` ``<LEFT>
+cnoremap \|\| \|
+cnoremap "" "
+cnoremap '' '
+cnoremap `` `
 
 " Support Input Date
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
@@ -515,7 +534,7 @@ augroup END "}}}
 nnoremap <silent> e. :<C-u>edit $MYVIMRC<Cr>
 nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
 " }}}
-" # Window, Buffer {{{
+" # Window {{{
 set splitright  " Default vsplit, left
 set splitbelow  " Default split, top
 
@@ -525,16 +544,26 @@ set splitbelow  " Default split, top
 "nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<Cr>
 "nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<Cr>
 function! s:good_width()  "{{{2
-  if winwidth(0) < 84 && expand('%') != '__Tag_List__' && expand('%') != '[quickrun output]'
+  if winwidth(0) < 84 && &ft != 'taglist' && &ft != 'quickrun'
     vertical resize 84
   endif
-endfunction "}}}
+endfunction "}}}2
 
-nnoremap <silent> <Leader>b :<C-u>bnext<Cr>
-nnoremap <silent> <Leader>B :<C-u>bprevious<Cr>
+" }}}
+" # Buffer {{{
+nnoremap <silent> <Leader>b :call Buffer_toggle()<Cr>
+function! Buffer_toggle() "{{{2
+  if extend('g:buffer_toggle_flag')
+    bnext
+    let g:buffer_toggle_flag = 1
+  else
+    bprevious
+    unlet g:buffer_toggle_flag
+  endif
+endfunction "}}}2
 
 " inspaired @taku-o's Kwdb.vim
-:com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn 
+:com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
 " }}}
 " # Fold, View {{{
@@ -589,7 +618,7 @@ set dictionary=$HOME/.vim/dict/default.dict
 if has('path_extra') && &filetype !~ 'zsh\|conf'
   setlocal tags+=.
   if filereadable("tags")
-    setlocal tags+=tags;$HOME
+    setlocal tags+=tags
   endif
   if filereadable("tags-ja")
     setlocal tags+=tags-ja
@@ -903,6 +932,7 @@ endif
 if has('mac')
   let g:ref_alc_cmd = 'lynx -dump -display_charset=' . &encoding . ' -nonumbers %s'
 endif
+"let g:ref_refe_cmd = '/usr/bin/refe'
 
 " My ref filetype mapping
 let g:ref_cmd_filetype_map = {
@@ -1043,11 +1073,11 @@ let g:calendar_weeknm = 1 " WK01
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 " }}}2
 " ## Align.vim {{{2
+"vnoremap <silent> <Leader>a=  :Align =<CR>
+"vnoremap <silent> <Leader>a,  :Align ,<CR>
 vnoremap <silent> <Leader>aa  :Align = + - \| ,<CR>
-vnoremap <silent> <Leader>a=  :Align =<CR>
 vnoremap <silent> <Leader>a+  :Align +<CR>
 nnoremap <silent> <Leader>a-  :Align -<CR>
-vnoremap <silent> <Leader>a,  :Align ,<CR>
 vnoremap <silent> <Leader>a\| :Align \|<CR>
 " }}}
 " ## submode.vim (Reside Window) {{{2
