@@ -1,5 +1,5 @@
 setlocal omnifunc=htmlcomplete#CompleteHTML
-set tags+=tags
+setlocal tags+=tags
 
 setlocal expandtab
 setlocal tabstop=2

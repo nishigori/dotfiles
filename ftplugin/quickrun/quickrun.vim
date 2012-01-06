@@ -1,1 +1,1 @@
-set syntax=vimshell
+setlocal syntax=vimshell

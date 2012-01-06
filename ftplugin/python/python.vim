@@ -12,7 +12,7 @@ setlocal nosmartindent
 setlocal commentstring=\ #\ %s
 "setlocal foldlevel=0
 
-let python_highlight_all = 1
+let g:python_highlight_all = 1
 
 "nnoremap <F12> :!/usr/lib/python2.4/pdb.py %<CR>
 autocmd BufWritePost *.py :call lint#python()

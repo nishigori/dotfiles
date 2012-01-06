@@ -1,6 +1,8 @@
 function! lint#ruby() " {{{
   let result = system( &ft . ' -c ' . bufname(''))
-  echo result
+  if result !~ 'Syntax OK'
+    echo result
+  endif
 endfunction " }}}
 function! lint#php() "{{{
   let result   = system('php -l ' . expand('%:p'))

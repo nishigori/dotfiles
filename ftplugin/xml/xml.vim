@@ -1,6 +1,6 @@
 setlocal omnifunc=xmlcomplete#CompleteTags
 
-set tags+=tags
+setlocal tags+=tags
 
 setlocal tabstop=4
 setlocal shiftwidth=4
