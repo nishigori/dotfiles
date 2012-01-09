@@ -25,13 +25,30 @@ ZSH_THEME="murilasso"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 case "${OSTYPE}" in
     freebsd*|darwin*)
-        plugins=(osx brew git github ssh-agent mercurial python pip phing symfony2 ruby rvm gem rails3 vagrant)
+        plugins=( \
+            osx brew \
+            git github ssh-agent vagrant \
+            python pip mercurial \
+            phing symfony2 \
+            rvm ruby gem rails3 \
+            )
         ;;
     linux*)
         if [ -f /etc/redhat-release ]; then
-            plugins=(yum git mercurial ssh-agent python phing)
+            plugins=( \
+                yum \
+                git ssh-agent \
+                python mercurial \
+                phing \
+                )
         else
-            plugins=(debian gnu-utils python pip phing ruby gem git github ssh-agent mercurial)
+            plugins=( \
+                debian gnu-utils \
+                git github ssh-agent \
+                python pip mercurial \
+                phing \
+                rvm ruby gem \
+                )
         fi
         ;;
 esac
