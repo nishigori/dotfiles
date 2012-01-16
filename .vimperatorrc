@@ -1,7 +1,8 @@
 " /**
 " * @Author @_nishigori
-" * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+" * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
 " */
+source $HOME/.vimperatorrc.local
 " # CAUTION Switch ; <-> : !! {{{
 " Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
@@ -9,17 +10,13 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 " }}}
-" # COLOR SCHEME {{{
-colorscheme galaxy
-" }}}
 " # BASIC {{{
-set titlestring="Vimp"
+set titlestring="Vimperator"
 set history=255
 set focuscontent
 set runtimepath=$HOME/.vimperator
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
-set editor=gvim\ -f
 
 nnoremap U :undo<Space>
 nnoremap pa :<C-u>panorama<Space>add<Space>
@@ -138,15 +135,30 @@ nnoremap es :<C-u>source $HOME/.vimperatorrc<Cr>
 ":set editor='bash -lc "mvim -f \$*" mvim '
 ":set editor='bash -lc "gvim -f \$*" gvim '
 " }}}
-" # PLUGIN
-"" ## _smooziee.js
-let g:smooziee_scroll_amount="250"
-"" ## nextlink.js
-let g:nextlink_followlink="true"
-"" ## google-translator.js
-nnoremap <C-t> :<C-u>gtrans<Space>
-
+" # My Plugins {{{
 " echo Calender
 command! cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
 " Evernote Web Clipper
 command! clip javascript Evernote.Overlay.init(null)
+" }}}
+
+" # PLUGIN
+"" ## _smooziee.js {{{
+let g:smooziee_scroll_amount="250"
+" }}}
+"" ## nextlink.js {{{
+let g:nextlink_followlink="true"
+" }}}
+"" ## google-translator.js {{{
+nnoremap <C-t> :<C-u>gtrans<Space>
+" }}}
+" ## facebook.js {{{
+let g:facebook_auto_load = 1
+let g:facebook_notify = 1
+" }}}
+" ## slideshare.js {{{
+nnoremap sf :<C-u>slideshare fullscreen<CR>
+nnoremap sn :<C-u>slideshare next<CR>
+nnoremap sn :<C-u>slideshare prev<CR>
+" }}}
+
