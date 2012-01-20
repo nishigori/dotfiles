@@ -159,6 +159,6 @@ let g:facebook_notify = 1
 " ## slideshare.js {{{
 nnoremap sf :<C-u>slideshare fullscreen<CR>
 nnoremap sn :<C-u>slideshare next<CR>
-nnoremap sn :<C-u>slideshare prev<CR>
+nnoremap sp :<C-u>slideshare prev<CR>
 " }}}
 
