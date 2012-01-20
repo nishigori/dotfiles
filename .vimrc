@@ -171,7 +171,7 @@ if s:vimbundle == 'neobundle' " {{{3
   " Ruby {{{
   " need ruby-debug-ide19
   " $ gem install ruby-debug-ide19
-  NeoBundle 'astashov/vim-ruby-debugger'
+  "NeoBundle 'astashov/vim-ruby-debugger'
   NeoBundle 'vim-scripts/rails.vim'
   " }}}
   " My Plugins {{{
@@ -973,6 +973,9 @@ if has('clientserver')
   \   'php.phpunit' : {
   \     'command' : 'phpunit',
   \   },
+  \   'javascript' : {
+  \     'command' : 'phantomjs',
+  \   }
   \ }
 endif
 if has('mac')
