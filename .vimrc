@@ -139,8 +139,8 @@ if s:vimbundle == 'neobundle' " {{{3
   "NeoBundle 'kakkyz81/evervim.git'
   " }}}
   " VCS {{{
-  "NeoBundle 'Shougo/vim-vcs'
-  NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'Shougo/vim-vcs'
+  "NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'mattn/gist-vim'
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
