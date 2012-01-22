@@ -1101,6 +1101,10 @@ endfunction
 
 nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " }}}2
+" ## vim-powerline {{{
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_cache_file = $HOME . '/tmp/vim/Powerline.cache'
+" }}}
 " }}} End Plugin
 " # <Leader> Mappings "{{{
 " change just before buffer
