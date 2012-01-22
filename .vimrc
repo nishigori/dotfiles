@@ -113,6 +113,7 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'vim-scripts/css3'
   NeoBundle 'beyondwords/vim-twig'
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
+  NeoBundle 'othree/html5.vim'
   " }}}
   " color sheme & font {{{
   NeoBundle 'vim-scripts/molokai'
@@ -767,10 +768,6 @@ let g:vimshell_execute_file_list['php'] = 'php'
 let g:vimshell_execute_file_list['git'] = 'git'
 call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-let g:vimshell_enable_smart_case = 1
-
 if has('win32') || has('win64')
   " Display user name on Windows.
   let g:vimshell_prompt = $USERNAME." % "
@@ -1039,6 +1036,9 @@ let g:user_zen_settings = {
       \  },
       \ }
 "}}}2
+" ## vim-vcs{{{
+let g:vcs#config_log_file = $HOME .'/tmp/'
+" }}}
 " ## vim-fugitive {{{2
 " Gstatus
 "    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
