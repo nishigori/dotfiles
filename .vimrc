@@ -67,6 +67,7 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'mattn/unite-advent_calendar'
   " }}}
   " buffer, tag {{{
+  NeoBundle 'Lokaltog/vim-powerline'
   NeoBundle 'Shougo/vimshell'
   NeoBundle 'ujihisa/vimshell-ssh'
   NeoBundle 'Shougo/vimfiler'
@@ -742,9 +743,9 @@ if has('path_extra')
   nnoremap <silent> tl :<C-u>Tlist<Cr>
   let Tlist_Exit_OnlyWindow = 1       "taglistのウィンドーが最後のウィンドーならばVimを閉じる
   let Tlist_WinWidth = 40
-  let Tlist_Enable_Fold_Column = 3
-  let Tlist_Process_File_Always = 1
-  " let Tlist_Show_One_File = 1       "現在編集中のソースのタグしか表示しない
+  let Tlist_Enable_Fold_Column = 2
+  "let Tlist_Process_File_Always = 1
+  " let Tlist_Show_One_File = 1
 endif
 " }}}2
 " ## vimshell {{{2
