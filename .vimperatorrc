@@ -37,7 +37,7 @@ set wildmode=list:full
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 " }}}
 " # SEARCH {{{
-set complete=l
+set complete=bl
 set ignorecase
 set smartcase
 set hlsearch
@@ -144,7 +144,7 @@ command! clip javascript Evernote.Overlay.init(null)
 
 " # PLUGIN
 "" ## _smooziee.js {{{
-let g:smooziee_scroll_amount="250"
+let g:smooziee_scroll_amount="230"
 " }}}
 "" ## nextlink.js {{{
 let g:nextlink_followlink="true"
@@ -160,5 +160,7 @@ let g:facebook_notify = 1
 nnoremap sf :<C-u>slideshare fullscreen<CR>
 nnoremap sn :<C-u>slideshare next<CR>
 nnoremap sp :<C-u>slideshare prev<CR>
+nnoremap <S-n> :<C-u>slideshare next<CR>
+nnoremap <S-p> :<C-u>slideshare prev<CR>
 " }}}
 
