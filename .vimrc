@@ -260,6 +260,17 @@ if has('syntax')
       endif
     endfunction " }}}
   endif
+
+  nnoremap <silent> ,w :<C-u>ToggleWrap<Cr>
+  vnoremap <silent> ,w :<C-u>ToggleWrap<Cr>
+  command! -nargs=0 ToggleWrap call ToggleWrapOption()
+  function! ToggleWrapOption() " {{{
+    if &wrap
+      setlocal nowrap
+    else
+      setlocal wrap
+    endif
+  endfunction " }}}
 endif
 " }}}
 " # Indent {{{
