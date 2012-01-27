@@ -459,13 +459,10 @@ cnoremap { {}<LEFT>
 cnoremap [ []<LEFT>
 cnoremap ( ()<LEFT>
 cnoremap \| \|\|<LEFT>
-cnoremap " ""<LEFT>
-cnoremap ' ''<LEFT>
-cnoremap ` ``<LEFT>
-cnoremap \|\| \|
-cnoremap "" "
-cnoremap '' '
-cnoremap `` `
+cnoremap "" ""<LEFT>
+cnoremap '' ''<LEFT>
+cnoremap `` ``<LEFT>
+cnoremap \|\| \|\|<LEFT>
 
 " Support Input Date
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
