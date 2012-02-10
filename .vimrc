@@ -79,6 +79,7 @@ if s:vimbundle == 'neobundle' " {{{3
   " }}}
   " complete, snippet {{{
   NeoBundle 'Shougo/neocomplcache'
+  NeoBundle 'Shougo/neocomplcache-snippets-complete'
   NeoBundle 'thinca/vim-ambicmd'
   NeoBundle 'mattn/salaryman-complete-vim'
   NeoBundle 'neco-look'
@@ -758,7 +759,7 @@ endif
 " }}}2
 " ## vimshell {{{2
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+"let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
