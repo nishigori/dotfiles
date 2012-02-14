@@ -212,6 +212,11 @@ if !has('gui_macvim') || !has('kaoriya')
   set encoding=utf-8
   set fileencodings=utf-8,euc-jp,shitjis,iso-2022-jp,latin1
 endif
+if has('win32')
+  set encoding=utf-8
+  set termencoding=&encoding
+  set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp,latin1
+endif
 " }}}
 " # Syntax {{{
 if has('syntax')
