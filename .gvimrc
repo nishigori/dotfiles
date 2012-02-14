@@ -22,12 +22,6 @@ set mouse=a
 set mousemodel=popup
 set nomousefocus
 " }}}
-" # Encoding {{{
-if has('win32')
-  set encoding=utf-8
-  scriptencoding cp932
-endif
-" }}}
 " # Quick Start $MYGVIMRC {{{
 if exists('g:dependency_local_lists')
   let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.gvimrc'
@@ -73,9 +67,9 @@ elseif has('win32')
   "set encoding=cp932
 
   " not checked guifont.
-  " http://q.hatena.ne.jp/1138349864
   " http://magicant.txt-nifty.com/main/2009/03/gvim-on-windows.html
-  set guifont=Inconsolata:h11
+  set guifont=Inconsolata:h10.5
+  set guifontwide=MS_Gothic
   "set guifontwide=ゆたぽん（コーディング）:みかちゃん:めんまフォント:MS_Gothic
 
   "set encoding=utf-8
