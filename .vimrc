@@ -429,6 +429,14 @@ nnoremap # #N
 nnoremap \ /^
 " }}}
 " # Copy & Paste {{{
+nnoremap ,p :call PasteMode_toggle()<Cr>
+function! PasteMode_toggle() "{{{
+  if &paste
+    set nopaste
+  else
+    set paste
+  endif
+endfunction "}}}
 " Like nmap 'D' and 'C'
 nnoremap Y y$
 "set paste " When you're setting paste, can't use inoremap extend ;-<
@@ -567,7 +575,7 @@ endfunction "}}}2
 
 " }}}
 " # Buffer {{{
-nnoremap <silent> <Leader>b :call Buffer_toggle()<Cr>
+nnoremap <silent><Leader>b :call Buffer_toggle()<Cr>
 function! Buffer_toggle() "{{{2
   if extend('g:buffer_toggle_flag')
     bnext
