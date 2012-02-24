@@ -116,6 +116,7 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'beyondwords/vim-twig'
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
   NeoBundle 'othree/html5.vim'
+  NeoBundle 'chase/nginx.vim'
   " }}}
   " color sheme & font {{{
   NeoBundle 'vim-scripts/molokai'
@@ -182,8 +183,9 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'nishigori/vim-php-dictionary'
   NeoBundle 'nishigori/phpfolding.vim'
   NeoBundle 'nishigori/vim-twig'
-  NeoBundle 'nishigori/neocomplcache_phpunit_snippet'
   NeoBundle 'nishigori/vim-phpunit-snippets'
+  NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
+  NeoBundle 'nishigori/neocomplcache-nginx-snippet'
   " }}}
   filetype plugin indent on " required!
   " }}}3
@@ -321,16 +323,20 @@ set title
 let mapleader = " "
 " }}}
 " # Filetype Detect {{{
-augroup FiletypeDetect
+augroup MyFiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.mine       setfiletype mine
   au! BufRead,BufNewFile,BufWinEnter *.xyz        setfiletype drawing
   au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
   au! BufRead,BufNewFile,BufWinEnter *.txt        setfiletype txt
   au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype php.html
   au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype php.html
+  au! BufRead,BufNewFile,BufWinEnter *.twig       setfiletype twig
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
   "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
-  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/* setfiletype apache
+  au! BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/*,*/nginx/vhosts.d/*,nginx.conf
+        \ if &ft == '' | setfiletype nginx | endif
+  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,*.conf
+        \ setfiletype apache
   au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp     setfiletype vimperator
   au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator   setfiletype muttator
 augroup END
@@ -1129,6 +1135,7 @@ let g:Powerline_cache_file = $HOME . '/tmp/vim/Powerline.cache'
 " }}}
 " }}} End Plugin
 " # <Leader> Mappings "{{{
+nnoremap <silent><Leader><Leader> f<Space>
 " change just before buffer
 nnoremap <silent> <Leader>a :<C-u>b#<Cr>
 " open-browser.vim
