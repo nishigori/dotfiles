@@ -17,7 +17,7 @@ inoremap <C-r><C-r> PHP_EOL
 " }}}
 " Linter {{{
 setlocal errorformat=%m\ in\ %f\ on\ line\ %l
-autocmd BufWritePost *.php :call lint#php()
+"autocmd BufWritePost *.php :call lint#php()
 nnoremap <silent> ,l :call lint#php()<CR>
 " Syntax check. cmd :make
 "setlocal makeprg=php\ -l\ %
