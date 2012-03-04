@@ -182,7 +182,6 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'nishigori/vim-sunday'
   NeoBundle 'nishigori/vim-php-dictionary'
   NeoBundle 'nishigori/phpfolding.vim'
-  NeoBundle 'nishigori/vim-twig'
   NeoBundle 'nishigori/vim-phpunit-snippets'
   NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
   NeoBundle 'nishigori/neocomplcache-nginx-snippet'
