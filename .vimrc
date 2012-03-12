@@ -1,50 +1,51 @@
-" # Initialize {{{
-" ## Dependency Operating System {{{2
+" Initialize
+" # runtimepath {{{
 if has('win32')
   " INFO: .vimrc unifies vimrc
   "       .vim   unifies vimfiles
   set runtimepath^=$HOME/.vim
   set runtimepath+=$HOME/.vim/after
 endif
-" }}}2
-" ## Vimrc Local "{{{2
-" ## Dependency vimrc.local "{{{3
-let s:vimbundle = ''
-if !filereadable(expand($HOME. '/.vimrc.local'))
-  set directory= backupdir= viewdir=
-  if has('persistent_undo')
-    set undodir=
-  endif
-
-else
+" }}}
+" # encoding {{{
+" Note: Kaoriya MacVim is needless encoding.
+if !has('gui_macvim') || !has('kaoriya')
+  " INFO: If encode is fixed, :e ++enc = {encoding-name}
+  set encoding=utf-8
+  set fileencodings=utf-8,euc-jp,shitjis,iso-2022-jp,latin1
+endif
+if has('win32')
+  set encoding=utf-8
+  set termencoding=&encoding
+  set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp,latin1
+endif
+" }}}
+" VIMRC Local
+set nobackup noswapfile
+if filereadable(expand($HOME. '/.vimrc.local'))
+  set backup swapfile
   " INFO: Read .vimrc.local.sample
   source $HOME/.vimrc.local
 
-  if exists('g:dependency_local_lists')
-    let $MYVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.vimrc'
-    if has_key(g:dependency_local_lists, 'plugin-manager')
-      let s:vimbundle = g:dependency_local_lists['plugin-manager']
-    endif
+  let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
 
-    set swapfile
-    set backup
-  endif
-endif " }}}
-" Load settings for each location." {{{3
-augroup vimrc-local "{{{
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END "}}}
-function! s:vimrc_local(loc) " {{{
-  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
-endfunction " }}}
-" }}}3
-" }}}2
-" # Plugin Manager {{{2
-if s:vimbundle == 'neobundle' " {{{3
+  " Use weekly buffer for GTD.
+  nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<Cr>
+
+  " Load settings for each location.
+  augroup load_vimrc "{{{
+      autocmd!
+      autocmd BufNewFile,BufReadPost * call s:load_vimrc_local(expand('<afile>:p:h'))
+  augroup END "}}}
+  " TODO: moved autoload dir.
+  function! s:load_vimrc_local(loc) " {{{
+      let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+      for i in reverse(filter(files, 'filereadable(v:val)'))
+          source `=i`
+      endfor
+  endfunction " }}}
+
+  " ## Bundle {{{
   set nocompatible           " be iMproved
   filetype plugin indent off " required!!
   if has('vim_starting')
@@ -104,20 +105,6 @@ if s:vimbundle == 'neobundle' " {{{3
   "NeoBundle 'vim-scripts/ShowMarks'
   "NeoBundle 'vim-scripts/number-marks'
   " }}}
-  " ref, help {{{
-  NeoBundle 'thinca/vim-ref'
-  NeoBundle 'soh335/vim-ref-jquery'
-  " }}}
-  " filetype {{{
-  NeoBundle 'basyura/jslint.vim'
-  NeoBundle 'jtriley/vim-rst-headings'
-  NeoBundle 'heavenshell/unite-sf2'
-  NeoBundle 'vim-scripts/css3'
-  NeoBundle 'beyondwords/vim-twig'
-  NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
-  NeoBundle 'othree/html5.vim'
-  NeoBundle 'chase/nginx.vim'
-  " }}}
   " color sheme & font {{{
   NeoBundle 'vim-scripts/molokai'
   NeoBundle 'desert256.vim'
@@ -148,37 +135,54 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'mattn/gist-vim'
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
-  " xUnit {{{
-  "NeoBundle 'vimUnit'
-  NeoBundle 'dsummersl/vimunit'
-  "NeoBundle 'pyunit'
-  "NeoBundle 'toggle_unit_tests'
-  " WARNING: Needless phpunit plugin, because defalut key-mapping is suck!!
-  "NeoBundle 'phpunit'
-  " }}}
   " DB {{{
   " INFO: dbext.vim' latest version is into the vim.org.
   "       http://vim.sourceforge.net/scripts/script.php?script_id=356
-  NeoBundle 'vim-scripts/dbext.vim'
-  NeoBundle 'xenoterracide/sql_iabbr'
+  "NeoBundle 'vim-scripts/dbext.vim'
+  "NeoBundle 'xenoterracide/sql_iabbr'
   " }}}
   " debug, backend {{{
   NeoBundle 'Shougo/vimproc'
   "NeoBundle 'ujihisa/vital.vim'
   " }}}
-  " tools {{{
+  " ref, help {{{
+  NeoBundle 'thinca/vim-ref'
+  " }}}
+  " filetype {{{
+  "" HTML
+  NeoBundle 'othree/html5.vim'
+  "" CSS
+  NeoBundle 'vim-scripts/css3'
+  "" Markdown
+  NeoBundle 'mattn/mkdpreview-vim'
+  "" JavaScript
+  NeoBundle 'basyura/jslint.vim'
+  NeoBundle 'soh335/vim-ref-jquery'
+  "" PHP
+  NeoBundle 'beyondwords/vim-twig'
+  NeoBundle 'heavenshell/unite-sf2'
+  "" Ruby
+  " need ruby-debug-ide19
+  " $ gem install ruby-debug-ide19
+  "NeoBundle 'astashov/vim-ruby-debugger'
+  NeoBundle 'vim-scripts/rails.vim'
+  "" Python
+  NeoBundle 'jtriley/vim-rst-headings'
+  "" Clojure
+  NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
+  "" Vim
+  NeoBundle 'dsummersl/vimunit'
+  "" Another
+  NeoBundle 'chase/nginx.vim'
+  " }}}
+  " Utility {{{
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'vim-scripts/submode'
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/salaryman-complete-vim'
   " }}}
-  " Ruby {{{
-  " need ruby-debug-ide19
-  " $ gem install ruby-debug-ide19
-  "NeoBundle 'astashov/vim-ruby-debugger'
-  NeoBundle 'vim-scripts/rails.vim'
-  " }}}
   " My Plugins {{{
+  NeoBundle 'nishigori/vim-multiple-switcher'
   NeoBundle 'nishigori/vim-sunday'
   NeoBundle 'nishigori/vim-php-dictionary'
   NeoBundle 'nishigori/phpfolding.vim'
@@ -186,16 +190,12 @@ if s:vimbundle == 'neobundle' " {{{3
   NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
   NeoBundle 'nishigori/neocomplcache-nginx-snippet'
   " }}}
+
   filetype plugin indent on " required!
-  " }}}3
-elseif s:vimbundle == 'pathogen' " {{{3
-  " INFO: https://github.com/tpope/vim-pathogen.git
-  "       Cause, It's has dependency (HTTP Proxy etc..) on the work.
-  call pathogen#runtime_append_all_bundles()
-  call pathogen#helptags()
-  " }}}3
-endif " }}}2
-" # Switch ; <-> : {{{2
+  " End Vim Bundle }}}
+endif
+
+" # Switch ; <-> : {{{
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
 nnoremap : ;
@@ -204,20 +204,38 @@ vnoremap : ;
 
 nnoremap q; q:
 vnoremap q; q:
-" }}}2
-" }}} End Initialize
-" # Encoding {{{
-" Note: Kaoriya MacVim is needless encoding.
-if !has('gui_macvim') || !has('kaoriya')
-  " INFO: If encode is fixed, :e ++enc = {encoding-name}
-  set encoding=utf-8
-  set fileencodings=utf-8,euc-jp,shitjis,iso-2022-jp,latin1
-endif
-if has('win32')
-  set encoding=utf-8
-  set termencoding=&encoding
-  set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp,latin1
-endif
+" }}}
+" # Basic "{{{
+"filetype plugin indent on
+set nocompatible              " Use Vim defaults (much better!)
+set showcmd                   " Highliting bracket set.
+set hidden                    " Enable open new file, when while editing other file.
+set autoread
+set history=255
+set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
+set backspace=indent,eol,start" Allow backspacing over everything in insert mode
+set ambiwidth=double
+set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
+
+" help
+set helplang=ja,en
+nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
+
+set title
+"function! s:titlestring() "{{{
+  "if exists('t:cwd')
+    "return t:cwd . ' (tab)'
+  "elseif haslocaldir()
+    "return getcwd() . ' (local)'
+  "else
+    "return getcwd()
+  "endif
+"endfunction "}}}
+"let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
+
+" <Leader>
+let mapleader = " "
 " }}}
 " # Syntax {{{
 if has('syntax')
@@ -255,8 +273,8 @@ if has('syntax')
   set number
   set numberwidth=4
   if version >= 703
-    nnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
-    vnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
+    "nnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
+    "vnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
     command! -nargs=0 ToggleNumber call ToggleNumberOption()
     function! ToggleNumberOption() " {{{
       if &number
@@ -288,38 +306,6 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=0
 inoremap <C-=> <Esc>==i
-" }}}
-" # Basic "{{{
-"filetype plugin indent on
-set nocompatible              " Use Vim defaults (much better!)
-set showcmd                   " Highliting bracket set.
-set hidden                    " Enable open new file, when while editing other file.
-set autoread
-set history=255
-set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
-set backspace=indent,eol,start" Allow backspacing over everything in insert mode
-set ambiwidth=double
-set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
-
-" help
-set helplang=ja,en
-nnoremap <C-h><C-h> :<C-u>help<Space>
-nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
-
-set title
-"function! s:titlestring() "{{{
-  "if exists('t:cwd')
-    "return t:cwd . ' (tab)'
-  "elseif haslocaldir()
-    "return getcwd() . ' (local)'
-  "else
-    "return getcwd()
-  "endif
-"endfunction "}}}
-"let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
-
-" <Leader>
-let mapleader = " "
 " }}}
 " # Filetype Detect {{{
 augroup MyFiletypeDetect
@@ -434,7 +420,7 @@ nnoremap # #N
 nnoremap \ /^
 " }}}
 " # Copy & Paste {{{
-nnoremap ,p :call PasteMode_toggle()<Cr>
+"nnoremap ,p :call PasteMode_toggle()<Cr>
 function! PasteMode_toggle() "{{{
   if &paste
     set nopaste
@@ -708,49 +694,19 @@ if has('persistent_undo')
   endfunction "}}}
 endif
 " }}}
-" # Weekly Buffer {{{
-" Use weekly buffer for GTD tool.
-if has_key(g:dependency_local_lists, 'weekly_buffer_dir')
-  let g:local#weekly_buffer_dir = g:dependency_local_lists['weekly_buffer_dir']
-  nnoremap <silent> <S-t><S-t> :<C-u>OpenweeklyBuffer<Cr>
-  command! -nargs=0 OpenweeklyBuffer call OpenweeklyBuffer()
-  function! OpenweeklyBuffer() "{{{2
-    if !exists('g:weekly_buffer')
-      let today = strftime('%Y%m%d')
-      let day_of_week = strftime('%w')  " Son. = 0, Mon. = 1, Tue. = 2 ...
-      if day_of_week == 0 || day_of_week == 6
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      else
-        " TODO: たぶん土日は何か変えたかったのかな？あとで確認
-        let start_week = today - day_of_week + 1
-        let end_week   = today - day_of_week + 5
-      endif
-
-      let g:weekly_buffer = g:local#weekly_buffer_dir .'/'. start_week .'_'. end_week
-    endif
-
-    execute '7new ' . g:weekly_buffer
-  endfunction " }}}
-  " TODO: command使ってWinHeight引数で指定する処理を入れたい、かも
-  "       s:の関数名に変える(<SID>の理解が必要)
-  "function! s:open_weekly_buffer()
-  "command! -nargs=1 OpenweeklyBuffer call s:open_weekly_buffer(<q-args>)
-endif
-" }}}
-" # Plugin "{{{
-" ## vim-phpunit-snippets {{{2
+" Plugin
+" ## vim-phpunit-snippets {{{
 "let g:phpunit_snippets_default_snip = 'hoge'
 "let g:phpunit_snippet_dir = 
-" }}}2
-" ## visualstar.vim {{{2
+" }}}
+" ## visualstar.vim {{{
 " search extended plugin.
 if exists('g:loaded_visualstar')
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
 endif
-" }}}2
-" ## matchit.vim {{{2
+" }}}
+" ## matchit.vim {{{
 " INFO: Extended % command.
 "if filereadable($HOME . '/macros/matchit.vim')
 if filereadable($HOME . '/.vim/bundle/matchit.zip/plugin/matchit.vim')
@@ -758,14 +714,14 @@ if filereadable($HOME . '/.vim/bundle/matchit.zip/plugin/matchit.vim')
   let b:match_words = 'if:endif'
   let b:match_ignorecase = 1
 endif
-" }}}2
-" ## indent-guides {{{2
+" }}}
+" ## indent-guides {{{
 " INFO: auto highlight indent-space.
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-" }}}2
-" ## taglist.vim {{{2
+" }}}
+" ## taglist.vim {{{
 if has('path_extra')
   nnoremap <silent> tl :<C-u>Tlist<Cr>
   let Tlist_Exit_OnlyWindow = 1       "taglistのウィンドーが最後のウィンドーならばVimを閉じる
@@ -774,8 +730,8 @@ if has('path_extra')
   "let Tlist_Process_File_Always = 1
   " let Tlist_Show_One_File = 1
 endif
-" }}}2
-" ## vimshell {{{2
+" }}}
+" ## vimshell {{{
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
 "let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
@@ -827,17 +783,17 @@ endfunction
 autocmd FileType int-* call s:interactive_settings()
 function! s:interactive_settings()
 endfunction
-" }}}2
-" ## vimfiler {{{2
+" }}}
+" ## vimfiler {{{
 let g:vimfiler_sort_type = 'name'
 let g:vimfiler_as_default_explorer = 1
 
 "let g:vimfiler_trashbox_directory = $HOME . '/tmp/vim/vimfiler_transhbox'
-" }}}2
-" ## vimproc {{{2
+" }}}
+" ## vimproc {{{
 "let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
-" }}}2
-" ## neocomplcache {{{2
+" }}}
+" ## neocomplcache {{{
 let g:neocomplcache_temporary_dir = $HOME . '/tmp/vim/neocom'
 
 let g:neocomplcache_enable_at_startup = 1
@@ -877,8 +833,8 @@ let g:neocomplcache_dictionary_filetype_lists = {
 let g:neocomplcache_omni_patterns = {
       \ 'txt' : '*'
       \ }
-" }}}2
-" ## neocomplcache_snippet_complete {{{2
+" }}}
+" ## neocomplcache_snippet_complete {{{
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -886,8 +842,8 @@ imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
 
 " 一時的
 nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
-" }}}2
-" ## unite.vim {{{2
+" }}}
+" ## unite.vim {{{
 let g:unite_data_directory = $HOME . '/tmp/vim/unite'
 
 let g:unite_winheight = 12
@@ -922,35 +878,35 @@ nnoremap U :<C-u>Unite<Space>
 nnoremap <C-p> :<C-u>Unite file_mru<Cr>
 nnoremap <C-n> :<C-u>Unite buffer_tab<Cr>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
-" }}}2
-" ## unite-tag {{{2
+" }}}
+" ## unite-tag {{{
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
 autocmd BufEnter *
       \   if empty(&buftype)
       \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<Cr>
       \|  endif
-" }}}2
-" ## unite-sf2 {{{2
+" }}}
+" ## unite-sf2 {{{
 let g:unite_source_sf2_bundles = {
     \ 'EloquentBoxbarHelloBundle'  : 'Eloquent/Boxbar/HelloBundle',
     \ 'EloquentBoxbarUserBundle'   : 'Eloquent/Boxbar/UserBundle',
     \ 'EloquentBoxbarCompanyBundle': 'Eloquent/Boxbar/CompanyBundle',
     \ }
-" }}}2
-" ## unite-grep {{{2
+" }}}
+" ## unite-grep {{{
 let g:unite_source_grep_default_opts = '-Hn'  " default
 let g:unite_source_grep_recursive_opt = '-R'  " default
-" }}}2
-" ## vim-ref & ref-unite {{{2
+" }}}
+" ## vim-ref & ref-unite {{{
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
-if exists('g:dependency_local_lists["ref_phpmanual_path"]')
-  let g:ref_phpmanual_path = g:dependency_local_lists['ref_phpmanual_path']
+if exists('g:local_config["ref_phpmanual_path"]')
+  let g:ref_phpmanual_path = g:local_config['ref_phpmanual_path']
 else
   let g:ref_phpmanual_cmd = 'w3m -dump %s'
 endif
-if exists('g:dependency_local_lists["ref_jquery_path"]')
-  let g:ref_jquery_path = g:dependency_local_lists['ref_jquery_path']
+if exists('g:local_config["ref_jquery_path"]')
+  let g:ref_jquery_path = g:local_config['ref_jquery_path']
 else
   let g:ref_jquery_cmd = 'w3m -dump %s'
 endif
@@ -966,12 +922,12 @@ let g:ref_cmd_filetype_map = {
       \ 'perl' : 'perldoc',
       \ }
       "\ 'php.phpunit' : 'phpunit',
-" }}}2
+" }}}
 " ## TweetVim {{{
 let g:tweetvim_config_dir = $HOME . '/tmp/vim/.tweetvim'
 let g:tweetvim_include_rts = 1
-" }}}2
-" ## QuickRun, Quicklaunch & xUnit {{{2
+" }}}
+" ## QuickRun, Quicklaunch & xUnit {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
 if has('clientserver')
@@ -1017,8 +973,8 @@ else  " Linux
 endif
 " TODO: Add QuickRun's syntax for xUnit
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
-" }}}2
-" ## vim-textmanip {{{2
+" }}}
+" ## vim-textmanip {{{
 " It's moved selected test-object.
 " TODO: snippet's imap dependency check.
 xmap <C-j> <Plug>(Textmanip.move_selection_down)
@@ -1028,8 +984,8 @@ xmap <C-l> <Plug>(Textmanip.move_selection_right)
 
 " copy selected text-object.
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-"}}}2
-" ## zencoding{{{2
+"}}}
+" ## zencoding{{{
 let g:user_zen_expandabbr_key = '<C-z>'
 let g:user_zen_settings = {
       \  'lang' : 'ja',
@@ -1063,11 +1019,11 @@ let g:user_zen_settings = {
       \    },
       \  },
       \ }
-"}}}2
+"}}}
 " ## vim-vcs{{{
 let g:vcs#config_log_file = $HOME .'/tmp/'
 " }}}
-" ## vim-fugitive {{{2
+" ## vim-fugitive {{{
 " Gstatus
 "    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
 "        Dで:Gdiff起動(差分表示)
@@ -1084,26 +1040,26 @@ nnoremap <Leader>gs :<C-u>Gstatus<Cr>
 nnoremap <Leader>ga :<C-u>Gwrite<Cr>
 nnoremap <Leader>gA :<C-u>Gwrite <cfile><Cr>
 nnoremap <Leader>gc :<C-u>Gcommit<Cr>
-"}}}2
-" ## vim-ambicmd {{{2
+"}}}
+" ## vim-ambicmd {{{
 " FIXME: <Space>打つと何故かバックスラッシュ入る
 "cnoremap <expr> <Space> ambicmd#expand('\<Space>')
-" }}}2
-" ## vim-sunday {{{2
+" }}}
+" ## vim-sunday {{{
 " My plugin. inspaired toggle.vim, monday.vim
 let g:sunday_pairs = [
   \ ['extends', 'implements'],
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
   \ ]
-" }}}2
-" ## calendar.vim {{{2
+" }}}
+" ## calendar.vim {{{
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
-" }}}2
-" ## dbext.vim {{{2
+" }}}
+" ## dbext.vim {{{
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
-" }}}2
-" ## Align.vim {{{2
+" }}}
+" ## Align.vim {{{
 "vnoremap <silent> <Leader>a=  :Align =<CR>
 "vnoremap <silent> <Leader>a,  :Align ,<CR>
 vnoremap <silent> <Leader>aa  :Align = + - \| ,<CR>
@@ -1111,7 +1067,7 @@ vnoremap <silent> <Leader>a+  :Align +<CR>
 nnoremap <silent> <Leader>a-  :Align -<CR>
 vnoremap <silent> <Leader>a\| :Align \|<CR>
 " }}}
-" ## submode.vim (Reside Window) {{{2
+" ## submode.vim (Reside Window) {{{
 function! s:resizeWindow()
   call submode#enter_with('winsize', 'n', '', 'mws', '<Nop>')
   call submode#leave_with('winsize', 'n', '', '<Esc>')
@@ -1127,12 +1083,11 @@ function! s:resizeWindow()
 endfunction
 
 nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
-" }}}2
+" }}}
 " ## vim-powerline {{{
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_file = $HOME . '/tmp/vim/Powerline.cache'
 " }}}
-" }}} End Plugin
 " # <Leader> Mappings "{{{
 nnoremap <silent><Leader><Leader> f<Space>
 " change just before buffer
