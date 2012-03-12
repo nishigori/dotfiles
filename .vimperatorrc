@@ -45,18 +45,18 @@ set hlsearch
 " # <Tab> & WINDOW {{{
 "set tabnumbers
 " set tabnumber @left
-style -name tabnum chrome://* <<EOM
-#TabsToolbar{
-  counter-reset:tabnumber;
-}
-#TabsToolbar tab:before {
-  counter-increment:tabnumber;
-  content:counter(tabnumber);
-  display:-moz-box;
-  -moz-align: center;
-  font:bold 0.84em monospace;
-}
-EOM
+"style -name tabnum chrome://* <<EOM
+"#TabsToolbar{
+  "counter-reset:tabnumber;
+"}
+"#TabsToolbar tab:before {
+  "counter-increment:tabnumber;
+  "content:counter(tabnumber);
+  "display:-moz-box;
+  "-moz-align: center;
+  "font:bold 0.84em monospace;
+"}
+"EOM
 nnoremap <silent> <C-n> :<C-u>tabnext<Cr>
 " focus Alt key
 nnoremap <silent> <A-C-p> :tabmove! -1<Cr>
@@ -134,6 +134,15 @@ nnoremap e. :<C-u>!gvim $HOME/.vimperatorrc<Cr>
 nnoremap es :<C-u>source $HOME/.vimperatorrc<Cr>
 ":set editor='bash -lc "mvim -f \$*" mvim '
 ":set editor='bash -lc "gvim -f \$*" gvim '
+" }}}
+" # Persona(Themes) {{{
+style -name personas chrome://* <<EOM
+#main-window { background-repeat: repeat-y !important; }
+#browser-bottombox { background-image: none !important; }
+#liberator-multiline-output, #liberator-completions { background: transparent !important; }
+#content tabpanels { background-color: transparent !important; }
+EOM
+autocmd LocationChange .* :js getBrowser().mCurrentBrowser.collapsed = buffer.URL == "about:blank" ? true : false
 " }}}
 " # My Plugins {{{
 " echo Calender
