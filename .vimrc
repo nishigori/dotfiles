@@ -272,30 +272,6 @@ if has('syntax')
 
   set number
   set numberwidth=4
-  if version >= 703
-    "nnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
-    "vnoremap <silent> ,n :<C-u>ToggleNumber<Cr>
-    command! -nargs=0 ToggleNumber call ToggleNumberOption()
-    function! ToggleNumberOption() " {{{
-      if &number
-        set relativenumber
-      else
-        set number
-        "set number numberwidth-=1
-      endif
-    endfunction " }}}
-  endif
-
-  nnoremap <silent> ,w :<C-u>ToggleWrap<Cr>
-  vnoremap <silent> ,w :<C-u>ToggleWrap<Cr>
-  command! -nargs=0 ToggleWrap call ToggleWrapOption()
-  function! ToggleWrapOption() " {{{
-    if &wrap
-      setlocal nowrap
-    else
-      setlocal wrap
-    endif
-  endfunction " }}}
 endif
 " }}}
 " # Indent {{{
@@ -420,14 +396,6 @@ nnoremap # #N
 nnoremap \ /^
 " }}}
 " # Copy & Paste {{{
-"nnoremap ,p :call PasteMode_toggle()<Cr>
-function! PasteMode_toggle() "{{{
-  if &paste
-    set nopaste
-  else
-    set paste
-  endif
-endfunction "}}}
 " Like nmap 'D' and 'C'
 nnoremap Y y$
 "set paste " When you're setting paste, can't use inoremap extend ;-<
@@ -566,17 +534,6 @@ endfunction "}}}2
 
 " }}}
 " # Buffer {{{
-nnoremap <silent><Leader>b :call Buffer_toggle()<Cr>
-function! Buffer_toggle() "{{{2
-  if extend('g:buffer_toggle_flag')
-    bnext
-    let g:buffer_toggle_flag = 1
-  else
-    bprevious
-    unlet g:buffer_toggle_flag
-  endif
-endfunction "}}}2
-
 " inspaired @taku-o's Kwdb.vim
 :com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
@@ -1140,6 +1097,7 @@ nmap <silent> <Leader>j <Plug>(quickhl-match)
 nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<Cr>
 nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<Cr>
 nnoremap <silent> <Leader>ts :TweetVimSay<Cr>
+
 " }}}
 
 
