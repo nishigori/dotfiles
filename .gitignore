@@ -15,11 +15,17 @@
 .sqlite_history
 .vim
 .w3m
+.ssh
+.vimperator
+.pentadactyl
+.pearrc
+.dotcloud
 
 workspace
 tmp
 Desktop
 Downloads
+Documents
 Pictures
 Dropbox
 Library
