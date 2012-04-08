@@ -1,6 +1,6 @@
-let g:dependency_local_lists = {
-  \ 'plugin-manager'      : 'neobundle', " (pathogen|vundle)
-  \ 'dotfiles_dir'        : $HOME . '/workspace/dotfiles',
+let g:local_config = {
+  \ 'dotfiles_dir'        : $HOME . 'dotfiles',
+  \ 'tmp_dir'             : $HOME . '/tmp/vim',
   \ 'weekly_buffer_dir'   : $HOME . '/tmp/.gtd',
   \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref-docs/phpmanual',
   \ 'ref_jquery_path'     : $HOME . '/.vim/ref-docs/jqapi-latest',
@@ -16,7 +16,7 @@ if has('persistent_undo')
 endif
 
 " TwitVim
-let twitvim_browser_cmd = 'firefox.exe'
+let twitvim_browser_cmd = 'firefox'
 let twitvim_count       = 120
 let twitvim_login_b64   = ''
 let twitvim_bitly_user  = ''
