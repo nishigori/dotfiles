@@ -79,7 +79,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "NeoBundle 'Shougo/echodoc'
   " }}}
   " syntax {{{
-  NeoBundle 'scrooloose/syntastic' " auto syntax checker
+  " TODO: edit a php syntastic
+  "NeoBundle 'scrooloose/syntastic' " auto syntax checker
   " }}}
   " complete, snippet {{{
   NeoBundle 'Shougo/neocomplcache'
@@ -162,6 +163,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "" Markdown
   NeoBundle 'mattn/mkdpreview-vim'
   "" JavaScript
+  NeoBundle 'teramako/jscomplete-vim'
   NeoBundle 'basyura/jslint.vim'
   NeoBundle 'soh335/vim-ref-jquery'
   "" PHP
@@ -183,6 +185,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'chase/nginx.vim'
   " }}}
   " Utility {{{
+  " FIXME: vim-template, そのうち使う
+  "NeoBundle 'thinca/vim-template'
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'vim-scripts/submode'
   NeoBundle 'mattn/learn-vimscript'
@@ -1058,6 +1062,9 @@ nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " ## vim-powerline {{{
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_cache_file = $HOME . '/tmp/vim/Powerline.cache'
+" }}}
+" ## jscomplatete.vim {{{
+let g:jscomplete_use = ['dom']
 " }}}
 " # <Leader> Mappings "{{{
 nnoremap <silent><Leader><Leader> f<Space>
