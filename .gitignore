@@ -1,5 +1,27 @@
 *.pyc
 *.dcu
+*.swo
+*.swp
+
+.DS_Store
+.sh_history
+.bash_history
+.zsh_history
+.mysql_history
+.vim
+.w3m
+
+workspace
+
+.gitconfig
+.gem
+.jenkins
+.local
+.oh-my-zsh
+.pip
+.php_history
+.rbenv
+
 
 .vimrc.local
 .gvimrc.local
