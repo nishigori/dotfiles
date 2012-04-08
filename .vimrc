@@ -137,7 +137,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "NeoBundle 'kakkyz81/evervim.git'
   " }}}
   " VCS {{{
-  "NeoBundle 'Shougo/vim-vcs'
+  NeoBundle 'Shougo/vim-vcs'
   NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'mattn/gist-vim'
   "NeoBundle 'thinca/vim-ft-svn_diff'
@@ -706,7 +706,7 @@ let g:vimshell_temporary_directory = exists('g:local_config["tmp_dir"]')
   \ ? g:local_config['tmp_dir'] . '/vimshell'
   \ : $HOME . '/.vimshell'
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
