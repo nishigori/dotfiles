@@ -78,6 +78,9 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'sudo.vim'
   "NeoBundle 'Shougo/echodoc'
   " }}}
+  " syntax {{{
+  NeoBundle 'scrooloose/syntastic' " auto syntax checker
+  " }}}
   " complete, snippet {{{
   NeoBundle 'Shougo/neocomplcache'
   NeoBundle 'Shougo/neocomplcache-snippets-complete'
@@ -118,6 +121,9 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'peaksea'
   NeoBundle 'thinca/vim-fontzoom'
   NeoBundle 'altercation/vim-colors-solarized'
+  NeoBundle 'vim-scripts/darkZ'
+  NeoBundle 'vim-scripts/pyte'
+  NeoBundle 'vim-scripts/github-theme'
   " }}}
   " browse {{{
   NeoBundle 'tyru/open-browser.vim'
@@ -130,8 +136,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "NeoBundle 'kakkyz81/evervim.git'
   " }}}
   " VCS {{{
-  NeoBundle 'Shougo/vim-vcs'
-  "NeoBundle 'tpope/vim-fugitive'
+  "NeoBundle 'Shougo/vim-vcs'
+  NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'mattn/gist-vim'
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
@@ -167,6 +173,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "NeoBundle 'astashov/vim-ruby-debugger'
   NeoBundle 'vim-scripts/rails.vim'
   "" Python
+  NeoBundle 'vim-scripts/python.vim--Vasiliev'
   NeoBundle 'jtriley/vim-rst-headings'
   "" Clojure
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
@@ -180,6 +187,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'vim-scripts/submode'
   NeoBundle 'mattn/learn-vimscript'
   NeoBundle 'mattn/salaryman-complete-vim'
+  NeoBundle 'thinca/vim-openbuf' " depends vim-vcs
   " }}}
   " My Plugins {{{
   NeoBundle 'nishigori/vim-multiple-switcher'
@@ -187,6 +195,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'nishigori/vim-php-dictionary'
   NeoBundle 'nishigori/phpfolding.vim'
   NeoBundle 'nishigori/vim-phpunit-snippets'
+  NeoBundle 'nishigori/vim-twig-matchit'
   NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
   NeoBundle 'nishigori/neocomplcache-nginx-snippet'
   " }}}
@@ -689,8 +698,11 @@ if has('path_extra')
 endif
 " }}}
 " ## vimshell {{{
+let g:vimshell_temporary_directory = exists('g:local_config["tmp_dir"]')
+  \ ? g:local_config['tmp_dir'] . '/vimshell'
+  \ : $HOME . '/.vimshell'
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_right_prompt = 'vimshell#vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
@@ -881,7 +893,9 @@ let g:ref_cmd_filetype_map = {
       "\ 'php.phpunit' : 'phpunit',
 " }}}
 " ## TweetVim {{{
-let g:tweetvim_config_dir = $HOME . '/tmp/vim/.tweetvim'
+let g:tweetvim_config_dir = exists('g:local_config["tmp_dir"]')
+  \ ? g:local_config['tmp_dir'] . '/tweetvim'
+  \ : $HOME . '/.tweetvim'
 let g:tweetvim_include_rts = 1
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
