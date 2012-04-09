@@ -23,8 +23,8 @@ set mousemodel=popup
 set nomousefocus
 " }}}
 " # Quick Start $MYGVIMRC {{{
-if exists('g:dependency_local_lists')
-  let $MYGVIMRC = g:dependency_local_lists['dotfiles_dir'] . '/.gvimrc'
+if exists('g:local_config')
+  let $MYGVIMRC = g:local_config['dotfiles_dir'] . '/.gvimrc'
   let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
 else
   if has('win32')
