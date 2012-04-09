@@ -2,7 +2,6 @@
 " * @Author @_nishigori
 " * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
 " */
-source ~/.vimperatorrc.local
 " # CAUTION Switch ; <-> : !! {{{
 " Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
@@ -181,3 +180,5 @@ nnoremap <S-n> :<C-u>slideshare next<CR>
 nnoremap <S-p> :<C-u>slideshare prev<CR>
 " }}}
 
+
+source ~/.vimperatorrc.local
