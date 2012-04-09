@@ -1,4 +1,5 @@
 setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal omnifunc=jscomplete#CompleteJS
 
 setlocal expandtab
 setlocal tabstop=4
