@@ -1,4 +1,4 @@
 .vimundo
-bundle
+bundle/*
 neobundle.vim.git
 view
