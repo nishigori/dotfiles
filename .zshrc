@@ -12,7 +12,7 @@ ZSH_THEME="fox"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -30,7 +30,7 @@ case "${OSTYPE}" in
             osx brew \
             git github ssh-agent vagrant \
             python pip mercurial \
-            phing symfony2 \
+            symfony2 \
             rvm ruby gem rails3 \
             )
         ;;
@@ -40,14 +40,12 @@ case "${OSTYPE}" in
                 yum \
                 git ssh-agent \
                 python mercurial \
-                phing \
                 )
         else
             plugins=( \
                 debian gnu-utils \
                 git github ssh-agent \
                 python pip mercurial \
-                phing \
                 rvm ruby gem \
                 )
         fi
