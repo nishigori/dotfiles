@@ -826,6 +826,7 @@ let g:unite_update_time = 150
 let g:unite_source_file_mru_filename_format = ''
 "let g:unite_update_time = 1000
 let g:unite_source_history_yank_enable = 1
+let g:unite_source_history_yank_limit = 150
 let g:unite_enable_start_insert = 1
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
