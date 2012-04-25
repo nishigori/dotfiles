@@ -1,5 +1,5 @@
 " /**
-" * @Author @_nishigori
+" * @Author Takuya Nishigori <nishigori.tak@gmail.com>
 " * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
 " */
 " # CAUTION Switch ; <-> : !! {{{
@@ -42,20 +42,21 @@ set smartcase
 set hlsearch
 " }}}
 " # <Tab> & WINDOW {{{
-"set tabnumbers
+set tabnumbers
 " set tabnumber @left
-"style -name tabnum chrome://* <<EOM
-"#TabsToolbar{
-  "counter-reset:tabnumber;
-"}
-"#TabsToolbar tab:before {
-  "counter-increment:tabnumber;
-  "content:counter(tabnumber);
-  "display:-moz-box;
-  "-moz-align: center;
-  "font:bold 0.84em monospace;
-"}
-"EOM
+style -name tabnum chrome://* <<EOM
+#TabsToolbar {
+  counter-reset:tabnumber;
+}
+#TabsToolbar tab:before {
+  counter-increment:tabnumber;
+  content:counter(tabnumber);
+  display:-moz-box;
+  -moz-align: center;
+  font:bold 0.84em monospace;
+}
+EOM
+
 nnoremap <silent> <C-n> :<C-u>tabnext<Cr>
 " focus Alt key
 nnoremap <silent> <A-C-p> :tabmove! -1<Cr>
@@ -142,6 +143,14 @@ nnoremap es :<C-u>source ~/.vimperatorrc<Cr>
 ":set editor='bash -lc "mvim -f \$*" mvim '
 ":set editor='bash -lc "gvim -f \$*" gvim '
 " }}}
+
+" # PLUGIN
+" # My Plugins {{{
+" echo Calender
+command! cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
+" Evernote Web Clipper
+command! clip javascript Evernote.Overlay.init(null)
+" }}}
 " # Persona(Themes) {{{
 style -name personas chrome://* <<EOM
 #main-window { background-repeat: repeat-y !important; }
@@ -151,14 +160,6 @@ style -name personas chrome://* <<EOM
 EOM
 autocmd LocationChange .* :js getBrowser().mCurrentBrowser.collapsed = buffer.URL == "about:blank" ? true : false
 " }}}
-" # My Plugins {{{
-" echo Calender
-command! cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
-" Evernote Web Clipper
-command! clip javascript Evernote.Overlay.init(null)
-" }}}
-
-" # PLUGIN
 "" ## _smooziee.js {{{
 let g:smooziee_scroll_amount="230"
 " }}}
