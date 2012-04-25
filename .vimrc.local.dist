@@ -8,8 +8,8 @@ let g:local_config = {
   \ }
 
 " Not use white space into the statement (Suck!!)
-set directory=~/tmp/vim/swaps,/tmp,.
-set backupdir=~/tmp/vim/backups,/tmp,.
+set directory=~/tmp/vim/swap,/tmp,.
+set backupdir=~/tmp/vim/backup,/tmp,.
 set viewdir=~/tmp/vim/view
 if has('persistent_undo')
   set undodir=~/tmp/vim/undo
@@ -22,6 +22,10 @@ let twitvim_login_b64   = ''
 let twitvim_bitly_user  = ''
 let twitvim_bitly_key   = ''
 
+" bitly.vim
+let g:bitly_login   = ''
+let g:bitly_api_key = ''
+
 " github
 let g:github_user  = ''
 let g:github_token = ''
@@ -29,5 +33,8 @@ let g:github_token = ''
 " Calendar.vim
 let g:calendar_diary = $HOME.'/tmp/diary'
 
+" dbext.vim
+let g:dbext_default_profile = 'mysql_local'
+let g:dbext_default_profile_mysql_local = ''
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

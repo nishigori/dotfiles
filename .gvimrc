@@ -8,8 +8,6 @@ set t_te=
 set hlsearch
 
 let g:diablo3_longline = 1        " CASE: g:colors_name is diablo3
-colorscheme diablo3
-"set background=light
 
 if has('clipboard')
   " :h gui-clipboard
@@ -85,7 +83,7 @@ endif
 " # Depends On OS {{{
 "if has('gui_macvim')
 if has('mac')
-  set transparency=11
+  set transparency=12
 elseif has('win32')
   "set guioptions+=C
   gui
