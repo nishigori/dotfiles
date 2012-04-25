@@ -2,6 +2,10 @@
 *.dcu
 *.swo
 *.swp
+*.idea
+
+tmp/*
+.vimperator/*
 
 .bash_profile
 
@@ -16,13 +20,11 @@
 .vim
 .w3m
 .ssh
-.vimperator
 .pentadactyl
 .pearrc
 .dotcloud
 
 workspace
-tmp
 Desktop
 Downloads
 Documents
