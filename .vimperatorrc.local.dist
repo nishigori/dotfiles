@@ -1,0 +1,8 @@
+set editor=/bin/gvim
+
+colorscheme default
+
+set gui+=addons
+
+
+" vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
