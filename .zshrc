@@ -6,7 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # favorite themes murilasso fox
-ZSH_THEME="fox"
+ZSH_THEME="cloud"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -28,25 +28,26 @@ case "${OSTYPE}" in
     freebsd*|darwin*)
         plugins=( \
             osx brew \
-            git github ssh-agent vagrant \
+            git github git-flow ssh-agent vagrant \
             python pip mercurial \
             symfony2 \
-            rvm ruby gem rails3 \
+            ruby gem rails3 \
             )
         ;;
     linux*)
         if [ -f /etc/redhat-release ]; then
             plugins=( \
                 yum \
-                git ssh-agent \
+                git git-flow ssh-agent \
                 python mercurial \
+                ruby gem \
                 )
         else
             plugins=( \
                 debian gnu-utils \
-                git github ssh-agent \
+                git git-flow github ssh-agent \
                 python pip mercurial \
-                rvm ruby gem \
+                ruby gem \
                 )
         fi
         ;;
