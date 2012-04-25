@@ -298,6 +298,7 @@ inoremap <C-=> <Esc>==i
 " }}}
 " # Filetype Detect {{{
 augroup MyFiletypeDetect
+  au! BufRead,BufNewFile,BufWinEnter *.md         setfiletype markdown
   au! BufRead,BufNewFile,BufWinEnter *.mine       setfiletype mine
   au! BufRead,BufNewFile,BufWinEnter *.xyz        setfiletype drawing
   au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
@@ -307,9 +308,8 @@ augroup MyFiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.twig       setfiletype twig
   au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
   "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
-  au! BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/*,*/nginx/vhosts.d/*,nginx.conf
-        \ if &ft == '' | setfiletype nginx | endif
-  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,*.conf
+  au! BufRead,BufNewFile */nginx/*,*nginx.conf    setfiletype nginx
+  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,/etc/apache/*,*.conf
         \ setfiletype apache
   au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp     setfiletype vimperator
   au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator   setfiletype muttator
