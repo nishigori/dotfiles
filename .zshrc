@@ -6,7 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # favorite themes murilasso fox
-ZSH_THEME="cloud"
+source $HOME/.zshrc.local
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"

@@ -6,3 +6,5 @@ My Dotfiles
 > $ cp -a .vimrc.local.dist .vimrc.local
 
 > $ cp -a .gvimrc.local.dist .gvimrc.local
+
+> $ cp -a .zshrc.local.dist .zshrc.local
