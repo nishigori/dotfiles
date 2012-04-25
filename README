@@ -1,4 +1,0 @@
-File_name: .gitignore
-INFO: .gitignore is global ignore file for Git.
-SETTING:
-    git config --global --add core.excludesfile "hoge/.gitignore"
