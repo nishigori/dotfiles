@@ -180,6 +180,16 @@ nnoremap sp :<C-u>slideshare prev<CR>
 nnoremap <S-n> :<C-u>slideshare next<CR>
 nnoremap <S-p> :<C-u>slideshare prev<CR>
 " }}}
+js <<EOM
+let (original = liberator.echomsg)
+  liberator.echomsg = function (msg) {
+    const REAC = RegExp('@chrome://liberator/content/autocommands\\.js:\\d+');
+    if (Error().stack.split(/\n/).some(RegExp.prototype.test.bind(REAC)) && /Executing .* Auto commands for .*/.test(msg))
+      liberator.log(msg);
+    else
+      original.apply(liberator, arguments);
+  };
+EOM
 
 
 source ~/.vimperatorrc.local
