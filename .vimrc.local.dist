@@ -2,8 +2,8 @@ let g:local_config = {
   \ 'dotfiles_dir'        : $HOME . 'dotfiles',
   \ 'tmp_dir'             : $HOME . '/tmp/vim',
   \ 'weekly_buffer_dir'   : $HOME . '/tmp/.gtd',
-  \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref-docs/phpmanual',
-  \ 'ref_jquery_path'     : $HOME . '/.vim/ref-docs/jqapi-latest',
+  \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref/php',
+  \ 'ref_jquery_path'     : $HOME . '/.vim/ref/jqapi-latest',
   \ 'phpunit_dir'         : 'ctags_dir',
   \ }
 
