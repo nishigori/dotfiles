@@ -18,13 +18,13 @@ set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
 
 nnoremap U :undo<Space>
-nnoremap pa :<C-u>panorama<Space>add<Space>
-nnoremap pl :<C-u>panorama<Space>list<Cr>
-nnoremap pp :<C-u>panorama<Space>pushtab<Space>
-nnoremap pP :<C-u>panorama<Space>pultab<Space>
-nnoremap pr :<C-u>panorama<Space>remove<Space>
-nnoremap ps :<C-u>panorama<Space>switch<Space>
-nnoremap S :<C-u>panorama<Space>switch<Space>
+nnoremap pa :panorama<Space>add<Space>
+nnoremap pl :panorama<Space>list<Cr>
+nnoremap pp :panorama<Space>pushtab<Space>
+nnoremap pP :panorama<Space>pultab<Space>
+nnoremap pr :panorama<Space>remove<Space>
+nnoremap ps :panorama<Space>switch<Space>
+nnoremap S :panorama<Space>switch<Space>
 
 nnoremap <C-j> <Nop>
 nnoremap <C-h> <Nop>
@@ -57,7 +57,7 @@ style -name tabnum chrome://* <<EOM
 }
 EOM
 
-nnoremap <silent> <C-n> :<C-u>tabnext<Cr>
+nnoremap <silent> <C-n> :tabnext<Cr>
 " focus Alt key
 nnoremap <silent> <A-C-p> :tabmove! -1<Cr>
 nnoremap <silent> <A-C-n> :tabmove! +1<Cr>
@@ -138,8 +138,8 @@ cnoremap <C-y> <Cr>
 "iunmap \' -urls='google'
 " }}}
 " # EASY EDIT RC_FILE {{{
-nnoremap e. :<C-u>!gvim ~/.vimperatorrc<Cr>
-nnoremap es :<C-u>source ~/.vimperatorrc<Cr>
+nnoremap e. :!gvim ~/.vimperatorrc<Cr>
+nnoremap es :source ~/.vimperatorrc<Cr>
 ":set editor='bash -lc "mvim -f \$*" mvim '
 ":set editor='bash -lc "gvim -f \$*" gvim '
 " }}}
@@ -167,18 +167,18 @@ let g:smooziee_scroll_amount="230"
 let g:nextlink_followlink="true"
 " }}}
 "" ## google-translator.js {{{
-nnoremap <C-t> :<C-u>gtrans<Space>
+nnoremap <C-t> :gtrans<Space>
 " }}}
 " ## facebook.js {{{
 let g:facebook_auto_load = 1
 let g:facebook_notify = 1
 " }}}
 " ## slideshare.js {{{
-nnoremap sf :<C-u>slideshare fullscreen<CR>
-nnoremap sn :<C-u>slideshare next<CR>
-nnoremap sp :<C-u>slideshare prev<CR>
-nnoremap <S-n> :<C-u>slideshare next<CR>
-nnoremap <S-p> :<C-u>slideshare prev<CR>
+nnoremap sf :slideshare fullscreen<CR>
+nnoremap sn :slideshare next<CR>
+nnoremap sp :slideshare prev<CR>
+nnoremap <S-n> :slideshare next<CR>
+nnoremap <S-p> :slideshare prev<CR>
 " }}}
 js <<EOM
 let (original = liberator.echomsg)
