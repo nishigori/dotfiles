@@ -2,3 +2,4 @@
 bundle/*
 neobundle.vim.git
 view
+ref/*
