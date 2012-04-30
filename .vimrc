@@ -143,6 +143,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
   " DB {{{
+  NeoBundle 'mattn/vdbi-vim'
   " INFO: dbext.vim' latest version is into the vim.org.
   "       http://vim.sourceforge.net/scripts/script.php?script_id=356
   "NeoBundle 'vim-scripts/dbext.vim'
