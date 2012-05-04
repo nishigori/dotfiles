@@ -2,7 +2,10 @@ set editor=/bin/gvim
 
 colorscheme default
 
-set gui+=addons
+set tabnumbers
 
+" statusline-toolbar.js
+" INFO: Set statuslinetoolbars value is once.
+"set statuslinetoolbars=firebug-button,inspector-button,fullscreen-button
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:

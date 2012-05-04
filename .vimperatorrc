@@ -2,6 +2,13 @@
 " * @Author Takuya Nishigori <nishigori.tak@gmail.com>
 " * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
 " */
+
+" Using plugins
+"
+" appendAnchor.js:        リンク中のURLテキストにアンカーを装飾
+" nextlink.js:            AutoPagerize 用の XPath より "[[", "]]"をマッピング
+" statusline-toolbar.js:  ステータスラインにステータスバーのアイコンやツールバーボタンを表示
+
 " # CAUTION Switch ; <-> : !! {{{
 " Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
@@ -36,26 +43,14 @@ set wildmode=list:full
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 " }}}
 " # SEARCH {{{
-set complete=bl
+set complete=bs
 set ignorecase
 set smartcase
 set hlsearch
+set maxitems=15
 " }}}
 " # <Tab> & WINDOW {{{
-set tabnumbers
-" set tabnumber @left
-style -name tabnum chrome://* <<EOM
-#TabsToolbar {
-  counter-reset:tabnumber;
-}
-#TabsToolbar tab:before {
-  counter-increment:tabnumber;
-  content:counter(tabnumber);
-  display:-moz-box;
-  -moz-align: center;
-  font:bold 0.84em monospace;
-}
-EOM
+"set tabnumbers
 
 nnoremap <silent> <C-n> :tabnext<Cr>
 " focus Alt key
@@ -77,31 +72,29 @@ nnoremap <Leader>r :panorama<Space>remove<Space>
 
 " }}}
 " # MOVEMENT {{{
-" Scroll's space (_smooziee.js)
+" Scroll's space
+" That's needless, cause using _smooziee.js plugin.
 " map j 5<C-e>
 " map k 5<C-y>
 
-" bash like
+" Emacs like
 " INFO: C-(a,e,h,b,j,b,f) settings 
 "       AutoHotKey on Windows
 "       Default on MacOS
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-h> <BS>
-"inoremap <C-k> <Up>
-"inoremap <C-j> <Down>
-"inoremap <C-p> <Up>
-"inoremap <C-n> <Down>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+"inoremap <C-h> <BS>
+inoremap <C-a> <C-v><C-a>
+inoremap <C-e> <C-v><C-e>
+"inoremap <C-f> <C-v><C-f>
+"inoremap <C-b> <C-v><C-b>
 
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+
 cnoremap <C-h> <BS>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
+cnoremap <C-a> <C-v><C-a>
+cnoremap <C-e> <C-v><C-e>
+"cnoremap <C-f> <C-v><C-f>
+"cnoremap <C-b> <C-v><C-b>
 
 " TODO: PATHTHROUGHモードで全選択の方法調べる
 "inoremap <C-S-a> i<C-a>
@@ -125,8 +118,6 @@ inoremap <C-S-f> <S-Right>
 " alias vimCompletion
 cnoremap <C-p> <S-Tab>
 cnoremap <C-n> <Tab>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
 cnoremap <C-y> <Cr>
 
 " special unmap
@@ -139,19 +130,19 @@ cnoremap <C-y> <Cr>
 " }}}
 " # EASY EDIT RC_FILE {{{
 nnoremap e. :!gvim ~/.vimperatorrc<Cr>
-nnoremap es :source ~/.vimperatorrc<Cr>
+nnoremap es :source! ~/.vimperatorrc<Cr>
 ":set editor='bash -lc "mvim -f \$*" mvim '
 ":set editor='bash -lc "gvim -f \$*" gvim '
 " }}}
 
 " # PLUGIN
-" # My Plugins {{{
+" ## My Plugins {{{
 " echo Calender
 command! cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
 " Evernote Web Clipper
 command! clip javascript Evernote.Overlay.init(null)
 " }}}
-" # Persona(Themes) {{{
+" ## Persona(Themes) {{{
 style -name personas chrome://* <<EOM
 #main-window { background-repeat: repeat-y !important; }
 #browser-bottombox { background-image: none !important; }
@@ -160,13 +151,13 @@ style -name personas chrome://* <<EOM
 EOM
 autocmd LocationChange .* :js getBrowser().mCurrentBrowser.collapsed = buffer.URL == "about:blank" ? true : false
 " }}}
-"" ## _smooziee.js {{{
-let g:smooziee_scroll_amount="230"
+" ## _smooziee.js {{{
+let g:smooziee_scroll_amount="200"
 " }}}
-"" ## nextlink.js {{{
+" ## nextlink.js {{{
 let g:nextlink_followlink="true"
 " }}}
-"" ## google-translator.js {{{
+" ## google-translator.js {{{
 nnoremap <C-t> :gtrans<Space>
 " }}}
 " ## facebook.js {{{
@@ -180,6 +171,7 @@ nnoremap sp :slideshare prev<CR>
 nnoremap <S-n> :slideshare next<CR>
 nnoremap <S-p> :slideshare prev<CR>
 " }}}
+" ## Disabled `auto commands for .*.` message {{{
 js <<EOM
 let (original = liberator.echomsg)
   liberator.echomsg = function (msg) {
@@ -190,6 +182,7 @@ let (original = liberator.echomsg)
       original.apply(liberator, arguments);
   };
 EOM
+" }}}
 
 
-source ~/.vimperatorrc.local
+source! ~/.vimperatorrc.local
