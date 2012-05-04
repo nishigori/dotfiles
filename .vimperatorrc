@@ -184,6 +184,19 @@ let (original = liberator.echomsg)
   };
 EOM
 " }}}
+" ## Customized Title Button {{{
+js <<EOM
+var button = document.getElementById("appmenu-button");
+if (button) {
+    button.label = config.name;
+    options.add(["fxbuttonlabel"], "Edit Firefox button's label",
+        "string", config.name, {
+            setter: function (val) button.label = val,
+            getter: function () button.label,
+        });
+}
+EOM
+" }}}
 
 
 source! ~/.vimperatorrc.local
