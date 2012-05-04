@@ -8,6 +8,7 @@
 " appendAnchor.js:        リンク中のURLテキストにアンカーを装飾
 " nextlink.js:            AutoPagerize 用の XPath より "[[", "]]"をマッピング
 " statusline-toolbar.js:  ステータスラインにステータスバーのアイコンやツールバーボタンを表示
+" pdf-js plugin:          https://gist.github.com/1452357
 
 " # CAUTION Switch ; <-> : !! {{{
 " Don't use ':remap' as possible (for Unaffected).
