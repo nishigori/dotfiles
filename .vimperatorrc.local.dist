@@ -2,7 +2,21 @@ set editor=/bin/gvim
 
 colorscheme default
 
+" For win
 set tabnumbers
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-h> <BS>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-h> <BS>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
 
 " statusline-toolbar.js
 " INFO: Set statuslinetoolbars value is once.
