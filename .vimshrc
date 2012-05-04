@@ -3,6 +3,7 @@ alias ll = 'ls -l'
 alias a  = 'ls -al'
 alias la = 'ls -al'
 alias lt = 'ls -tl'
+alias lR = 'ls -Rl'
 
 alias cl = 'clear'
 alias hl = 'history'
