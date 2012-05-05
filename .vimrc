@@ -1141,7 +1141,7 @@ nnoremap <Leader>ug :<C-u>Unite grep:%:-iR:<Cr>
 " for all buffer
 nnoremap <Leader>uG :<C-u>Unite grep:$:-iR:<Cr>
 nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
-nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme<Cr>
+nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme -auto-preview<Cr>
 nnoremap <silent> <Leader>uh :<C-u>Unite history/command<Cr>
 nnoremap <silent> <Leader>uy :<C-u>Unite history/yank<Cr>
 nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
