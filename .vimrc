@@ -784,7 +784,7 @@ let g:vimfiler_data_directory = '~/tmp/.vimfiler'
 let g:vimfiler_edit_action = 'split'
 
 " Enable file operation commands.
-"let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_safe_mode_by_default = 0
 
 " Like Textmate icons.
 let g:vimfiler_tree_leaf_icon = ' '
@@ -825,15 +825,16 @@ let g:neocomplcache_enable_underbar_completion = 0
 let g:neocomplcache_max_list = 50
 " dictionary
 let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'    : '',
-  \ 'vimshell'   : $HOME . '/.vim/dict/.vimshell.dict',
-  \ 'java'       : $HOME . '/.vim/dict/java.dict',
-  \ 'c'          : $HOME . '/.vim/dict/c.dict',
-  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
-  \ 'php'        : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict',
-  \ 'phpunit'    : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'python'     : $HOME . '/.vim/dict/python.dict',
-  \ 'pyunit'     : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
+  \ 'default'     : '',
+  \ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
+  \ 'java'        : $HOME . '/.vim/dict/java.dict',
+  \ 'c'           : $HOME . '/.vim/dict/c.dict',
+  \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
+  \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
+  \ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'python'      : $HOME . '/.vim/dict/python.dict',
+  \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
   \ }
 
 " xUnit filetype dict
