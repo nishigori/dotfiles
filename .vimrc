@@ -666,6 +666,11 @@ if has('persistent_undo')
 endif
 " }}}
 " Plugin
+" ## vim-multiple-switcher {{{
+"let g:multiple_switcher_no_default_key_maps = 1
+nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
+nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
+" }}}
 " ## vim-phpunit-snippets {{{
 "let g:phpunit_snippets_default_snip = 'hoge'
 "let g:phpunit_snippet_dir = 
@@ -759,10 +764,44 @@ function! s:interactive_settings()
 endfunction
 " }}}
 " ## vimfiler {{{
-let g:vimfiler_sort_type = 'name'
+let g:vimfiler_split_action        = 'left'
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_execute_file_list   = 'vim'
+let g:vimfiler_sort_type           = 'filename'
+let g:vimfiler_enable_auto_cd = 1
+let g:vimfiler_data_directory = ~/tmp/.vimfiler
 
-"let g:vimfiler_trashbox_directory = $HOME . '/tmp/vim/vimfiler_transhbox'
+"call vimfiler#set_execute_file('vim', 'vim')
+"call vimfiler#set_execute_file('txt', 'vim')
+"call vimfiler#set_execute_file('c', 'vim')
+"call vimfiler#set_execute_file('php', 'vim')
+
+" Edit file by tabedit.
+let g:vimfiler_edit_action = 'split'
+
+" Enable file operation commands.
+"let g:vimfiler_safe_mode_by_default = 0
+
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = '-'
+let g:vimfiler_marked_file_icon = '*'
+
+if has('win32')
+  let g:unite_kind_file_use_trashbox = $HOME . '/tmp/vim/vimfiler_transhbox'
+endif
+augroup
+
+" When Vim startup, exec Vimfiler
+"autocmd VimEnter * if !argc() |
+      "\ VimFiler
+      "\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
+      "\ | endif
+autocmd VimEnter * VimFiler
+      \ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
+      \ -auto-cd=1
 " }}}
 " ## vimproc {{{
 "let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
@@ -1078,8 +1117,10 @@ nmap <Leader>o <Plug>(openbrowser-smart-search)
 nnoremap <silent> <Leader>vs :<C-u>VimShell<Cr>
 nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 " vimfiler
-nnoremap <Silent> <Leader>vf :<C-u>VimFilerSplit<Cr>
-nnoremap <Silent> <Leader>vF :<C-u>VimFiler<Cr>
+" FIXME: using <silent>, no avairable vimfiler orz
+nnoremap : :<C-u>VimFilerSplit -winwidth=70<Cr>
+nnoremap <Leader>vf :<C-u>VimFilerSplit <Cr>
+nnoremap <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
 nnoremap <Leader>uf :<C-u>Unite file<Cr>
 nnoremap <Leader>uF :<C-u>Unite file_rec<Cr>
