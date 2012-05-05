@@ -532,6 +532,10 @@ nnoremap <silent> e. :<C-u>edit $MYVIMRC<Cr>
 nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
 " }}}
 " # Window {{{
+"set winminheight=8
+set winminwidth=10
+set winfixheight
+set winfixwidth
 set splitright  " Default vsplit, left
 set splitbelow  " Default split, top
 
@@ -769,7 +773,7 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list   = 'vim'
 let g:vimfiler_sort_type           = 'filename'
 let g:vimfiler_enable_auto_cd = 1
-let g:vimfiler_data_directory = ~/tmp/.vimfiler
+let g:vimfiler_data_directory = '~/tmp/.vimfiler'
 
 "call vimfiler#set_execute_file('vim', 'vim')
 "call vimfiler#set_execute_file('txt', 'vim')
