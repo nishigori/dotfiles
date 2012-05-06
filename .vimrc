@@ -535,7 +535,7 @@ nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
 " }}}
 " # Window {{{
 "set winminheight=8
-set winminwidth=10
+set winminwidth=20
 set winfixheight
 set winfixwidth
 set splitright  " Default vsplit, left
