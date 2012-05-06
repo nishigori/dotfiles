@@ -171,7 +171,6 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'soh335/vim-ref-jquery'
   "" PHP
   NeoBundle 'beyondwords/vim-twig'
-  NeoBundle 'heavenshell/unite-sf2'
   "" Ruby
   " need ruby-debug-ide19
   " $ gem install ruby-debug-ide19
@@ -200,6 +199,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'nishigori/vim-multiple-switcher'
   NeoBundle 'nishigori/vim-sunday'
   NeoBundle 'nishigori/vim-php-dictionary'
+  NeoBundle 'nishigori/unite-sf2'
   NeoBundle 'nishigori/phpfolding.vim'
   NeoBundle 'nishigori/vim-phpunit-snippets'
   NeoBundle 'nishigori/vim-twig-matchit'
@@ -908,11 +908,9 @@ autocmd BufEnter *
       \|  endif
 " }}}
 " ## unite-sf2 {{{
-let g:unite_source_sf2_bundles = {
-    \ 'EloquentBoxbarHelloBundle'  : 'Eloquent/Boxbar/HelloBundle',
-    \ 'EloquentBoxbarUserBundle'   : 'Eloquent/Boxbar/UserBundle',
-    \ 'EloquentBoxbarCompanyBundle': 'Eloquent/Boxbar/CompanyBundle',
-    \ }
+let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
+" NOTE: avairable bundles is depends local environment.
+let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
 " }}}
 " ## unite-grep {{{
 let g:unite_source_grep_default_opts = '-Hn'  " default
