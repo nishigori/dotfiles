@@ -66,6 +66,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'tsukkee/unite-help'
   NeoBundle 'mattn/unite-nyancat'
   NeoBundle 'mattn/unite-advent_calendar'
+  NeoBundle 'mattn/unite-remotefile'
+  NeoBundle 'sgur/unite-git_grep'
   " }}}
   " buffer, tag {{{
   NeoBundle 'Lokaltog/vim-powerline'
