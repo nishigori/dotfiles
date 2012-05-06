@@ -908,9 +908,9 @@ autocmd BufEnter *
       \|  endif
 " }}}
 " ## unite-sf2 {{{
-let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
-" NOTE: avairable bundles is depends local environment.
-let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
+" NOTE: unite-sf2 avairables is depends local environment.
+"let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
+"let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
 " }}}
 " ## unite-grep {{{
 let g:unite_source_grep_default_opts = '-Hn'  " default

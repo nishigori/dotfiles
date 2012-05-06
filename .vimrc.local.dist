@@ -37,4 +37,8 @@ let g:calendar_diary = $HOME.'/tmp/diary'
 let g:dbext_default_profile = 'mysql_local'
 let g:dbext_default_profile_mysql_local = ''
 
+" unite-sf2
+"let g:unite_source_sf2_root_dir = ''
+let g:unite_source_sf2_bundles = {}
+
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
