@@ -44,7 +44,7 @@ set wildmode=list:full
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 " }}}
 " # SEARCH {{{
-set complete=bs
+set complete=bsl
 set ignorecase
 set smartcase
 set hlsearch
