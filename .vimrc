@@ -801,13 +801,9 @@ endif
 augroup
 
 " When Vim startup, exec Vimfiler
-"autocmd VimEnter * if !argc() |
-      "\ VimFiler
+"autocmd VimEnter * VimFiler
       "\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
-      "\ | endif
-autocmd VimEnter * VimFiler
-      \ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
-      \ -auto-cd=1
+      "\ -auto-cd=1
 " }}}
 " ## vimproc {{{
 "let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
