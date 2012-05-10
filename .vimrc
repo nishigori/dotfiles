@@ -180,7 +180,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'vim-scripts/python.vim--Vasiliev'
   NeoBundle 'jtriley/vim-rst-headings'
   "" Clojure
-  NeoBundle 'https://bitbucket.org/kotarak/vimclojure'
+  NeoBundle 'https://bitbucket.org/kotarak/vimclojure' {'type': 'hg'}
   "" Vim
   NeoBundle 'dsummersl/vimunit'
   "" Another
@@ -676,6 +676,7 @@ endif
 "let g:multiple_switcher_no_default_key_maps = 1
 nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
 nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
+nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 " }}}
 " ## vim-phpunit-snippets {{{
 "let g:phpunit_snippets_default_snip = 'hoge'
