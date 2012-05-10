@@ -771,6 +771,8 @@ function! s:interactive_settings()
 endfunction
 " }}}
 " ## vimfiler {{{
+nnoremap : :<C-u>VimFilerSplit -winwidth=45<Cr>
+
 let g:vimfiler_split_action        = 'left'
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list   = 'vim'
@@ -1120,7 +1122,6 @@ nnoremap <silent> <Leader>vs :<C-u>VimShell<Cr>
 nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 " vimfiler
 " FIXME: using <silent>, no avairable vimfiler orz
-nnoremap : :<C-u>VimFilerSplit -winwidth=70<Cr>
 nnoremap <Leader>vf :<C-u>VimFilerSplit <Cr>
 nnoremap <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
