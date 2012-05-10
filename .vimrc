@@ -180,7 +180,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'vim-scripts/python.vim--Vasiliev'
   NeoBundle 'jtriley/vim-rst-headings'
   "" Clojure
-  NeoBundle 'https://bitbucket.org/kotarak/vimclojure' {'type': 'hg'}
+  NeoBundle 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
   "" Vim
   NeoBundle 'dsummersl/vimunit'
   "" Another
