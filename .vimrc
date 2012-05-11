@@ -718,8 +718,7 @@ endif
 let g:vimshell_temporary_directory = exists('g:local_config["tmp_dir"]')
   \ ? g:local_config['tmp_dir'] . '/vimshell'
   \ : $HOME . '/.vimshell'
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
 let g:vimshell_max_command_history = 200
@@ -738,12 +737,28 @@ let g:vimshell_execute_file_list['php'] = 'php'
 let g:vimshell_execute_file_list['git'] = 'git'
 call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
+"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), \\":~")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
+let g:my_host_prompt = stridx(hostname(), '.') > 0
+      \ ? hostname()[ : stridx(hostname(), '.') - 1]
+      \ : hostname()
 if has('win32') || has('win64')
   " Display user name on Windows.
-  let g:vimshell_prompt = $USERNAME." % "
+  "let g:vimshell_prompt = $USERNAME." % "
+  let g:vimshell_user_prompt = printf(
+        \ '"┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
+        \ , 'g:my_host_prompt'
+        \ , 'fnamemodify(getcwd(), ":~")'
+        \ )
 else
   " Display user name on Linux.
-  let g:vimshell_prompt = $USER." % "
+  " TODO: $USER . hostname() の省略系を表示できるようにする
+  let g:vimshell_user_prompt = printf(
+        \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]" ." - ". "<" . %s . ">"'
+        \ , 'g:my_host_prompt'
+        \ , 'fnamemodify(getcwd(), ":~")'
+        \ , 'vcs#info("%s\:(%b)", "%s:(%b|%a)")'
+        \ )
 
   call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
   call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
@@ -751,6 +766,8 @@ else
   call vimshell#set_execute_file('tgz,gz', 'gzcat')
   call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
+let g:vimshell_prompt = '└[%] '
+let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
 autocmd FileType vimshell
 \ call vimshell#altercmd#define('g', 'git')
