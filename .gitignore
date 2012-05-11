@@ -45,6 +45,7 @@ Public
 .rbenv
 
 
+.zshrc.local
 .vimrc.local
 .gvimrc.local
 .vimperatorrc.local
