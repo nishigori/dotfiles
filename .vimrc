@@ -746,7 +746,8 @@ if has('win32') || has('win64')
   " Display user name on Windows.
   "let g:vimshell_prompt = $USERNAME." % "
   let g:vimshell_user_prompt = printf(
-        \ '"┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
+        \ '"%s\n┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
+        \ , '"☁ ". fnamemodify(getcwd(), ":p:h")'
         \ , 'g:my_host_prompt'
         \ , 'fnamemodify(getcwd(), ":~")'
         \ )
@@ -767,7 +768,7 @@ else
   call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
 let g:vimshell_prompt = '└[%] '
-let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
+"let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
 autocmd FileType vimshell
 \ call vimshell#altercmd#define('g', 'git')
