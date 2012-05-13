@@ -181,6 +181,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'jtriley/vim-rst-headings'
   "" Clojure
   NeoBundle 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
+  "" JavaScript
+  NeoBundle 'vim-scripts/JSON.vim'
   "" Vim
   NeoBundle 'dsummersl/vimunit'
   "" Another
@@ -302,6 +304,7 @@ inoremap <C-=> <Esc>==i
 " # Filetype Detect {{{
 augroup MyFiletypeDetect
   au! BufRead,BufNewFile,BufWinEnter *.md         setfiletype markdown
+  au! BufRead,BufNewFile,BufWinEnter *.json       setfiletype json
   au! BufRead,BufNewFile,BufWinEnter *.mine       setfiletype mine
   au! BufRead,BufNewFile,BufWinEnter *.xyz        setfiletype drawing
   au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
