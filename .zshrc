@@ -6,9 +6,6 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="cloud"
-#
-# My favorite themes 
-# murilasso fox fino gallois re5et xiong-chiamiov-plus murilasso
 source $HOME/.zshrc.local
 
 # Set to this to use case-sensitive completion
