@@ -480,8 +480,13 @@ augroup InsModeAu
 augroup END
 " }}}
 " # Moving Cursole {{{
+" for snippet complete
 nnoremap j gj
+onoremap j gj
+xnoremap j gj
 nnoremap k gk
+onoremap k gk
+xnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
