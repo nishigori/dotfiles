@@ -317,8 +317,9 @@ augroup MyFiletypeDetect
   au! BufRead,BufNewFile */nginx/*,*nginx.conf    setfiletype nginx
   au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,/etc/apache/*,*.conf
         \ setfiletype apache
-  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp     setfiletype vimperator
-  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator   setfiletype muttator
+  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp   setfiletype vimperator
+  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator setfiletype muttator
+  au! BufRead,BufNewFile,BufWinEnter */bundle/*/doc/*        setfiletype help
 augroup END
 
 " SQL
@@ -949,6 +950,7 @@ let g:unite_source_grep_default_opts = '-Hn'  " default
 let g:unite_source_grep_recursive_opt = '-R'  " default
 " }}}
 " ## vim-ref & ref-unite {{{
+let g:ref_cache_dir = $HOME . '/tmp/vim/ref_cache'
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
 if exists('g:local_config["ref_phpmanual_path"]')
@@ -965,6 +967,21 @@ if has('mac')
   let g:ref_alc_cmd = 'lynx -dump -display_charset=' . &encoding . ' -nonumbers %s'
 endif
 "let g:ref_refe_cmd = '/usr/bin/refe'
+
+" webdict
+let g:ref_source_webdict_sites = {
+  \   'weblio': {
+  \     'url': 'http://ejje.weblio.jp/content/%s',
+  \     'keyword_encoding': 'utf-8',
+  \     'cache': 1,
+  \   },
+  \   'wikipedia:ja': 'http://ja.wikipedia.org/wiki/%s',
+  \ }
+" 出力に対するフィルタ。最初の数行を削除している。
+function! g:ref_source_webdict_sites.weblio.filter(output)
+  return join(split(a:output, "\n")[18 :], "\n")
+endfunction
+let g:ref_source_webdict_sites.default = 'weblio'
 
 " My ref filetype mapping
 let g:ref_cmd_filetype_map = {
