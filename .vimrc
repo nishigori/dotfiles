@@ -68,6 +68,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'mattn/unite-advent_calendar'
   NeoBundle 'mattn/unite-remotefile'
   NeoBundle 'sgur/unite-git_grep'
+  NeoBundle 'pasela/unite-webcolorname'
   " }}}
   " buffer, tag {{{
   NeoBundle 'Lokaltog/vim-powerline'
@@ -77,6 +78,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'vim-scripts/current-func-info.vim'
   NeoBundle 'vim-scripts/taglist.vim'
+  NeoBundle 'vim-scripts/TagHighlight'
   NeoBundle 'sudo.vim'
   "NeoBundle 'Shougo/echodoc'
   " }}}
@@ -100,8 +102,10 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 't9md/vim-quickhl'
   NeoBundle 'visualstar.vim'
   NeoBundle 'vim-scripts/matchit.zip'
+  NeoBundle 'vim-scripts/matchparenpp'
   NeoBundle 'nathanaelkane/vim-indent-guides'
   NeoBundle 'vim-scripts/Align'
+  NeoBundle 'h1mesuke/vim-alignta'
   "NeoBundle 'tyru/operator-star.vim'
   " NOTE: yankring dependence suck key map.
   "       using unite history/yank
@@ -127,6 +131,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'vim-scripts/darkZ'
   NeoBundle 'vim-scripts/pyte'
   NeoBundle 'vim-scripts/github-theme'
+  NeoBundle 'vim-scripts/Atom'
+  NeoBundle 'vim-scripts/Gravity'
   " }}}
   " browse {{{
   NeoBundle 'tyru/open-browser.vim'
@@ -142,6 +148,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'Shougo/vim-vcs'
   NeoBundle 'tpope/vim-fugitive'
   NeoBundle 'mattn/gist-vim'
+  NeoBundle 'vim-scripts/gitv'
   "NeoBundle 'thinca/vim-ft-svn_diff'
   " }}}
   " DB {{{
@@ -152,6 +159,9 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   "NeoBundle 'xenoterracide/sql_iabbr'
   " }}}
   " debug, backend {{{
+  if has('python')
+    NeoBundle 'vim-scripts/Gundo'
+  endif
   NeoBundle 'Shougo/vimproc'
   "NeoBundle 'ujihisa/vital.vim'
   " }}}
@@ -175,12 +185,14 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   " need ruby-debug-ide19
   " $ gem install ruby-debug-ide19
   "NeoBundle 'astashov/vim-ruby-debugger'
-  NeoBundle 'vim-scripts/rails.vim'
+  autocmd FileType ruby
+    \ NeoBundleSource 'vim-scripts/rails.vim'
   "" Python
   NeoBundle 'vim-scripts/python.vim--Vasiliev'
   NeoBundle 'jtriley/vim-rst-headings'
   "" Clojure
-  NeoBundle 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
+  autocmd FileType clojure
+    \ NeoBundleSource 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
   "" JavaScript
   NeoBundle 'vim-scripts/JSON.vim'
   "" Vim
@@ -191,6 +203,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   " Utility {{{
   " FIXME: vim-template, そのうち使う
   "NeoBundle 'thinca/vim-template'
+  NeoBundle 'vim-scripts/Headlights'
+  NeoBundle 'vim-scripts/copypath.vim'
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'vim-scripts/submode'
   NeoBundle 'mattn/learn-vimscript'
@@ -738,13 +752,13 @@ let g:vimshell_split_command = 'split'
 " almost paste from vimshll-examples
 " Initialize execute file list.
 let g:vimshell_execute_file_list = {}
-call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+"call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
 let g:vimshell_execute_file_list['rb'] = 'ruby'
 let g:vimshell_execute_file_list['pl'] = 'perl'
 let g:vimshell_execute_file_list['py'] = 'python'
 let g:vimshell_execute_file_list['php'] = 'php'
 let g:vimshell_execute_file_list['git'] = 'git'
-call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+"call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
 "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), \\":~")'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
@@ -770,7 +784,7 @@ else
         \ , 'vcs#info("%s\:(%b)", "%s:(%b|%a)")'
         \ )
 
-  call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+  "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
   call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
   let g:vimshell_execute_file_list['zip'] = 'zipinfo'
   call vimshell#set_execute_file('tgz,gz', 'gzcat')
@@ -1129,13 +1143,43 @@ let g:calendar_weeknm = 1 " WK01
 " ## dbext.vim {{{
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 " }}}
-" ## Align.vim {{{
-"vnoremap <silent> <Leader>a=  :Align =<CR>
-"vnoremap <silent> <Leader>a,  :Align ,<CR>
-vnoremap <silent> <Leader>aa  :Align = + - \| ,<CR>
-vnoremap <silent> <Leader>a+  :Align +<CR>
-nnoremap <silent> <Leader>a-  :Align -<CR>
-vnoremap <silent> <Leader>a\| :Align \|<CR>
+" ## alignta {{{
+nnoremap [unite] <Nop>
+xnoremap [unite] <Nop>
+nmap f [unite]
+xmap f [unite]
+
+let g:unite_source_alignta_preset_arguments = [
+      \ ["Align at '='", '=>\='],  
+      \ ["Align at ':'", '01 :'],
+      \ ["Align at '|'", '|'   ],
+      \ ["Align at ')'", '0 )' ],
+      \ ["Align at ']'", '0 ]' ],
+      \ ["Align at '}'", '}'   ],
+      \]
+
+let s:comment_leadings = '^\s*\("\|#\|/\*\|//\|<!--\)'
+let g:unite_source_alignta_preset_options = [
+      \ ["Justify Left",      '<<' ],
+      \ ["Justify Center",    '||' ],
+      \ ["Justify Right",     '>>' ],
+      \ ["Justify None",      '==' ],
+      \ ["Shift Left",        '<-' ],
+      \ ["Shift Right",       '->' ],
+      \ ["Shift Left  [Tab]", '<--'],
+      \ ["Shift Right [Tab]", '-->'],
+      \ ["Margin 0:0",        '0'  ],
+      \ ["Margin 0:1",        '01' ],
+      \ ["Margin 1:0",        '10' ],
+      \ ["Margin 1:1",        '1'  ],
+      \
+      \ 'v/' . s:comment_leadings,
+      \ 'g/' . s:comment_leadings,
+      \]
+unlet s:comment_leadings
+
+nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
+xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 " }}}
 " ## submode.vim (Reside Window) {{{
 function! s:resizeWindow()
