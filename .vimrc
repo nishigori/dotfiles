@@ -883,7 +883,14 @@ let g:neocomplcache_omni_patterns = {
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
+"imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
+imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
+
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 " 一時的
 nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
