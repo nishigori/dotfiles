@@ -181,7 +181,6 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'soh335/vim-ref-jquery'
   "" PHP
   NeoBundle 'beyondwords/vim-twig'
-  NeoBundle 'stephpy/vim-php-cs-fixer'
   "" Ruby
   " need ruby-debug-ide19
   " $ gem install ruby-debug-ide19
@@ -216,6 +215,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   NeoBundle 'nishigori/vim-multiple-switcher'
   NeoBundle 'nishigori/vim-sunday'
   NeoBundle 'nishigori/vim-php-dictionary'
+  NeoBundle 'nishigori/vim-php-cs-fixer'
   NeoBundle 'nishigori/unite-sf2'
   NeoBundle 'nishigori/phpfolding.vim'
   NeoBundle 'nishigori/vim-phpunit-snippets'
