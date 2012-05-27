@@ -779,10 +779,9 @@ else
   " Display user name on Linux.
   " TODO: $USER . hostname() の省略系を表示できるようにする
   let g:vimshell_user_prompt = printf(
-        \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]" ." - ". "<" . %s . ">"'
+        \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
         \ , 'g:my_host_prompt'
         \ , 'fnamemodify(getcwd(), ":~")'
-        \ , 'vcs#info("%s\:(%b)", "%s:(%b|%a)")'
         \ )
 
   "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
@@ -791,7 +790,7 @@ else
   call vimshell#set_execute_file('tgz,gz', 'gzcat')
   call vimshell#set_execute_file('tbz,bz2', 'bzcat')
 endif
-let g:vimshell_prompt = '└[%] '
+let g:vimshell_prompt = '└[☁ ] '
 "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
 autocmd FileType vimshell
@@ -1156,11 +1155,6 @@ let g:calendar_weeknm = 1 " WK01
 let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
 " }}}
 " ## alignta {{{
-nnoremap [unite] <Nop>
-xnoremap [unite] <Nop>
-nmap f [unite]
-xmap f [unite]
-
 let g:unite_source_alignta_preset_arguments = [
       \ ["Align at '='", '=>\='],  
       \ ["Align at ':'", '01 :'],
@@ -1189,9 +1183,6 @@ let g:unite_source_alignta_preset_options = [
       \ 'g/' . s:comment_leadings,
       \]
 unlet s:comment_leadings
-
-nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
-xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 " }}}
 " ## submode.vim (Reside Window) {{{
 function! s:resizeWindow()
@@ -1231,8 +1222,10 @@ nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
 nnoremap <Leader>vf :<C-u>VimFilerSplit <Cr>
 nnoremap <Leader>vF :<C-u>VimFiler<Cr>
 " unite-sources
-nnoremap <Leader>uf :<C-u>Unite file<Cr>
-nnoremap <Leader>uF :<C-u>Unite file_rec<Cr>
+nnoremap <Leader>uf     :<C-u>Unite file<Cr>
+nnoremap <Leader>u<S-f> :<C-u>Unite file_rec<Cr>
+nnoremap <silent> <Leader>ua :<C-u>Unite alignta:options<CR>
+xnoremap <silent> <Leader>ua :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
 nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
 nnoremap <silent> <Leader>ub :<C-u>Unite buffer<Cr>
@@ -1270,7 +1263,6 @@ nmap <silent> <Leader>j <Plug>(quickhl-match)
 nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<Cr>
 nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<Cr>
 nnoremap <silent> <Leader>ts :TweetVimSay<Cr>
-
 " }}}
 
 
