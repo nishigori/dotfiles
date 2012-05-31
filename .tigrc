@@ -1,0 +1,4 @@
+"https://github.com/jonas/tig.git
+bind diff ; view-next
+bind diff l scroll-right
+bind diff h scroll-left%
