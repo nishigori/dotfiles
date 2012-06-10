@@ -303,7 +303,7 @@ if has('syntax')
     endfunction "}}}
   endif
 
-  set number
+  set relativenumber
   set numberwidth=4
 endif
 " }}}
