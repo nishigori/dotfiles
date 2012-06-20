@@ -6,7 +6,7 @@ My Vim runtimepath dir.
 INSTALL:
 ========
 
-> $ git clone https://github.com/nishigori/vimfiles.git ~/.vim
+> $ git clone https://bitbucket.org/nishigori/vimfiles.git ~/.vim
 
 Reference Directory
 ===================
