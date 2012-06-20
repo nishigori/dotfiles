@@ -701,6 +701,7 @@ endif
 nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
 nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
 nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
+vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
 " }}}
 " ## vim-phpunit-snippets {{{
 "let g:phpunit_snippets_default_snip = 'hoge'

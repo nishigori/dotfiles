@@ -35,6 +35,25 @@ Movies
 Music
 Public
 
+.CFUserTextEncoding
+.Xauthority
+.bi_li3
+.composer
+.cups
+.dropbox
+.fontconfig
+.hgignore_global
+.ievms
+.inputrc
+.lesshst
+.nbprofiler
+.netbeans
+.node_libraries
+.subversion
+VirtualBox VMs
+dbext_sql_history.txt
+dwhelper
+
 .gitconfig
 .gem
 .jenkins
