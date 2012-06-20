@@ -30,7 +30,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
 
   " Use weekly buffer for GTD.
-  nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<Cr>
+  nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<CR>
 
   " Load settings for each location.
   augroup load_vimrc "{{{
@@ -180,15 +180,15 @@ let apache_version = '2.0' " apache highliting
 " highlighting target of long line.
 if exists('&colorcolumn')
   set colorcolumn=+1
-  "nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<Cr>
-  nnoremap <silent> <Leader>l :<C-u>set<Space>list!<Space>colorcolumn=-1<Cr>
+  "nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<CR>
+  nnoremap <silent> <Leader>l :<C-u>set<Space>list!<Space>colorcolumn=-1<CR>
 endif
 
 "# HIGHLIGHT_CURRENT_LINE
-nnoremap <silent> <Leader>hs :<C-u>HighlightCurrentLine Search<Cr>
-nnoremap <silent> <Leader>hd :<C-u>HighlightCurrentLine DiffAdd<Cr>
-nnoremap <silent> <Leader>he :<C-u>HighlightCurrentLine Error<Cr>
-nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<Cr>
+nnoremap <silent> <Leader>hs :<C-u>HighlightCurrentLine Search<CR>
+nnoremap <silent> <Leader>hd :<C-u>HighlightCurrentLine DiffAdd<CR>
+nnoremap <silent> <Leader>he :<C-u>HighlightCurrentLine Error<CR>
+nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<CR>
 command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
 command! -nargs=0 UnHighlightCurrentLine match
 " }}}
@@ -214,9 +214,9 @@ if has('unix') && !has('gui_running')
   map! <NUL> <C-Space>
 
   " stopped job
-  nnoremap <silent> gZZ :set t_te = t_ti = <Cr>:quit<Cr>:set t_te& t_ti&<Cr>
-  nnoremap <silent> gsh :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
-  nnoremap <silent> gst :set t_te = t_ti = <Cr>:st<Cr>:set t_te& t_ti&<Cr>
+  nnoremap <silent> gZZ :set t_te = t_ti = <CR>:quit<CR>:set t_te& t_ti&<CR>
+  nnoremap <silent> gsh :set t_te = t_ti = <CR>:st<CR>:set t_te& t_ti&<CR>
+  nnoremap <silent> gst :set t_te = t_ti = <CR>:st<CR>:set t_te& t_ti&<CR>
 endif
 " }}}
 " # Status Bar {{{
@@ -235,8 +235,8 @@ let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg=Yellow cterm=None ct
 " # <Tab> {{{
 set showtabline=1 " :h tabline
 nnoremap tn :<C-u>tabnew<Space>
-nnoremap <silent> <Tab> :<C-u>tabnext<Cr>
-nnoremap <silent> <S-Tab> :<C-u>tabprevious<Cr>
+nnoremap <silent> <Tab> :<C-u>tabnext<CR>
+nnoremap <silent> <S-Tab> :<C-u>tabprevious<CR>
 " }}}
 " # Search {{{
 set hlsearch    " Highlight search option
@@ -302,8 +302,8 @@ inoremap <expr> ,dt strftime('%H:%M:%S')
 set noimdisable
 set iminsert=0 imsearch=0
 set noimcmdline
-inoremap <C-]> <ESC>:set iminsert=0<Cr>
-inoremap <ESC> <ESC>:set iminsert=0<Cr>
+inoremap <C-]> <ESC>:set iminsert=0<CR>
+inoremap <ESC> <ESC>:set iminsert=0<CR>
 "IME状態に応じたカーソル色を設定
 if has('multi_byte_ime')
   highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
@@ -353,8 +353,8 @@ inoremap <C-w> <ESC>ciw
 " selected at last editting text.
 "" ちなみにVisualModeで最後に選択したテキストのに戻るはgv
 nnoremap gc '[v']
-vnoremap <silent>gc :<C-u>normal gc<Cr>
-onoremap <silent>gc :<C-u>normal gc<Cr>
+vnoremap <silent>gc :<C-u>normal gc<CR>
+onoremap <silent>gc :<C-u>normal gc<CR>
 
 " vim-users.jp Hack #214
 nnoremap ) t)
@@ -374,8 +374,8 @@ augroup redhat  "{{{2
 augroup END "}}}
 " }}}
 " # Quick Start $MYVIMRC {{{
-nnoremap <silent> e. :<C-u>edit $MYVIMRC<Cr>
-nnoremap <silent> es :<C-u>source $MYVIMRC<Cr>
+nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
 " }}}
 " # Window {{{
 "set winminheight=8
@@ -386,10 +386,10 @@ set splitright  " Default vsplit, left
 set splitbelow  " Default split, top
 
 " vim-users.jp Hack #42
-"nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<Cr>
-"nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<Cr>
-"nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<Cr>
-"nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<Cr>
+"nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<CR>
+"nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<CR>
+"nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<CR>
+"nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<CR>
 function! s:good_width()  "{{{2
   if winwidth(0) < 84 && &ft != 'taglist' && &ft != 'quickrun'
     vertical resize 84
@@ -400,7 +400,7 @@ endfunction "}}}2
 " # Buffer {{{
 " inspaired @taku-o's Kwdb.vim
 :com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
-nnoremap <silent> <Leader>d :<C-u>:Kwbd<Cr>
+nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
 " }}}
 " # Fold, View {{{
 nnoremap <Leader>f za
@@ -427,9 +427,9 @@ augroup AUTOCHDIR
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
 augroup END
 " Change directory. vim-users.jp Hack #69
-nnoremap <silent> CD :<C-u>CD<Cr>
-nnoremap <silent> gu :<C-u>GU<Cr>
-nnoremap <silent> gU :<C-u>GUH<Cr>
+nnoremap <silent> CD :<C-u>CD<CR>
+nnoremap <silent> gu :<C-u>GU<CR>
+nnoremap <silent> gU :<C-u>GUH<CR>
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
 command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>') 
 command! -nargs=? -complete=dir -bang GUH  call s:ChangeCurrentDir('$HOME', '<bang>') 
@@ -551,7 +551,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 " }}}
 " ## taglist.vim {{{
 if has('path_extra')
-  nnoremap <silent> tl :<C-u>Tlist<Cr>
+  nnoremap <silent> tl :<C-u>Tlist<CR>
   let Tlist_Exit_OnlyWindow = 1       "taglistのウィンドーが最後のウィンドーならばVimを閉じる
   let Tlist_WinWidth = 40
   let Tlist_Enable_Fold_Column = 2
@@ -633,7 +633,7 @@ function! s:interactive_settings()
 endfunction
 " }}}
 " ## vimfiler {{{
-nnoremap : :<C-u>VimFilerSplit -winwidth=45<Cr>
+nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
 
 let g:vimfiler_split_action        = 'left'
 let g:vimfiler_as_default_explorer = 1
@@ -673,70 +673,18 @@ augroup
 " ## vimproc {{{
 "let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
 " }}}
-" ## neocomplcache {{{
-let g:neocomplcache_temporary_dir = $HOME . '/tmp/vim/neocom'
-
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_max_menu_width = 20
-let g:neocomplcache_auto_completion_start_length = 4
-let g:neocomplcache_manual_completion_start_length = 3
-let g:neocomplcache_min_syntax_length = 5
-let g:neocomplcache_enable_smart_case = 1
-" -を入力すると候補横の数字で選択可になる
-let g:neocomplcache_enable_camel_case_completion = 0
-let g:neocomplcache_enable_underbar_completion = 0
-let g:neocomplcache_max_list = 50
-" dictionary
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'     : '',
-  \ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
-  \ 'java'        : $HOME . '/.vim/dict/java.dict',
-  \ 'c'           : $HOME . '/.vim/dict/c.dict',
-  \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
-  \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
-  \ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'python'      : $HOME . '/.vim/dict/python.dict',
-  \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
-  \ }
-
-" xUnit filetype dict
-" g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
-" g:neocomplcache_same_filetype_listsで相互互換指定する必要がある。
-"let g:neocomplcache_same_filetype_lists = {
-  "\ 'phpunit' : 'php',
-  "\ }
-
-" 補完を選択後popupを閉じる
-"imap <expr><C-y> neocomplcache#close_popup()
-
-" for salaryman-omni-complete
-let g:neocomplcache_omni_patterns = {
-      \ 'txt' : '*'
-      \ }
-" }}}
-" ## neocomplcache_snippet_complete {{{
-nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-"imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
-imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
-
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" 一時的
-nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<Cr>
-" }}}
 " ## unite.vim {{{
 let g:unite_data_directory = $HOME . '/tmp/vim/unite'
 
+" For unite-session.
+" Save session automatically.
+let g:unite_source_session_enable_auto_save = 1
+" Load session automatically.
+autocmd VimEnter * UniteSessionLoad
+
 let g:unite_winheight = 12
 let g:unite_source_file_mru_limit = 120
-let g:unite_update_time = 150
+let g:unite_update_time = 180
 " For optimize.
 let g:unite_source_file_mru_filename_format = ''
 "let g:unite_update_time = 1000
@@ -744,7 +692,11 @@ let g:unite_source_history_yank_enable = 1
 let g:unite_source_history_yank_limit = 150
 let g:unite_enable_start_insert = 1
 
-" ignore match patterns (Default: autoload/unite/source/file.vim)
+let g:unite_source_file_mru_limit = 200
+let g:unite_cursor_line_highlight = 'TabLineSel'
+let g:unite_abbr_highlight = 'TabLine'
+
+ ignore match patterns (Default: autoload/unite/source/file.vim)
 let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
 let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 let g:unite_source_directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
@@ -763,16 +715,15 @@ call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
 call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
 call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
-nnoremap U :<C-u>Unite<Space>
-nnoremap <C-p> :<C-u>Unite file_mru<Cr>
-nnoremap <C-n> :<C-u>Unite buffer_tab<Cr>
+nnoremap <C-p> :<C-u>Unite file_mru<CR>
+nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
 nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " ## unite-tag {{{
-"nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<Cr><Cr>
+"nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
 autocmd BufEnter *
       \   if empty(&buftype)
-      \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<Cr>
+      \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
       \|  endif
 " }}}
 " ## unite-sf2 {{{
@@ -826,6 +777,83 @@ let g:ref_cmd_filetype_map = {
       \ }
       "\ 'php.phpunit' : 'phpunit',
 " }}}
+" ## neocomplcache {{{
+let g:neocomplcache_temporary_dir = $HOME . '/.vim/tmp/neocom'
+
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_max_list = 30
+let g:neocomplcache_max_menu_width = 20
+let g:neocomplcache_auto_completion_start_length = 3
+let g:neocomplcache_manual_completion_start_length = 3
+"let g:neocomplcache_min_syntax_length = 5
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_insert_char_pre = 1
+let g:neocomplcache_enable_auto_select = 1
+" -を入力すると候補横の数字で選択可になる
+let g:neocomplcache_enable_camel_case_completion = 0
+let g:neocomplcache_enable_underbar_completion = 0
+
+if !exists('g:neocomplcache_omni_patterns')
+let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns = 
+      \ get(g:, 'neocomplcache_omni_patterns', {})
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+
+" unite
+imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
+"imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
+
+" dictionary
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'     : '',
+  \ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
+  \ 'java'        : $HOME . '/.vim/dict/java.dict',
+  \ 'c'           : $HOME . '/.vim/dict/c.dict',
+  \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
+  \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
+  \ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'python'      : $HOME . '/.vim/dict/python.dict',
+  \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
+  \ }
+
+" xUnit filetype dict
+" g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
+" g:neocomplcache_same_filetype_listsで相互互換指定する必要がある。
+"let g:neocomplcache_same_filetype_lists = {
+  "\ 'phpunit' : 'php',
+  "\ }
+
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+let g:neocomplcache_delimiter_patterns =
+      \ get(g:, 'neocomplcache_delimiter_patterns', {})
+let g:neocomplcache_delimiter_patterns.php = ['\', '::', '->']
+
+" for salaryman-omni-complete
+"let g:neocomplcache_omni_patterns = {
+      "\ 'txt' : '*'
+      "\ }
+" }}}
+" ## neocomplcache_snippet_complete {{{
+nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+"imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
+imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
+
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" 一時的
+nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<CR>
+" }}}
 " ## TweetVim {{{
 let g:tweetvim_config_dir = exists('g:local_config["tmp_dir"]')
   \ ? g:local_config['tmp_dir'] . '/tweetvim'
@@ -845,7 +873,7 @@ map <leader>pcf :call PhpCsFixerFixFile()<CR>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
-nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<Cr>
+nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
@@ -949,13 +977,13 @@ let g:vcs#config_log_file = $HOME .'/tmp/'
 "    :Gstatusの画面上で
 "        Cでcommit
 "    * help ：Gstatus
-nnoremap <Leader>gb :<C-u>Gblame<Cr>
-nnoremap <Leader>gd :<C-u>Gdiff<Cr>
-nnoremap <Leader>gD :<C-u>Gdiff --cached<Cr>
-nnoremap <Leader>gs :<C-u>Gstatus<Cr>
-nnoremap <Leader>ga :<C-u>Gwrite<Cr>
-nnoremap <Leader>gA :<C-u>Gwrite <cfile><Cr>
-nnoremap <Leader>gc :<C-u>Gcommit<Cr>
+nnoremap <Leader>gb :<C-u>Gblame<CR>
+nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <Leader>gD :<C-u>Gdiff --cached<CR>
+nnoremap <Leader>gs :<C-u>Gstatus<CR>
+nnoremap <Leader>ga :<C-u>Gwrite<CR>
+nnoremap <Leader>gA :<C-u>Gwrite <cfile><CR>
+nnoremap <Leader>gc :<C-u>Gcommit<CR>
 "}}}
 " ## vim-ambicmd {{{
 " FIXME: <Space>打つと何故かバックスラッシュ入る
@@ -1029,50 +1057,62 @@ let g:Powerline_cache_file = $HOME . '/tmp/vim/Powerline.cache'
 " ## jscomplatete.vim {{{
 let g:jscomplete_use = ['dom']
 " }}}
+" # [unite] Mappings "{{{
+
+" The prefix key.
+nnoremap [unite] <Nop>
+nmap f [unite]
+
+nnoremap <silent> /  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
+
+nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+"nnoremap <silent> [unite]f :<C-u>Unite file<CR>
+nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
+nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
+xnoremap <silent> [unite]A :<C-u>Unite alignta:arguments<CR>
+nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
+nnoremap <silent> [unite]M :<C-u>Unite mapping<CR>
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=cd<CR>
+nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
+nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
+nnoremap <silent> [unite]t :<C-u>Unite tweetvim<CR>
+" for current buffer
+nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
+" for all buffer
+nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
+nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
+nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
+nnoremap <silent> [unite]p :<C-u>Unite process<CR>
+nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
+nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:!<CR>
+nnoremap <silent> [unite]N :<C-u>Unite neobundle/install<CR>
+" NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
+"       if @ftplugin is nothing, default map is :Unite ref/
+"nnoremap <silent> [unite]r :<C-u>Unite<Space>ref/
+nmap <silent> [unite]r <Plug>(ref_filetype_complete)
+
+"nnoremap <Leader>S :<C-u>Unite<Space>sf2/
+"nnoremap <Leader>sb :<C-u>Unite sf2/bundles<CR>
+"nnoremap <Leader>sc :<C-u>Unite sf2/app/config<CR>
+}}}
 " # <Leader> Mappings "{{{
 nnoremap <silent><Leader><Leader> f<Space>
 " change just before buffer
-nnoremap <silent> <Leader>a :<C-u>b#<Cr>
+nnoremap <silent> <Leader>a :<C-u>b#<CR>
+nnoremap <silent> ,b :<C-u>b#<CR>
 " open-browser.vim
 nmap <Leader>o <Plug>(openbrowser-smart-search)
 " vimshell
-nnoremap <silent> <Leader>vs :<C-u>VimShell<Cr>
-nnoremap <silent> <Leader>vS :<C-u>VimShellPop<Cr>
+nnoremap <silent> <Leader>s :<C-u>VimShell<CR>
+nnoremap <silent> <Leader>vs :<C-u>VimShell<CR>
+nnoremap <silent> <Leader>vS :<C-u>VimShellPop<CR>
 " vimfiler
 " FIXME: using <silent>, no avairable vimfiler orz
-nnoremap <Leader>vf :<C-u>VimFilerSplit <Cr>
-nnoremap <Leader>vF :<C-u>VimFiler<Cr>
-" unite-sources
-nnoremap <Leader>uf     :<C-u>Unite file<Cr>
-nnoremap <Leader>u<S-f> :<C-u>Unite file_rec<Cr>
-nnoremap <silent> <Leader>ua :<C-u>Unite alignta:options<CR>
-xnoremap <silent> <Leader>ua :<C-u>Unite alignta:arguments<CR>
-nnoremap <silent> <Leader>um :<C-u>Unite mark<Cr>
-nnoremap <silent> <Leader>uM :<C-u>Unite mapping<Cr>
-nnoremap <silent> <Leader>ub :<C-u>Unite buffer<Cr>
-nnoremap <silent> <Leader>uB :<C-u>Unite bookmark -default-action=cd<Cr>
-nnoremap <silent> <Leader>uu :<C-u>Unite resume source<Cr>
-nnoremap <silent> <Leader>uo :<C-u>Unite outline<Cr>
-nnoremap <silent> <Leader>ut :<C-u>Unite tweetvim<Cr>
-" for current buffer
-nnoremap <Leader>ug :<C-u>Unite grep:%:-iR:<Cr>
-" for all buffer
-nnoremap <Leader>uG :<C-u>Unite grep:$:-iR:<Cr>
-nnoremap <silent> <Leader>ul :<C-u>Unite line<Cr>
-nnoremap <silent> <Leader>uc :<C-u>Unite colorscheme -auto-preview<Cr>
-nnoremap <silent> <Leader>uh :<C-u>Unite history/command<Cr>
-nnoremap <silent> <Leader>uy :<C-u>Unite history/yank<Cr>
-nnoremap <silent> <Leader>us :<C-u>Unite snippet<Cr>
-nnoremap <silent> <Leader>un :<C-u>Unite neobundle/install:!<Cr>
-nnoremap <silent> <Leader>uN :<C-u>Unite neobundle/install<Cr>
-" NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
-"       if @ftplugin is nothing, default map is :Unite ref/
-nnoremap <Leader>ur :<C-u>Unite<Space>ref/
-"nmap <silent> <Leader>ur <Plug>(ref_filetype_complete)
-
-"nnoremap <Leader>S :<C-u>Unite<Space>sf2/
-"nnoremap <Leader>sb :<C-u>Unite sf2/bundles<Cr>
-"nnoremap <Leader>sc :<C-u>Unite sf2/app/config<Cr>
+nnoremap <Leader>vf :<C-u>VimFilerSplit <CR>
+nnoremap <Leader>vF :<C-u>VimFiler<CR>
 " Quickhl
 nmap <silent> <Leader>m <Plug>(quickhl-toggle)
 xmap <silent> <Leader>m <Plug>(quickhl-toggle)
@@ -1081,9 +1121,9 @@ xmap <silent> <Leader>M <Plug>(quickhl-reset)
 nmap <silent> <Leader>j <Plug>(quickhl-match)
 
 " TweetVim
-nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<Cr>
-nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<Cr>
-nnoremap <silent> <Leader>ts :TweetVimSay<Cr>
+nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<CR>
+nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<CR>
+nnoremap <silent> <Leader>ts :TweetVimSay<CR>
 " }}}
 
 
