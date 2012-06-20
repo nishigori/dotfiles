@@ -1,4 +1,5 @@
---langmap=PHP:+.inc
+--langmap=PHP:+.php.inc
+--php-types=c+f+d
 --php-kinds=cfd
 --langdef=js
 --langmap=js:.js
