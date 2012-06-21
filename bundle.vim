@@ -133,6 +133,7 @@ NeoBundle 'teramako/jscomplete-vim'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'soh335/vim-ref-jquery'
 "" PHP
+NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'beyondwords/vim-twig'
 "" Ruby
 " need ruby-debug-ide19
@@ -165,16 +166,18 @@ NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'thinca/vim-openbuf' " depends vim-vcs
 " }}}
 " My Plugins {{{
+NeoBundle 'nishigori/vim-symfony'
 NeoBundle 'nishigori/vim-multiple-switcher'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundle 'nishigori/vim-php-dictionary'
 NeoBundle 'nishigori/vim-php-cs-fixer'
 NeoBundle 'nishigori/unite-sf2'
 NeoBundle 'nishigori/phpfolding.vim'
-NeoBundle 'nishigori/vim-phpunit-snippets'
-NeoBundle 'nishigori/vim-twig-matchit'
 NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
 NeoBundle 'nishigori/neocomplcache-nginx-snippet'
+" Beta
+"NeoBundle 'nishigori/vim-phpunit-snippets'
+"NeoBundle 'nishigori/vim-twig-matchit'
 " }}}
 
 filetype plugin indent on " required!
