@@ -696,7 +696,7 @@ let g:unite_source_file_mru_limit = 200
 let g:unite_cursor_line_highlight = 'TabLineSel'
 let g:unite_abbr_highlight = 'TabLine'
 
- ignore match patterns (Default: autoload/unite/source/file.vim)
+" ignore match patterns (Default: autoload/unite/source/file.vim)
 let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
 let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 let g:unite_source_directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
@@ -1097,7 +1097,7 @@ nmap <silent> [unite]r <Plug>(ref_filetype_complete)
 "nnoremap <Leader>S :<C-u>Unite<Space>sf2/
 "nnoremap <Leader>sb :<C-u>Unite sf2/bundles<CR>
 "nnoremap <Leader>sc :<C-u>Unite sf2/app/config<CR>
-}}}
+"}}}
 " # <Leader> Mappings "{{{
 nnoremap <silent><Leader><Leader> f<Space>
 " change just before buffer
