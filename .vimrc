@@ -799,7 +799,7 @@ endif
 let g:neocomplcache_omni_patterns = 
       \ get(g:, 'neocomplcache_omni_patterns', {})
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 " unite
 imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
