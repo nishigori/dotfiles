@@ -680,7 +680,7 @@ let g:unite_data_directory = $HOME . '/tmp/vim/unite'
 " Save session automatically.
 let g:unite_source_session_enable_auto_save = 1
 " Load session automatically.
-autocmd VimEnter * UniteSessionLoad
+"autocmd VimEnter * UniteSessionLoad
 
 let g:unite_winheight = 12
 let g:unite_source_file_mru_limit = 120
@@ -806,18 +806,18 @@ imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
 "imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
 
 " dictionary
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'     : '',
-  \ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
-  \ 'java'        : $HOME . '/.vim/dict/java.dict',
-  \ 'c'           : $HOME . '/.vim/dict/c.dict',
-  \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
-  \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
-  \ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'python'      : $HOME . '/.vim/dict/python.dict',
-  \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
-  \ }
+"let g:neocomplcache_dictionary_filetype_lists = {
+  "\ 'default'     : '',
+  "\ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
+  "\ 'java'        : $HOME . '/.vim/dict/java.dict',
+  "\ 'c'           : $HOME . '/.vim/dict/c.dict',
+  "\ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
+  "\ 'php'         : $HOME . '/.vim/dict/PHP.dict',
+  "\ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  "\ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  "\ 'python'      : $HOME . '/.vim/dict/python.dict',
+  "\ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
+  "\ }
 
 " xUnit filetype dict
 " g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
@@ -829,9 +829,9 @@ let g:neocomplcache_dictionary_filetype_lists = {
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-let g:neocomplcache_delimiter_patterns =
-      \ get(g:, 'neocomplcache_delimiter_patterns', {})
-let g:neocomplcache_delimiter_patterns.php = ['\', '::', '->']
+"let g:neocomplcache_delimiter_patterns =
+      "\ get(g:, 'neocomplcache_delimiter_patterns', {})
+"let g:neocomplcache_delimiter_patterns.php = ['\', '::', '->']
 
 " for salaryman-omni-complete
 "let g:neocomplcache_omni_patterns = {
@@ -843,7 +843,7 @@ nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 "imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
-imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
+"imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
 
 
 " For snippet_complete marker.
