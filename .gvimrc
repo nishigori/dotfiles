@@ -83,7 +83,7 @@ endif
 " # Depends On OS {{{
 "if has('gui_macvim')
 if has('mac')
-  set transparency=12
+  set transparency=8
 elseif has('win32')
   "set guioptions+=C
   gui
