@@ -45,7 +45,12 @@ if filereadable(expand($HOME. '/.vimrc.local'))
       endfor
   endfunction " }}}
 
+  " Bundle
+  set nocompatible           " be iMproved
+  filetype plugin indent off " required!!
   source $HOME/.vim/bundle.vim
+
+  filetype plugin indent on " required!
 endif
 
 " # Switch ; <-> : {{{
@@ -452,6 +457,7 @@ set dictionary=$HOME/.vim/dict/default.dict
 " }}}
 " # Ctags {{{
 if has('path_extra') && &filetype !~ 'zsh\|conf'
+  setlocal tags=~/tags
   setlocal tags+=.
   if filereadable("tags")
     setlocal tags+=tags
@@ -787,7 +793,8 @@ let g:neocomplcache_auto_completion_start_length = 3
 let g:neocomplcache_manual_completion_start_length = 3
 "let g:neocomplcache_min_syntax_length = 5
 let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_insert_char_pre = 1
+" this is enbug for vimshell
+"let g:neocomplcache_enable_insert_char_pre = 1
 let g:neocomplcache_enable_auto_select = 1
 " -を入力すると候補横の数字で選択可になる
 let g:neocomplcache_enable_camel_case_completion = 0
@@ -803,31 +810,36 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
 " unite
 imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
-"imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
+imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
 
 " dictionary
-"let g:neocomplcache_dictionary_filetype_lists = {
-  "\ 'default'     : '',
-  "\ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
-  "\ 'java'        : $HOME . '/.vim/dict/java.dict',
-  "\ 'c'           : $HOME . '/.vim/dict/c.dict',
-  "\ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
-  "\ 'php'         : $HOME . '/.vim/dict/PHP.dict',
-  "\ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  "\ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  "\ 'python'      : $HOME . '/.vim/dict/python.dict',
-  "\ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
-  "\ }
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'     : '',
+  \ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
+  \ 'java'        : $HOME . '/.vim/dict/java.dict',
+  \ 'c'           : $HOME . '/.vim/dict/c.dict',
+  \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
+  \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
+  \ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'python'      : $HOME . '/.vim/dict/python.dict',
+  \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
+  \ }
+
+let g:neocomplcache_ignore_composite_filetype_lists = {
+      \ 'python.unit': 'python',
+      \ 'php.phpunit': 'php',
+      \ }
 
 " xUnit filetype dict
 " g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
 " g:neocomplcache_same_filetype_listsで相互互換指定する必要がある。
-"let g:neocomplcache_same_filetype_lists = {
-  "\ 'phpunit' : 'php',
-  "\ }
+let g:neocomplcache_same_filetype_lists = {
+      \ 'phpunit' : 'php',
+      \ }
 
 inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
+"inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 "let g:neocomplcache_delimiter_patterns =
       "\ get(g:, 'neocomplcache_delimiter_patterns', {})
@@ -839,6 +851,8 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
       "\ }
 " }}}
 " ## neocomplcache_snippet_complete {{{
+let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
