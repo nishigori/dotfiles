@@ -810,7 +810,7 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
 " unite
 imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
-imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
+"imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
 
 " dictionary
 let g:neocomplcache_dictionary_filetype_lists = {
