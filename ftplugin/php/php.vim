@@ -56,7 +56,8 @@ nnoremap <silent> <Leader>ur :<C-u>Unite ref/phpmanual<CR>
 
 " Plugin: smartchr
 inoremap <expr> = smartchr#one_of('=', ' = ', ' === ', ' == ')
-"inoremap <expr> = smartchr#one_of('\!', ' \!== ', ' \!= ', '\!')
+inoremap <expr> > smartchr#one_of('>', ' => ', '=>')
+inoremap <expr> ! smartchr#one_of('!', ' !== ', ' != ', '!')
 
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
