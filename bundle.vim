@@ -1,6 +1,3 @@
-" Bundle
-set nocompatible           " be iMproved
-filetype plugin indent off " required!!
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
   call neobundle#rc(expand('~/.vim/bundle/'))
@@ -179,5 +176,3 @@ NeoBundle 'nishigori/neocomplcache-nginx-snippet'
 "NeoBundle 'nishigori/vim-phpunit-snippets'
 "NeoBundle 'nishigori/vim-twig-matchit'
 " }}}
-
-filetype plugin indent on " required!
