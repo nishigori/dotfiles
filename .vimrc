@@ -1014,6 +1014,9 @@ let g:calendar_weeknm = 1 " WK01
 let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
 " }}}
 " ## alignta {{{
+vnoremap <silent> = :Alignta =<CR>
+vnoremap <silent> > :Alignta =><CR>
+
 let g:unite_source_alignta_preset_arguments = [
       \ ["Align at '='", '=>\='],
       \ ["Align at ':'", '01 :'],
