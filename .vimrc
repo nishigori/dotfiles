@@ -53,6 +53,10 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   filetype plugin indent on " required!
 endif
 
+let s:tmpdir = exists('g:local_config["tmp_dir"]')
+  \ ? g:local_config['tmp_dir']
+  \ : $HOME
+
 " # Switch ; <-> : {{{
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
@@ -566,9 +570,7 @@ if has('path_extra')
 endif
 " }}}
 " ## vimshell {{{
-let g:vimshell_temporary_directory = exists('g:local_config["tmp_dir"]')
-  \ ? g:local_config['tmp_dir'] . '/vimshell'
-  \ : $HOME . '/.vimshell'
+let g:vimshell_temporary_directory = s:tmpdir . '/.vimshell'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
 let g:vimshell_enable_smart_case = 1
 let g:vimshell_enable_auto_slash = 1
@@ -645,8 +647,8 @@ let g:vimfiler_split_action        = 'left'
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list   = 'vim'
 let g:vimfiler_sort_type           = 'filename'
-let g:vimfiler_enable_auto_cd = 1
-let g:vimfiler_data_directory = '~/tmp/.vimfiler'
+let g:vimfiler_enable_auto_cd      = 1
+let g:vimfiler_data_directory      = s:tmpdir . '/.vimfiler'
 
 "call vimfiler#set_execute_file('vim', 'vim')
 "call vimfiler#set_execute_file('txt', 'vim')
@@ -667,7 +669,7 @@ let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
 
 if has('win32')
-  let g:unite_kind_file_use_trashbox = $HOME . '/tmp/vim/vimfiler_transhbox'
+  let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_transhbox'
 endif
 
 " When Vim startup, exec Vimfiler
@@ -679,7 +681,7 @@ endif
 "let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
 " }}}
 " ## unite.vim {{{
-let g:unite_data_directory = $HOME . '/tmp/vim/unite'
+let g:unite_data_directory = s:tmpdir . '/unite'
 
 " For unite-session.
 " Save session automatically.
@@ -741,7 +743,7 @@ let g:unite_source_grep_default_opts = '-Hn'  " default
 let g:unite_source_grep_recursive_opt = '-R'  " default
 " }}}
 " ## vim-ref & ref-unite {{{
-let g:ref_cache_dir = $HOME . '/tmp/vim/ref_cache'
+let g:ref_cache_dir = s:tmpdir . '/ref_cache'
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
 if exists('g:local_config["ref_phpmanual_path"]')
@@ -783,7 +785,7 @@ let g:ref_cmd_filetype_map = {
       "\ 'php.phpunit' : 'phpunit',
 " }}}
 " ## neocomplcache {{{
-let g:neocomplcache_temporary_dir = $HOME . '/.vim/tmp/neocom'
+let g:neocomplcache_temporary_dir = s:tmpdir . '/neocom'
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_max_list = 30
@@ -868,9 +870,7 @@ endif
 nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<CR>
 " }}}
 " ## TweetVim {{{
-let g:tweetvim_config_dir = exists('g:local_config["tmp_dir"]')
-  \ ? g:local_config['tmp_dir'] . '/tweetvim'
-  \ : $HOME . '/.tweetvim'
+let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
 let g:tweetvim_include_rts = 1
 " }}}
 " ## vim-php-cs-fixer {{{
@@ -978,7 +978,7 @@ let g:user_zen_settings = {
       \ }
 "}}}
 " ## vim-vcs{{{
-let g:vcs#config_log_file = $HOME .'/tmp/'
+let g:vcs#config_log_file = s:tmpdir . '/vcs'
 " }}}
 " ## vim-fugitive {{{
 " Gstatus
@@ -1014,7 +1014,7 @@ let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
 " }}}
 " ## dbext.vim {{{
-let g:dbext_default_history_file = $HOME . '/tmp/vim/dbext_sql_history.sql'
+let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
 " }}}
 " ## alignta {{{
 let g:unite_source_alignta_preset_arguments = [
@@ -1065,7 +1065,7 @@ nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " }}}
 " ## vim-powerline {{{
 let g:Powerline_symbols = 'fancy'
-let g:Powerline_cache_file = $HOME . '/tmp/vim/Powerline.cache'
+let g:Powerline_cache_file = s:tmpdir . '/Powerline.cache'
 " }}}
 " ## jscomplatete.vim {{{
 let g:jscomplete_use = ['dom']
