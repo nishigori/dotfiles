@@ -1014,16 +1014,18 @@ let g:calendar_weeknm = 1 " WK01
 let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
 " }}}
 " ## alignta {{{
-vnoremap <silent> = :Alignta =<CR>
 vnoremap <silent> > :Alignta =><CR>
 
+" @todo add json type
+" ex.) 'hoge':     jojo
+"      'jojolion': jojo
 let g:unite_source_alignta_preset_arguments = [
-      \ ["Align at '='", '=>\='],
-      \ ["Align at ':'", '01 :'],
-      \ ["Align at '|'", '|'   ],
-      \ ["Align at ')'", '0 )' ],
-      \ ["Align at ']'", '0 ]' ],
-      \ ["Align at '}'", '}'   ],
+      \ ["Align at '='",  '=>\='],
+      \ ["Align at ':'",  '01 :'],
+      \ ["Align at '|'",  '|'   ],
+      \ ["Align at ')'",  '0 )' ],
+      \ ["Align at ']'",  '0 ]' ],
+      \ ["Align at '}'",  '}'   ],
       \]
 
 let s:comment_leadings = '^\s*\("\|#\|/\*\|//\|<!--\)'
@@ -1074,7 +1076,9 @@ let g:jscomplete_use = ['dom']
 
 " The prefix key.
 nnoremap [unite] <Nop>
+xnoremap [unite] <Nop>
 nmap e [unite]
+xmap e [unite]
 
 nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
 
@@ -1082,7 +1086,7 @@ nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files buffer 
 "nnoremap <silent> [unite]f :<C-u>Unite file<CR>
 nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
-xnoremap <silent> [unite]A :<C-u>Unite alignta:arguments<CR>
+xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
 nnoremap <silent> [unite]M :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
