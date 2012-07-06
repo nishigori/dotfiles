@@ -669,7 +669,6 @@ let g:vimfiler_marked_file_icon = '*'
 if has('win32')
   let g:unite_kind_file_use_trashbox = $HOME . '/tmp/vim/vimfiler_transhbox'
 endif
-augroup
 
 " When Vim startup, exec Vimfiler
 "autocmd VimEnter * VimFiler
