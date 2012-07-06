@@ -648,15 +648,13 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list   = 'vim'
 let g:vimfiler_sort_type           = 'filename'
 let g:vimfiler_enable_auto_cd      = 1
-let g:vimfiler_data_directory      = s:tmpdir . '/.vimfiler'
+let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
+"let g:vimfiler_edit_action        = 'split'
 
 "call vimfiler#set_execute_file('vim', 'vim')
 "call vimfiler#set_execute_file('txt', 'vim')
 "call vimfiler#set_execute_file('c', 'vim')
 "call vimfiler#set_execute_file('php', 'vim')
-
-" Edit file by tabedit.
-let g:vimfiler_edit_action = 'split'
 
 " Enable file operation commands.
 let g:vimfiler_safe_mode_by_default = 0
@@ -689,38 +687,37 @@ let g:unite_source_session_enable_auto_save = 1
 " Load session automatically.
 "autocmd VimEnter * UniteSessionLoad
 
-let g:unite_winheight = 12
+let g:unite_winheight             = 12
 let g:unite_source_file_mru_limit = 120
-let g:unite_update_time = 180
+let g:unite_update_time           = 256
 " For optimize.
 let g:unite_source_file_mru_filename_format = ''
-"let g:unite_update_time = 1000
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_history_yank_limit = 150
-let g:unite_enable_start_insert = 1
+let g:unite_source_history_yank_enable      = 1
+let g:unite_source_history_yank_limit       = 100
+let g:unite_enable_start_insert             = 1
 
 let g:unite_source_file_mru_limit = 200
-let g:unite_cursor_line_highlight = 'TabLineSel'
-let g:unite_abbr_highlight = 'TabLine'
+let g:unite_cursor_line_highlight = 'PmenuSel'
+"let g:unite_abbr_highlight       = 'TabLine'
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
-let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
-let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+"let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
+"let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 let g:unite_source_directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 let g:unite_source_file_rec_ignore_pattern = '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
 
-call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
-call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
-call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
-call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
-call unite#set_substitute_pattern('file', '^\\', '~/*')
-call unite#set_substitute_pattern('file', '^;v', '~/.vim/*')
-call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
-call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
-call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
-call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
-call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
+"call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+"call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+"call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
+"call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+"call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
+"call unite#set_substitute_pattern('file', '^\\', '~/*')
+"call unite#set_substitute_pattern('file', '^;v', '~/.vim/*')
+"call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
+"call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
+"call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
+"call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
+"call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
 
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
@@ -1018,7 +1015,7 @@ let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
 " }}}
 " ## alignta {{{
 let g:unite_source_alignta_preset_arguments = [
-      \ ["Align at '='", '=>\='],  
+      \ ["Align at '='", '=>\='],
       \ ["Align at ':'", '01 :'],
       \ ["Align at '|'", '|'   ],
       \ ["Align at ')'", '0 )' ],
@@ -1086,7 +1083,7 @@ xnoremap <silent> [unite]A :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
 nnoremap <silent> [unite]M :<C-u>Unite mapping<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=cd<CR>
+nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tweetvim<CR>
