@@ -1075,11 +1075,11 @@ let g:jscomplete_use = ['dom']
 
 " The prefix key.
 nnoremap [unite] <Nop>
-nmap f [unite]
+nmap e [unite]
 
-nnoremap <silent> /  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
+nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
 
-nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
 "nnoremap <silent> [unite]f :<C-u>Unite file<CR>
 nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
