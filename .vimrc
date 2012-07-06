@@ -24,7 +24,7 @@ endif
 set nobackup noswapfile
 if filereadable(expand($HOME. '/.vimrc.local'))
   set backup swapfile
-  " INFO: Read .vimrc.local.sample
+  " INFO: Read .vimrc.local.dist
   source $HOME/.vimrc.local
 
   let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
