@@ -388,11 +388,11 @@ nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
 " }}}
 " # Window {{{
 "set winminheight=8
-set winminwidth=20
-set winfixheight
-set winfixwidth
-set splitright  " Default vsplit, left
-set splitbelow  " Default split, top
+"set winminwidth=20
+"set winfixheight
+"set winfixwidth
+"set splitright  " Default vsplit, left
+"set splitbelow  " Default split, top
 
 " vim-users.jp Hack #42
 "nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<CR>
