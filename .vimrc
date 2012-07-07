@@ -986,6 +986,9 @@ let g:sunday_pairs = [
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
   \ ]
 " }}}
+" ## vim-sunday {{{
+let g:symfony_enable_auto_completefunc = 1
+" }}}
 " ## calendar.vim {{{
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
