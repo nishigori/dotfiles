@@ -146,26 +146,6 @@ setlocal softtabstop=0
 inoremap <C-=> <Esc>==i
 " }}}
 " # Filetype Detect {{{
-augroup MyFiletypeDetect
-  au! BufRead,BufNewFile,BufWinEnter *.md         setfiletype markdown
-  au! BufRead,BufNewFile,BufWinEnter *.json       setfiletype json
-  au! BufRead,BufNewFile,BufWinEnter *.mine       setfiletype mine
-  au! BufRead,BufNewFile,BufWinEnter *.xyz        setfiletype drawing
-  au! BufRead,BufNewFile,BufWinEnter *.tt         setfiletype html
-  au! BufRead,BufNewFile,BufWinEnter *.txt        setfiletype txt
-  au! BufRead,BufNewFile,BufWinEnter *.phl        setfiletype php.html
-  au! BufRead,BufNewFile,BufWinEnter *.pht        setfiletype php.html
-  au! BufRead,BufNewFile,BufWinEnter *.twig       setfiletype twig
-  au! BufRead,BufNewFile,BufWinEnter *Test.php    setfiletype php.phpunit
-  "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
-  au! BufRead,BufNewFile */nginx/*,*nginx.conf    setfiletype nginx
-  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,/etc/apache/*,*.conf
-        \ setfiletype apache
-  au! BufRead,BufNewFile,BufWinEnter *vimperatorrc*,*.vimp   setfiletype vimperator
-  au! BufRead,BufNewFile,BufWinEnter *muttatorrc*,*.muttator setfiletype muttator
-  au! BufRead,BufNewFile,BufWinEnter */bundle/*/doc/*        setfiletype help
-augroup END
-
 " SQL
 let g:sql_type_default = 'mysql'
 " }}}
