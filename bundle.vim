@@ -162,7 +162,8 @@ NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'thinca/vim-openbuf' " depends vim-vcs
 " }}}
 " My Plugins {{{
-NeoBundle 'nishigori/vim-symfony'
+"@todo FIXME: invalid completefunc for neocom into vim-symfony
+"NeoBundle 'nishigori/vim-symfony'
 NeoBundle 'nishigori/vim-multiple-switcher'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundle 'nishigori/vim-php-dictionary'

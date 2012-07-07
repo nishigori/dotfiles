@@ -4,7 +4,7 @@ set path+=**
 
 let g:neocomplcache_vim_completefuncs =
   \ get(g:, 'neocomplcache_vim_completefuncs', {})
-let g:neocomplcache_vim_completefuncs.Symfony = 'CompleteSymfony'
+"let g:neocomplcache_vim_completefuncs.Symfony = 'symfony#complete'
 
 " TODO: available for vimfiler
 " TODO: available @Template annnotation
