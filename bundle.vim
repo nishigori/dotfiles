@@ -54,7 +54,6 @@ NeoBundle 'visualstar.vim'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/matchparenpp'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'vim-scripts/Align'
 NeoBundle 'h1mesuke/vim-alignta'
 "NeoBundle 'tyru/operator-star.vim'
 " NOTE: yankring dependence suck key map.
