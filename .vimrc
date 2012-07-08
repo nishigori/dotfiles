@@ -625,9 +625,11 @@ let g:vimfiler_split_action        = 'left'
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_execute_file_list   = 'vim'
 let g:vimfiler_sort_type           = 'filename'
-let g:vimfiler_enable_auto_cd      = 1
+" Note: This variable works in file source.
+"let g:vimfiler_enable_auto_cd      = 1
 let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
-"let g:vimfiler_edit_action        = 'split'
+let g:vimfiler_edit_action         = 'open'
+let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
 
 "call vimfiler#set_execute_file('vim', 'vim')
 "call vimfiler#set_execute_file('txt', 'vim')
