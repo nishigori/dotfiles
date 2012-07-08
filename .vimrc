@@ -217,11 +217,9 @@ set wildmode=list:longest,full
 set laststatus=2
 set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
 "set statusline=[%{winnr('$')>1?.winnr().'/'.winnr('$'):}]\ %<\ %f\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}%=%l/%L\ (%P)
-let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
-  " highlight Normal ctermbg=Black ctermfg=White
 " }}}
 " # <Tab> {{{
-set showtabline=1 " :h tabline
+set showtabline=2 " :h tabline
 nnoremap tn :<C-u>tabnew<Space>
 nnoremap <silent> <Tab> :<C-u>tabnext<CR>
 nnoremap <silent> <S-Tab> :<C-u>tabprevious<CR>
@@ -366,12 +364,13 @@ nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
 " }}}
 " # Window {{{
+" FIXME: When setted winmin(height|width), errored unite-outline
 "set winminheight=8
 "set winminwidth=20
-"set winfixheight
-"set winfixwidth
-"set splitright  " Default vsplit, left
-"set splitbelow  " Default split, top
+set winfixheight
+set winfixwidth
+set splitright  " Default vsplit, left
+set splitbelow  " Default split, top
 
 " vim-users.jp Hack #42
 "nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<CR>
