@@ -15,6 +15,9 @@ if has('persistent_undo')
   set undodir=~/tmp/vim/undo
 endif
 
+" neobundle
+g:neobundle_default_git_protocol = 'http'
+
 " TwitVim
 let twitvim_browser_cmd = 'firefox'
 let twitvim_count       = 120
