@@ -18,6 +18,16 @@ endif
 " neobundle
 g:neobundle_default_git_protocol = 'http'
 
+" unite.vim
+let g:unite_source_alias_aliases = {
+      \   'file_user_src': {
+      \     'source': 'file',
+      \     'args': '/usr/local/src',
+      \   },
+      \ }
+nnoremap <silent> [unite]U :<C-u>Unite file_user_src
+      \ -buffer-name=files buffer bookmark file<CR>
+
 " TwitVim
 let twitvim_browser_cmd = 'firefox'
 let twitvim_count       = 120

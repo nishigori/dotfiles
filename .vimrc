@@ -661,30 +661,45 @@ endif
 " ## unite.vim {{{
 let g:unite_data_directory = s:tmpdir . '/unite'
 
-" For unite-session.
+let g:unite_enable_start_insert             = 1
 " Save session automatically.
-let g:unite_source_session_enable_auto_save = 1
+" For unite-session.
 " Load session automatically.
+let g:unite_source_session_enable_auto_save = 1
 "autocmd VimEnter * UniteSessionLoad
-
+" window option
 let g:unite_winheight             = 12
+"let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 120
 let g:unite_update_time           = 256
-" For optimize.
+" mru option
 let g:unite_source_file_mru_filename_format = ''
+let g:unite_source_file_mru_limit           = 200
+" history option
 let g:unite_source_history_yank_enable      = 1
 let g:unite_source_history_yank_limit       = 100
-let g:unite_enable_start_insert             = 1
-
-let g:unite_source_file_mru_limit = 200
+" color option
 let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
+" aliases
+let g:unite_source_alias_aliases =
+      \ get(g:, 'unite_source_alias_aliases', {})
+let g:unite_source_alias_aliases.workspace = {
+      \ 'source': 'file',
+      \ 'args': '~/workspace',
+      \ }
+let g:unite_source_alias_aliases.workspace_rec = {
+      \ 'source': 'file_rec',
+      \ 'args': '~/workspace',
+      \ }
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
-"let g:unite_source_file_ignore_pattern = '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]\|vimundo\)$'
-"let g:unite_source_file_mru_ignore_pattern = '\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
-let g:unite_source_directory_mru_ignore_pattern = '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
-let g:unite_source_file_rec_ignore_pattern = '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
+let g:unite_source_file_ignore_pattern =
+      \ '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|\)$'
+let g:unite_source_directory_mru_ignore_pattern =
+      \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+let g:unite_source_file_rec_ignore_pattern =
+      \ '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
 
 "call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
 "call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
@@ -1058,18 +1073,20 @@ let g:Powerline_colorscheme = 'skwp'
 let g:jscomplete_use = ['dom']
 " }}}
 " # [unite] Mappings "{{{
-
 " The prefix key.
 nnoremap [unite] <Nop>
 xnoremap [unite] <Nop>
 nmap e [unite]
 xmap e [unite]
 
-nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
-
-nnoremap <silent> [unite]f  :<C-u>UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir
+      \ -buffer-name=files buffer bookmark file<CR>
 "nnoremap <silent> [unite]f :<C-u>Unite file<CR>
 nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
+nnoremap <silent> [unite]w :<C-u>Unite workspace
+      \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
+      \ -buffer-name=files buffer bookmark file -input=!vendor <CR>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
@@ -1083,10 +1100,10 @@ nnoremap <silent> [unite]t :<C-u>Unite tweetvim<CR>
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
 nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
-nnoremap <silent> [unite]l :<C-u>Unite line<CR>
+nnoremap <silent> [unite]l :<C-u>Unite line -no-split<CR>
 nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
 nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
-nnoremap <silent> [unite]p :<C-u>Unite process<CR>
+nnoremap <silent> [unite]p :<C-u>Unite process -no-split<CR>
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
 nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:!<CR>
@@ -1095,6 +1112,8 @@ nnoremap <silent> [unite]N :<C-u>Unite neobundle/install<CR>
 "       if @ftplugin is nothing, default map is :Unite ref/
 "nnoremap <silent> [unite]r :<C-u>Unite<Space>ref/
 nmap <silent> [unite]r <Plug>(ref_filetype_complete)
+
+nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
 
 "nnoremap <Leader>S :<C-u>Unite<Space>sf2/
 "nnoremap <Leader>sb :<C-u>Unite sf2/bundles<CR>
