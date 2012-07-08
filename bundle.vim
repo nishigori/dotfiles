@@ -155,7 +155,8 @@ NeoBundle 'vim-scripts/JSON.vim'
 "" Vim
 NeoBundle 'dsummersl/vimunit'
 "" Another
-NeoBundle 'chase/nginx.vim'
+autocmd FileType nginx
+  \ NeoBundleSource 'chase/nginx.vim'
 " }}}
 " Utility {{{
 " FIXME: vim-template, そのうち使う
