@@ -32,25 +32,24 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   " Use weekly buffer for GTD.
   nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<CR>
 
-  " Load settings for each location.
-  augroup load_vimrc "{{{
+  " Load settings for each location {{{
+  augroup load_local_config
       autocmd!
-      autocmd BufNewFile,BufReadPost * call s:load_vimrc_local(expand('<afile>:p:h'))
-  augroup END "}}}
+      autocmd BufNewFile,BufReadPost * call s:load_rc_local(expand('<afile>:p:h'))
+  augroup END
   " TODO: moved autoload dir.
-  function! s:load_vimrc_local(loc) " {{{
+  function! s:load_rc_local(loc)
       let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
       for i in reverse(filter(files, 'filereadable(v:val)'))
           source `=i`
       endfor
   endfunction " }}}
-
-  " Bundle
+  " Bundle {{{
   set nocompatible           " be iMproved
   filetype plugin indent off " required!!
   source $HOME/.vim/bundle.vim
-
   filetype plugin indent on " required!
+  " }}}
 endif
 
 let s:tmpdir = exists('g:local_config["tmp_dir"]')
