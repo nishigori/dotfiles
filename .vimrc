@@ -716,7 +716,7 @@ let g:unite_source_file_rec_ignore_pattern =
 
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
-nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
+"nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " ## unite-tag {{{
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
