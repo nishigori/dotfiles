@@ -12,12 +12,12 @@ endif
 if !has('gui_macvim') || !has('kaoriya')
   " INFO: If encode is fixed, :e ++enc = {encoding-name}
   set encoding=utf-8
-  set fileencodings=utf-8,euc-jp,shitjis,iso-2022-jp,latin1
+  set fileencodings=utf-8,shitjis,euc-jp,iso-2022-jp
 endif
 if has('win32')
   set encoding=utf-8
   set termencoding=&encoding
-  set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp,latin1
+  set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp
 endif
 " }}}
 " VIMRC Local
@@ -37,7 +37,6 @@ if filereadable(expand($HOME. '/.vimrc.local'))
       autocmd!
       autocmd BufNewFile,BufReadPost * call s:load_rc_local(expand('<afile>:p:h'))
   augroup END
-  " TODO: moved autoload dir.
   function! s:load_rc_local(loc)
       let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
       for i in reverse(filter(files, 'filereadable(v:val)'))
@@ -142,7 +141,6 @@ set expandtab " replaced Tab with Indent
 setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=0
-inoremap <C-=> <Esc>==i
 " }}}
 " # Filetype Detect {{{
 " SQL
@@ -163,7 +161,7 @@ augroup END
 highlight CursorLine ctermbg=black guibg=black
 highlight CursorColumn ctermbg=black guibg=black
 
-let apache_version = '2.0' " apache highliting
+let g:apache_version = '2.0' " apache highliting
 
 " highlighting target of long line.
 if exists('&colorcolumn')
