@@ -17,5 +17,5 @@ function! weekly_buffer#getBuffer() "{{{
     let end_week   = today - day_of_week + 5
   endif
 
-  return g:local_config['weekly_buffer_dir'] .'/'. start_week .'_'. end_week
+  return g:local_config['weekly_buffer_dir'] .'/'. start_week .'_'. end_week . '.md'
 endfunction "}}}
