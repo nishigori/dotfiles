@@ -18,7 +18,7 @@ vnoremap ; :
 vnoremap : ;
 " }}}
 " # BASIC {{{
-set titlestring="Vimperator"
+set titlestring="ヴィムペレーたん"
 set history=255
 set focuscontent
 set runtimepath=~/.vimperator
@@ -197,6 +197,10 @@ if (button) {
 }
 EOM
 " }}}
-
+" ## plugin_loader.js {{{
+let g:plugin_loader_roots = "~/.vimperator/vimpr-plugins/ ~/.vimperator/plugin ~/.vimperator/local-plugin"
+" INFO: Variable g:plugin_loader_plugins is writing the vimperatorrc.local
+"       Read more vimperatorrc.local.dist
+" }}}
 
 source! ~/.vimperatorrc.local

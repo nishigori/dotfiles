@@ -2,7 +2,42 @@ set editor=/bin/gvim
 
 colorscheme default
 
-" For win
+" plugin_loader.js
+js <<EOF
+liberator.globalVariables.plugin_loader_plugins = <>
+  _libly
+  _smooziee
+  appendAnchor
+  applauncher
+  auto-focus-frame
+  auto_detect_link
+  bitly
+  direct_bookmark
+  erection
+  escape-from-iframe
+  ex_autocmd
+  goo.gl
+  google-results.js
+  hints-for-embedded
+  hints-yank-paste
+  lo
+  loginManager
+  longcat
+  microsoft-translator
+  nextlink
+  pdf-js
+  personas
+  property-panel
+  simg
+  slideshare
+  statusline-toolbar
+  stella
+  twittperator
+  usi
+</>.toString().split(/\s+/).filter(function(n) n);
+EOF
+
+" For Windows
 set tabnumbers
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
