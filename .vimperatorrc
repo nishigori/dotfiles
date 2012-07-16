@@ -18,7 +18,7 @@ vnoremap ; :
 vnoremap : ;
 " }}}
 " # BASIC {{{
-set titlestring="ヴィムペレーたん"
+set titlestring="Vimperatorたん"
 set history=255
 set focuscontent
 set runtimepath=~/.vimperator
