@@ -198,7 +198,7 @@ if (button) {
 EOM
 " }}}
 " ## plugin_loader.js {{{
-let g:plugin_loader_roots = "~/.vimperator/vimpr-plugins/ ~/.vimperator/plugin ~/.vimperator/local-plugin"
+let g:plugin_loader_roots = "~/.vimperator/vimpr-plugin/ ~/.vimperator/plugin ~/.vimperator/local-plugin"
 " INFO: Variable g:plugin_loader_plugins is writing the vimperatorrc.local
 "       Read more vimperatorrc.local.dist
 " }}}
