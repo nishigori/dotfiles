@@ -2,6 +2,7 @@ augroup filetypedetect
   " setfiletype:  different settings and syntax files to be loaded
   " set filetype: overwrite
   au! BufRead,BufNewFile *.md*        set filetype=markdown
+  au! BufRead,BufNewFile .snip*       set filetype=snippet
   au! BufRead,BufNewFile *.json       setfiletype json
   au! BufRead,BufNewFile *.mine       setfiletype mine
   au! BufRead,BufNewFile *.xyz        setfiletype drawing
