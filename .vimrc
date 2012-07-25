@@ -47,6 +47,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   set nocompatible           " be iMproved
   filetype plugin indent off " required!!
   source $HOME/.vim/bundle.vim
+  let s:bundle_dir = $HOME . '/.vim/bundle'
   filetype plugin indent on " required!
   " }}}
 endif
@@ -359,7 +360,7 @@ augroup END "}}}
 " }}}
 " # Quick Start $MYVIMRC {{{
 nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
+"nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
 " }}}
 " # Window {{{
 " FIXME: When setted winmin(height|width), errored unite-outline
@@ -523,7 +524,7 @@ endif
 " ## matchit.vim {{{
 " INFO: Extended % command.
 "if filereadable($HOME . '/macros/matchit.vim')
-if filereadable($HOME . '/.vim/bundle/matchit.zip/plugin/matchit.vim')
+if filereadable(s:bundle_dir . '/matchit.zip/plugin/matchit.vim')
   runtime macros/matchit.vim
   let b:match_words = 'if:endif'
   let b:match_ignorecase = 1
@@ -654,7 +655,7 @@ endif
       "\ -auto-cd=1
 " }}}
 " ## vimproc {{{
-"let g:vimproc_dll_path = $HOME . '/.vim/bundle/vimproc/autoload'
+"let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
 " }}}
 " ## unite.vim {{{
 let g:unite_data_directory = s:tmpdir . '/unite'
@@ -811,8 +812,8 @@ let g:neocomplcache_dictionary_filetype_lists = {
   \ 'c'           : $HOME . '/.vim/dict/c.dict',
   \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
   \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
-  \ 'phpunit'     : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'php.phpunit' : $HOME . '/.vim/bundle/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'phpunit'     : s:bundle_dir . '/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
+  \ 'php.phpunit' : s:bundle_dir . '/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
   \ 'python'      : $HOME . '/.vim/dict/python.dict',
   \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
   \ }
@@ -842,13 +843,17 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
       "\ }
 " }}}
 " ## neocomplcache_snippet_complete {{{
-let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+let g:neocomplcache_snippets_dir =
+      \ s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
+      \ .','. s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
+      \ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
+      \ .','. $HOME . '/.vim/snippets'
 
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 "imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
-"imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
+imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
 
 
 " For snippet_complete marker.
