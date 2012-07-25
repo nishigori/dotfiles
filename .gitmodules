@@ -1,0 +1,6 @@
+[submodule ".vim"]
+	path = .vim
+	url = http://bitbucket.org/nishigori/vimfiles.git
+[submodule ".vimperator"]
+	path = .vimperator
+	url = http://bitbucket.org/nishigori/vimperator-files.git

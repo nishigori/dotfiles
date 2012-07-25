@@ -5,7 +5,6 @@
 *.idea
 
 tmp/*
-.vimperator/*
 
 .bash_profile
 
@@ -17,7 +16,6 @@ tmp/*
 .irb_history
 .io_history
 .sqlite_history
-.vim
 .w3m
 .ssh
 .pentadactyl
@@ -71,4 +69,3 @@ dwhelper
 
 .cpan
 tags
-.vimperator
