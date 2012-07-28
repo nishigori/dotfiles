@@ -886,7 +886,8 @@ map <leader>pcf :call PhpCsFixerFixFile()<CR>
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
-nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
+"nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
+nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc -split 'rightbelow 50vsp'<CR>
 if has('clientserver')
 "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
