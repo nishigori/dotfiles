@@ -150,6 +150,9 @@ NeoBundle 'jtriley/vim-rst-headings'
 "" Clojure
 autocmd FileType clojure
   \ NeoBundleSource 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
+"" Haskell
+"autocmd FileType haskell NeoBundle 'ujihisa/ref-hoogle'
+NeoBundle 'ujihisa/ref-hoogle'
 "" JavaScript
 NeoBundle 'vim-scripts/JSON.vim'
 "" Vim
