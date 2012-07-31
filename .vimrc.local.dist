@@ -60,4 +60,7 @@ let g:symfony_app_console_path = $HOME.'/workspace/symfony/app/console'
 " php-cs-fixer
 let g:php_cs_fixer_path = "~/tmp/lib/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
 
+" ftplugin/php.vim
+let g:php_version = 5.4
+
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
