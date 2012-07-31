@@ -36,7 +36,12 @@ inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;<CR>" : "<C-O>$<CR>"
 
 " Array literal complete Vim-users.jp Hack#156
 " FEATURE: PHP5.4.x~ is enable using Array literal.
-inoremap <buffer><expr> [ <SID>php_smart_bracket(<SID>last_char())
+let g:php_version = get(g:, 'php_version', 5.3)
+if g:php_version == 5.4
+  inoremap <expr> [ smartchr#one_of('[]', '[', 'array()', '[]')
+else
+  inoremap <buffer><expr> [ <SID>php_smart_bracket(<SID>last_char())
+endif
 inoremap <buffer><expr> ] smartchr#one_of(']', ')')
 function! s:last_char() "{{{
   return matchstr(getline('.'), '.', col('.')-2)
