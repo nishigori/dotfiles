@@ -13,6 +13,7 @@ augroup filetypedetect
   "au! BufRead,BufNewFile *.twig       setfiletype twig
   au! BufRead,BufNewFile *.twig       set filetype=html.twig
   au! BufRead,BufNewFile *Test.php    set filetype=php.phpunit
+  au! BufRead,BufNewFile Capfile      set filetype=ruby
   "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
   au! BufRead,BufNewFile */nginx/*,*nginx.conf    setfiletype nginx
   au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,/etc/apache/*,*.conf
