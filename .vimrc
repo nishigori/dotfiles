@@ -100,7 +100,9 @@ set title
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 
-" <Leader>
+"チラツキ防止
+set completeopt=menuone
+
 let mapleader = " "
 " }}}
 " # Syntax {{{
@@ -371,8 +373,8 @@ nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
 " FIXME: When setted winmin(height|width), errored unite-outline
 "set winminheight=8
 "set winminwidth=20
-set winfixheight
-set winfixwidth
+"set winfixheight
+"set winfixwidth
 set splitright  " Default vsplit, left
 set splitbelow  " Default split, top
 
@@ -387,11 +389,18 @@ function! s:good_width()  "{{{2
   endif
 endfunction "}}}2
 
+set noequalalways " Minimize Window Size
 " }}}
 " # Buffer {{{
 " inspaired @taku-o's Kwdb.vim
 :com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
+" 常に開いているファイルと同じディレクトリをカレントディレクトリにする
+" http://www15.ocn.ne.jp/~tusr/vim/vim_text2.html#mozTocId567011
+augroup vimrc_group__cd
+  autocmd!
+  autocmd BufEnter * execute ":lcd " . (isdirectory(expand("%:p:h")) ? expand("%:p:h") : "")
+augroup END
 " }}}
 " # Fold, View {{{
 nnoremap <Leader>f za
