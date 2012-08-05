@@ -251,8 +251,6 @@ nnoremap # #N
 nnoremap \ /^
 " }}}
 " # Copy & Paste {{{
-" Like nmap 'D' and 'C'
-nnoremap Y y$
 "set paste " When you're setting paste, can't use inoremap extend ;-<
 if has('clipboard')
   set clipboard=unnamed,autoselect
@@ -296,6 +294,20 @@ cnoremap \|\| \|\|<LEFT>
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
 inoremap <expr> ,dd strftime('%Y-%m-%d')
 inoremap <expr> ,dt strftime('%H:%M:%S')
+
+" 縦に連番を入力する
+nnoremap <silent> co :ContinuousNumber <C-a><CR>
+vnoremap <silent> co :ContinuousNumber <C-a><CR>
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
+" }}}
+" # Yank {{{
+" Like nmap 'D' and 'C'
+rm: ": No such file or directory
+nnoremap Y y$
+
+" カーソル位置の単語をヤンクした単語に置換
+nnoremap <silent> cy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 " }}}
 " # IME Control {{{
 " <ESC> insert mode, IME off
