@@ -104,6 +104,12 @@ set title
 set completeopt=menuone
 
 let mapleader = " "
+
+augroup CurrentLineBeforeChanged
+  " 前回終了したカーソル行に移動
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
+
 " }}}
 " # Syntax {{{
 if has('syntax')
