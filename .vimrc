@@ -34,14 +34,14 @@ if filereadable(expand($HOME. '/.vimrc.local'))
 
   " Load settings for each location {{{
   augroup load_local_config
-      autocmd!
-      autocmd BufNewFile,BufReadPost * call s:load_rc_local(expand('<afile>:p:h'))
+    autocmd!
+    autocmd BufNewFile,BufReadPost * call s:load_rc_local(expand('<afile>:p:h'))
   augroup END
   function! s:load_rc_local(loc)
-      let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-      for i in reverse(filter(files, 'filereadable(v:val)'))
-          source `=i`
-      endfor
+    let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+    for i in reverse(filter(files, 'filereadable(v:val)'))
+      source `=i`
+    endfor
   endfunction " }}}
   " Bundle {{{
   set nocompatible           " be iMproved
@@ -90,13 +90,13 @@ nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 set title
 "function! s:titlestring() "{{{
-  "if exists('t:cwd')
-    "return t:cwd . ' (tab)'
-  "elseif haslocaldir()
-    "return getcwd() . ' (local)'
-  "else
-    "return getcwd()
-  "endif
+"if exists('t:cwd')
+"return t:cwd . ' (tab)'
+"elseif haslocaldir()
+"return getcwd() . ' (local)'
+"else
+"return getcwd()
+"endif
 "endfunction "}}}
 "let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
 
@@ -200,10 +200,10 @@ if has('unix') && !has('gui_running')
   " Use meta keys in console.
   function! s:use_meta_keys()  " {{{2
     for i in map(
-    \   range(char2nr('a'), char2nr('z'))
-    \ + range(char2nr('A'), char2nr('Z'))
-    \ + range(char2nr('0'), char2nr('9'))
-    \ , 'nr2char(v:val)')
+      \   range(char2nr('a'), char2nr('z'))
+      \ + range(char2nr('A'), char2nr('Z'))
+      \ + range(char2nr('0'), char2nr('9'))
+      \ , 'nr2char(v:val)')
       " <ESC>O do not map because used by arrow keys.
       if i != 'O'
         execute 'nmap <ESC>' . i '<M-' . i . '>'
@@ -302,7 +302,7 @@ command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <co
 " }}}
 " # Yank {{{
 " Like nmap 'D' and 'C'
-rm: ": No such file or directory
+": No such file or directory
 nnoremap Y y$
 
 " カーソル位置の単語をヤンクした単語に置換
@@ -322,9 +322,9 @@ if has('multi_byte_ime')
   highlight CursorIM guifg=NONE guibg=#ecbcbc
 endif
 augroup InsModeAu
-    autocmd!
-    autocmd InsertEnter,CmdwinEnter * set noimdisable
-    autocmd InsertLeave,CmdwinLeave * set imdisable
+  autocmd!
+  autocmd InsertEnter,CmdwinEnter * set noimdisable
+  autocmd InsertLeave,CmdwinLeave * set imdisable
 augroup END
 " }}}
 " # Moving Cursole {{{
@@ -380,9 +380,9 @@ vnoremap ( t(
 augroup redhat  "{{{2
   " When editing a file, always jump to the last cursor position
   autocmd BufReadPost *
-        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-        \   exe "normal! g'\"" |
-        \ endif
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
 augroup END "}}}
 " }}}
 " # Quick Start $MYVIMRC {{{
@@ -604,25 +604,25 @@ let g:vimshell_execute_file_list['git'] = 'git'
 "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), \\":~")'
 "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
 let g:my_host_prompt = stridx(hostname(), '.') > 0
-      \ ? hostname()[ : stridx(hostname(), '.') - 1]
-      \ : hostname()
+  \ ? hostname()[ : stridx(hostname(), '.') - 1]
+  \ : hostname()
 if has('win32') || has('win64')
   " Display user name on Windows.
   "let g:vimshell_prompt = $USERNAME." % "
   let g:vimshell_user_prompt = printf(
-        \ '"%s\n┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
-        \ , '"☁ ". fnamemodify(getcwd(), ":p:h")'
-        \ , 'g:my_host_prompt'
-        \ , 'fnamemodify(getcwd(), ":~")'
-        \ )
+    \ '"%s\n┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
+    \ , '"☁ ". fnamemodify(getcwd(), ":p:h")'
+    \ , 'g:my_host_prompt'
+    \ , 'fnamemodify(getcwd(), ":~")'
+    \ )
 else
   " Display user name on Linux.
   " TODO: $USER . hostname() の省略系を表示できるようにする
   let g:vimshell_user_prompt = printf(
-        \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
-        \ , 'g:my_host_prompt'
-        \ , 'fnamemodify(getcwd(), ":~")'
-        \ )
+    \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
+    \ , 'g:my_host_prompt'
+    \ , 'fnamemodify(getcwd(), ":~")'
+    \ )
 
   "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
   call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
@@ -634,14 +634,14 @@ let g:vimshell_prompt = '└[☁ ] '
 "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
 autocmd FileType vimshell
-\ call vimshell#altercmd#define('g', 'git')
-\| call vimshell#altercmd#define('i', 'iexe')
-\| call vimshell#altercmd#define('l', 'll')
-\| call vimshell#altercmd#define('ll', 'ls -l')
-\| call vimshell#altercmd#define('a', 'ls -al')
-\| call vimshell#altercmd#define('la', 'ls -al')
-\| call vimshell#altercmd#define('cl', 'clear')
-\| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+  \ call vimshell#altercmd#define('g', 'git')
+  \| call vimshell#altercmd#define('i', 'iexe')
+  \| call vimshell#altercmd#define('l', 'll')
+  \| call vimshell#altercmd#define('ll', 'ls -l')
+  \| call vimshell#altercmd#define('a', 'ls -al')
+  \| call vimshell#altercmd#define('la', 'ls -al')
+  \| call vimshell#altercmd#define('cl', 'clear')
+  \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
 
 function! g:my_chpwd(args, context)
   call vimshell#execute('ls')
@@ -685,8 +685,8 @@ endif
 
 " When Vim startup, exec Vimfiler
 "autocmd VimEnter * VimFiler
-      "\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
-      "\ -auto-cd=1
+"\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
+"\ -auto-cd=1
 " }}}
 " ## vimproc {{{
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
@@ -716,23 +716,23 @@ let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
 " aliases
 let g:unite_source_alias_aliases =
-      \ get(g:, 'unite_source_alias_aliases', {})
+  \ get(g:, 'unite_source_alias_aliases', {})
 let g:unite_source_alias_aliases.workspace = {
-      \ 'source': 'file',
-      \ 'args': '~/workspace',
-      \ }
+  \ 'source': 'file',
+  \ 'args': '~/workspace',
+  \ }
 let g:unite_source_alias_aliases.workspace_rec = {
-      \ 'source': 'file_rec',
-      \ 'args': '~/workspace',
-      \ }
+  \ 'source': 'file_rec',
+  \ 'args': '~/workspace',
+  \ }
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
 let g:unite_source_file_ignore_pattern =
-      \ '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|\)$'
+  \ '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|\)$'
 let g:unite_source_directory_mru_ignore_pattern =
-      \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+  \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 let g:unite_source_file_rec_ignore_pattern =
-      \ '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
+  \ '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
 
 "call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
 "call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
@@ -754,9 +754,9 @@ nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
 " ## unite-tag {{{
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
 autocmd BufEnter *
-      \   if empty(&buftype)
-      \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-      \|  endif
+  \   if empty(&buftype)
+  \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+  \|  endif
 " }}}
 " ## unite-sf2 {{{
 " NOTE: unite-sf2 avairables is depends local environment.
@@ -803,11 +803,11 @@ let g:ref_source_webdict_sites.default = 'weblio'
 
 " My ref filetype mapping
 let g:ref_cmd_filetype_map = {
-      \ 'php' : 'php',
-      \ 'python' : 'pydoc',
-      \ 'perl' : 'perldoc',
-      \ }
-      "\ 'php.phpunit' : 'phpunit',
+  \ 'php' : 'php',
+  \ 'python' : 'pydoc',
+  \ 'perl' : 'perldoc',
+  \ }
+"\ 'php.phpunit' : 'phpunit',
 " }}}
 " ## neocomplcache {{{
 let g:neocomplcache_temporary_dir = s:tmpdir . '/neocom'
@@ -827,10 +827,10 @@ let g:neocomplcache_enable_camel_case_completion = 0
 let g:neocomplcache_enable_underbar_completion = 0
 
 if !exists('g:neocomplcache_omni_patterns')
-let g:neocomplcache_omni_patterns = {}
+  let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns = 
-      \ get(g:, 'neocomplcache_omni_patterns', {})
+  \ get(g:, 'neocomplcache_omni_patterns', {})
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 "let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
@@ -853,35 +853,35 @@ let g:neocomplcache_dictionary_filetype_lists = {
   \ }
 
 let g:neocomplcache_ignore_composite_filetype_lists = {
-      \ 'python.unit': 'python',
-      \ 'php.phpunit': 'php',
-      \ }
+  \ 'python.unit': 'python',
+  \ 'php.phpunit': 'php',
+  \ }
 
 " xUnit filetype dict
 " g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
 " g:neocomplcache_same_filetype_listsで相互互換指定する必要がある。
 let g:neocomplcache_same_filetype_lists = {
-      \ 'phpunit' : 'php',
-      \ }
+  \ 'phpunit' : 'php',
+  \ }
 
 inoremap <expr><C-y>  neocomplcache#close_popup()
 "inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 "let g:neocomplcache_delimiter_patterns =
-      "\ get(g:, 'neocomplcache_delimiter_patterns', {})
+"\ get(g:, 'neocomplcache_delimiter_patterns', {})
 "let g:neocomplcache_delimiter_patterns.php = ['\', '::', '->']
 
 " for salaryman-omni-complete
 "let g:neocomplcache_omni_patterns = {
-      "\ 'txt' : '*'
-      "\ }
+"\ 'txt' : '*'
+"\ }
 " }}}
 " ## neocomplcache_snippet_complete {{{
 let g:neocomplcache_snippets_dir =
-      \ s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
-      \ .','. s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
-      \ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
-      \ .','. $HOME . '/.vim/snippets'
+  \ s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
+  \ .','. s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
+  \ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
+  \ .','. $HOME . '/.vim/snippets'
 
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -918,38 +918,38 @@ let g:quickrun_config = get(g:, 'quickrun_config', {})
 "nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc -split 'rightbelow 50vsp'<CR>
 if has('clientserver')
-"if has('clientserver') && !empty(v:servername)
+  "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
-  \   'runner/vimproc' : 90,
-  \   'runner/vimproc/updatetime' : 90,
-  \ }
+    \   'runner/vimproc' : 90,
+    \   'runner/vimproc/updatetime' : 90,
+    \ }
   let g:quickrun_config = {
-  \   '_' : {
-  \     'runner/vimproc' : 90,
-  \     'runner/vimproc/updatetime' : 90,
-  \     'outputter' : 'buffer',
-  \     'splist' : '{"rigitbelow 50vsp"}',
-  \   },
-  \   'run/vimproc' : {
-  \     'exec' : '%s:p:r %a',
-  \     'runner' : 'vimproc',
-  \     'outputter' : 'buffer',
-  \   },
-  \   'ruby.rspec' : {
-  \     'command' : "spec -l {line('.')",
-  \   },
-  \   'php.phpunit' : {
-  \     'command' : 'phpunit',
-  \   },
-  \   'javascript' : {
-  \     'command' : 'phantomjs',
-  \   }
-  \ }
+    \   '_' : {
+    \     'runner/vimproc' : 90,
+    \     'runner/vimproc/updatetime' : 90,
+    \     'outputter' : 'buffer',
+    \     'splist' : '{"rigitbelow 50vsp"}',
+    \   },
+    \   'run/vimproc' : {
+    \     'exec' : '%s:p:r %a',
+    \     'runner' : 'vimproc',
+    \     'outputter' : 'buffer',
+    \   },
+    \   'ruby.rspec' : {
+    \     'command' : "spec -l {line('.')",
+    \   },
+    \   'php.phpunit' : {
+    \     'command' : 'phpunit',
+    \   },
+    \   'javascript' : {
+    \     'command' : 'phantomjs',
+    \   }
+    \ }
 endif
 if has('mac')
   let g:quickrun_config['php.phpunit'] = {
-  \   'command' : '/usr/local/Cellar/php/5.3.8/bin/phpunit',
-  \ }
+    \   'command' : '/usr/local/Cellar/php/5.3.8/bin/phpunit',
+    \ }
   " TODO: Sikuli 起動は引数渡さねば??
   "let g:quickrun_config['python.sikuli'] = {
   "\     'command' : '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
@@ -975,37 +975,37 @@ vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 " ## zencoding{{{
 let g:user_zen_expandabbr_key = '<C-z>'
 let g:user_zen_settings = {
-      \  'lang' : 'ja',
-      \  'html' : {
-      \    'filters' : 'html',
-      \    'indentation' : ' '
-      \  },
-      \  'perl' : {
-      \    'indentation' : '  ',
-      \    'aliases' : {
-      \      'req' : "require '|'"
-      \    },
-      \    'snippets' : {
-      \      'use' : "use strict\nuse warnings\n\n",
-      \      'w' : "warn \"${cursor}\";",
-      \    },
-      \  },
-      \  'php' : {
-      \    'extends' : 'html',
-      \    'filters' : 'html,c',
-      \  },
-      \  'css' : {
-      \    'filters' : 'fc',
-      \  },
-      \  'javascript' : {
-      \    'snippets' : {
-      \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
-      \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
-      \      'fn' : "(function() {\n\t${cursor}\n})();",
-      \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
-      \    },
-      \  },
-      \ }
+  \  'lang' : 'ja',
+  \  'html' : {
+  \    'filters' : 'html',
+  \    'indentation' : ' '
+  \  },
+  \  'perl' : {
+  \    'indentation' : '  ',
+  \    'aliases' : {
+  \      'req' : "require '|'"
+  \    },
+  \    'snippets' : {
+  \      'use' : "use strict\nuse warnings\n\n",
+  \      'w' : "warn \"${cursor}\";",
+  \    },
+  \  },
+  \  'php' : {
+  \    'extends' : 'html',
+  \    'filters' : 'html,c',
+  \  },
+  \  'css' : {
+  \    'filters' : 'fc',
+  \  },
+  \  'javascript' : {
+  \    'snippets' : {
+  \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
+  \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
+  \      'fn' : "(function() {\n\t${cursor}\n})();",
+  \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
+  \    },
+  \  },
+  \ }
 "}}}
 " ## vim-vcs{{{
 let g:vcs#config_log_file = s:tmpdir . '/vcs'
@@ -1056,32 +1056,32 @@ vnoremap <silent> > :Alignta =><CR>
 " ex.) 'hoge':     jojo
 "      'jojolion': jojo
 let g:unite_source_alignta_preset_arguments = [
-      \ ["Align at '='",  '=>\='],
-      \ ["Align at ':'",  '01 :'],
-      \ ["Align at '|'",  '|'   ],
-      \ ["Align at ')'",  '0 )' ],
-      \ ["Align at ']'",  '0 ]' ],
-      \ ["Align at '}'",  '}'   ],
-      \]
+  \ ["Align at '='",  '=>\='],
+  \ ["Align at ':'",  '01 :'],
+  \ ["Align at '|'",  '|'   ],
+  \ ["Align at ')'",  '0 )' ],
+  \ ["Align at ']'",  '0 ]' ],
+  \ ["Align at '}'",  '}'   ],
+  \]
 
 let s:comment_leadings = '^\s*\("\|#\|/\*\|//\|<!--\)'
 let g:unite_source_alignta_preset_options = [
-      \ ["Justify Left",      '<<' ],
-      \ ["Justify Center",    '||' ],
-      \ ["Justify Right",     '>>' ],
-      \ ["Justify None",      '==' ],
-      \ ["Shift Left",        '<-' ],
-      \ ["Shift Right",       '->' ],
-      \ ["Shift Left  [Tab]", '<--'],
-      \ ["Shift Right [Tab]", '-->'],
-      \ ["Margin 0:0",        '0'  ],
-      \ ["Margin 0:1",        '01' ],
-      \ ["Margin 1:0",        '10' ],
-      \ ["Margin 1:1",        '1'  ],
-      \
-      \ 'v/' . s:comment_leadings,
-      \ 'g/' . s:comment_leadings,
-      \]
+  \ ["Justify Left",      '<<' ],
+  \ ["Justify Center",    '||' ],
+  \ ["Justify Right",     '>>' ],
+  \ ["Justify None",      '==' ],
+  \ ["Shift Left",        '<-' ],
+  \ ["Shift Right",       '->' ],
+  \ ["Shift Left  [Tab]", '<--'],
+  \ ["Shift Right [Tab]", '-->'],
+  \ ["Margin 0:0",        '0'  ],
+  \ ["Margin 0:1",        '01' ],
+  \ ["Margin 1:0",        '10' ],
+  \ ["Margin 1:1",        '1'  ],
+  \
+  \ 'v/' . s:comment_leadings,
+  \ 'g/' . s:comment_leadings,
+  \]
 unlet s:comment_leadings
 " }}}
 " ## submode.vim (Reside Window) {{{
@@ -1118,13 +1118,13 @@ nmap e [unite]
 xmap e [unite]
 
 nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir
-      \ -buffer-name=files buffer bookmark file<CR>
+  \ -buffer-name=files buffer bookmark file<CR>
 "nnoremap <silent> [unite]f :<C-u>Unite file<CR>
 nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
 nnoremap <silent> [unite]w :<C-u>Unite workspace
-      \ -buffer-name=files buffer bookmark file<CR>
+  \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
-      \ -buffer-name=files buffer bookmark file -input=!vendor <CR>
+  \ -buffer-name=files buffer bookmark file -input=!vendor <CR>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
