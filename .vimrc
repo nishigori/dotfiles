@@ -155,6 +155,8 @@ set expandtab " replaced Tab with Indent
 setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=0
+
+:let g:vim_indent_cont = 2
 " }}}
 " # Filetype Detect {{{
 " SQL
