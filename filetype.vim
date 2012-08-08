@@ -1,6 +1,7 @@
 augroup filetypedetect
   " setfiletype:  different settings and syntax files to be loaded
   " set filetype: overwrite
+  au! BufRead,BufNewFile *.gradle     set filetype=groovy
   au! BufRead,BufNewFile *.md*        set filetype=markdown
   au! BufRead,BufNewFile .snip*       set filetype=snippet
   au! BufRead,BufNewFile *.json       setfiletype json
