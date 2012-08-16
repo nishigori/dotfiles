@@ -142,8 +142,8 @@ NeoBundle 'beyondwords/vim-twig'
 " need ruby-debug-ide19
 " $ gem install ruby-debug-ide19
 "NeoBundle 'astashov/vim-ruby-debugger'
-autocmd FileType ruby
-  \ NeoBundleSource 'vim-scripts/rails.vim'
+"autocmd FileType ruby
+  "\ NeoBundleSource 'vim-scripts/rails.vim'
 "" Python
 NeoBundle 'vim-scripts/python.vim--Vasiliev'
 NeoBundle 'jtriley/vim-rst-headings'
