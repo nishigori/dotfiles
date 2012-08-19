@@ -23,31 +23,40 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment following line if you want disable red dots displayed while waiting for completion
 # DISABLE_COMPLETION_WAITING_DOTS="true"
 
+# Select complations list like emacs
+zstyle ':completion:*:default' menu select=1
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 case "${OSTYPE}" in
     freebsd*|darwin*)
+        # Mac OS X
         plugins=( \
             osx brew \
+            ant \
             git github git-flow ssh-agent vagrant \
             python pip mercurial \
+            ruby rbenv gem \
             symfony2 \
-            ruby gem rails3 \
             )
         ;;
     linux*)
         if [ -f /etc/redhat-release ]; then
             plugins=( \
                 yum \
+                ant \
                 git git-flow ssh-agent \
                 python mercurial \
-                ruby gem \
+                ruby rbenv gem \
+                symfony2 \
                 )
         else
             plugins=( \
                 debian gnu-utils \
+                ant \
                 git git-flow github ssh-agent \
                 python pip mercurial \
                 ruby gem \
+                symfony2 \
                 )
         fi
         ;;
