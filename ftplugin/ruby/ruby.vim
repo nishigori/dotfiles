@@ -6,14 +6,14 @@ setlocal softtabstop=0
 setlocal expandtab
 
 " OMNI COMPLETE
-let g:rubycomplete_buffer_loading    = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails             = 1
+"let g:rubycomplete_buffer_loading    = 1
+"let g:rubycomplete_classes_in_global = 1
+"let g:rubycomplete_rails             = 1
 
 " :h ruby
 let g:ruby_fold            = 1
 let g:ruby_no_comment_fold = 1
-let g:ruby_operators       = 1
+"let g:ruby_operators       = 1
 let g:ruby_space_errors    = 1
 
 " InputMethod
