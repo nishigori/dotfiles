@@ -82,6 +82,9 @@ NeoBundle 'vim-scripts/pyte'
 NeoBundle 'vim-scripts/github-theme'
 NeoBundle 'vim-scripts/Atom'
 NeoBundle 'vim-scripts/Gravity'
+NeoBundle 'vim-scripts/sonoma.vim'
+NeoBundle 'vim-scripts/highlights-for-radiologist'
+NeoBundle 'vim-scripts/calmar256-lightdark.vim'
 " }}}
 " browse {{{
 NeoBundle 'tyru/open-browser.vim'
