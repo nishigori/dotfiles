@@ -11,6 +11,7 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'ujihisa/unite-gem'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tsukkee/unite-help'
@@ -36,8 +37,7 @@ NeoBundle 'sudo.vim'
 "NeoBundle 'Shougo/echodoc'
 " }}}
 " syntax {{{
-" TODO: edit a php syntastic
-"NeoBundle 'scrooloose/syntastic' " auto syntax checker
+NeoBundle 'scrooloose/syntastic'
 " }}}
 " complete, snippet {{{
 NeoBundle 'Shougo/neocomplcache'
@@ -189,6 +189,7 @@ NeoBundle 'nishigori/unite-sf2'
 NeoBundle 'nishigori/phpfolding.vim'
 NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
 NeoBundle 'nishigori/neocomplcache-nginx-snippet'
+"NeoBundle 'nishigori/vim-composer'
 " Beta
 "NeoBundle 'nishigori/vim-phpunit-snippets'
 "NeoBundle 'nishigori/vim-twig-matchit'
