@@ -11,6 +11,7 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.txt        setfiletype txt
   au! BufRead,BufNewFile *.phl        setfiletype php.html
   au! BufRead,BufNewFile *.pht        setfiletype php.html
+  au! BufRead,BufNewFile *.xml.dist   setfiletype xml
   "au! BufRead,BufNewFile *.twig       setfiletype twig
   au! BufRead,BufNewFile *.twig       set filetype=html.twig
   au! BufRead,BufNewFile *Test.php    set filetype=php.phpunit
