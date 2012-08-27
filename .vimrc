@@ -20,11 +20,11 @@ if has('win32')
   set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp
 endif
 " }}}
-" VIMRC Local
+" Local Dependency
 set nobackup noswapfile
 if filereadable(expand($HOME. '/.vimrc.local'))
   set backup swapfile
-  " INFO: Read .vimrc.local.dist
+  " INFO: Read more .vimrc.local.dist
   source $HOME/.vimrc.local
 
   let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
@@ -692,7 +692,8 @@ endif
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
 " }}}
 " ## unite.vim {{{
-let g:unite_data_directory = s:tmpdir . '/unite'
+let g:unite_data_directory =
+  \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
 
 let g:unite_enable_start_insert             = 1
 " Save session automatically.
@@ -810,7 +811,8 @@ let g:ref_cmd_filetype_map = {
 "\ 'php.phpunit' : 'phpunit',
 " }}}
 " ## neocomplcache {{{
-let g:neocomplcache_temporary_dir = s:tmpdir . '/neocom'
+let g:neocomplcache_temporary_dir =
+  \ get(g:, 'local_neocomplcache_temporary_dir', s:tmpdir . '/neocom')
 
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_max_list = 30
@@ -831,7 +833,7 @@ if !exists('g:neocomplcache_omni_patterns')
 endif
 let g:neocomplcache_omni_patterns = 
   \ get(g:, 'neocomplcache_omni_patterns', {})
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 "let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 " unite
@@ -878,10 +880,10 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 " }}}
 " ## neocomplcache_snippet_complete {{{
 let g:neocomplcache_snippets_dir =
-  \ s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
-  \ .','. s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
+  \ s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
   \ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
   \ .','. $HOME . '/.vim/snippets'
+  \ .','. s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
 
 nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -916,7 +918,7 @@ map <leader>pcf :call PhpCsFixerFixFile()<CR>
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 "nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
-nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc -split 'rightbelow 50vsp'<CR>
+nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:updatetime=10 -split 'rightbelow 50vsp'<CR>
 if has('clientserver')
   "if has('clientserver') && !empty(v:servername)
   let b:quickrun_config = {
@@ -1109,6 +1111,11 @@ let g:Powerline_colorscheme = 'skwp'
 " }}}
 " ## jscomplatete.vim {{{
 let g:jscomplete_use = ['dom']
+" }}}
+" ## vim-rooter {{{
+nmap <silent> <unique> <Leader>cd <Plug>RooterChangeToRootDirectory
+" cd の代わりに lcd を使う
+let g:rooter_use_lcd = 1
 " }}}
 " # [unite] Mappings "{{{
 " The prefix key.
