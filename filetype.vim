@@ -2,6 +2,7 @@ augroup filetypedetect
   " setfiletype:  different settings and syntax files to be loaded
   " set filetype: overwrite
   au! BufRead,BufNewFile *.gradle     set filetype=groovy
+  au! BufRead,BufNewFile *.snip       set filetype=snippet
   au! BufRead,BufNewFile *.md*        set filetype=markdown
   au! BufRead,BufNewFile .snip*       set filetype=snippet
   au! BufRead,BufNewFile *.json       setfiletype json
@@ -14,7 +15,7 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.xml.dist   setfiletype xml
   "au! BufRead,BufNewFile *.twig       setfiletype twig
   au! BufRead,BufNewFile *.twig       set filetype=html.twig
-  au! BufRead,BufNewFile *Test.php    set filetype=php.phpunit
+  au! BufRead,BufNewFile *Test.php    set filetype=phpunit.php
   au! BufRead,BufNewFile Capfile      set filetype=ruby
   "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
   au! BufRead,BufNewFile */nginx/*,*nginx.conf    setfiletype nginx
