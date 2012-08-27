@@ -1,5 +1,6 @@
 function! lint#ruby() " {{{
-  let result = system( &ft . ' -c ' . bufname(''))
+  let ruby_bin = get(g:, 'ruby_bin', 'ruby')
+  let result = system( ruby_bin . ' -c ' . bufname(''))
   if result !~ 'Syntax OK'
     echo result
   endif
