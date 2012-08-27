@@ -828,13 +828,14 @@ let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_enable_camel_case_completion = 0
 let g:neocomplcache_enable_underbar_completion = 0
 
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns = 
+let g:neocomplcache_keyword_patterns =
+  \ get(g:, 'neocomplcache_keyword_patterns', {})
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*' 
+
+let g:neocomplcache_omni_patterns =
   \ get(g:, 'neocomplcache_omni_patterns', {})
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns['ruby'] = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns['php'] = '[^. \t]->\h\w*\|\h\w*::'
 
 " unite
 imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
