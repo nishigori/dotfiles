@@ -1,5 +1,5 @@
 setlocal omnifunc=pythoncomplete#Complete
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 "setlocal encoding=utf-8
 setlocal textwidth=80

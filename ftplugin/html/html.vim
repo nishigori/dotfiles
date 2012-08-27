@@ -8,6 +8,9 @@ setlocal softtabstop=0
 setlocal autoindent
 setlocal smartindent
 
+autocmd FileType html
+  \ setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
+
 
 
 "  vim:set foldmethod=marker filetype=vim :

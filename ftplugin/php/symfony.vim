@@ -1,5 +1,5 @@
 " first set path
-set path+=**
+setlocal path+=**
 
 
 let g:neocomplcache_vim_completefuncs =
