@@ -47,6 +47,8 @@ let g:local_neocomplcache_temporary_dir =
   \ s:ramdisk_dir .'/'. s:neocomplcache_temporary_dir_suffix
 " }}}
 
+" lint
+let g:ruby_bin = '/usr/local/bin/ruby'
 " TwitVim {{{
 let twitvim_browser_cmd = 'firefox'
 let twitvim_count       = 120
