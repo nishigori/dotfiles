@@ -835,7 +835,7 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 let g:neocomplcache_omni_patterns =
   \ get(g:, 'neocomplcache_omni_patterns', {})
 "let g:neocomplcache_omni_patterns['ruby'] = '[^. *\t]\.\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns['php'] = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns['php'] = '[^. \t]->\h\w*\|\h\w*::'
 
 " unite
 imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
@@ -867,8 +867,18 @@ let g:neocomplcache_same_filetype_lists = {
   \ 'phpunit' : 'php',
   \ }
 
-inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-y>  neocomplcache#close_popup() . '\<CR>'
 "inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 "let g:neocomplcache_delimiter_patterns =
 "\ get(g:, 'neocomplcache_delimiter_patterns', {})
@@ -944,15 +954,15 @@ if has('clientserver')
     \   'php.phpunit' : {
     \     'command' : 'phpunit',
     \   },
+    \   'phpunit.php' : {
+    \     'command' : 'phpunit',
+    \   },
     \   'javascript' : {
     \     'command' : 'phantomjs',
     \   }
     \ }
 endif
 if has('mac')
-  let g:quickrun_config['php.phpunit'] = {
-    \   'command' : '/usr/local/Cellar/php/5.3.8/bin/phpunit',
-    \ }
   " TODO: Sikuli 起動は引数渡さねば??
   "let g:quickrun_config['python.sikuli'] = {
   "\     'command' : '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
@@ -976,6 +986,7 @@ xmap <C-l> <Plug>(Textmanip.move_selection_right)
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
 " ## zencoding{{{
+let g:user_zen_leader_key = '<C-S-z>'
 let g:user_zen_expandabbr_key = '<C-z>'
 let g:user_zen_settings = {
   \  'lang' : 'ja',
@@ -1115,6 +1126,10 @@ let g:jscomplete_use = ['dom']
 " }}}
 " ## vim-rooter {{{
 nmap <silent> <unique> <Leader>cd <Plug>RooterChangeToRootDirectory
+augroup Vim
+  "autocmd! rooter
+  autocmd BufEnter *rb,*.html,*.php,css,*.js,*.py,*.xml* Rooter
+augroup END
 " cd の代わりに lcd を使う
 let g:rooter_use_lcd = 1
 " }}}
