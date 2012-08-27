@@ -20,6 +20,9 @@ NeoBundle 'mattn/unite-remotefile'
 NeoBundle 'sgur/unite-git_grep'
 NeoBundle 'pasela/unite-webcolorname'
 " }}}
+" projects {{{
+NeoBundle 'airblade/vim-rooter'
+" }}}
 " buffer, tag {{{
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Shougo/vimshell'
