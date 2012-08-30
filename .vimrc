@@ -440,8 +440,7 @@ if has('win32')
 endif
 " }}}
 " # Directory {{{
-" カレントディレクトリをファイルと同じディレクトリに移動
-" set autochdir
+set autochdir
 augroup AUTOCHDIR
   autocmd!
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
@@ -449,10 +448,11 @@ augroup END
 " Change directory. vim-users.jp Hack #69
 nnoremap <silent> CD :<C-u>CD<CR>
 nnoremap <silent> gu :<C-u>GU<CR>
-nnoremap <silent> gU :<C-u>GUH<CR>
+" nmap `gh` is using vim-rooter
+nnoremap <silent> gH :<C-u>GH<CR>
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
 command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>') 
-command! -nargs=? -complete=dir -bang GUH  call s:ChangeCurrentDir('$HOME', '<bang>') 
+command! -nargs=? -complete=dir -bang GH  call s:ChangeCurrentDir('$HOME', '<bang>') 
 function! s:ChangeCurrentDir(directory, bang) "{{{2
   if a:directory == ''
     lcd %:p:h
@@ -1125,11 +1125,7 @@ let g:Powerline_colorscheme = 'skwp'
 let g:jscomplete_use = ['dom']
 " }}}
 " ## vim-rooter {{{
-nmap <silent> <unique> <Leader>cd <Plug>RooterChangeToRootDirectory
-augroup Vim
-  "autocmd! rooter
-  autocmd BufEnter *rb,*.html,*.php,css,*.js,*.py,*.xml* Rooter
-augroup END
+nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
 " cd の代わりに lcd を使う
 let g:rooter_use_lcd = 1
 " }}}
