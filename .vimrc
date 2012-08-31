@@ -440,7 +440,8 @@ if has('win32')
 endif
 " }}}
 " # Directory {{{
-set autochdir
+" disabled autochdir depends to Vimshell
+"set autochdir
 augroup AUTOCHDIR
   autocmd!
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
