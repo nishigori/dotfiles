@@ -6,6 +6,7 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=0
 setlocal foldlevelstart=2      " open buffer's foldlevel
+setlocal foldlevel=1
 
 let g:php_sql_query = 1           " highlight SQL into the strings
 let g:php_htmlInStrings = 1       " highlight HTML into the strings
