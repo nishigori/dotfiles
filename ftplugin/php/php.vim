@@ -9,7 +9,7 @@ setlocal foldlevelstart=2      " open buffer's foldlevel
 
 let g:php_sql_query = 1           " highlight SQL into the strings
 let g:php_htmlInStrings = 1       " highlight HTML into the strings
-"let g:php_folding = 1             " enable folding of Class & function
+let g:php_folding = 1             " enable folding of Class & function
 let g:php_parent_error_close = 1  " highlight error compatible [], ()
 "let php_noShortTags = 1         " disable PHP's short tag
 
