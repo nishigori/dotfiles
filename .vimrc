@@ -314,6 +314,7 @@ nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 set noimdisable
 set iminsert=0 imsearch=0
 set noimcmdline
+inoremap <silent> <C-@> <ESC>:set iminsert=0<CR>
 inoremap <silent> <C-]> <ESC>:set iminsert=0<CR>
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 "IME状態に応じたカーソル色を設定
