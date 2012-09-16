@@ -24,7 +24,8 @@ autocmd BufWritePost *.rb :call lint#ruby()
 nmap ,l :call lint#ruby()<CR>
 
 " Ref/refe
-nnoremap <Leader>ur :<C-u>Unite<Space>ref/refe -default-action=split<Cr>
+nnoremap <Leader> [unite]r :<C-u>Unite<Space>ref/refe -default-action=split<Cr>
+
 
 " Plugin: smartchr
 inoremap <expr> = smartchr#one_of(' = ', ' == ', '=')

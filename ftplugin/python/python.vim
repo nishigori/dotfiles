@@ -19,6 +19,6 @@ autocmd BufWritePost *.py :call lint#python()
 
 " # PLUGIN
 " ## unite-ref {{{
-nnoremap <silent> ,R :<C-u>Unite ref/pydoc<CR>
+nnoremap <silent> [unite]r :<C-u>Unite ref/pydoc<CR>
 " }}}
 

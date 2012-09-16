@@ -58,7 +58,7 @@ function! s:php_smart_bracket(last_char) "{{{
 endfunction "}}}
 
 " Plugin: unite-ref
-nnoremap <silent> <Leader>ur :<C-u>Unite ref/phpmanual<CR>
+nnoremap <silent> [unite]r :<C-u>Unite ref/phpmanual<CR>
 
 " Plugin: smartchr
 inoremap <expr> = smartchr#one_of('=', ' = ', ' === ', ' == ')

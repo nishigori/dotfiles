@@ -11,5 +11,5 @@ let g:php_sql_query = 1      " 文字列中のSQLをハイライト
 let g:php_htmlInStrings = 1  " 文字列中のHTMLをハイライトする
 
 " ## unite-ref {{{
-nnoremap <silent> ur :<C-u>Unite ref/phpmanual<CR>
+nnoremap <silent> [unite]r :<C-u>Unite ref/phpmanual<CR>
 " }}}
