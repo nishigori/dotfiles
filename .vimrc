@@ -1157,14 +1157,14 @@ nnoremap <silent> [unite]t :<C-u>Unite tweetvim<CR>
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
 nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
-nnoremap <silent> [unite]l :<C-u>Unite line -no-split<CR>
+nnoremap <silent> [unite]l :<C-u>Unite line -no-split -winheight=20<CR>
 nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
 nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
 nnoremap <silent> [unite]p :<C-u>Unite process -no-split<CR>
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
-nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:!<CR>
-nnoremap <silent> [unite]N :<C-u>Unite neobundle/install<CR>
+nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:! -auto-quit<CR>
+nnoremap <silent> [unite]N :<C-u>Unite neobundle/install -auto-quit<CR>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 "nnoremap <silent> [unite]r :<C-u>Unite<Space>ref/
