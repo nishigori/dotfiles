@@ -39,11 +39,8 @@ nnoremap e> :<C-u>edit $MYGVIMRC<Cr>
 nnoremap eS :<C-u>source $MYGVIMRC<Cr>
 " }}}
 " # Window {{{
-" INFO: Please edit default window size @.gvimrc.local
-if filereadable(expand($MYGVIMRC_LOCAL))
-  source $MYGVIMRC_LOCAL
-  " set lines= columns=
-endif
+set lines=80
+set columns=120
 
 nnoremap <silent> ZZ :<C-u>close<Cr>
 " }}}
@@ -88,6 +85,12 @@ elseif has('win32')
   "set guioptions+=C
   gui
   set transparency=222
+endif
+" }}}
+" # Local Dependency {{{
+if filereadable(expand($MYGVIMRC_LOCAL))
+  " Override GVIM settings
+  source $MYGVIMRC_LOCAL
 endif
 " }}}
 

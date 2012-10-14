@@ -20,6 +20,50 @@ if has('win32')
   set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp
 endif
 " }}}
+" # Basic "{{{
+"filetype plugin indent on
+set nocompatible              " Use Vim defaults (much better!)
+set showcmd                   " Highliting bracket set.
+set hidden                    " Enable open new file, when while editing other file.
+set autoread
+set history=255
+set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
+set backspace=indent,eol,start" Allow backspacing over everything in insert mode
+set ambiwidth=double
+set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
+
+" help
+set helplang=ja,en
+nnoremap <C-h><C-h> :<C-u>help<Space>
+nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
+
+set title
+"function! s:titlestring() "{{{
+"if exists('t:cwd')
+"return t:cwd . ' (tab)'
+"elseif haslocaldir()
+"return getcwd() . ' (local)'
+"else
+"return getcwd()
+"endif
+"endfunction "}}}
+"let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
+
+"チラツキ防止
+set completeopt=menuone
+
+let mapleader = " "
+
+augroup CurrentLineBeforeChanged
+  " 前回終了したカーソル行に移動
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
+
+" COLOR SHEMA
+set t_Co=256
+colorscheme desert
+set background=dark
+" }}}
 " Local Dependency
 set nobackup noswapfile
 if filereadable(expand($HOME. '/.vimrc.local'))
@@ -70,46 +114,6 @@ vnoremap : ;
 
 nnoremap q; q:
 vnoremap q; q:
-" }}}
-" # Basic "{{{
-"filetype plugin indent on
-set nocompatible              " Use Vim defaults (much better!)
-set showcmd                   " Highliting bracket set.
-set hidden                    " Enable open new file, when while editing other file.
-set autoread
-set history=255
-set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
-set backspace=indent,eol,start" Allow backspacing over everything in insert mode
-set ambiwidth=double
-set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
-
-" help
-set helplang=ja,en
-nnoremap <C-h><C-h> :<C-u>help<Space>
-nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
-
-set title
-"function! s:titlestring() "{{{
-"if exists('t:cwd')
-"return t:cwd . ' (tab)'
-"elseif haslocaldir()
-"return getcwd() . ' (local)'
-"else
-"return getcwd()
-"endif
-"endfunction "}}}
-"let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
-
-"チラツキ防止
-set completeopt=menuone
-
-let mapleader = " "
-
-augroup CurrentLineBeforeChanged
-  " 前回終了したカーソル行に移動
-  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
-
 " }}}
 " # Syntax {{{
 if has('syntax')
@@ -163,10 +167,7 @@ setlocal softtabstop=0
 let g:sql_type_default = 'mysql'
 " }}}
 " # Color Scheme {{{
-set t_Co=256
 let g:solarized_termcolors = 256  " CASE: g:colors_name is solarized
-colorscheme diablo3
-set background=dark
 highlight StatusLine term=NONE cterm=NONE ctermfg=white ctermbg=black
 " add cursorline at the current window.
 augroup cch
