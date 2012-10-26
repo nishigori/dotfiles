@@ -35,7 +35,7 @@ case "${OSTYPE}" in
             ant \
             git github git-flow ssh-agent vagrant \
             python pip mercurial \
-            ruby rbenv gem \
+            ruby rbenv gem bundler \
             symfony2 \
             )
         ;;
@@ -46,7 +46,7 @@ case "${OSTYPE}" in
                 ant \
                 git git-flow ssh-agent \
                 python mercurial \
-                ruby rbenv gem \
+                ruby rbenv gem bundler \
                 symfony2 \
                 )
         else
@@ -55,7 +55,7 @@ case "${OSTYPE}" in
                 ant \
                 git git-flow github ssh-agent \
                 python pip mercurial \
-                ruby gem \
+                ruby gem bundler \
                 symfony2 \
                 )
         fi
