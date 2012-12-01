@@ -890,19 +890,18 @@ inoremap <expr><C-c>  neocomplcache#cancel_popup()
 "\ 'txt' : '*'
 "\ }
 " }}}
-" ## neocomplcache_snippet_complete {{{
+" ## neosnippet {{{
 let g:neocomplcache_snippets_dir =
   \ s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
   \ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
   \ .','. $HOME . '/.vim/snippets'
   \ .','. s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
 
-nmap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
-smap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
+nmap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
+imap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
+smap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
 "imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
-imap <silent> <C-s> <Plug>(neocomplcache_start_unite_snippet)
-
+imap <silent> <C-s> <Plug>(neosnippet_start_unite_snippet)
 
 " For snippet_complete marker.
 if has('conceal')
@@ -910,7 +909,12 @@ if has('conceal')
 endif
 
 " 一時的
-nnoremap <Leader>ns :<C-u>NeoComplCacheEditSnippets<CR>
+nnoremap <Leader>ns :<C-u>NeoSnippetEdit<CR>
+
+	" For snippet_complete marker.
+	if has('conceal')
+	  set conceallevel=2 concealcursor=i
+	endif
 " }}}
 " ## TweetVim {{{
 let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
