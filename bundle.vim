@@ -44,7 +44,7 @@ NeoBundle 'scrooloose/syntastic'
 " }}}
 " complete, snippet {{{
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-snippets-complete'
+NeoBundle 'Shougo/neosnippet.git'
 NeoBundle 'thinca/vim-ambicmd'
 NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'neco-look'
@@ -110,7 +110,7 @@ NeoBundle 'vim-scripts/gitv'
 "NeoBundle 'thinca/vim-ft-svn_diff'
 " }}}
 " DB {{{
-NeoBundle 'mattn/vdbi-vim'
+"NeoBundle 'mattn/vdbi-vim'
 " INFO: dbext.vim' latest version is into the vim.org.
 "       http://vim.sourceforge.net/scripts/script.php?script_id=356
 "NeoBundle 'vim-scripts/dbext.vim'
