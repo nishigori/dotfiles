@@ -32,8 +32,10 @@ case "${OSTYPE}" in
         # Mac OS X
         plugins=( \
             osx brew \
+            autojump \
+            nyan \
             ant \
-            git github git-flow ssh-agent vagrant \
+            git github git-flow ssh-agent vagrant capistrano \
             python pip mercurial \
             ruby rbenv gem bundler \
             symfony2 \
@@ -42,20 +44,26 @@ case "${OSTYPE}" in
     linux*)
         if [ -f /etc/redhat-release ]; then
             plugins=( \
-                yum \
+                yum gnu-utils \
+                autojump \
+                nyan \
                 ant \
+                terminitor \
                 git git-flow ssh-agent \
                 python mercurial \
-                ruby rbenv gem bundler \
-                symfony2 \
+                ruby rbenv gem bundler capistrano \
+                symfony2 cake \
                 )
         else
             plugins=( \
                 debian gnu-utils \
+                autojump \
+                nyan \
                 ant \
+                terminitor \
                 git git-flow github ssh-agent \
                 python pip mercurial \
-                ruby gem bundler \
+                ruby rbenv gem bundler capistrano \
                 symfony2 \
                 )
         fi
