@@ -1,14 +1,21 @@
-*.pyc
-*.dcu
-*.swo
-*.swp
-*.idea
-
+# Temporary
 tmp/*
 
-.bash_profile
+# TODO: enable submodule
+.pentadactyl/info
 
-.DS_Store
+# Local settings
+.config
+.zshrc.local
+.vimrc.local
+.gvimrc.local
+.vimperatorrc.local
+.ssh
+.bash_profile
+.w3m
+dbext_sql_history.txt
+
+.vdbi_history
 .sh_history
 .bash_history
 .zsh_history
@@ -16,27 +23,12 @@ tmp/*
 .irb_history
 .io_history
 .sqlite_history
-.w3m
-.ssh
-.pentadactyl
 .pearrc
 .dotcloud
-
-workspace
-Desktop
-Downloads
-Documents
-Pictures
-Dropbox
-Library
-Movies
-Music
-Public
-
+.composer
 .CFUserTextEncoding
 .Xauthority
 .bi_li3
-.composer
 .cups
 .dropbox
 .fontconfig
@@ -48,10 +40,6 @@ Public
 .netbeans
 .node_libraries
 .subversion
-VirtualBox VMs
-dbext_sql_history.txt
-dwhelper
-
 .gitconfig
 .gem
 .jenkins
@@ -60,14 +48,21 @@ dwhelper
 .pip
 .php_history
 .rbenv
-
-
-.zshrc.local
-.vimrc.local
-.gvimrc.local
-.vimperatorrc.local
-
 .cpan
-tags
+.ghc
 .hgrc
-.vdbi_history
+
+# Basic directories
+workspace
+Desktop
+Downloads
+Documents
+Pictures
+Dropbox
+Library
+Movies
+Music
+Public
+VirtualBox VMs
+dwhelper
+
