@@ -657,23 +657,20 @@ endfunction
 " ## vimfiler {{{
 nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
 
-let g:vimfiler_split_action        = 'left'
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_execute_file_list   = 'vim'
+let g:vimfiler_split_action        = 'left'
+"let g:vimfiler_execute_file_list   = 'vim'
+let g:vimfiler_edit_action         = 'open'
 let g:vimfiler_sort_type           = 'filename'
+let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
 " Note: This variable works in file source.
 "let g:vimfiler_enable_auto_cd      = 1
 let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
 let g:vimfiler_edit_action         = 'open'
 let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
 
-"call vimfiler#set_execute_file('vim', 'vim')
-"call vimfiler#set_execute_file('txt', 'vim')
-"call vimfiler#set_execute_file('c', 'vim')
-"call vimfiler#set_execute_file('php', 'vim')
-
 " Enable file operation commands.
-let g:vimfiler_safe_mode_by_default = 0
+"let g:vimfiler_safe_mode_by_default = 0
 
 " Like Textmate icons.
 let g:vimfiler_tree_leaf_icon = ' '
@@ -1193,9 +1190,7 @@ nnoremap <silent> <Leader>s :<C-u>VimShell<CR>
 nnoremap <silent> <Leader>vs :<C-u>VimShell<CR>
 nnoremap <silent> <Leader>vS :<C-u>VimShellPop<CR>
 " vimfiler
-" FIXME: using <silent>, no avairable vimfiler orz
-nnoremap <Leader>vf :<C-u>VimFilerSplit <CR>
-nnoremap <Leader>vF :<C-u>VimFiler<CR>
+nnoremap <Leader>vf :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 " Quickhl
 nmap <silent> <Leader>m <Plug>(quickhl-toggle)
 xmap <silent> <Leader>m <Plug>(quickhl-toggle)
