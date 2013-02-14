@@ -50,7 +50,7 @@ nnoremap <silent> ZZ :<C-u>close<Cr>
 "   Please reference HELP ('termencoding', 'macatsui').
 
 if has('gui_gtk2')
-  set guifont=Ricty\ 11
+  set guifont=Ricty\ Discord\ 11
   set guifontwide=めんまフォント
 elseif has('gui_macvim')
   " TODO: めんまフォントに漢字合成
