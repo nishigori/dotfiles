@@ -1,9 +1,9 @@
 let g:quickrun_config = get(g:, 'quickrun_config', {})
-let g:quickrun_config['sql'] =
-  \ 'command' : 'mysql',
-  \ 'exec'    : ['%c %o < %s'],
-  \ 'cmdopt'  : '%{MakeMySQLCommandOptions()}',
-  \ }
+"let g:quickrun_config['sql'] =
+  "\ 'command' : 'mysql',
+  "\ 'exec'    : ['%c %o < %s'],
+  "\ 'cmdopt'  : '%{MakeMySQLCommandOptions()}',
+  "\ }
 
 " gist: 1527068
 function! MakeMySQLCommandOptions() " {{{
