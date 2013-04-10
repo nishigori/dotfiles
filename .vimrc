@@ -1127,7 +1127,7 @@ let g:Powerline_colorscheme = 'skwp'
 let g:jscomplete_use = ['dom']
 " }}}
 " ## vim-rooter {{{
-nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
+silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
 " cd の代わりに lcd を使う
 let g:rooter_use_lcd = 1
 " }}}
