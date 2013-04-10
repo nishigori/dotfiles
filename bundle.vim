@@ -121,7 +121,10 @@ NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
 " }}}
 " VCS {{{
-NeoBundle 'Shougo/vim-vcs'
+NeoBundleLazy 'Shougo/vim-vcs', {
+  \   'depends' : 'thinca/vim-openbuf',
+  \   'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
+  \ }
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'vim-scripts/gitv'
@@ -198,7 +201,7 @@ NeoBundle 'vim-scripts/Headlights'
 NeoBundle 'vim-scripts/copypath.vim'
 NeoBundle 'mattn/calendar-vim'
 NeoBundle 'vim-scripts/submode'
-NeoBundle 'thinca/vim-openbuf' " depends vim-vcs
+NeoBundle 'thinca/vim-openbuf'
 " }}}
 " My Plugins {{{
 "@todo FIXME: invalid completefunc for neocom into vim-symfony
