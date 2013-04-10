@@ -1,7 +1,7 @@
 " /**
-" * @Author Takuya Nishigori <nishigori.tak@gmail.com>
-" * vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
-" */
+"  * @Author Takuya Nishigori <nishigori.tak@gmail.com>
+"  * vim:set ft=vim fdm=marker ts=2 sw=2 sts=0 expandtab:
+"  */
 
 " Using plugins
 "
@@ -24,6 +24,7 @@ set focuscontent
 set runtimepath=~/.vimperator
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
+set expandtemplate=true
 
 nnoremap U :undo<Space>
 nnoremap pa :panorama<Space>add<Space>
