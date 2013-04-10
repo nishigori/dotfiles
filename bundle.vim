@@ -7,16 +7,13 @@ NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'h1mesuke/unite-outline'
-"NeoBundle 'choplin/unite-vim_hacks'
 NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'ujihisa/unite-font'
 NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'ujihisa/unite-gem'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'tsukkee/unite-help'
 NeoBundle 'mattn/unite-nyancat'
-NeoBundle 'mattn/unite-advent_calendar'
 NeoBundle 'mattn/unite-remotefile'
 NeoBundle 'sgur/unite-git_grep'
 NeoBundle 'pasela/unite-webcolorname'
@@ -27,7 +24,6 @@ NeoBundle 'airblade/vim-rooter'
 " buffer, tag {{{
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'ujihisa/vimshell-ssh'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'vim-scripts/current-func-info.vim'
@@ -37,7 +33,6 @@ NeoBundle 'vim-scripts/SrcExpl'
 NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
 NeoBundle 'vim-scripts/TagHighlight'
 NeoBundle 'sudo.vim'
-"NeoBundle 'Shougo/echodoc'
 " }}}
 " syntax {{{
 NeoBundle 'scrooloose/syntastic'
@@ -46,8 +41,6 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet.git'
 NeoBundle 'thinca/vim-ambicmd'
-NeoBundle 'mattn/salaryman-complete-vim'
-NeoBundle 'neco-look'
 " }}}
 " text operation {{{
 NeoBundle 'mattn/zencoding-vim'
@@ -61,10 +54,6 @@ NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/matchparenpp'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'h1mesuke/vim-alignta'
-"NeoBundle 'tyru/operator-star.vim'
-" NOTE: yankring dependence suck key map.
-"       using unite history/yank
-"NeoBundle 'richleland/vim-yankring'
 " }}}
 " marks {{{
 "NeoBundle 'vim-scripts/ShowMarks'
@@ -85,8 +74,6 @@ NeoBundle 'thinca/vim-fontzoom'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'vim-scripts/darkZ'
 NeoBundle 'vim-scripts/pyte'
-NeoBundle 'vim-scripts/github-theme'
-NeoBundle 'vim-scripts/Atom'
 NeoBundle 'vim-scripts/Gravity'
 NeoBundle 'vim-scripts/sonoma.vim'
 NeoBundle 'vim-scripts/highlights-for-radiologist'
@@ -98,16 +85,12 @@ NeoBundle 'tyru/urilib.vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'basyura/bitly.vim'
-NeoBundle 'basyura/TweetVim'
-" evervim 重すぎ
-"NeoBundle 'kakkyz81/evervim.git'
 " }}}
 " VCS {{{
 NeoBundle 'Shougo/vim-vcs'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'mattn/gist-vim'
 NeoBundle 'vim-scripts/gitv'
-"NeoBundle 'thinca/vim-ft-svn_diff'
 " }}}
 " DB {{{
 "NeoBundle 'mattn/vdbi-vim'
@@ -164,8 +147,6 @@ autocmd FileType clojure
 NeoBundle 'ujihisa/ref-hoogle'
 "" JavaScript
 NeoBundle 'vim-scripts/JSON.vim'
-"" Vim
-NeoBundle 'dsummersl/vimunit'
 "" Another
 autocmd FileType nginx
   \ NeoBundleSource 'chase/nginx.vim'
@@ -177,8 +158,6 @@ NeoBundle 'vim-scripts/Headlights'
 NeoBundle 'vim-scripts/copypath.vim'
 NeoBundle 'mattn/calendar-vim'
 NeoBundle 'vim-scripts/submode'
-NeoBundle 'mattn/learn-vimscript'
-NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'thinca/vim-openbuf' " depends vim-vcs
 " }}}
 " My Plugins {{{
@@ -191,7 +170,6 @@ NeoBundle 'nishigori/vim-php-cs-fixer'
 NeoBundle 'nishigori/unite-sf2'
 NeoBundle 'nishigori/phpfolding.vim'
 NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
-NeoBundle 'nishigori/neocomplcache-nginx-snippet'
 "NeoBundle 'nishigori/vim-composer'
 " Beta
 "NeoBundle 'nishigori/vim-phpunit-snippets'

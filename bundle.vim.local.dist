@@ -2,5 +2,39 @@
 
 " examples
 NeoBundle "toritori0318/vim-redmine"
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'ujihisa/vimshell-ssh'
+NeoBundle 'Shougo/echodoc'
+NeoBundle 'mattn/salaryman-complete-vim'
+NeoBundle 'neco-look'
+NeoBundle 'tyru/operator-star.vim'
+NeoBundle 'mattn/salaryman-complete-vim'
+NeoBundle 'nishigori/neocomplcache-nginx-snippet'
+
+" VimL
+NeoBundle 'mattn/learn-vimscript'
+NeoBundle 'mattn/unite-advent_calendar'
+NeoBundle 'choplin/unite-vim_hacks'
+
+" Buffer, tab
+NeoBundle 'koron/minimap-vim'
+
+"" Vim
+NeoBundle 'dsummersl/vimunit'
+
+" VCS
+NeoBundle 'thinca/vim-ft-svn_diff'
+
+" Color scheme
+NeoBundle 'vim-scripts/Atom'
+NeoBundle 'vim-scripts/github-theme'
+
+" Social
+NeoBundle 'basyura/TweetVim'
+
+" evervim 重すぎ
+"NeoBundle 'kakkyz81/evervim.git'
+
+
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
