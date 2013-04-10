@@ -177,7 +177,7 @@ NeoBundle 'beyondwords/vim-twig'
 NeoBundleLazy 'ujihisa/unite-rake', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'rhysd/unite-ruby-require.vim'
 NeoBundle 'rhysd/neco-ruby-keyword-args'
-NeoBundle 'rhysd/vim-textobj-ruby'
+"NeoBundle 'rhysd/vim-textobj-ruby' " TODO: occurred unknown error
 NeoBundle 'ruby-matchit' " TODO: Need fork, cause no use ftplugin ;(
 "" Python
 NeoBundle 'vim-scripts/python.vim--Vasiliev'
