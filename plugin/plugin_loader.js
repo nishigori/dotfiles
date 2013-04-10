@@ -33,7 +33,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 }}} */
 
 // PLUGIN_INFO {{{
-let PLUGIN_INFO =
+let PLUGIN_INFO = xml`
 <VimperatorPlugin>
   <name>Plugin Loader</name>
   <name lang="ja">プラグインローダー</name>
@@ -60,10 +60,11 @@ let PLUGIN_INFO =
     == Link ==
        http://d.hatena.ne.jp/nokturnalmortum/20081008#1223397705
   ]]></detail>
-</VimperatorPlugin>;
+</VimperatorPlugin>`;
 // }}}
 
 
+(function() {
 {
   function toArray (obj) {
     return obj instanceof Array ? obj
@@ -133,3 +134,4 @@ let PLUGIN_INFO =
 
   liberator.log('plugin_loader: loaded');
 }
+});
