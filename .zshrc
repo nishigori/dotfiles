@@ -36,9 +36,11 @@ case "${OSTYPE}" in
             nyan \
             ant \
             git github git-flow ssh-agent vagrant capistrano \
-            python pip mercurial \
-            ruby rbenv gem bundler \
-            symfony2 \
+            python pip mercurial virtualenvwrapper \
+            ruby rbenv gem rake bundler rails3 \
+            scala \
+            gradle \
+            composer symfony2 \
             )
         ;;
     linux*)
@@ -50,9 +52,9 @@ case "${OSTYPE}" in
                 ant \
                 terminitor \
                 git git-flow ssh-agent \
-                python mercurial \
-                ruby rbenv gem bundler capistrano \
-                symfony2 cake \
+                python pip mercurial \
+                ruby rbenv gem rake bundler capistrano \
+                composer symfony2 cake \
                 )
         else
             plugins=( \
@@ -63,8 +65,8 @@ case "${OSTYPE}" in
                 terminitor \
                 git git-flow github ssh-agent \
                 python pip mercurial \
-                ruby rbenv gem bundler capistrano \
-                symfony2 \
+                ruby rbenv gem rake bundler capistrano \
+                composer symfony2 \
                 )
         fi
         ;;
