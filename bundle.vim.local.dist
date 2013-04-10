@@ -1,5 +1,18 @@
 " Declare local dependency plugins
 
+" TODO: merge bundle.vim
+" @see http://qiita.com/items/ab2ad83ddbaf2f6ce7fb
+NeoBundle 'Shougo/neocomplcache-rsense', {
+  \   'depends': 'Shougo/neocomplcache',
+  \   'autoload': { 'filetypes': 'ruby' },
+  \ }
+NeoBundleLazy 'taichouchou2/rsense-0.3', {
+  \   'build' : {
+  \     'mac': 'ruby etc/config.rb > ~/.rsense',
+  \     'unix': 'ruby etc/config.rb > ~/.rsense',
+  \   }
+  \ }
+
 " examples
 NeoBundle "toritori0318/vim-redmine"
 NeoBundle 'ujihisa/vimshell-ssh'

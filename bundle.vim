@@ -23,8 +23,27 @@ NeoBundle 'airblade/vim-rooter'
 " }}}
 " buffer, tag {{{
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
+"NeoBundle 'Shougo/vimshell'
+NeoBundleLazy 'Shougo/vimshell',{
+  \ 'depends' : 'Shougo/vimproc',
+  \ 'autoload' : {
+  \   'commands' : [{ 'name' : 'VimShell',
+  \                   'complete' : 'customlist,vimshell#complete'},
+  \                 'VimShellExecute', 'VimShellInteractive',
+  \                 'VimShellTerminal', 'VimShellPop'],
+  \   'mappings' : ['<Plug>(vimshell_switch)'],
+  \ }}
+NeoBundleLazy 'Shougo/vimfiler', {
+  \ 'depends' : 'Shougo/unite.vim',
+  \ 'autoload' : {
+  \    'commands' : [{ 'name' : 'VimFiler',
+  \                    'complete' : 'customlist,vimfiler#complete' },
+  \                  'VimFilerExplorer',
+  \                  'Edit', 'Read', 'Source', 'Write'],
+  \    'mappings' : ['<Plug>(vimfiler_switch)'],
+  \    'explorer' : 1,
+  \ }
+  \ }
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'vim-scripts/current-func-info.vim'
 NeoBundle 'vim-scripts/taglist.vim'
@@ -39,8 +58,24 @@ NeoBundle 'scrooloose/syntastic'
 " }}}
 " complete, snippet {{{
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet.git'
+"call neobundle#config('neocomplcache', {
+  "\ 'lazy' : 1,
+  "\ 'autoload' : {
+  "\     'insert' : 1,
+  "\ }})
+NeoBundle 'Shougo/neosnippet'
+"call neobundle#config('neosnippet', {
+  "\ 'lazy' : 1,
+  "\ 'autoload' : {
+  "\     'insert' : 1,
+  "\ }})
 NeoBundle 'thinca/vim-ambicmd'
+NeoBundle 'tpope/vim-endwise'
+NeoBundleLazy 'taichouchou2/vim-endwise.git', {
+  \   'autoload' : {
+  \     'insert' : 1,
+  \   },
+  \ }
 " }}}
 " text operation {{{
 NeoBundle 'mattn/zencoding-vim'
@@ -136,11 +171,11 @@ NeoBundle 'beyondwords/vim-twig'
 "autocmd FileType ruby
   "\ NeoBundleSource 'vim-scripts/rails.vim'
 " @see http://qiita.com/items/839f4b9e07cf7f341835
-NeoBundle 'ujihisa/unite-rake'
+NeoBundleLazy 'ujihisa/unite-rake', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'rhysd/unite-ruby-require.vim'
 NeoBundle 'rhysd/neco-ruby-keyword-args'
 NeoBundle 'rhysd/vim-textobj-ruby'
-NeoBundle 'ruby-matchit' " !!! Obsolute, Need fork !!!
+NeoBundle 'ruby-matchit' " TODO: Need fork, cause no use ftplugin ;(
 "" Python
 NeoBundle 'vim-scripts/python.vim--Vasiliev'
 NeoBundle 'jtriley/vim-rst-headings'
