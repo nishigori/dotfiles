@@ -2,7 +2,6 @@
 
 " examples
 NeoBundle "toritori0318/vim-redmine"
-NeoBundle 'ujihisa/unite-font'
 NeoBundle 'ujihisa/vimshell-ssh'
 NeoBundle 'Shougo/echodoc'
 NeoBundle 'mattn/salaryman-complete-vim'
@@ -10,6 +9,14 @@ NeoBundle 'neco-look'
 NeoBundle 'tyru/operator-star.vim'
 NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'nishigori/neocomplcache-nginx-snippet'
+
+" unite-plugins
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'basyura/unite-rails'
+NeoBUndle 'nobeans/unite-grails'
+NeoBUndle 'oppara/vim-unite-cake'
+NeoBundle 'ujihisa/unite-launch'
+NeoBundle 'ujihisa/unite-haskellimport'
 
 " VimL
 NeoBundle 'mattn/learn-vimscript'

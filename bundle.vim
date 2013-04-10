@@ -136,6 +136,12 @@ NeoBundle 'beyondwords/vim-twig'
 "NeoBundle 'astashov/vim-ruby-debugger'
 "autocmd FileType ruby
   "\ NeoBundleSource 'vim-scripts/rails.vim'
+" @see http://qiita.com/items/839f4b9e07cf7f341835
+NeoBundle 'ujihisa/unite-rake'
+NeoBundle 'rhysd/unite-ruby-require.vim'
+NeoBundle 'rhysd/neco-ruby-keyword-args'
+NeoBundle 'rhysd/vim-textobj-ruby'
+NeoBundle 'ruby-matchit' " !!! Obsolute, Need fork !!!
 "" Python
 NeoBundle 'vim-scripts/python.vim--Vasiliev'
 NeoBundle 'jtriley/vim-rst-headings'
