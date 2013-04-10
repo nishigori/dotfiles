@@ -75,7 +75,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'vim-scripts/darkZ'
 NeoBundle 'vim-scripts/pyte'
 NeoBundle 'vim-scripts/Gravity'
-NeoBundle 'vim-scripts/sonoma.vim'
 NeoBundle 'vim-scripts/highlights-for-radiologist'
 NeoBundle 'vim-scripts/calmar256-lightdark.vim'
 " }}}
