@@ -655,38 +655,41 @@ function! s:interactive_settings()
 endfunction
 " }}}
 " ## vimfiler {{{
+let s:bundle = neobundle#get('vimfiler')
+function! s:bundle.hooks.on_source(bundle)
+  let g:vimfiler_as_default_explorer = 1
+  let g:vimfiler_split_action        = 'left'
+  "let g:vimfiler_execute_file_list   = 'vim'
+  let g:vimfiler_edit_action         = 'open'
+  let g:vimfiler_sort_type           = 'filename'
+  let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
+  " Note: This variable works in file source.
+  "let g:vimfiler_enable_auto_cd      = 1
+  let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
+  let g:vimfiler_edit_action         = 'open'
+  let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
+
+  " Enable file operation commands.
+  "let g:vimfiler_safe_mode_by_default = 0
+
+  " Like Textmate icons.
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_tree_opened_icon = '▾'
+  let g:vimfiler_tree_closed_icon = '▸'
+  let g:vimfiler_file_icon = '-'
+  let g:vimfiler_marked_file_icon = '*'
+
+  if has('win32')
+    let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_transhbox'
+  endif
+
+  " When Vim startup, exec Vimfiler
+  "autocmd VimEnter * VimFiler
+  "\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
+  "\ -auto-cd=1
+endfunction
+unlet s:bundle
 nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
-
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_split_action        = 'left'
-"let g:vimfiler_execute_file_list   = 'vim'
-let g:vimfiler_edit_action         = 'open'
-let g:vimfiler_sort_type           = 'filename'
-let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
-" Note: This variable works in file source.
-"let g:vimfiler_enable_auto_cd      = 1
-let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
-let g:vimfiler_edit_action         = 'open'
-let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
-
-" Enable file operation commands.
-"let g:vimfiler_safe_mode_by_default = 0
-
-" Like Textmate icons.
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
-
-if has('win32')
-  let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_transhbox'
-endif
-
-" When Vim startup, exec Vimfiler
-"autocmd VimEnter * VimFiler
-"\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
-"\ -auto-cd=1
 " }}}
 " ## vimproc {{{
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
