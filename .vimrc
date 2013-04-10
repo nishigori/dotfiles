@@ -584,75 +584,78 @@ if has('path_extra')
 endif
 " }}}
 " ## vimshell {{{
-let g:vimshell_temporary_directory = s:tmpdir . '/.vimshell'
-"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
-let g:vimshell_enable_smart_case = 1
-let g:vimshell_enable_auto_slash = 1
-let g:vimshell_max_command_history = 200
-let g:vimshell_max_list = 15
-let g:vimshell_split_height = 22
-let g:vimshell_split_command = 'split'
+"let s:bundle = neobundle#get('vimshell')
+"function! s:bundle.hooks.on_source(bundle)
+  let g:vimshell_temporary_directory = s:tmpdir . '/.vimshell'
+  "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
+  let g:vimshell_enable_smart_case = 1
+  let g:vimshell_enable_auto_slash = 1
+  let g:vimshell_max_command_history = 200
+  let g:vimshell_max_list = 15
+  let g:vimshell_split_height = 22
+  let g:vimshell_split_command = 'split'
 
-" almost paste from vimshll-examples
-" Initialize execute file list.
-let g:vimshell_execute_file_list = {}
-"call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
-let g:vimshell_execute_file_list['rb'] = 'ruby'
-let g:vimshell_execute_file_list['pl'] = 'perl'
-let g:vimshell_execute_file_list['py'] = 'python'
-let g:vimshell_execute_file_list['php'] = 'php'
-let g:vimshell_execute_file_list['git'] = 'git'
-"call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
+  " almost paste from vimshll-examples
+  " Initialize execute file list.
+  let g:vimshell_execute_file_list = {}
+  "call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
+  let g:vimshell_execute_file_list['rb'] = 'ruby'
+  let g:vimshell_execute_file_list['pl'] = 'perl'
+  let g:vimshell_execute_file_list['py'] = 'python'
+  let g:vimshell_execute_file_list['php'] = 'php'
+  let g:vimshell_execute_file_list['git'] = 'git'
+  "call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
-"let g:vimshell_user_prompt = 'fnamemodify(getcwd(), \\":~")'
-"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
-let g:my_host_prompt = stridx(hostname(), '.') > 0
-  \ ? hostname()[ : stridx(hostname(), '.') - 1]
-  \ : hostname()
-if has('win32') || has('win64')
-  " Display user name on Windows.
-  "let g:vimshell_prompt = $USERNAME." % "
-  let g:vimshell_user_prompt = printf(
-    \ '"%s\n┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
-    \ , '"☁ ". fnamemodify(getcwd(), ":p:h")'
-    \ , 'g:my_host_prompt'
-    \ , 'fnamemodify(getcwd(), ":~")'
-    \ )
-else
-  " Display user name on Linux.
-  " TODO: $USER . hostname() の省略系を表示できるようにする
-  let g:vimshell_user_prompt = printf(
-    \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
-    \ , 'g:my_host_prompt'
-    \ , 'fnamemodify(getcwd(), ":~")'
-    \ )
+  "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), \\":~")'
+  "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
+  let g:my_host_prompt = stridx(hostname(), '.') > 0
+    \ ? hostname()[ : stridx(hostname(), '.') - 1]
+    \ : hostname()
+  if has('win32') || has('win64')
+    " Display user name on Windows.
+    "let g:vimshell_prompt = $USERNAME." % "
+    let g:vimshell_user_prompt = printf(
+      \ '"%s\n┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
+      \ , '"☁ ". fnamemodify(getcwd(), ":p:h")'
+      \ , 'g:my_host_prompt'
+      \ , 'fnamemodify(getcwd(), ":~")'
+      \ )
+  else
+    " Display user name on Linux.
+    " TODO: $USER . hostname() の省略系を表示できるようにする
+    let g:vimshell_user_prompt = printf(
+      \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
+      \ , 'g:my_host_prompt'
+      \ , 'fnamemodify(getcwd(), ":~")'
+      \ )
 
-  "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-  call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-  call vimshell#set_execute_file('tgz,gz', 'gzcat')
-  call vimshell#set_execute_file('tbz,bz2', 'bzcat')
-endif
-let g:vimshell_prompt = '└[☁ ] '
-"let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
+    "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+    call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+    let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+    call vimshell#set_execute_file('tgz,gz', 'gzcat')
+    call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+  endif
+  let g:vimshell_prompt = '└[☁ ] '
+  "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
-autocmd FileType vimshell
-  \ call vimshell#altercmd#define('g', 'git')
-  \| call vimshell#altercmd#define('i', 'iexe')
-  \| call vimshell#altercmd#define('l', 'll')
-  \| call vimshell#altercmd#define('ll', 'ls -l')
-  \| call vimshell#altercmd#define('a', 'ls -al')
-  \| call vimshell#altercmd#define('la', 'ls -al')
-  \| call vimshell#altercmd#define('cl', 'clear')
-  \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+  autocmd FileType vimshell
+    \ call vimshell#altercmd#define('g', 'git')
+    \| call vimshell#altercmd#define('i', 'iexe')
+    \| call vimshell#altercmd#define('l', 'll')
+    \| call vimshell#altercmd#define('ll', 'ls -l')
+    \| call vimshell#altercmd#define('a', 'ls -al')
+    \| call vimshell#altercmd#define('la', 'ls -al')
+    \| call vimshell#altercmd#define('cl', 'clear')
+    \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
 
-function! g:my_chpwd(args, context)
-  call vimshell#execute('ls')
-endfunction
+  function! g:my_chpwd(args, context)
+    call vimshell#execute('ls')
+  endfunction
 
-autocmd FileType int-* call s:interactive_settings()
-function! s:interactive_settings()
-endfunction
+  autocmd FileType int-* call s:interactive_settings()
+  function! s:interactive_settings()
+  endfunction
+"endfunction
 " }}}
 " ## vimfiler {{{
 let s:bundle = neobundle#get('vimfiler')
@@ -688,7 +691,6 @@ function! s:bundle.hooks.on_source(bundle)
   "\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
   "\ -auto-cd=1
 endfunction
-unlet s:bundle
 nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
 " }}}
 " ## vimproc {{{
@@ -822,6 +824,11 @@ let g:ref_cmd_filetype_map = {
 "\ 'php.phpunit' : 'phpunit',
 " }}}
 " ## neocomplcache {{{
+call neobundle#config('neocomplcache', {
+  \ 'lazy' : 1,
+  \ 'autoload' : {
+  \     'insert' : 1,
+  \ }})
 let g:neocomplcache_temporary_dir =
   \ get(g:, 'local_neocomplcache_temporary_dir', s:tmpdir . '/neocom')
 
