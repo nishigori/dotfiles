@@ -726,6 +726,14 @@ let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
   \ 'args': '~/workspace',
   \ }
+let g:unite_source_menu_menus = {
+  \   'shortcut' : {
+  \     'description' : '',
+  \     'command_candidates' : [
+  \       ['edit vimrc', 'edit $MYVIMRC'],
+  \     ],
+  \   },
+  \}
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
 let g:unite_source_file_ignore_pattern =
