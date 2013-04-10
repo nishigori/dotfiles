@@ -34,6 +34,7 @@ liberator.globalVariables.plugin_loader_plugins = <>
   stella
   twittperator
   usi
+  firebug
 </>.toString().split(/\s+/).filter(function(n) n);
 EOF
 
