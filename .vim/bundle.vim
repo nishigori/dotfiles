@@ -96,23 +96,27 @@ NeoBundle 'h1mesuke/vim-alignta'
 "NeoBundle 'vim-scripts/number-marks'
 " }}}
 " color sheme & font {{{
-NeoBundle 'vim-scripts/molokai'
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'jpo/vim-railscasts-theme'
+
+NeoBundle 'ujihisa/mrkn256.vim'
 NeoBundle 'desert256.vim'
 NeoBundle 'wombat256.vim'
 " :colorscheme wombat256mod
+NeoBundle 'xoria256.vim'
+NeoBundle 'vim-scripts/calmar256-lightdark.vim'
+
 NeoBundle 'Diablo3'
 NeoBundle 'candycode.vim'
-NeoBundle 'xoria256.vim'
-NeoBundle 'ujihisa/mrkn256.vim'
-NeoBundle 'vim-scripts/Lucius'
+NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'peaksea'
-NeoBundle 'thinca/vim-fontzoom'
-NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'vim-scripts/darkZ'
-NeoBundle 'vim-scripts/pyte'
-NeoBundle 'vim-scripts/Gravity'
 NeoBundle 'vim-scripts/highlights-for-radiologist'
-NeoBundle 'vim-scripts/calmar256-lightdark.vim'
+
+NeoBundle 'thinca/vim-fontzoom'
 " }}}
 " browse {{{
 NeoBundle 'tyru/open-browser.vim'
