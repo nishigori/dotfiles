@@ -17,6 +17,7 @@ NeoBundle 'mattn/unite-nyancat'
 NeoBundle 'mattn/unite-remotefile'
 NeoBundle 'sgur/unite-git_grep'
 NeoBundle 'pasela/unite-webcolorname'
+NeoBundle 'Kocha/vim-unite-tig'
 " }}}
 " projects {{{
 NeoBundle 'airblade/vim-rooter'
