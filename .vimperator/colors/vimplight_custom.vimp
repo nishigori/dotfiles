@@ -1,0 +1,82 @@
+" ======= vimperator colorscheme ========
+" name: vimplight
+" author: Takuya Fujimura
+" blog: http://d.hatena.co.jp/tlync
+" mail: takuya.fujimura@gmail.com
+" tested: vimperator 2.1, firefox 3.5 beta4, mac osx
+" =======================================
+"--------------------------------------------------
+" Hint
+"--------------------------------------------------
+hi Hint font-family: Ricty, monospace; font-size: 14px; padding: 0 0.40em; margin: -0.8em 0 0 -1em; background-color: #333333; border: 1px #666666 solid; -moz-border-radius: 4px; color: #98FB98; font-weight: bolder; opacity: 0.9;
+hi HintElem background-color: rgba(5,20,5,0.1); color: #222;
+hi HintActive background-color: rgba(5,20,5,0.1); border: 1px #ef6f6f dotted; -moz-border-radius: 3px; padding: 0.1em; font-weight: bold;
+
+"--------------------------------------------------
+" Tab (for Tree Style Tab)
+"--------------------------------------------------
+hi TabNumber font-size: 9px; padding-left: 6px;
+hi TabText text-align: left;
+ 
+"--------------------------------------------------
+" Status Line
+"--------------------------------------------------
+hi StatusLine height: 18px; -moz-appearance: statusbar; color: DeepPink; background: transparent; font-size: 14px;
+hi StatusLineSecure height: 17px; -moz-appearance: statusbar;
+hi StatusLineBroken height: 17px; -moz-appearance: statusbar;
+hi StatusLineExtended height: 17px; -moz-appearance: statusbar;
+
+"--------------------------------------------------
+" Command Line
+"--------------------------------------------------
+hi CmdLine font-family: Ricty, monospace; font-size: 14px; background: #000; padding: 0.2em 0.5em; background: #111;
+"hi CmdOutput
+
+hi Normal color: #f0f0f0; background: #111;
+hi NonText color: #444;
+hi Title font-size: 11px; color: #555; font-weight: bold; letter-spacing: -0.04em; text-indent: 0.5em; line-height: 1.5em;
+hi Question font-size: 11px; color: #4377c6;
+hi Preview font-size: 11px; color: #555;
+hi Tag color: #555;
+hi Filter color: #3f6ecd;
+"hi LineNr
+"hi URL
+ 
+hi Message color: #f0f0f0; background: #111; font-size: 12px; padding-left: 0.5em 1em; line-height: 1.3em;
+hi ModeMsg color: #555; padding-left: 0.5em; font-size: 12px;
+hi MoreMsg color: #555; padding-left: 0.5em; font-size: 12px;
+hi CompMsg color: #555; text-decoration: none; font-size: 12px; padding: 0.25em 0.8em;
+hi InfoMsg color: #f0f0f0; font-size: 12px; padding-left: 0.5em;
+hi WarningMsg color: #d00f0f; font-size: 12px; padding-left: 0.5em;
+hi ErrorMsg color: #d00f0f; font-size: 12px; padding-left: 0.5em;
+ 
+hi CompGroup padding-bottom: 0.5em;
+hi CompTitle font-size: 12px; color: #555; font-weight: bold; letter-spacing: -0.04em;
+hi CompResult padding-left: 0.7em;
+hi CompItem[selected] background: rgba(29,29,29,0.8);
+hi CompIcon margin-right: 8px;
+hi CompDesc color: #666;
+ 
+hi GradientLeft background-color: #333;
+hi GradientRight background-color: #111;
+ 
+hi Indicator color: #444;
+hi FrameIndicator background-color: #fdffc3; border: 2px solid yellow;
+ 
+"--------------------------------------------------
+" JavaScript Objects
+"--------------------------------------------------
+hi Function color: #2a449a;
+"hi Boolean
+"hi String
+"hi Number
+"hi Object
+"hi Null
+"--------------------------------------------------
+" Another
+"--------------------------------------------------
+style -name vimplight_custom chrome://* <<EOM
+#main-window { background-repeat: repeat-y !important;}
+#browser-bottombox { background-image: none !important; }
+#liberator-multiline-output, #liberator-completions { background: transparent !important; }
+EOM

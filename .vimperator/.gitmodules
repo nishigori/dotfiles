@@ -1,0 +1,6 @@
+[submodule "vimpr-plugin"]
+	path = vimpr-plugin
+	url = https://github.com/vimpr/vimperator-plugins.git
+[submodule "ervandew-plugin"]
+	path = ervandew-plugin
+	url = https://github.com/ervandew/vimperator-plugins.git

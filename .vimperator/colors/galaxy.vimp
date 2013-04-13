@@ -1,0 +1,114 @@
+" -- vimperator colorscheme --
+" name:   galaxy
+" author: Takuya Nishigori<nishigori.tak@gmail.com>
+" tested: vimperator 3.2~, firefox 4.0, 5.0~
+" ----------------------------
+" 以下実験
+            "<dt>Keyword</dt>           <dd>URLブックマークキーワード</dd>
+            "<dt>Message</dt>           <dd/>
+hi FrameIndicator   color: pink;   font-size: 32px; background-color: pink;
+hi Keyword          color: yellow;  font-size: 32px; background-color: lightgreen;
+"hi Keyword    #FFFFFF; background: -moz-linear-gradient(top, #5555FF, #3333FF, #0033CC); border-color: blue;
+            "<dt>Tag</dt>               <dd>URL のブックマークタグ</dd>
+hi Tag              color: pink; font-size: 32px; background-color: yellow;
+
+"--------------------------------------------------
+" Basic
+"--------------------------------------------------
+hi Bell border: 0 none;
+
+hi Normal  background-image: url('file:///Library/Desktop%20Pictures/Andromeda%20Galaxy.jpg'); background-size: contain; background-repeat: no-repeat; background-color: rgba(15,5,50,0.8);
+hi Message  display: block; font-size: 16px;
+hi ModeMsg  color: #FFFFFF; background: -moz-linear-gradient(top, #5555FF, #3333FF, #0033CC); border-color: blue; padding: 0 2px; font-size: 14px;
+
+" 現在選んでいるバッファ
+hi Indicator  color: #FFFFFF; background: rgba(0,0,0,0.7); font-weight: bold; font-size: 12px;
+hi InfoMsg    color: #121212; background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C); font-size: 16px;
+hi MoreMsg    color: #121212; background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C); font-size: 16px;
+hi NonText    font-size: 15px;
+
+hi Boolean    font-size: 15px;
+hi Null       font-size: 15px;
+hi Number     font-size: 15px;
+hi Object     font-size: 15px;
+hi Function   color: SkyBlue;
+hi String     font-weight: bold;
+
+hi Preview    color: rgba(111,111,111,0.8);
+hi Question   color: #FFFFFF;
+
+hi Search     color: #FFFFFF; background: -moz-linear-gradient(top, #5555FF, #3333FF, #0033CC); border-color: blue;
+
+" buffer's URL
+hi URL              color: #FFFFFF; font-size: 15px;
+
+"--------------------------------------------------
+" Command Line
+"--------------------------------------------------
+hi CmdLine     color: #121212; background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C); font-family: "Ricty", "Monaco", "monospace"; font-size: 15px;
+hi CmdOutput   white-space: pre;
+hi Filter      color: #FFFFFF; background: -moz-linear-gradient(top, #5555FF, #3333FF, #0033CC); border-color: blue; border-radius: 0.5px;
+" ERROR & WARNING
+hi ErrorMsg    color: #FFFFFF; background: -moz-linear-gradient(top, #FF6E92, red); font-size: 16px;
+hi LineNr      color: #FFFFFF; background: -moz-linear-gradient(top, #FF6E92, red); font-size: 16px;
+hi WarningMsg  color: #FFFFFF; background: -moz-linear-gradient(top, #FF6E92, red); font-size: 16px; font-style: italic;
+
+"--------------------------------------------------
+" Completions
+"--------------------------------------------------
+hi CompGroup                      background: rgba(32,32,32,0.67); font-size: 15px; font-family: "Ricty", "Monaco", "monospace";
+hi CompGroup:not(:first-of-type)  font-size: 14px; font-family: "Ricty", "Monaco", "monospace";
+
+hi CompIcon      width: 15px; min-width: 15px; display: inline-block; margin-right: 1px;
+hi CompIcon>img  max-width: 15px; max-height: 15px; vertical-align: middle;
+
+hi CompItem            color: rgba(250,250,250,0.9);
+hi CompItem[selected]  color: #FFFFFF; background: -moz-linear-gradient(top, #5555FF, #3333FF, #0033CC); border-color: blue;
+hi CompDesc            color: rgba(200,200,200,1.0);
+hi CompMsg             color: #FFFFFF; font-style: italic; padding: 0.5px; text-decoration: none; font-size: 15px;
+" NOTE: CompTitleにも影響うける
+"hi CompResult
+
+
+
+"js <<EOM
+"var css = <css><![CDATA[
+"#liberator-customize-toolbar toolbarbutton,
+"#liberator-customize-toolbar statusbarpanel {
+    "padding: 0 0 0 2px !important;
+"}
+"]]></css>.toString();
+"EOM
+
+"--------------------------------------------------
+" Tab
+"--------------------------------------------------
+hi TabNumber      font-size: 10px; padding-left: 4px;
+" Unknown highright Vimperator version3.3pre
+" Issue http://bit.ly/qwXCWc 
+"hi TabClose       display: none;
+"hi TabIcon        width: 16px; min-width: 16px; display: inline-block; margin-right: 1px;
+"hi TabIconNumber  display: none;
+"hi TabText        text-align: left; padding-left: 1px;
+
+"--------------------------------------------------
+" Status Line
+"--------------------------------------------------
+hi StatusLine color: #121212; background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C); font-size: 16px; padding: 1.5px; font-weight: normal;
+
+hi Title      color: #DEDBFF;
+hi CompTitle  color: #121212; background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C); font-weight: bold; letter-spacing: 2px;
+
+"style -name parsonas chrome://* <<EOM
+"#main-window { background-repeat: repeat-y !important;}
+"#browser-bottombox { background-image: none !important; }
+"#liberator-multiline-output, #liberator-completions { background: transparent !important; }
+"EOM
+
+"--------------------------------------------------
+" Hint
+"--------------------------------------------------
+hi! Hint       color: #121212; text-transform: uppercase; padding: 0.2px 1.5px; background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C); -moz-box-shadow: 0 1px 0.5px #121212; border-radius: 2px; font-family: "Ricty", "Monaco", "Lucida Grande", "monospace"; font-size: 13px; font-weight: bold; text-align: center;
+hi! HintActive color: #FFFFFF; background: -moz-linear-gradient(top, #5555FF, #3333FF, #0033CC); border-color: blue; opacity: 0.8; border-radius: 1.5px;
+hi! HintElem    background: -moz-linear-gradient(-60deg, rgba(255,45,45,0.1), rgba(45,255,45,0.1), rgba(45,45,255,0.1)); border-radius: 1.5px;
+"hi! HintImage  background: -moz-linear-gradient(top, #E8E8E8, #8C8C8C, 0.1); border: 1px; opacity: 0.7;
