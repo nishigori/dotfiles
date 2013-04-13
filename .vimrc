@@ -700,7 +700,7 @@ nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
 let g:unite_data_directory =
   \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
 
-let g:unite_enable_start_insert             = 1
+let g:unite_enable_start_insert = 1
 " Save session automatically.
 " For unite-session.
 " Load session automatically.
@@ -715,8 +715,8 @@ let g:unite_update_time           = 256
 let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_file_mru_limit           = 200
 " history option
-let g:unite_source_history_yank_enable      = 1
-let g:unite_source_history_yank_limit       = 100
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_history_yank_limit  = 100
 " color option
 let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
@@ -1083,7 +1083,7 @@ let g:sunday_pairs = [
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
   \ ]
 " }}}
-" ## vim-sunday {{{
+" ## vim-symfony {{{
 let g:symfony_enable_auto_completefunc = 1
 " }}}
 " ## calendar.vim {{{
