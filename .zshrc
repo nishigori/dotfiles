@@ -36,7 +36,7 @@ case "${OSTYPE}" in
             nyan \
             ant \
             git github git-flow ssh-agent vagrant capistrano \
-            python pip mercurial virtualenvwrapper \
+            python pip mercurial \
             ruby rbenv gem rake bundler rails3 \
             scala \
             gradle \
