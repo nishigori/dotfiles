@@ -1,0 +1,60 @@
+" Declare local dependency plugins
+
+" TODO: merge bundle.vim
+" @see http://qiita.com/items/ab2ad83ddbaf2f6ce7fb
+NeoBundle 'Shougo/neocomplcache-rsense', {
+  \   'depends': 'Shougo/neocomplcache',
+  \   'autoload': { 'filetypes': 'ruby' },
+  \ }
+NeoBundleLazy 'taichouchou2/rsense-0.3', {
+  \   'build' : {
+  \     'mac': 'ruby etc/config.rb > ~/.rsense',
+  \     'unix': 'ruby etc/config.rb > ~/.rsense',
+  \   }
+  \ }
+
+" examples
+NeoBundle "toritori0318/vim-redmine"
+NeoBundle 'ujihisa/vimshell-ssh'
+NeoBundle 'Shougo/echodoc'
+NeoBundle 'mattn/salaryman-complete-vim'
+NeoBundle 'neco-look'
+NeoBundle 'tyru/operator-star.vim'
+NeoBundle 'mattn/salaryman-complete-vim'
+NeoBundle 'nishigori/neocomplcache-nginx-snippet'
+
+" unite-plugins
+NeoBundle 'ujihisa/unite-font'
+NeoBundle 'basyura/unite-rails'
+NeoBUndle 'nobeans/unite-grails'
+NeoBUndle 'oppara/vim-unite-cake'
+NeoBundle 'ujihisa/unite-launch'
+NeoBundle 'ujihisa/unite-haskellimport'
+
+" VimL
+NeoBundle 'mattn/learn-vimscript'
+NeoBundle 'mattn/unite-advent_calendar'
+NeoBundle 'choplin/unite-vim_hacks'
+
+" Buffer, tab
+NeoBundle 'koron/minimap-vim'
+
+"" Vim
+NeoBundle 'dsummersl/vimunit'
+
+" VCS
+NeoBundle 'thinca/vim-ft-svn_diff'
+
+" Color scheme
+NeoBundle 'vim-scripts/Atom'
+NeoBundle 'vim-scripts/github-theme'
+
+" Social
+NeoBundle 'basyura/TweetVim'
+
+" evervim 重すぎ
+"NeoBundle 'kakkyz81/evervim.git'
+
+
+
+" vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

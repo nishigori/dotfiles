@@ -1,0 +1,7 @@
+.vimundo
+bundle/*
+neobundle.vim.git
+view
+ref/*
+tmp/*
+bundle.vim.local
