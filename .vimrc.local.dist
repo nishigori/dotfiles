@@ -15,6 +15,9 @@ if has('persistent_undo')
   set undodir=~/tmp/vim/undo
 endif
 
+" If g:use_plugin is 0, no load vimrc block code depends plugin
+let g:use_plugin = 1
+
 let s:ramdisk_dir       = '/tmp/ramdisk'
 let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
 

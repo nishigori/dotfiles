@@ -66,6 +66,8 @@ set background=dark
 " }}}
 " Local Dependency
 set nobackup noswapfile
+let g:use_plugin = get(g:, 'use_plugin', 0)
+
 if filereadable(expand($HOME. '/.vimrc.local'))
   set backup swapfile
   " INFO: Read more .vimrc.local.dist
@@ -88,16 +90,18 @@ if filereadable(expand($HOME. '/.vimrc.local'))
     endfor
   endfunction " }}}
   " Bundle {{{
-  set nocompatible           " be iMproved
-  filetype plugin indent off " required!!
+  if g:use_plugin
+    set nocompatible           " be iMproved
+    filetype plugin indent off " required!!
 
-  source $HOME/.vim/bundle.vim
-  if filereadable(expand($HOME . '/.vim/bundle.vim.local'))
-    source $HOME/.vim/bundle.vim.local
+    source $HOME/.vim/bundle.vim
+    if filereadable(expand($HOME . '/.vim/bundle.vim.local'))
+      source $HOME/.vim/bundle.vim.local
+    endif
+
+    let s:bundle_dir = $HOME . '/.vim/bundle'
+    filetype plugin indent on " required!
   endif
-
-  let s:bundle_dir = $HOME . '/.vim/bundle'
-  filetype plugin indent on " required!
   " }}}
 endif
 
@@ -540,6 +544,9 @@ if has('persistent_undo')
 endif
 " }}}
 " Plugin
+if !g:use_plugin
+  finish " If you're not using plugin, define variable g:use_plugin = 1
+endif
 " ## vim-multiple-switcher {{{
 "let g:multiple_switcher_no_default_key_maps = 1
 nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
