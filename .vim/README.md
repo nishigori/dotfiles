@@ -1,28 +1,18 @@
 Vim Files
 =========
 
-My Vim runtimepath dir.
+My runtimepath for [Vim](http://www.vim.org/)
 
-INSTALL:
-========
-
-> $ git clone https://bitbucket.org/nishigori/vimfiles.git ~/.vim
-
-Reference Directory
-===================
+References
+==========
 
   Using references for [vim-ref](https://github.com/thinca/vim-ref.git)
 
   You should put your ref files {clone dir}/ref/ .
 
-* Ruby reference
+* [Ruby](http://doc.okkez.net/archives/)
 
-> http://doc.okkez.net/archives/
+* [PHP](http://php.net/download-docs.php)
 
-* PHP: Download documentation
+* [jQuery](http://jqapi.com/)
 
-> http://php.net/download-docs.php
-
-* jQuery Documentation
-
-> http://jqapi.com/
