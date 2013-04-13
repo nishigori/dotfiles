@@ -8,11 +8,11 @@ let g:local_config = {
   \ }
 
 " Not use white space into the statement (Suck!!)
-set directory=~/tmp/vim/swap,/tmp,.
-set backupdir=~/tmp/vim/backup,/tmp,.
-set viewdir=~/tmp/vim/view,/tmp,.
+set directory=~/.vim/tmp/swap,/tmp,.
+set backupdir=~/.vim/tmp/backup,/tmp,.
+set viewdir=~/.vim/tmp/view,/tmp,.
 if has('persistent_undo')
-  set undodir=~/tmp/vim/undo
+  set undodir=~/.vim/tmp/undo
 endif
 
 " If g:use_plugin is 0, no load vimrc block code depends plugin
@@ -21,10 +21,13 @@ let g:use_plugin = 1
 let s:ramdisk_dir       = '/tmp/ramdisk'
 let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
 
-" neobundle {{{
-g:neobundle_default_git_protocol = 'http'
-" }}}
+" lint
+let g:ruby_bin = '/usr/local/bin/ruby'
 
+" neobundle {{{
+" FIXME: neobundle is no support `http` protocol
+"g:neobundle_default_git_protocol = 'http'
+" }}}
 " unite.vim {{{
 let s:unite_date_directory_suffix = 'unite'
 let g:local_unite_data_directory =
@@ -38,20 +41,15 @@ let g:unite_source_alias_aliases = {
 nnoremap <silent> [unite]U :<C-u>Unite file_user_src
   \ -buffer-name=files buffer bookmark file<CR>
 " }}}
-
 " unite-sf2 {{{
 "let g:unite_source_sf2_root_dir = ''
 let g:unite_source_sf2_bundles = {}
 " }}}
-
 " neocomplcache {{{
 let s:neocomplcache_temporary_dir_suffix = 'neocom'
 let g:local_neocomplcache_temporary_dir =
   \ s:ramdisk_dir .'/'. s:neocomplcache_temporary_dir_suffix
 " }}}
-
-" lint
-let g:ruby_bin = '/usr/local/bin/ruby'
 " TwitVim {{{
 let twitvim_browser_cmd = 'firefox'
 let twitvim_count       = 120
@@ -85,6 +83,17 @@ let g:dbext_default_buffer_lines = 20
   "\ 'type=DBI:user=root:passwd=password=mysql:conn_parms=database=test;host=localhost'
 "let g:dbext_default_profile_mysql_local_ODBC =
   "\ 'type=ODBC:user=root:passwd=password=mysql'
+
+" vdbi {{{
+" INFO: Install depends CPAM Modules
+"
+" Mac OS.)
+"
+"   $ sudo perl -MCPAN -e shell
+"   cpan> install DBI
+"   cpan> install DBD::mysql
+"
+" }}}
 " }}}
 " vim-symfony {{{
 let g:symfony_app_console_path = $HOME.'/workspace/symfony/app/console'
