@@ -772,6 +772,9 @@ autocmd BufEnter *
   \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
   \|  endif
 " }}}
+" ## unite-tig {{{
+let g:unite_tig_default_line_count = 80
+" }}}
 " ## unite-sf2 {{{
 " NOTE: unite-sf2 avairables is depends local environment.
 "let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
@@ -1179,7 +1182,7 @@ nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]t :<C-u>Unite tweetvim<CR>
+nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
 " for current buffer
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
