@@ -15,8 +15,8 @@ bin/*
 .vim/bundle.vim.local
 
 # Vimperator
-vimperator/info/*
-vimperator/local-plugin/*
+.vimperator/info/*
+.vimperator/local-plugin/*
 
 # Pentadactyl
 .pentadactyl/info
