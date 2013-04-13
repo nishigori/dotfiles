@@ -16,9 +16,6 @@ let g:ruby_no_comment_fold = 1
 "let g:ruby_operators       = 1
 let g:ruby_space_errors    = 1
 
-" InputMethod
-inoremap ## #=><Space>
-
 " RubyLint
 autocmd BufWritePost *.rb :call lint#ruby()
 nmap ,l :call lint#ruby()<CR>
@@ -29,3 +26,4 @@ nnoremap <Leader> [unite]r :<C-u>Unite<Space>ref/refe -default-action=split<Cr>
 
 " Plugin: smartchr
 inoremap <expr> = smartchr#one_of(' = ', ' == ', '=')
+inoremap <expr> # smartchr#one_of('#', '# ', '#=> ')
