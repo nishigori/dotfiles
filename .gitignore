@@ -1,68 +1,22 @@
-# Temporary
-tmp/*
-
-# TODO: enable submodule
-.pentadactyl/info
-
 # Local settings
-.config
+tmp/*
+bin/*
 .zshrc.local
 .vimrc.local
 .gvimrc.local
 .vimperatorrc.local
-.ssh
-.bash_profile
-.w3m
-dbext_sql_history.txt
 
-.vdbi_history
-.sh_history
-.bash_history
-.zsh_history
-.mysql_history
-.irb_history
-.io_history
-.sqlite_history
-.pearrc
-.dotcloud
-.composer
-.CFUserTextEncoding
-.Xauthority
-.bi_li3
-.cups
-.dropbox
-.fontconfig
-.hgignore_global
-.ievms
-.inputrc
-.lesshst
-.nbprofiler
-.netbeans
-.node_libraries
-.subversion
-.gitconfig
-.gem
-.jenkins
-.local
-.oh-my-zsh
-.pip
-.php_history
-.rbenv
-.cpan
-.ghc
-.hgrc
-.ctags*
-# Basic directories
-workspace
-Desktop
-Downloads
-Documents
-Pictures
-Dropbox
-Library
-Movies
-Music
-Public
-VirtualBox VMs
-dwhelper
+# Vim
+.vim/bundle/*
+.vim/neobundle.vim.git
+.vim/view
+.vim/ref/*
+.vim/tmp/*
+.vim/bundle.vim.local
 
+# Vimperator
+vimperator/info/*
+vimperator/local-plugin/*
+
+# Pentadactyl
+.pentadactyl/info
