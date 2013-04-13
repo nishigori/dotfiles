@@ -1177,7 +1177,7 @@ nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
-nnoremap <silent> [unite]M :<C-u>Unite mapping<CR>
+nnoremap <silent> [unite]M :<C-u>Unite mapping -no-start-insert<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
@@ -1193,8 +1193,8 @@ nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
 nnoremap <silent> [unite]p :<C-u>Unite process -no-split<CR>
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
-nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:! -auto-quit<CR>
-nnoremap <silent> [unite]N :<C-u>Unite neobundle/install -auto-quit<CR>
+nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:! -no-start-insert -auto-quit<CR>
+nnoremap <silent> [unite]N :<C-u>Unite neobundle/install -no-start-insert -auto-quit<CR>
 " NOTE: @ftplugin, <Leader>r is :Unite ref/$filetype
 "       if @ftplugin is nothing, default map is :Unite ref/
 "nnoremap <silent> [unite]r :<C-u>Unite<Space>ref/
