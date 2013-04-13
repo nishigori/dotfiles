@@ -51,7 +51,7 @@ dbext_sql_history.txt
 .cpan
 .ghc
 .hgrc
-
+.ctags*
 # Basic directories
 workspace
 Desktop
