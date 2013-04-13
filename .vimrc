@@ -1146,10 +1146,11 @@ endfunction
 nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " }}}
 " ## vim-powerline {{{
-"let g:Powerline_symbols    = 'fancy'
 let g:Powerline_cache_file  = s:tmpdir . '/Powerline.cache'
-"let g:Powerline_theme       = 'skwp'
+"let g:Powerline_symbols    = 'fancy'
 let g:Powerline_colorscheme = 'skwp'
+"let g:Powerline_theme = 'solarized256'
+let g:Powerline_colorscheme = 'solarized256'
 " }}}
 " ## jscomplatete.vim {{{
 let g:jscomplete_use = ['dom']
