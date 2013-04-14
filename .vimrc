@@ -1185,7 +1185,8 @@ nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
+nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
+"nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
 " for current buffer
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
