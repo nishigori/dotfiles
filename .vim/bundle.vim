@@ -156,7 +156,7 @@ NeoBundle 'thinca/vim-ref'
 NeoBundleLazy 'othree/html5.vim'
 autocmd FileType html NeoBundleSource html5.vim
 "" CSS
-NeoBundleLay 'vim-scripts/css3'
+NeoBundleLazy 'vim-scripts/css3'
 autocmd FileType css NeoBundleSource css3
 "" Markdown
 NeoBundle 'mattn/mkdpreview-vim'
