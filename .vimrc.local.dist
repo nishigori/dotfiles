@@ -16,8 +16,10 @@ if has('persistent_undo')
 endif
 
 " colorscheme
-let g:colors_name = 'hybrid'
-set background=dark
+if !has('gui_running')
+  let g:colors_name = 'hybrid'
+  set background=dark
+endif
 
 " If g:use_plugin is 0, no load vimrc block code depends plugin
 let g:use_plugin = 0
