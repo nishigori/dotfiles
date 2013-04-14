@@ -91,6 +91,12 @@ if filereadable(expand($MYGVIMRC_LOCAL))
   source $MYGVIMRC_LOCAL
 endif
 " }}}
+" # Colorsheme {{{
+if !g:my_config_use_plugin || !exists('g:colors_name')
+  let g:colors_name = 'desert'
+  set background=light
+endif
+" }}}
 
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

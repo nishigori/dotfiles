@@ -58,15 +58,10 @@ augroup CurrentLineBeforeChanged
   " 前回終了したカーソル行に移動
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 augroup END
-
-" COLOR SHEMA
-set t_Co=256
-colorscheme desert
-set background=dark
 " }}}
 " Local Dependency
 set nobackup noswapfile
-let g:use_plugin = get(g:, 'use_plugin', 0)
+let g:my_config_use_plugin = get(g:, 'my_config_use_plugin', 0)
 
 if filereadable(expand($HOME. '/.vimrc.local'))
   set backup swapfile
@@ -90,7 +85,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
     endfor
   endfunction " }}}
   " Bundle {{{
-  if g:use_plugin
+  if g:my_config_use_plugin
     set nocompatible           " be iMproved
     filetype plugin indent off " required!!
 
@@ -171,6 +166,12 @@ setlocal softtabstop=0
 let g:sql_type_default = 'mysql'
 " }}}
 " # Color Scheme {{{
+set t_Co=256
+if !has('gui_runnig') || !g:my_config_use_plugin || !exists('g:colors_name')
+  let g:colors_name = 'desert'
+  set background=dark
+endif
+
 let g:solarized_termcolors = 256  " CASE: g:colors_name is solarized
 highlight StatusLine term=NONE cterm=NONE ctermfg=white ctermbg=black
 " add cursorline at the current window.
@@ -544,8 +545,10 @@ if has('persistent_undo')
 endif
 " }}}
 " Plugin
-if !g:use_plugin
-  finish " If you're not using plugin, define variable g:use_plugin = 1
+if !g:my_config_use_plugin
+  " TODO: install script
+  echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
+  finish
 endif
 " ## vim-multiple-switcher {{{
 "let g:multiple_switcher_no_default_key_maps = 1

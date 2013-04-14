@@ -15,8 +15,12 @@ if has('persistent_undo')
   set undodir=~/.vim/tmp/undo
 endif
 
+" colorscheme
+let g:colors_name = 'hybrid'
+set background=dark
+
 " If g:use_plugin is 0, no load vimrc block code depends plugin
-let g:use_plugin = 1
+let g:use_plugin = 0
 
 let s:ramdisk_dir       = '/tmp/ramdisk'
 let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
