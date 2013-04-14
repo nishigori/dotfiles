@@ -1089,6 +1089,7 @@ nnoremap <Leader>gc :<C-u>Gcommit<CR>
 " ## vim-sunday {{{
 " My plugin. inspaired toggle.vim, monday.vim
 let g:sunday_pairs = [
+  \ ['light', 'dark'],
   \ ['extends', 'implements'],
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
   \ ]
