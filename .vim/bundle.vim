@@ -150,14 +150,18 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'tsukkee/unite-help', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " VCS {{{
-NeoBundleLazy 'Shougo/vim-vcs', {
-  \   'depends' : 'thinca/vim-openbuf',
-  \   'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
-  \ }
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'vim-scripts/gitv'
+" http://kmnk.blogspot.jp/2013/01/git-unite-unite-source.html
+NeoBundle 'kmnk/vim-unite-giti'
+"NeoBundleLazy 'Shougo/vim-vcs', {
+  "\   'depends' : 'thinca/vim-openbuf',
+  "\   'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
+  "\ }
 NeoBundle 'sgur/unite-git_grep', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'Kocha/vim-unite-tig', { 'depends' : 'Shougo/unite.vim' }
+" TODO: require vim-powerline, change using plugin for show branch status
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
+NeoBundle 'sudo.vim'
 " }}}
 " DB {{{
 "NeoBundle 'mattn/vdbi-vim'

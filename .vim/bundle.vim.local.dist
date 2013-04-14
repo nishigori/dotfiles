@@ -46,6 +46,7 @@ NeoBundle 'choplin/unite-vim_hacks', { 'depends': 'Shougo/unite.vim' }
 NeoBundle 'koron/minimap-vim'
 
 " VCS
+NeoBundle 'kmnk/vim-unite-svn'
 NeoBundle 'thinca/vim-ft-svn_diff'
 NeoBundle 'mattn/gist-vim'
 
