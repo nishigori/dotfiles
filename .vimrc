@@ -86,16 +86,8 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   endfunction " }}}
   " Bundle {{{
   if g:my_config_use_plugin
-    set nocompatible           " be iMproved
-    filetype plugin indent off " required!!
-
     source $HOME/.vim/bundle.vim
-    if filereadable(expand($HOME . '/.vim/bundle.vim.local'))
-      source $HOME/.vim/bundle.vim.local
-    endif
-
     let s:bundle_dir = $HOME . '/.vim/bundle'
-    filetype plugin indent on " required!
   endif
   " }}}
 endif
