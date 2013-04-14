@@ -24,7 +24,6 @@ NeoBundle 'airblade/vim-rooter'
 " }}}
 " buffer, tag {{{
 NeoBundle 'Lokaltog/vim-powerline'
-"NeoBundle 'Shougo/vimshell'
 NeoBundleLazy 'Shougo/vimshell',{
   \ 'depends' : 'Shougo/vimproc',
   \ 'autoload' : {
@@ -71,12 +70,6 @@ NeoBundle 'Shougo/neosnippet'
   "\     'insert' : 1,
   "\ }})
 NeoBundle 'thinca/vim-ambicmd'
-NeoBundle 'tpope/vim-endwise'
-NeoBundleLazy 'taichouchou2/vim-endwise.git', {
-  \   'autoload' : {
-  \     'insert' : 1,
-  \   },
-  \ }
 " }}}
 " text operation {{{
 NeoBundle 'mattn/zencoding-vim'

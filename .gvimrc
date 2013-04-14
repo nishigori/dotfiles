@@ -7,8 +7,6 @@ set t_te=
 " need gvimrc on MacVim??
 set hlsearch
 
-let g:diablo3_longline = 1        " CASE: g:colors_name is diablo3
-
 if has('clipboard')
   " :h gui-clipboard
   set guioptions+=a

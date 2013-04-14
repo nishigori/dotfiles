@@ -12,6 +12,11 @@ NeoBundleLazy 'taichouchou2/rsense-0.3', {
   \     'unix': 'ruby etc/config.rb > ~/.rsense',
   \   }
   \ }
+NeoBundleLazy 'taichouchou2/vim-endwise.git', {
+  \   'autoload' : {
+  \     'insert' : 1,
+  \   },
+  \ }
 
 " examples
 NeoBundle "toritori0318/vim-redmine"
