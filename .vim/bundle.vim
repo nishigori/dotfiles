@@ -153,18 +153,24 @@ NeoBundle 'thinca/vim-ref'
 " }}}
 " filetype {{{
 "" HTML
-NeoBundle 'othree/html5.vim'
+NeoBundleLazy 'othree/html5.vim'
+autocmd FileType html NeoBundleSource html5.vim
 "" CSS
-NeoBundle 'vim-scripts/css3'
+NeoBundleLay 'vim-scripts/css3'
+autocmd FileType css NeoBundleSource css3
 "" Markdown
 NeoBundle 'mattn/mkdpreview-vim'
+autocmd FileType markdown NeoBundleSource mkdpreview-vim
 "" JavaScript
 NeoBundle 'teramako/jscomplete-vim'
-NeoBundle 'basyura/jslint.vim'
-NeoBundle 'soh335/vim-ref-jquery'
+autocmd FileType javascript,js NeoBundleSource jscomplete-vim
+NeoBundleLazy 'basyura/jslint.vim'
+autocmd FileType javascript,js NeoBundleSource vim-ref-jquery
 "" PHP
-NeoBundle 'arnaud-lb/vim-php-namespace'
-NeoBundle 'beyondwords/vim-twig'
+NeoBundleLazy 'arnaud-lb/vim-php-namespace'
+autocmd FileType php NeoBundleSource vim-php-namespace
+NeoBundleLazy 'beyondwords/vim-twig'
+autocmd FileType php,twig.html,html.twig NeoBundleSource vim-twig
 "" Ruby
 " need ruby-debug-ide19
 " $ gem install ruby-debug-ide19
@@ -178,19 +184,22 @@ NeoBundle 'rhysd/neco-ruby-keyword-args'
 "NeoBundle 'rhysd/vim-textobj-ruby' " TODO: occurred unknown error
 NeoBundle 'ruby-matchit' " TODO: Need fork, cause no use ftplugin ;(
 "" Python
-NeoBundle 'vim-scripts/python.vim--Vasiliev'
-NeoBundle 'jtriley/vim-rst-headings'
+NeoBundleLazy 'vim-scripts/python.vim--Vasiliev'
+autocmd FileType python,django NeoBundleSource python.vim--Vasiliev
+NeoBundleLazy 'jtriley/vim-rst-headings'
+autocmd FileType python,rest,rst NeoBundleSource vim-rst-headings
 "" Clojure
-autocmd FileType clojure
-  \ NeoBundleSource 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
+NeoBundleLazy 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
+autocmd FileType clojure NeoBundleSource vimclojure
 "" Haskell
 "autocmd FileType haskell NeoBundle 'ujihisa/ref-hoogle'
-NeoBundle 'ujihisa/ref-hoogle'
+NeoBundleLazy 'ujihisa/ref-hoogle'
+autocmd FileType haskell NeoBundleSource ref-hoogle
 "" JavaScript
 NeoBundle 'vim-scripts/JSON.vim'
+autocmd FileType javascript,json NeoBundleSource JSON.vim
 "" Another
-autocmd FileType nginx
-  \ NeoBundleSource 'chase/nginx.vim'
+autocmd FileType nginx NeoBundleSource 'chase/nginx.vim'
 " }}}
 " Utility {{{
 " FIXME: vim-template, そのうち使う
@@ -206,11 +215,16 @@ NeoBundle 'thinca/vim-openbuf'
 "NeoBundle 'nishigori/vim-symfony'
 NeoBundle 'nishigori/vim-multiple-switcher'
 NeoBundle 'nishigori/vim-sunday'
-NeoBundle 'nishigori/vim-php-dictionary'
-NeoBundle 'nishigori/vim-php-cs-fixer'
-NeoBundle 'nishigori/unite-sf2'
-NeoBundle 'nishigori/phpfolding.vim'
-NeoBundle 'nishigori/neocomplcache-phpunit-snippet'
+NeoBundleLazy 'nishigori/vim-php-dictionary'
+autocmd FileType php NeoBundleSource vim-php-dictionary
+NeoBundleLazy 'nishigori/vim-php-cs-fixer'
+autocmd FileType php NeoBundleSource vim-php-cs-fixer
+NeoBundleLazy 'nishigori/unite-sf2', { 'depends' : 'Shougo/unite.vim' }
+autocmd FileType php NeoBundleSource unite-sf2
+NeoBundleLazy 'nishigori/phpfolding.vim'
+autocmd FileType php NeoBundleSource phpfolding.vim
+NeoBundleLazy 'nishigori/neocomplcache-phpunit-snippet'
+autocmd FileType php NeoBundleSource neocomplcache-phpunit-snippet
 "NeoBundle 'nishigori/vim-composer'
 " Beta
 "NeoBundle 'nishigori/vim-phpunit-snippets'
