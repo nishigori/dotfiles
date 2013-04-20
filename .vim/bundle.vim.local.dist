@@ -50,6 +50,12 @@ NeoBundle 'kmnk/vim-unite-svn'
 NeoBundle 'thinca/vim-ft-svn_diff'
 NeoBundle 'mattn/gist-vim'
 
+" Redmine
+" See more: http://blog.basyura.org/entry/20130106/p1
+NeoBundle 'basyura/unite-yarm'
+let g:rmine_server_url = 'http://xxxxx:3000'
+let g:rmine_access_key = 'access key'
+
 " Color scheme
 NeoBundle 'vim-scripts/Atom'
 NeoBundle 'vim-scripts/github-theme'
