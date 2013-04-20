@@ -5,6 +5,16 @@ let g:php_htmlInStrings = 1  " 文字列中のHTMLをハイライトする
 "let php_folding=1      " クラスと関数のfoldingを有効
 "setlocal foldlevelstart=1 " open buffer's foldlevel
 
+" Set tags for PHPUnit sources
+let s:phpunit_tags = get(g:, 'dependency_local_lists["phpunit_dir"]', '')
+if s:phpunit_tags != ''
+  execute 'setlocal tags+='.s:phpunit_tags.'/tags'
+endif
+
+if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
+  finish
+endif
+
 " Plugin: vim-sunday "{{{
 let g:sunday_pairs = [
   \   ['extends', 'implements'],
@@ -76,11 +86,5 @@ let g:sunday_pairs = [
   \ ]
   " Not into removed PHPUnit 3.6 functions. (ex. asertType, assertNotType)
 "}}}
-
-" Set tags for PHPUnit sources
-let s:phpunit_tags = get(g:, 'dependency_local_lists["phpunit_dir"]', '')
-if s:phpunit_tags != ''
-  execute 'setlocal tags+='.s:phpunit_tags.'/tags'
-endif
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

@@ -18,6 +18,10 @@ let g:python_highlight_all = 1
 autocmd BufWritePost *.py :call lint#python()
 
 " # PLUGIN
+if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
+  finish
+endif
+
 " ## unite-ref {{{
 nnoremap <silent> [unite]r :<C-u>Unite ref/pydoc<CR>
 " }}}

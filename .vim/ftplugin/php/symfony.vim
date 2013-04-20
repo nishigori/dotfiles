@@ -1,6 +1,9 @@
 " first set path
 setlocal path+=**
 
+if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
+  finish
+endif
 
 let g:neocomplcache_vim_completefuncs =
   \ get(g:, 'neocomplcache_vim_completefuncs', {})

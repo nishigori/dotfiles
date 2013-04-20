@@ -27,6 +27,10 @@ let g:ruby_space_errors    = 1
 autocmd BufWritePost *.rb :call lint#ruby()
 nmap ,l :call lint#ruby()<CR>
 
+if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
+  finish
+endif
+
 " Ref/refe
 nnoremap <Leader> [unite]r :<C-u>Unite<Space>ref/refe -default-action=split<Cr>
 

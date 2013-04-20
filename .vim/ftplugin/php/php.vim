@@ -57,6 +57,10 @@ function! s:php_smart_bracket(last_char) "{{{
   endif
 endfunction "}}}
 
+if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
+  finish
+endif
+
 " Plugin: unite-ref
 nnoremap <silent> [unite]r :<C-u>Unite ref/phpmanual<CR>
 
