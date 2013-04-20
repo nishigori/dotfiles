@@ -57,5 +57,8 @@ NeoBundle 'vim-scripts/github-theme'
 " Social
 NeoBundle 'basyura/TweetVim'
 
+" Another
+NeoBundle 'thinca/vim-splash'
+
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
