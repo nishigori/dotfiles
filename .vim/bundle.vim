@@ -79,12 +79,14 @@ NeoBundle 'Shougo/neocomplcache'
   "\ 'autoload' : {
   "\     'insert' : 1,
   "\ }})
-NeoBundle 'Shougo/neosnippet'
-"call neobundle#config('neosnippet', {
-  "\ 'lazy' : 1,
-  "\ 'autoload' : {
-  "\     'insert' : 1,
-  "\ }})
+NeoBundle 'Shougo/neosnippet', '', 'default'
+call neobundle#config('neosnippet', {
+  \ 'lazy' : 1,
+  \ 'autoload' : {
+  \ 'insert' : 1,
+  \ 'filetypes' : 'snippet',
+  \ 'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
+  \ }})
 NeoBundle 'thinca/vim-ambicmd'
 " }}}
 " Text operation {{{
