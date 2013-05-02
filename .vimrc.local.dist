@@ -21,6 +21,9 @@ if !has('gui_running')
   set background=dark
 endif
 
+"" Sphinx bin path
+let g:sphinx_build_bin = '/usr/share/python/sphinx-build'
+
 " If g:use_plugin is 0, no load vimrc block code depends plugin
 let g:use_plugin = 0
 

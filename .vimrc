@@ -994,12 +994,15 @@ if has('clientserver')
     \   'javascript' : {
     \     'command' : 'phantomjs',
     \   },
-    \   'rst': {
-    \     'command': 'sphinx-build',
-    \     'hook/sphinx/enable' : 1,
-    \     'cmdopt': '-b html',
-    \   }
     \ }
+  if exists('g:sphinx_build_bin')
+    let g:quickrun_config['rst'] = {
+      \     'command': g:sphinx_build_bin,
+      \     'hook/sphinx/enable' : 1,
+      \     'cmdopt': '-b html',
+      \     'splist' : '{"rigitbelow 65vsp"}',
+      \ }
+  endif
 endif
 if has('mac')
   " TODO: Sikuli 起動は引数渡さねば??
