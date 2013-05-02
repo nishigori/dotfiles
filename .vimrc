@@ -993,6 +993,11 @@ if has('clientserver')
     \   },
     \   'javascript' : {
     \     'command' : 'phantomjs',
+    \   },
+    \   'rst': {
+    \     'command': 'sphinx-build',
+    \     'hook/sphinx/enable' : 1,
+    \     'cmdopt': '-b html',
     \   }
     \ }
 endif

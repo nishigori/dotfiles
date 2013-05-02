@@ -185,6 +185,12 @@ autocmd FileType css NeoBundleSource css3
 NeoBundle 'mattn/mkdpreview-vim'
 autocmd FileType markdown NeoBundleSource mkdpreview-vim
 " }}}
+" reST {{{
+NeoBundleLazy 'jtriley/vim-rst-headings'
+autocmd FileType python,rest,rst NeoBundleSource vim-rst-headings
+NeoBundleLazy 'heavenshell/vim-quickrun-hook-sphinx'
+autocmd FileType rst NeoBundleSource vim-quickrun-hook-sphinx
+" }}}
 " JavaScript {{{
 NeoBundle 'teramako/jscomplete-vim'
 autocmd FileType javascript,js NeoBundleSource jscomplete-vim
@@ -216,8 +222,6 @@ autocmd FileType ruby,rails NeoBundleSource unite-rails
 " Python {{{
 NeoBundleLazy 'vim-scripts/python.vim--Vasiliev'
 autocmd FileType python,django NeoBundleSource python.vim--Vasiliev
-NeoBundleLazy 'jtriley/vim-rst-headings'
-autocmd FileType python,rest,rst NeoBundleSource vim-rst-headings
 " }}}
 " PHP {{{
 NeoBundleLazy 'arnaud-lb/vim-php-namespace'
