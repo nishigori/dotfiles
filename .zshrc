@@ -35,7 +35,7 @@ case "${OSTYPE}" in
             autojump \
             nyan \
             ant \
-            git github git-flow ssh-agent vagrant capistrano \
+            git github git-flow-avh ssh-agent vagrant capistrano \
             python pip mercurial \
             ruby rbenv gem rake bundler rails3 \
             scala \
@@ -51,7 +51,7 @@ case "${OSTYPE}" in
                 nyan \
                 ant \
                 terminitor \
-                git git-flow ssh-agent \
+                git git-flow-avh ssh-agent \
                 python pip mercurial \
                 ruby rbenv gem rake bundler capistrano \
                 composer symfony2 cake \
@@ -63,7 +63,7 @@ case "${OSTYPE}" in
                 nyan \
                 ant \
                 terminitor \
-                git git-flow github ssh-agent \
+                git git-flow-avh github ssh-agent \
                 python pip mercurial \
                 ruby rbenv gem rake bundler capistrano \
                 composer symfony2 \
