@@ -709,7 +709,7 @@ let g:unite_source_session_enable_auto_save = 1
 "autocmd VimEnter * UniteSessionLoad
 " window option
 let g:unite_winheight             = 12
-"let g:unite_split_rule            = 'below'
+let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 120
 let g:unite_update_time           = 256
 " mru option
@@ -737,6 +737,7 @@ let g:unite_source_menu_menus = {
   \     'description' : '',
   \     'command_candidates' : [
   \       ['edit vimrc', 'edit $MYVIMRC'],
+  \       ['edit gvimrc', 'edit $MYGVIMRC'],
   \     ],
   \   },
   \}
