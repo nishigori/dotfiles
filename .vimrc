@@ -671,7 +671,6 @@ function! s:bundle.hooks.on_source(bundle)
   " Note: This variable works in file source.
   "let g:vimfiler_enable_auto_cd      = 1
   let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
-  let g:vimfiler_edit_action         = 'open'
   let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
 
   " Enable file operation commands.
