@@ -950,15 +950,14 @@ let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
 let g:tweetvim_include_rts = 1
 " }}}
 " ## vim-php-cs-fixer {{{
-"let g:php_cs_fixer_path            = "~/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_default_mapping = 1                     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_path            = "/usr/sbin/php-cs-fixer/php-cs-fixer" " define the path to the php-cs-fixer.phar
 let g:php_cs_fixer_level           = "all"                 " which level ?
 let g:php_cs_fixer_config          = "default"             " configuration
-let g:php_cs_fixer_php_path        = "php"                 " Path to PHP
+"let g:php_cs_fixer_php_path        = "php"                 " Path to PHP
 let g:php_cs_fixer_fixers_list     = ""                    " List of fixers
-let g:php_cs_fixer_default_mapping = 1                     " Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run         = 0                     " Call command with dry-run option
-map <leader>pcd :call PhpCsFixerFixDirectory()<CR>
-map <leader>pcf :call PhpCsFixerFixFile()<CR>
+let g:php_cs_fixer_use_sudo         = 1                     " Call command with dry-run option
 " }}}
 " ## QuickRun, Quicklaunch & xUnit {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
