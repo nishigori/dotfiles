@@ -33,6 +33,7 @@ case "${OSTYPE}" in
         plugins=( \
             osx brew \
             autojump \
+            knife \
             nyan \
             ant \
             git github git-flow-avh ssh-agent vagrant capistrano \
@@ -48,6 +49,7 @@ case "${OSTYPE}" in
             plugins=( \
                 yum gnu-utils \
                 autojump \
+                knife \
                 nyan \
                 ant \
                 terminitor \
@@ -60,6 +62,7 @@ case "${OSTYPE}" in
             plugins=( \
                 debian gnu-utils \
                 autojump \
+                knife \
                 nyan \
                 ant \
                 terminitor \
