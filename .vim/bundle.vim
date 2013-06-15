@@ -257,7 +257,7 @@ autocmd FileType nginx NeoBundleSource 'neocomplcache-nginx-snippet'
 " My Plugins {{{
 "@todo FIXME: invalid completefunc for neocom into vim-symfony
 "NeoBundle 'nishigori/vim-symfony'
-NeoBundle 'nishigori/vim-multiple-switcher'
+NeoBundle 'nishigori/vim-multiple-switcher', 'develop'
 NeoBundle 'nishigori/vim-sunday'
 NeoBundleLazy 'nishigori/vim-php-dictionary'
 autocmd FileType php NeoBundleSource vim-php-dictionary
