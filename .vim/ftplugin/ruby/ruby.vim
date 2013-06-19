@@ -4,18 +4,19 @@ setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal softtabstop=0
 setlocal expandtab
+setlocal foldmethod=syntax
 
 " Input
 "" Plugin: smartchr
 inoremap <expr> = smartchr#one_of(' = ', ' == ', '=', '==', ' = ')
-inoremap <expr> # smartchr#one_of('# ', '#=> ', '#', '# ')
+inoremap <expr> # smartchr#one_of('#', '# ', '#=> ', '#')
 inoremap <expr> < smartchr#one_of('<', ' << ', '<<', '<')
 inoremap <expr> > smartchr#one_of('>', ' => ', '=>')
 inoremap <expr> ! smartchr#one_of('!', ' != ', ' !~ ', '!=', '!~','!')
 
 " OMNI COMPLETE
-"let g:rubycomplete_buffer_loading    = 1
-"let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_buffer_loading    = 1
+let g:rubycomplete_classes_in_global = 1
 "let g:rubycomplete_rails             = 1
 
 " :h ruby
