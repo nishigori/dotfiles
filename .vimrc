@@ -12,12 +12,12 @@ endif
 if !has('gui_macvim') || !has('kaoriya')
   " INFO: If encode is fixed, :e ++enc = {encoding-name}
   set encoding=utf-8
-  set fileencodings=utf-8,shitjis,euc-jp,iso-2022-jp
+  set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
 endif
 if has('win32')
   set encoding=utf-8
   set termencoding=&encoding
-  set fileencodings=utf-8,cp932,shitjis,euc-jp,iso-2022-jp
+  set fileencodings=utf-8,cp932,shiftjis,euc-jp,iso-2022-jp
 endif
 " }}}
 " # Basic "{{{
