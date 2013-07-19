@@ -1093,6 +1093,7 @@ let g:sunday_pairs = [
   \ ['light', 'dark'],
   \ ['extends', 'implements'],
   \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
+  \ ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
   \ ]
 " }}}
 " ## vim-symfony {{{
