@@ -1169,8 +1169,10 @@ let g:jscomplete_use = ['dom']
 " }}}
 " ## vim-rooter {{{
 silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
-" cd の代わりに lcd を使う
+let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
+let g:rooter_patterns = ['.git/', 'Rakefile', 'composer.json', 'build.xml']
+let g:rooter_change_directory_for_non_project_files = 0
 " }}}
 " ## context_filetype.vim {{{
 let g:context_filetype#filetypes = {
