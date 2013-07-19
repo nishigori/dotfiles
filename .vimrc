@@ -1172,6 +1172,25 @@ silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
 " cd の代わりに lcd を使う
 let g:rooter_use_lcd = 1
 " }}}
+" ## context_filetype.vim {{{
+let g:context_filetype#filetypes = {
+  \ 'perl6' : [{
+  \   'start' : 'Q:PIR\s*{',
+  \   'end' : '}',
+  \   'filetype' : 'pir',
+  \ }],
+  \ 'vim' : [{
+  \   'start' : '^\s*python <<\s*\(\h\w*\)',
+  \   'end' : '^\1',
+  \   'filetype' : 'python',
+  \ }],
+  \ 'markdown': [{
+  \   'start' : '^\s*```\s*\(\h\w*\)',
+  \   'end' : '^\s*```$',
+  \   'filetype' : '\1',
+  \ }],
+  \}
+" }}}
 " # [unite] Mappings "{{{
 " The prefix key.
 nnoremap [unite] <Nop>

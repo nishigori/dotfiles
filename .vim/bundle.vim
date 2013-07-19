@@ -71,6 +71,11 @@ NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " Syntax {{{
 NeoBundle 'scrooloose/syntastic'
+" neocomplete requires vim 7.3.885 or above.
+NeoBundle 'Shougo/neocomplete', {
+  \ 'depends' : 'Shougo/context_filetype.vim',
+  \ 'vim_version' : '7.3.885'
+  \ }
 " }}}
 " Complete, Snippet {{{
 NeoBundle 'Shougo/neocomplcache'
