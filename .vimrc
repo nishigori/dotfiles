@@ -665,6 +665,7 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_split_action        = 'left'
   "let g:vimfiler_execute_file_list   = 'vim'
+  let g:vimfiler_ignore_pattern = '^.*\%(.git\|.DS_Store\|.idea\|.iml\)$'
   let g:vimfiler_edit_action         = 'open'
   let g:vimfiler_sort_type           = 'filename'
   let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
