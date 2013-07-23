@@ -33,12 +33,12 @@ case "${OSTYPE}" in
         plugins=( \
             osx brew \
             autojump \
-            knife \
+            vagrant knife \
             nyan \
             ant \
-            git github git-flow-avh ssh-agent vagrant capistrano \
-            python pip mercurial \
-            ruby rbenv gem rake bundler rails3 \
+            git github git-flow-avh ssh-agent \
+            python pip mercurial virtualenv virtualenvwrapper \
+            ruby rbenv gem rake bundler rails4 capistrano \
             scala \
             gradle \
             composer symfony2 \
@@ -49,26 +49,26 @@ case "${OSTYPE}" in
             plugins=( \
                 yum gnu-utils \
                 autojump \
-                knife \
+                vagrant knife \
                 nyan \
                 ant \
                 terminitor \
                 git git-flow-avh ssh-agent \
-                python pip mercurial \
-                ruby rbenv gem rake bundler capistrano \
+                python pip mercurial virtualenv virtualenvwrapper \
+                ruby rbenv gem rake bundler rails4 capistrano \
                 composer symfony2 cake \
                 )
         else
             plugins=( \
                 debian gnu-utils \
                 autojump \
-                knife \
+                vagrant knife \
                 nyan \
                 ant \
                 terminitor \
                 git git-flow-avh github ssh-agent \
-                python pip mercurial \
-                ruby rbenv gem rake bundler capistrano \
+                python pip mercurial virtualenv virtualenvwrapper \
+                ruby rbenv gem rake bundler rails4 capistrano \
                 composer symfony2 \
                 )
         fi
