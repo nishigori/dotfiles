@@ -985,6 +985,13 @@ if has('clientserver')
     \     'runner' : 'vimproc',
     \     'outputter' : 'buffer',
     \   },
+    \   'ruby': {
+    \ 'command': 'irb',
+    \ 'cmdopt': '--simple-prompt',
+    \ 'runner': 'process_manager',
+    \ 'runner/process_manager/load': "load '%s'",
+    \ 'runner/process_manager/prompt': '>> ',
+    \   },
     \   'ruby.rspec' : {
     \     'command' : "spec -l {line('.')",
     \   },

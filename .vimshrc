@@ -1,3 +1,5 @@
+let $PATH="~/bin:~/.rbenv/bin:".$PATH
+
 alias l  = 'ls -l'
 alias ll = 'ls -l'
 alias a  = 'ls -al'
