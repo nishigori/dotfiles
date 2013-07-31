@@ -768,6 +768,9 @@ nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
+" ## unite-bookmark {{{
+autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
+" }}}
 " ## unite-tag {{{
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
 autocmd BufEnter *
