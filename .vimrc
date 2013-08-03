@@ -529,6 +529,7 @@ endif
 if !g:my_config_use_plugin
   " TODO: install script
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
+  " ここまで読んだらお前は死ぬ
   finish
 endif
 " ## vim-multiple-switcher {{{
