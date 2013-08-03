@@ -79,6 +79,7 @@ endif
 "if has('gui_macvim')
 if has('mac')
   set transparency=8
+  set noimdisableactivate
 elseif has('win32')
   "set guioptions+=C
   gui
