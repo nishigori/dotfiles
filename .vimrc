@@ -143,8 +143,8 @@ setlocal softtabstop=0
 :let g:vim_indent_cont = 2
 " }}}
 " # Filetype Detect {{{
-" SQL
-let g:sql_type_default = 'mysql'
+" Moved ~/.vim/filetype.vim
+let g:sql_type_default = 'mysql' " SQL
 " }}}
 " # Color Scheme {{{
 set t_Co=256
