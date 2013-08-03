@@ -22,15 +22,16 @@ endif
 " }}}
 " # Basic "{{{
 "filetype plugin indent on
-set nocompatible              " Use Vim defaults (much better!)
-set showcmd                   " Highliting bracket set.
-set hidden                    " Enable open new file, when while editing other file.
+set nocompatible               " Use Vim defaults (much better!)
+set showcmd                    " Highliting bracket set.
+set hidden                     " Enable open new file, when while editing other file.
 set autoread
 set history=255
-set viminfo='20,\"50          " Read/write a .viminfo file, don't store more than 50 lines of registers
-set backspace=indent,eol,start" Allow backspacing over everything in insert mode
+set viminfo='20,\"50           " Read/write a .viminfo file, don't store more than 50 lines of registers
+set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set ambiwidth=double
-set virtualedit+=block        " Block-select to the end of the line for blockwise Visual mode.
+set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
+set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
 
 " help
 set helplang=ja,en
@@ -112,6 +113,7 @@ if has('syntax')
   syntax enable
   set synmaxcol=1500
   setlocal nospell
+  scriptencoding utf-8
 
   set list
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
