@@ -32,33 +32,13 @@ set backspace=indent,eol,start " Allow backspacing over everything in insert mod
 set ambiwidth=double
 set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
+set title
+set completeopt=menuone        " チラツキ防止
 
-" help
 set helplang=ja,en
-nnoremap <C-h><C-h> :<C-u>help<Space>
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
-set title
-"function! s:titlestring() "{{{
-"if exists('t:cwd')
-"return t:cwd . ' (tab)'
-"elseif haslocaldir()
-"return getcwd() . ' (local)'
-"else
-"return getcwd()
-"endif
-"endfunction "}}}
-"let &titlestring = '%{SandboxCallOptionFn("titlestring")}'
-
-"チラツキ防止
-set completeopt=menuone
-
 let mapleader = " "
-
-augroup CurrentLineBeforeChanged
-  " 前回終了したカーソル行に移動
-  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
 " }}}
 " Local Dependency
 set nobackup noswapfile
@@ -70,6 +50,9 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   source $HOME/.vimrc.local
 
   let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
+  " Quick start my vimrc
+  nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
+  "nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
 
   " Use weekly buffer for GTD.
   nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<CR>
@@ -109,11 +92,10 @@ vnoremap q; q:
 " }}}
 " # Syntax {{{
 if has('syntax')
-  " zg (z-good), zw (z-warning)
   syntax enable
   set synmaxcol=1500
-  setlocal nospell
-  scriptencoding utf-8
+  set nospell
+  "scriptencoding utf-8
 
   set list
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
@@ -135,7 +117,6 @@ endif
 " # Indent {{{
 set autoindent
 set expandtab " replaced Tab with Indent
-"setlocal ts=4 sw=4 sts=0 " [ts: Tab's space, sw: autoIndent's space, sts: replaced <Tab> space]
 setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=0
@@ -175,7 +156,7 @@ endif
 nnoremap <silent> <Leader>hs :<C-u>HighlightCurrentLine Search<CR>
 nnoremap <silent> <Leader>hd :<C-u>HighlightCurrentLine DiffAdd<CR>
 nnoremap <silent> <Leader>he :<C-u>HighlightCurrentLine Error<CR>
-nnoremap <silent> <Leader>H :<C-u>UnHighlightCurrentLine<CR>
+nnoremap <silent> <Leader>H  :<C-u>UnHighlightCurrentLine<CR>
 command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
 command! -nargs=0 UnHighlightCurrentLine match
 " }}}
@@ -225,8 +206,8 @@ nnoremap <silent> <S-Tab> :<C-u>tabprevious<CR>
 " }}}
 " # Search {{{
 set hlsearch    " Highlight search option
-set incsearch   " typed so far, matches
-set ignorecase
+set incsearch   " Typed so far, matches
+set ignorecase  " Ignoring case in a pattern
 set smartcase   " Override ignorecase option (search contains upper case).
 set nowrapscan  " Searches nowrap around.
 
@@ -251,7 +232,6 @@ if has('clipboard')
 endif
 " }}}
 " # Insert {{{
-" 括弧を自動補完
 inoremap { {}<LEFT>
 inoremap [ []<LEFT>
 inoremap ( ()<LEFT>
@@ -264,7 +244,7 @@ inoremap "" "
 inoremap '' '
 inoremap `` `
 
-inoremap <C-r> \n
+inoremap <C-r> <CR>
 
 cnoremap { {}<LEFT>
 cnoremap [ []<LEFT>
@@ -280,19 +260,23 @@ inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
 inoremap <expr> ,dd strftime('%Y-%m-%d')
 inoremap <expr> ,dt strftime('%H:%M:%S')
 
-" 縦に連番を入力する
+" Input vertical serial number
 nnoremap <silent> co :ContinuousNumber <C-a><CR>
 vnoremap <silent> co :ContinuousNumber <C-a><CR>
-command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
+command! -count -nargs=1 ContinuousNumber
+  \ let c = col('.')
+  \ | for n in range(1, <count>?<count>-line('.'):1)
+  \ |   exec 'normal! j' . n . <q-args>
+  \ |   call cursor('.', c)
+  \ | endfor
 " }}}
 " # Yank {{{
 " Like nmap 'D' and 'C'
-": No such file or directory
 nnoremap Y y$
 
 " カーソル位置の単語をヤンクした単語に置換
-nnoremap <silent> cy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
-nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> cy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
+nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
 " }}}
 " # IME Control {{{
 " <ESC> insert mode, IME off
@@ -316,6 +300,13 @@ augroup InsModeAu
 augroup END
 " }}}
 " # Moving Cursole {{{
+augroup MovementPreviousSaveLine
+  autocmd BufReadPost *
+    \ if  line("'\"") > 0 && line("'\"") <= line("$")
+    \   | exe "normal g`\"" |
+    \ endif
+augroup END
+
 " for snippet complete
 nnoremap j gj
 onoremap j gj
@@ -357,25 +348,21 @@ vnoremap <silent>gc :<C-u>normal gc<CR>
 onoremap <silent>gc :<C-u>normal gc<CR>
 
 " vim-users.jp Hack #214
-nnoremap ) t)
-nnoremap ( t(
-onoremap ) t)
-onoremap ( t(
-vnoremap ) t)
-vnoremap ( t(
+nnoremap ) f)
+nnoremap ( f(
+onoremap ) f)
+onoremap ( f(
+vnoremap ) f)
+vnoremap ( f(
 
 " Only do this part, when compiled with support for autocommands
-augroup redhat  "{{{2
+augroup RedHatEnterpriseNantoka  "{{{2
   " When editing a file, always jump to the last cursor position
   autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \   exe "normal! g'\"" |
+    \ if line("'\"") > 0 && line ("'\"") <= line("$")
+    \   | exe "normal! g'\"" |
     \ endif
 augroup END "}}}
-" }}}
-" # Quick Start $MYVIMRC {{{
-nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
-"nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
 " }}}
 " # Window {{{
 " FIXME: When setted winmin(height|width), errored unite-outline
@@ -400,37 +387,37 @@ endfunction "}}}2
 set noequalalways " Minimize Window Size
 " }}}
 " # Buffer {{{
-" inspaired @taku-o's Kwdb.vim
+" Inspaired @taku-o's Kwdb.vim
 :com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
-" 常に開いているファイルと同じディレクトリをカレントディレクトリにする
-" http://www15.ocn.ne.jp/~tusr/vim/vim_text2.html#mozTocId567011
-augroup vimrc_group__cd
-  autocmd!
-  autocmd BufEnter * execute ":lcd " . (isdirectory(expand("%:p:h")) ? expand("%:p:h") : "")
-augroup END
 " }}}
 " # Fold, View {{{
 nnoremap <Leader>f za
 set foldcolumn=4
-" NOTE: foldlevel moved to fplugin
-"setlocal foldlevel=0
-setlocal fillchars+=fold:-
-if expand('%') !~ 'vim\|php'
-  " Save fold settings. More Vim-user.jp Hack #84
-  autocmd BufWritePost * mkview
-  autocmd BufRead * silent loadview
-  " Don't save options.
-  set viewoptions-=options
-endif
+" INFO: foldlevel moved to each fplugin
+"set foldlevel=0
+set fillchars+=fold:-
+" Don't save options.
+set viewoptions-=options
 if has('win32')
   set viewoptions+=unix
 endif
+augroup MkviewAccessor " Save fold settings. Vim-user.jp Hack #84
+  autocmd!
+  autocmd BufWritePost *
+    \ if expand('%') !~ 'vim\|php\|ruby'
+    \   | exe "mkview" |
+    \ endif
+  autocmd BufRead *
+    \ if expand('%') !~ 'vim\|php\|ruby'
+    \   | exe "silent loadview" |
+    \ endif
+augroup END
 " }}}
 " # Directory {{{
 " disabled autochdir depends to Vimshell
 "set autochdir
-augroup AUTOCHDIR
+augroup AutoChDir
   autocmd!
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
 augroup END
@@ -439,9 +426,9 @@ nnoremap <silent> CD :<C-u>CD<CR>
 nnoremap <silent> gu :<C-u>GU<CR>
 " nmap `gh` is using vim-rooter
 nnoremap <silent> gH :<C-u>GH<CR>
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>') 
-command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>') 
-command! -nargs=? -complete=dir -bang GH  call s:ChangeCurrentDir('$HOME', '<bang>') 
+command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>')
+command! -nargs=? -complete=dir -bang GH  call s:ChangeCurrentDir('$HOME', '<bang>')
 function! s:ChangeCurrentDir(directory, bang) "{{{2
   if a:directory == ''
     lcd %:p:h
@@ -456,8 +443,7 @@ endfunction "}}}
 " }}}
 " # Dictionary {{{
 set dictionary=$HOME/.vim/dict/default.dict
-" TODO: <Up>と重なってるため別マップを考えなくては
-"inoremap <silent> <C-k> <C-x><C-k>
+"inoremap <silent> <C-k> <C-x><C-k> " FIXME: duplicate mapping <Up>
 " }}}
 " # Ctags {{{
 if has('path_extra') && &filetype !~ 'zsh\|conf'
@@ -475,7 +461,6 @@ if has('path_extra') && &filetype !~ 'zsh\|conf'
 endif
 " }}}
 " # Cscope {{{
-" TODO: I Want to use sometime ...
 "if has("cscope") && filereadable("/usr/bin/cscope")
 " set csprg=/usr/bin/cscope
 " set csto=0
@@ -498,19 +483,18 @@ if has('migemo')
 endif
 " }}}
 " # Omni complete {{{
-" omni_complete, completed ftplugin
+" omni_complete, completed each ftplugin
 inoremap <silent> <C-o> <C-x><C-o>
 " }}}
 " # Undo persistence {{{
 if has('persistent_undo')
-  " NOTE: When declare au for persistent_undo, no set undofile
-  "       :help persistent-undo
-  augroup UNDO_PERSISTENCE
-    au BufReadPost * call ReadUndo()
-    au BufWritePost * call WriteUndo()
+  augroup UndoPersistence
+    autocmd!
+    autocmd BufReadPost * call ReadUndo()
+    autocmd BufWritePost * call WriteUndo()
   augroup END
 
-  function! ReadUndo()  "{{{2
+  function! ReadUndo() "{{{2
     let undo_file = substitute(expand('%:p'), '\/\|\\', '\_', 'g')
     if filereadable(&undodir .'/'. undo_file)
       execute 'rundo' &undodir.'/'.undo_file
@@ -527,10 +511,8 @@ endif
 " }}}
 " Plugin
 if !g:my_config_use_plugin
-  " TODO: install script
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
-  " ここまで読んだらお前は死ぬ
-  finish
+  finish " ここまで読んだらお前は死ぬ
 endif
 " ## vim-multiple-switcher {{{
 "let g:multiple_switcher_no_default_key_maps = 1
@@ -538,10 +520,6 @@ nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
 nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
 nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
-" }}}
-" ## vim-phpunit-snippets {{{
-"let g:phpunit_snippets_default_snip = 'hoge'
-"let g:phpunit_snippet_dir = 
 " }}}
 " ## visualstar.vim {{{
 " search extended plugin.
@@ -568,11 +546,11 @@ let g:indent_guides_enable_on_vim_startup = 1
 " ## taglist.vim {{{
 if has('path_extra')
   nnoremap <silent> tl :<C-u>Tlist<CR>
-  let Tlist_Exit_OnlyWindow = 1       "taglistのウィンドーが最後のウィンドーならばVimを閉じる
-  let Tlist_WinWidth = 40
-  let Tlist_Enable_Fold_Column = 2
-  "let Tlist_Process_File_Always = 1
-  " let Tlist_Show_One_File = 1
+  let g:Tlist_Exit_OnlyWindow = 1 " Closable When last window is taglist
+  let g:Tlist_WinWidth = 40
+  let g:Tlist_Enable_Fold_Column = 2
+  "let g:Tlist_Process_File_Always = 1
+  "let g:Tlist_Show_One_File = 1
 endif
 " }}}
 " ## vimshell {{{
@@ -630,22 +608,22 @@ endif
   let g:vimshell_prompt = '└[☁ ] '
   "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
-  autocmd FileType vimshell
-    \ call vimshell#altercmd#define('g', 'git')
-    \| call vimshell#altercmd#define('i', 'iexe')
-    \| call vimshell#altercmd#define('l', 'll')
-    \| call vimshell#altercmd#define('ll', 'ls -l')
-    \| call vimshell#altercmd#define('a', 'ls -al')
-    \| call vimshell#altercmd#define('la', 'ls -al')
-    \| call vimshell#altercmd#define('cl', 'clear')
-    \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+  augroup VimshellFileTypeDetect
+    autocmd!
+    autocmd FileType vimshell
+      \  call vimshell#altercmd#define('g', 'git')
+      \  call vimshell#altercmd#define('h', 'hg')
+      \| call vimshell#altercmd#define('i', 'iexe')
+      \| call vimshell#altercmd#define('l', 'll')
+      \| call vimshell#altercmd#define('a', 'ls -al')
+      \| call vimshell#altercmd#define('ll', 'ls -l')
+      \| call vimshell#altercmd#define('la', 'ls -al')
+      \| call vimshell#altercmd#define('cl', 'clear')
+      \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+  augroup END
 
   function! g:my_chpwd(args, context)
     call vimshell#execute('ls')
-  endfunction
-
-  autocmd FileType int-* call s:interactive_settings()
-  function! s:interactive_settings()
   endfunction
 "endfunction
 " }}}
@@ -675,15 +653,21 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_marked_file_icon = '*'
 
   if has('win32')
-    let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_transhbox'
+    let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_trashbox'
   endif
 
-  " When Vim startup, exec Vimfiler
-  "autocmd VimEnter * VimFiler
-  "\ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
-  "\ -auto-cd=1
+  "augroup StartupWithVimFiler " {{{
+  "  autocmd!
+  "  autocmd VimEnter * VimFiler
+  "    \ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
+  "    \ -auto-cd=1
+  "augroup END " }}}
 endfunction
 nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
+augroup VimFilerUniteAction " {{{
+  autocmd!
+  autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
+augroup END " }}}
 " }}}
 " ## vimproc {{{
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
@@ -698,18 +682,18 @@ let g:unite_enable_start_insert = 1
 " Load session automatically.
 let g:unite_source_session_enable_auto_save = 1
 "autocmd VimEnter * UniteSessionLoad
-" window option
+" window options
 let g:unite_winheight             = 12
 "let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 120
 let g:unite_update_time           = 256
-" mru option
+" mru options
 let g:unite_source_file_mru_filename_format = ''
 let g:unite_source_file_mru_limit           = 200
-" history option
+" history options
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_history_yank_limit  = 100
-" color option
+" color options
 let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
 " aliases
@@ -717,11 +701,11 @@ let g:unite_source_alias_aliases =
   \ get(g:, 'unite_source_alias_aliases', {})
 let g:unite_source_alias_aliases.workspace = {
   \ 'source': 'file',
-  \ 'args': '~/workspace',
+  \ 'args':   '~/workspace',
   \ }
 let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
-  \ 'args': '~/workspace',
+  \ 'args':   '~/workspace',
   \ }
 let g:unite_source_menu_menus = {
   \   'shortcut' : {
@@ -758,18 +742,13 @@ nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
-" ## unite-bookmark {{{
-autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
-" }}}
 " ## unite-tag {{{
+let g:unite_tig_default_line_count = 80
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
 autocmd BufEnter *
-  \   if empty(&buftype)
-  \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-  \|  endif
-" }}}
-" ## unite-tig {{{
-let g:unite_tig_default_line_count = 80
+  \ if empty(&buftype)
+  \   | nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR> |
+  \ endif
 " }}}
 " ## unite-sf2 {{{
 " NOTE: unite-sf2 avairables is depends local environment.
@@ -777,8 +756,8 @@ let g:unite_tig_default_line_count = 80
 "let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
 " }}}
 " ## unite-grep {{{
-let g:unite_source_grep_default_opts = '-Hn'  " default
-let g:unite_source_grep_recursive_opt = '-R'  " default
+let g:unite_source_grep_default_opts = '-Hn'  " By the default
+let g:unite_source_grep_recursive_opt = '-R'  " By the default
 " }}}
 " ## vim-ref & ref-unite {{{
 let g:ref_cache_dir = s:tmpdir . '/ref_cache'
@@ -816,11 +795,11 @@ let g:ref_source_webdict_sites.default = 'weblio'
 
 " My ref filetype mapping
 let g:ref_cmd_filetype_map = {
-  \ 'php' : 'php',
-  \ 'python' : 'pydoc',
-  \ 'perl' : 'perldoc',
+  \   'python': 'pydoc',
+  \   'perl':   'perldoc',
+  \   'php':    'php',
   \ }
-"\ 'php.phpunit' : 'phpunit',
+" \   'php.phpunit' : 'phpunit',
 " }}}
 " ## neocomplcache {{{
 call neobundle#config('neocomplcache', {
@@ -931,13 +910,13 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-" 一時的
+" Onetime :p
 nnoremap <Leader>ns :<C-u>NeoSnippetEdit<CR>
 
-	" For snippet_complete marker.
-	if has('conceal')
-	  set conceallevel=2 concealcursor=i
-	endif
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 " }}}
 " ## TweetVim {{{
 let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
@@ -975,15 +954,15 @@ if has('clientserver')
     \     'runner' : 'vimproc',
     \     'outputter' : 'buffer',
     \   },
-    \   'ruby': {
-    \ 'command': 'irb',
-    \ 'cmdopt': '--simple-prompt',
-    \ 'runner': 'process_manager',
-    \ 'runner/process_manager/load': "load '%s'",
-    \ 'runner/process_manager/prompt': '>> ',
+    \   'ruby' : {
+    \     'command' : 'irb',
+    \     'cmdopt' : '--simple-prompt',
+    \     'runner' : 'process_manager',
+    \     'runner/process_manager/load' : "load '%s'",
+    \     'runner/process_manager/prompt' : '>> ',
     \   },
     \   'ruby.rspec' : {
-    \     'command' : "spec -l {line('.')",
+    \     'command' : "rspec -l {line('.')",
     \   },
     \   'php.phpunit' : {
     \     'command' : 'phpunit',
@@ -1007,27 +986,24 @@ endif
 if has('mac')
   " TODO: Sikuli 起動は引数渡さねば??
   "let g:quickrun_config['python.sikuli'] = {
-  "\     'command' : '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
-  "\   }
+  "  \   'command': '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
+  "  \ }
 elseif has('win32')
 else  " Linux
   let g:quickrun_config['php.phpunit'] = { 'command' : 'phpunit' }
 endif
-" TODO: Add QuickRun's syntax for xUnit
+" TODO: Add QuickRun's syntax for xUnit family
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
 " }}}
 " ## vim-textmanip {{{
-" It's moved selected test-object.
-" TODO: snippet's imap dependency check.
 xmap <C-j> <Plug>(Textmanip.move_selection_down)
 xmap <C-k> <Plug>(Textmanip.move_selection_up)
 xmap <C-h> <Plug>(Textmanip.move_selection_left)
 xmap <C-l> <Plug>(Textmanip.move_selection_right)
-
 " copy selected text-object.
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
-" ## zencoding{{{
+" ## zencoding {{{
 let g:user_zen_leader_key = '<C-S-z>'
 let g:user_zen_expandabbr_key = '<C-z>'
 let g:user_zen_settings = {
@@ -1063,7 +1039,7 @@ let g:user_zen_settings = {
   \  },
   \ }
 "}}}
-" ## vim-vcs{{{
+" ## vim-vcs {{{
 let g:vcs#config_log_file = s:tmpdir . '/vcs'
 " }}}
 " ## vim-fugitive {{{
@@ -1073,9 +1049,8 @@ let g:vcs#config_log_file = s:tmpdir . '/vcs'
 "        -でstageとunstageの切り替え
 "        pでパッチを表示
 "        Enterでファイル表示
-"    :Gstatusの画面上で
 "        Cでcommit
-"    * help ：Gstatus
+"    * :help Gstatus
 nnoremap <Leader>gb :<C-u>Gblame<CR>
 nnoremap <Leader>gd :<C-u>Gdiff<CR>
 nnoremap <Leader>gD :<C-u>Gdiff --cached<CR>
@@ -1084,10 +1059,6 @@ nnoremap <Leader>ga :<C-u>Gwrite<CR>
 nnoremap <Leader>gA :<C-u>Gwrite <cfile><CR>
 nnoremap <Leader>gc :<C-u>Gcommit<CR>
 "}}}
-" ## vim-ambicmd {{{
-" FIXME: <Space>打つと何故かバックスラッシュ入る
-"cnoremap <expr> <Space> ambicmd#expand('\<Space>')
-" }}}
 " ## vim-sunday {{{
 " My plugin. inspaired toggle.vim, monday.vim
 let g:sunday_pairs = [
@@ -1172,7 +1143,14 @@ let g:jscomplete_use = ['dom']
 silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
 let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
-let g:rooter_patterns = ['.git/', 'Rakefile', 'composer.json', 'build.xml']
+let g:rooter_patterns = [
+  \   '.git/', '.hg/',
+  \   'Gemfile', 'Rakefile', 'Guardfile',
+  \   'Vagrantfile',
+  \   'composer.json',
+  \   'build.xml',
+  \   'build.gradle',
+  \ ]
 let g:rooter_change_directory_for_non_project_files = 0
 " }}}
 " ## context_filetype.vim {{{

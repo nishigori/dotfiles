@@ -1,31 +1,29 @@
+let g:use_plugin = 0 " 0: Disabled loading code depends plugin, 1: Enabled
+
 let g:local_config = {
-  \ 'dotfiles_dir'        : $HOME . '/dotfiles',
+  \ 'dotfiles_dir'        : $HOME . '/src/dotfiles',
   \ 'tmp_dir'             : $HOME . '/.vim/tmp',
   \ 'weekly_buffer_dir'   : $HOME . '/.vim/tmp/.gtd',
   \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref/php',
   \ 'ref_jquery_path'     : $HOME . '/.vim/ref/jqapi-latest',
-  \ 'phpunit_dir'         : 'ctags_dir',
   \ }
 
 " Not use white space into the statement (Suck!!)
-set directory=~/.vim/tmp/swap,/tmp,.
-set backupdir=~/.vim/tmp/backup,/tmp,.
-set viewdir=~/.vim/tmp/view,/tmp,.
+set directory=~/.vim/tmp/swap
+set backupdir=~/.vim/tmp/backup
+set viewdir=~/.vim/tmp/view
 if has('persistent_undo')
   set undodir=~/.vim/tmp/undo
 endif
 
 " colorscheme
 if !has('gui_running')
-  let g:colors_name = 'hybrid'
+  let g:colors_name = 'diablo3'
   set background=dark
 endif
 
-"" Sphinx bin path
+" Sphinx bin path
 let g:sphinx_build_bin = '/usr/share/python/sphinx-build'
-
-" If g:use_plugin is 0, no load vimrc block code depends plugin
-let g:use_plugin = 0
 
 let s:ramdisk_dir       = '/tmp/ramdisk'
 let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
@@ -34,8 +32,7 @@ let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
 let g:ruby_bin = '/usr/local/bin/ruby'
 
 " neobundle {{{
-" FIXME: neobundle is no support `http` protocol
-"g:neobundle_default_git_protocol = 'http'
+let g:neobundle_default_git_protocol = 'https'
 " }}}
 " unite.vim {{{
 let s:unite_date_directory_suffix = 'unite'
