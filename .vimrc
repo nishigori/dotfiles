@@ -154,15 +154,13 @@ if !has('gui_runnig') || !g:my_config_use_plugin || !exists('g:colors_name')
 endif
 
 let g:solarized_termcolors = 256  " CASE: g:colors_name is solarized
-highlight StatusLine term=NONE cterm=NONE ctermfg=white ctermbg=black
-" add cursorline at the current window.
+
+" Add cursorline at the current window.
 augroup cch
   autocmd!
   autocmd WinLeave * set nocursorline
   autocmd WinEnter,BufRead * set cursorline
 augroup END
-highlight CursorLine ctermbg=black guibg=black
-highlight CursorColumn ctermbg=black guibg=black
 
 let g:apache_version = '2.0' " apache highliting
 
@@ -304,10 +302,12 @@ set noimcmdline
 inoremap <silent> <C-@> <ESC>:set iminsert=0<CR>
 inoremap <silent> <C-]> <ESC>:set iminsert=0<CR>
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-"IME状態に応じたカーソル色を設定
 if has('multi_byte_ime')
-  highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
-  highlight CursorIM guifg=NONE guibg=#ecbcbc
+  augroup MutibyteIMEStrategy
+    autocmd!
+    autocmd ColorScheme * highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
+    autocmd ColorScheme * highlight CursorIM guifg=NONE guibg=#ecbcbc
+  augroup END
 endif
 augroup InsModeAu
   autocmd!
