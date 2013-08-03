@@ -119,9 +119,6 @@ if has('syntax')
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
   set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
 
-  " POD bug (version 7.3?)
-  autocmd BufEnter * :syntax sync fromstart
-
   " whitespaceEOL on highlight via. gunyara. alias lists[trail]
   highlight WhitespaceEOL ctermbg=red guibg=red
   match WhitespaceEOL /s+$/
