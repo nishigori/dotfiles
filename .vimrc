@@ -119,24 +119,11 @@ if has('syntax')
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
   set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
 
-  " whitespaceEOL on highlight via. gunyara. alias lists[trail]
-  highlight WhitespaceEOL ctermbg=red guibg=red
-  match WhitespaceEOL /s+$/
-
-  if has('mac')
-    set noimdisableactivate
-    highlight ZenkakuSpace gui=underline guibg=DarkBlue cterm=underline ctermfg=LightBlue
-    match ZenkakuSpace /　/
-  else
-    augroup ZenkakuSpace "{{{
-      autocmd!
-      autocmd VimEnter,BufEnter * call ZenkakuSpace()
-    augroup END "}}}
-    function! ZenkakuSpace() "{{{
-      highlight ZenkakuSpace cterm=underline ctermfg=red gui=underline guifg=red
-      silent! match ZenkakuSpace /　/
-    endfunction "}}}
-  endif
+  augroup ZenSpace
+    autocmd!
+    autocmd ColorScheme * highlight ZenSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+    autocmd WinEnter,BufRead,ColorScheme * match ZenSpace /　\|\s\+$/
+  augroup END
 
   set relativenumber
   set numberwidth=4
