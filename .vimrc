@@ -125,7 +125,10 @@ if has('syntax')
     autocmd WinEnter,BufRead,ColorScheme * match ZenSpace /　\|\s\+$/
   augroup END
 
-  set relativenumber
+  if v:version >= 703
+    set relativenumber number
+  endif
+  set number
   set numberwidth=4
 endif
 " }}}
