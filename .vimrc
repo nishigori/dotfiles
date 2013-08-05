@@ -612,7 +612,7 @@ endif
     autocmd!
     autocmd FileType vimshell
       \  call vimshell#altercmd#define('g', 'git')
-      \  call vimshell#altercmd#define('h', 'hg')
+      \| call vimshell#altercmd#define('h', 'hg')
       \| call vimshell#altercmd#define('i', 'iexe')
       \| call vimshell#altercmd#define('l', 'll')
       \| call vimshell#altercmd#define('a', 'ls -al')
