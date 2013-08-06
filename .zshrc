@@ -36,7 +36,7 @@ case "${OSTYPE}" in
             vagrant knife \
             nyan \
             ant \
-            git github git-flow-avh ssh-agent \
+            git git-flow-avh ssh-agent \
             python pip mercurial virtualenv virtualenvwrapper \
             ruby rbenv gem rake bundler rails4 capistrano \
             scala \
@@ -76,4 +76,3 @@ case "${OSTYPE}" in
 esac
 
 source $ZSH/oh-my-zsh.sh
-eval "$(rbenv init -)"
