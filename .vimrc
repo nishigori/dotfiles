@@ -832,11 +832,12 @@ function! s:my_cr_function()
 endfunction
 " }}}
 " ## neosnippet {{{
-let g:neocomplcache_snippets_dir =
+let g:neosnippet#snippets_directory =
   \ s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
-  \ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
   \ .','. $HOME . '/.vim/snippets'
-  \ .','. s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
+  " TODO: Update phpunit snippet for neosnippet
+  "\ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
+  "\ .','. s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
 
 nmap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
 imap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
