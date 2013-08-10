@@ -44,10 +44,11 @@ let mapleader = " "
 set nobackup noswapfile
 let g:my_config_use_plugin = get(g:, 'my_config_use_plugin', 0)
 
-if filereadable(expand($HOME. '/.vimrc.local'))
+let $MYVIMRC_LOCAL = $HOME . '/.vimrc.local'
+if filereadable(expand($MYVIMRC_LOCAL))
   set backup swapfile
   " INFO: Read more .vimrc.local.dist
-  source $HOME/.vimrc.local
+  source $MYVIMRC_LOCAL
 
   let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
   " Quick start my vimrc
@@ -676,7 +677,9 @@ let g:unite_source_menu_menus = {
   \     'description' : '',
   \     'command_candidates' : [
   \       ['edit vimrc', 'edit $MYVIMRC'],
+  \       ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
   \       ['edit gvimrc', 'edit $MYGVIMRC'],
+  \       ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
   \     ],
   \   },
   \}
