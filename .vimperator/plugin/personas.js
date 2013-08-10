@@ -125,7 +125,7 @@ let options = [
   ["iconURL", ["-i", "-icon"], commands.OPTION_STRING, null, fileCompleter]
 ];
 commands.addUserCommand(['personas'], "Personas Theme",
-  function(args){
+  function(args) {
     let id = args[0];
     if (id == "null"){
       LightweightThemeManager.currentTheme = null;
@@ -155,13 +155,25 @@ commands.addUserCommand(['personas'], "Personas Theme",
         title: ["Name","Description"],
         keys: { text: "id", description: "name", icon: "iconURL" },
         process: [
-          function name(item, text) <span sltyle="vertial-align: center">
-            <img src={item.icon}/><span>{item.item.id}</span>
-          </span>,
-          function desc(item, text) <>
-            <img src={item.item.previewURL} align="left" style="height:3em;"/>
-            <span>{item.item.name}<br/>{item.item.description}</span>
-          </>,
+          //function name(item, text) <span style="vertial-align: center">
+            //<img src={item.icon}/><span>{item.item.id}</span>
+          //</span>,
+          function name(item, text) {
+            return xml`<span style="vertial-align: center">
+              <img src={item.icon}/><span>{item.item.id}</span>
+            </span>`;
+          },
+
+          //function desc(item, text) <>
+            //<img src={item.item.previewURL} align="left" style="height:3em;"/>
+            //<span>{item.item.name}<br/>{item.item.description}</span>
+          //</>,
+          function desc(item, text) {
+            return xml`
+              <img src={item.item.previewURL} align="left" style="height:3em;"/>
+              <span>{item.item.name}<br/>{item.item.description}</span>
+            `;
+          },
         ]
       }
       context.completions = LightweightThemeManager.usedThemes;
