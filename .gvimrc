@@ -33,14 +33,14 @@ else
   let $MYGVIMRC = $HOME . '/' . s:gvimrc
   let $MYGVIMRC_LOCAL = $HOME . '/' . s:gvimrc_local
 endif
-nnoremap e> :<C-u>edit $MYGVIMRC<Cr>
-nnoremap eS :<C-u>source $MYGVIMRC<Cr>
+nnoremap e> :<C-u>edit $MYGVIMRC<CR>
+nnoremap eS :<C-u>source $MYGVIMRC<CR>
 " }}}
 " # Window {{{
 set lines=80
 set columns=120
 
-nnoremap <silent> ZZ :<C-u>close<Cr>
+nnoremap <silent> ZZ :<C-u>close<CR>
 " }}}
 " # Font {{{
 " INFO:

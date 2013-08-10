@@ -52,7 +52,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
   let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
   " Quick start my vimrc
   nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
-  "nnoremap <silent> es :<C-u>source $MYVIMRC<CR>
+  nnoremap <silent> eS :<C-u>source $MYVIMRC<CR>
 
   " Use weekly buffer for GTD.
   nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<CR>
@@ -69,7 +69,7 @@ if filereadable(expand($HOME. '/.vimrc.local'))
     endfor
   endfunction " }}}
   " Bundle {{{
-  if g:my_config_use_plugin
+  if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     source $HOME/.vim/bundle.vim
     let s:bundle_dir = $HOME . '/.vim/bundle'
   endif
