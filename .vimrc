@@ -1055,22 +1055,16 @@ nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
 nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
 " }}}
-" Plugin: submode.vim (Reside Window) {{{
-function! s:resizeWindow()
-  call submode#enter_with('winsize', 'n', '', 'mws', '<Nop>')
-  call submode#leave_with('winsize', 'n', '', '<Esc>')
-
-  let curwin = winnr()
-  wincmd j | let target1 = winnr() | execute curwin "wincmd w"
-  wincmd l | let target2 = winnr() | execute curwin "wincmd w"
-
-  execute printf("call submode#map ('winsize', 'n', 'r', 'j', '<C-w>%s')", curwin == target1 ? "-" : "+")
-  execute printf("call submode#map ('winsize', 'n', 'r', 'k', '<C-w>%s')", curwin == target1 ? "+" : "-")
-  execute printf("call submode#map ('winsize', 'n', 'r', 'h', '<C-w>%s')", curwin == target2 ? ">" : "<")
-  execute printf("call submode#map ('winsize', 'n', 'r', 'l', '<C-w>%s')", curwin == target2 ? "<" : ">")
-endfunction
-
-nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
+" Plugin: submode.vim {{{
+" Reside Window
+call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
+call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
+call submode#map('winsize', 'n', '', '>', '<C-w>>')
+call submode#map('winsize', 'n', '', '<', '<C-w><')
+call submode#map('winsize', 'n', '', '+', '<C-w>-')
+call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
 " Plugin: vim-airline {{{
 let g:airline_theme = 'badwolf'
