@@ -662,8 +662,7 @@ let g:unite_source_history_yank_limit  = 100
 let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
 " aliases
-let g:unite_source_alias_aliases =
-  \ get(g:, 'unite_source_alias_aliases', {})
+let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
 let g:unite_source_alias_aliases.workspace = {
   \ 'source': 'file',
   \ 'args':   '~/workspace',
@@ -672,17 +671,26 @@ let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
   \ 'args':   '~/workspace',
   \ }
-let g:unite_source_menu_menus = {
-  \   'shortcut' : {
-  \     'description' : '',
-  \     'command_candidates' : [
-  \       ['edit vimrc', 'edit $MYVIMRC'],
-  \       ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
-  \       ['edit gvimrc', 'edit $MYGVIMRC'],
-  \       ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
-  \     ],
-  \   },
-  \}
+" source menus
+let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
+let g:unite_source_menu_menus.shortcut =
+  \ {
+  \   'description' : '',
+  \   'command_candidates' : [
+  \     ['edit vimrc', 'edit $MYVIMRC'],
+  \     ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
+  \     ['edit gvimrc', 'edit $MYGVIMRC'],
+  \     ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
+  \   ],
+  \ }
+let g:unite_source_menu_menus.interactive_chan =
+  \ {
+  \   'description': '',
+  \   'command_candidates': [
+  \     ['ruby', 'VimShellInteractive ruby'],
+  \     ['python', 'VimShellInteractive python'],
+  \   ],
+  \ }
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
 let g:unite_source_file_ignore_pattern =
@@ -1150,7 +1158,7 @@ nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
-nnoremap <silent> [unite]M :<C-u>Unite mapping -no-start-insert<CR>
+nnoremap <silent> [unite]M :<C-u>Unite menu<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
