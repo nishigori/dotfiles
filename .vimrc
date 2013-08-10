@@ -10,13 +10,13 @@ endif
 " # encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
 if !has('gui_macvim') || !has('kaoriya')
-  " INFO: If encode is fixed, :e ++enc = {encoding-name}
+  " INFO: If encode is fixed, :e ++enc={encoding-name}
   set encoding=utf-8
   set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
 endif
 if has('win32')
-  set encoding=utf-8
   set termencoding=&encoding
+  set encoding=utf-8
   set fileencodings=utf-8,cp932,shiftjis,euc-jp,iso-2022-jp
 endif
 " }}}
@@ -121,11 +121,11 @@ endif
 " # Indent {{{
 set autoindent
 set expandtab " replaced Tab with Indent
-setlocal tabstop=4
-setlocal shiftwidth=4
-setlocal softtabstop=0
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
 
-:let g:vim_indent_cont = 2
+let g:vim_indent_cont = 2
 " }}}
 " # Filetype Detect {{{
 " Moved ~/.vim/filetype.vim
@@ -335,7 +335,7 @@ inoremap <C-f> <Right>
 inoremap <C-d> <Delete>
 
 cnoremap <C-a> <Home>
-cnoremap <C-e> <END>
+cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-l> <C-d>
@@ -392,7 +392,7 @@ set noequalalways " Minimize Window Size
 " }}}
 " # Buffer {{{
 " Inspaired @taku-o's Kwdb.vim
-:com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
+com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
 nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
 " }}}
 " # Fold, View {{{
@@ -409,11 +409,11 @@ endif
 augroup MkviewAccessor " Save fold settings. Vim-user.jp Hack #84
   autocmd!
   autocmd BufWritePost *
-    \ if expand('%') !~ 'vim\|php\|ruby'
+    \ if &filetype !~ 'vim\|php\|ruby'
     \   | exe "mkview" |
     \ endif
   autocmd BufRead *
-    \ if expand('%') !~ 'vim\|php\|ruby'
+    \ if &filetype !~ 'vim\|php\|ruby'
     \   | exe "silent loadview" |
     \ endif
 augroup END
@@ -426,7 +426,7 @@ augroup AutoChDir
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
 augroup END
 " Change directory. vim-users.jp Hack #69
-nnoremap <silent> CD :<C-u>CD<CR>
+nnoremap <silent> cd :<C-u>CD<CR>
 nnoremap <silent> gu :<C-u>GU<CR>
 " nmap `gh` is using vim-rooter
 nnoremap <silent> gH :<C-u>GH<CR>
@@ -615,10 +615,8 @@ vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
 " Plugin: visualstar.vim {{{
 " search extended plugin.
-if exists('g:loaded_visualstar')
-  map * <Plug>(visualstar-*)N
-  map # <Plug>(visualstar-#)N
-endif
+map * <Plug>(visualstar-*)N
+map # <Plug>(visualstar-#)N
 " }}}
 " Plugin: alignta {{{
 vnoremap <silent> > :Alignta =><CR>
@@ -685,7 +683,7 @@ if has('clientserver')
     \     'runner/process_manager/prompt' : '>> ',
     \   },
     \   'ruby.rspec' : {
-    \     'command' : "rspec -l {line('.')",
+    \     'command' : "rspec -l %{line('.')}",
     \   },
     \   'php.phpunit' : {
     \     'command' : 'phpunit',
@@ -711,9 +709,6 @@ if has('mac')
   "let g:quickrun_config['python.sikuli'] = {
   "  \   'command': '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
   "  \ }
-elseif has('win32')
-else  " Linux
-  let g:quickrun_config['php.phpunit'] = { 'command' : 'phpunit' }
 endif
 " TODO: Add QuickRun's syntax for xUnit family
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
@@ -808,14 +803,6 @@ imap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
 smap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
 "imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
 imap <silent> <C-s> <Plug>(neosnippet_start_unite_snippet)
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" Onetime :p
-nnoremap <Leader>ns :<C-u>NeoSnippetEdit<CR>
 
 " For snippet_complete marker.
 if has('conceal')
