@@ -1090,10 +1090,10 @@ let g:airline_detect_paste     = 1
 let g:airline_powerline_fonts  = 0
 " }}}
 " ## vim-powerline {{{
-let g:Powerline_cache_file  = s:tmpdir . '/Powerline.cache'
+"let g:Powerline_cache_file  = s:tmpdir . '/Powerline.cache'
 "let g:Powerline_symbols    = 'fancy'
 "let g:Powerline_theme = 'solarized256'
-let g:Powerline_colorscheme = 'solarized256'
+"let g:Powerline_colorscheme = 'solarized256'
 " }}}
 " ## jscomplatete.vim {{{
 let g:jscomplete_use = ['dom']
