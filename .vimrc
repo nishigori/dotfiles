@@ -668,7 +668,6 @@ if has('clientserver')
     \     'runner/vimproc' : 90,
     \     'runner/vimproc/updatetime' : 90,
     \     'outputter' : 'buffer',
-    \     'splist' : '{"rigitbelow 50vsp"}',
     \   },
     \   'run/vimproc' : {
     \     'exec' : '%s:p:r %a',
@@ -700,7 +699,6 @@ if has('clientserver')
       \     'command': g:sphinx_build_bin,
       \     'hook/sphinx/enable' : 1,
       \     'cmdopt': '-b html',
-      \     'splist' : '{"rigitbelow 65vsp"}',
       \ }
   endif
 endif
