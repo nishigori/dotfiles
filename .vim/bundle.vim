@@ -99,7 +99,7 @@ NeoBundle 'thinca/vim-ambicmd'
 " }}}
 " Text operation {{{
 NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'smartchr'
 NeoBundle 'scrooloose/nerdcommenter'

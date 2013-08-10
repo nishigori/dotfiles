@@ -896,10 +896,11 @@ endif
 " TODO: Add QuickRun's syntax for xUnit family
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
 " }}}
-" Plugin: zencoding {{{
-let g:user_zen_leader_key = '<C-S-z>'
-let g:user_zen_expandabbr_key = '<C-z>'
-let g:user_zen_settings = {
+" Plugin: emmet-vim (Replaced from zenconding.vim ) {{{
+let g:user_emmet_mode = 'a'
+let g:user_emmet_leader_key = '<c-y>'
+let g:use_emmet_complete_tag = 1
+let g:user_emmet_settings = {
   \  'lang' : 'ja',
   \  'html' : {
   \    'filters' : 'html',
@@ -930,6 +931,9 @@ let g:user_zen_settings = {
   \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
   \    },
   \  },
+  \ 'haml': {
+  \   'extends': 'html',
+  \ }
   \ }
 "}}}
 " Plugin: vim-rooter {{{
