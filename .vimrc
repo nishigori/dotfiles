@@ -1066,6 +1066,25 @@ endfunction
 
 nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " }}}
+" ## vim-airline {{{
+let g:airline_theme = 'badwolf'
+"let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_linecolumn_prefix = '␊ '
+let g:airline_linecolumn_prefix = '␤ '
+let g:airline_linecolumn_prefix = '¶ '
+let g:airline_branch_prefix = '⎇ '
+let g:airline_paste_symbol = 'ρ'
+let g:airline_paste_symbol = 'Þ'
+let g:airline_paste_symbol = '∥'
+let g:airline_enable_branch    = 1
+let g:airline_enable_syntastic = 1
+let g:airline_detect_modified  = 1
+let g:airline_detect_paste     = 1
+let g:airline_powerline_fonts  = 0
+" }}}
 " ## vim-powerline {{{
 let g:Powerline_cache_file  = s:tmpdir . '/Powerline.cache'
 "let g:Powerline_symbols    = 'fancy'
