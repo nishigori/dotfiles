@@ -984,7 +984,7 @@ let g:unite_source_session_enable_auto_save = 1
 "autocmd VimEnter * UniteSessionLoad
 " window options
 let g:unite_winheight             = 12
-"let g:unite_split_rule            = 'below'
+let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 120
 let g:unite_update_time           = 256
 " mru options
@@ -1161,6 +1161,9 @@ nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
 "nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
+nnoremap <silent> [unite]T :<C-u>Unite -buffer-name=search line
+  \ -winheight=10 -no-quit<CR>
+  \ todo\\|fixme\\|warn\\|hackme<ESC>
 " for current buffer
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
