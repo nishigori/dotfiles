@@ -1134,8 +1134,6 @@ let g:php_cs_fixer_fixers_list     = ""                    " List of fixers
 let g:php_cs_fixer_dry_run         = 0                     " Call command with dry-run option
 let g:php_cs_fixer_use_sudo         = 1                     " Call command with dry-run option
 " }}}
-" Plugin: vim-symfony {{{
-let g:symfony_enable_auto_completefunc = 1
 " }}}
 " Plugin: dbext.vim {{{
 let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
