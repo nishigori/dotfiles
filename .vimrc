@@ -517,46 +517,10 @@ if !g:my_config_use_plugin
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
   finish " ここまで読んだらお前は死ぬ
 endif
-" ## vim-multiple-switcher {{{
-"let g:multiple_switcher_no_default_key_maps = 1
-nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
-nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
-nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
-vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
+" Plugin: vimproc {{{
+"let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
 " }}}
-" ## visualstar.vim {{{
-" search extended plugin.
-if exists('g:loaded_visualstar')
-  map * <Plug>(visualstar-*)N
-  map # <Plug>(visualstar-#)N
-endif
-" }}}
-" ## matchit.vim {{{
-" INFO: Extended % command.
-"if filereadable($HOME . '/macros/matchit.vim')
-if filereadable(s:bundle_dir . '/matchit.zip/plugin/matchit.vim')
-  runtime macros/matchit.vim
-  let b:match_words = 'if:endif'
-  let b:match_ignorecase = 1
-endif
-" }}}
-" ## indent-guides {{{
-" INFO: auto highlight indent-space.
-let g:indent_guides_color_change_percent = 30
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-" }}}
-" ## taglist.vim {{{
-if has('path_extra')
-  nnoremap <silent> tl :<C-u>Tlist<CR>
-  let g:Tlist_Exit_OnlyWindow = 1 " Closable When last window is taglist
-  let g:Tlist_WinWidth = 40
-  let g:Tlist_Enable_Fold_Column = 2
-  "let g:Tlist_Process_File_Always = 1
-  "let g:Tlist_Show_One_File = 1
-endif
-" }}}
-" ## vimshell {{{
+" Plugin: vimshell {{{
 "let s:bundle = neobundle#get('vimshell')
 "function! s:bundle.hooks.on_source(bundle)
   let g:vimshell_temporary_directory = s:tmpdir . '/.vimshell'
@@ -630,7 +594,7 @@ endif
   endfunction
 "endfunction
 " }}}
-" ## vimfiler {{{
+" Plugin: vimfiler {{{
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer = 1
@@ -672,10 +636,7 @@ augroup VimFilerUniteAction " {{{
   autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
 augroup END " }}}
 " }}}
-" ## vimproc {{{
-"let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
-" }}}
-" ## unite.vim {{{
+" Plugin: unite.vim {{{
 let g:unite_data_directory =
   \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
 
@@ -745,7 +706,7 @@ nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
-" ## unite-tag {{{
+" Plugin: unite-tag {{{
 let g:unite_tig_default_line_count = 80
 "nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
 autocmd BufEnter *
@@ -753,16 +714,16 @@ autocmd BufEnter *
   \   | nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR> |
   \ endif
 " }}}
-" ## unite-sf2 {{{
+" Plugin: unite-sf2 {{{
 " NOTE: unite-sf2 avairables is depends local environment.
 "let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
 "let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
 " }}}
-" ## unite-grep {{{
+" Plugin: unite-grep {{{
 let g:unite_source_grep_default_opts = '-Hn'  " By the default
 let g:unite_source_grep_recursive_opt = '-R'  " By the default
 " }}}
-" ## vim-ref & ref-unite {{{
+" Plugin: vim-ref & ref-unite {{{
 let g:ref_cache_dir = s:tmpdir . '/ref_cache'
 " TODO: Pydocも日本語の使えるようにしなくては
 nnoremap <F2> :<C-u>Ref<Space>
@@ -804,7 +765,7 @@ let g:ref_cmd_filetype_map = {
   \ }
 " \   'php.phpunit' : 'phpunit',
 " }}}
-" ## neocomplete {{{
+" Plugin: neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#max_list = 30
 let g:neocomplete#max_keyword_width = 20
@@ -831,7 +792,7 @@ function! s:my_cr_function()
   return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " }}}
-" ## neosnippet {{{
+" Plugin: neosnippet {{{
 let g:neosnippet#snippets_directory =
   \ s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
   \ .','. $HOME . '/.vim/snippets'
@@ -858,21 +819,21 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 " }}}
-" ## TweetVim {{{
+" Plugin: taglist.vim {{{
+if has('path_extra')
+  nnoremap <silent> tl :<C-u>Tlist<CR>
+  let g:Tlist_Exit_OnlyWindow = 1 " Closable When last window is taglist
+  let g:Tlist_WinWidth = 40
+  let g:Tlist_Enable_Fold_Column = 2
+  "let g:Tlist_Process_File_Always = 1
+  "let g:Tlist_Show_One_File = 1
+endif
+" }}}
+" Plugin: TweetVim {{{
 let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
 let g:tweetvim_include_rts = 1
 " }}}
-" ## vim-php-cs-fixer {{{
-let g:php_cs_fixer_default_mapping = 1                     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_path            = "/usr/sbin/php-cs-fixer/php-cs-fixer" " define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level           = "all"                 " which level ?
-let g:php_cs_fixer_config          = "default"             " configuration
-"let g:php_cs_fixer_php_path        = "php"                 " Path to PHP
-let g:php_cs_fixer_fixers_list     = ""                    " List of fixers
-let g:php_cs_fixer_dry_run         = 0                     " Call command with dry-run option
-let g:php_cs_fixer_use_sudo         = 1                     " Call command with dry-run option
-" }}}
-" ## QuickRun, Quicklaunch & xUnit {{{
+" Plugin: QuickRun, Quicklaunch & xUnit {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 "nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:updatetime=10 -split 'rightbelow 50vsp'<CR>
@@ -935,15 +896,7 @@ endif
 " TODO: Add QuickRun's syntax for xUnit family
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
 " }}}
-" ## vim-textmanip {{{
-xmap <C-j> <Plug>(Textmanip.move_selection_down)
-xmap <C-k> <Plug>(Textmanip.move_selection_up)
-xmap <C-h> <Plug>(Textmanip.move_selection_left)
-xmap <C-l> <Plug>(Textmanip.move_selection_right)
-" copy selected text-object.
-vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-"}}}
-" ## zencoding {{{
+" Plugin: zencoding {{{
 let g:user_zen_leader_key = '<C-S-z>'
 let g:user_zen_expandabbr_key = '<C-z>'
 let g:user_zen_settings = {
@@ -979,10 +932,24 @@ let g:user_zen_settings = {
   \  },
   \ }
 "}}}
-" ## vim-vcs {{{
+" Plugin: vim-rooter {{{
+silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
+let g:rooter_manual_only = 1
+let g:rooter_use_lcd = 1
+let g:rooter_patterns = [
+  \   '.git/', '.hg/',
+  \   'Gemfile', 'Rakefile', 'Guardfile',
+  \   'Vagrantfile',
+  \   'composer.json',
+  \   'build.xml',
+  \   'build.gradle',
+  \ ]
+let g:rooter_change_directory_for_non_project_files = 0
+" }}}
+" Plugin: vim-vcs {{{
 let g:vcs#config_log_file = s:tmpdir . '/vcs'
 " }}}
-" ## vim-fugitive {{{
+" Plugin: vim-fugitive {{{
 " Gstatus
 "    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
 "        Dで:Gdiff起動(差分表示)
@@ -999,26 +966,41 @@ nnoremap <Leader>ga :<C-u>Gwrite<CR>
 nnoremap <Leader>gA :<C-u>Gwrite <cfile><CR>
 nnoremap <Leader>gc :<C-u>Gcommit<CR>
 "}}}
-" ## vim-sunday {{{
-" My plugin. inspaired toggle.vim, monday.vim
-let g:sunday_pairs = [
-  \ ['light', 'dark'],
-  \ ['extends', 'implements'],
-  \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
-  \ ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
-  \ ]
-" }}}
-" ## vim-symfony {{{
-let g:symfony_enable_auto_completefunc = 1
-" }}}
-" ## calendar.vim {{{
+" Plugin: calendar.vim {{{
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
 " }}}
-" ## dbext.vim {{{
-let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
+" Plugin: indent-guides {{{
+" INFO: auto highlight indent-space.
+let g:indent_guides_color_change_percent = 30
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
 " }}}
-" ## alignta {{{
+" Plugin: vim-textmanip {{{
+xmap <C-j> <Plug>(Textmanip.move_selection_down)
+xmap <C-k> <Plug>(Textmanip.move_selection_up)
+xmap <C-h> <Plug>(Textmanip.move_selection_left)
+xmap <C-l> <Plug>(Textmanip.move_selection_right)
+" copy selected text-object.
+vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
+"}}}
+" Plugin: matchit.vim {{{
+" INFO: Extended % command.
+"if filereadable($HOME . '/macros/matchit.vim')
+if filereadable(s:bundle_dir . '/matchit.zip/plugin/matchit.vim')
+  runtime macros/matchit.vim
+  let b:match_words = 'if:endif'
+  let b:match_ignorecase = 1
+endif
+" }}}
+" Plugin: visualstar.vim {{{
+" search extended plugin.
+if exists('g:loaded_visualstar')
+  map * <Plug>(visualstar-*)N
+  map # <Plug>(visualstar-#)N
+endif
+" }}}
+" Plugin: alignta {{{
 vnoremap <silent> > :Alignta =><CR>
 
 " @todo add json type
@@ -1053,7 +1035,23 @@ let g:unite_source_alignta_preset_options = [
   \]
 unlet s:comment_leadings
 " }}}
-" ## submode.vim (Reside Window) {{{
+" Plugin: vim-sunday {{{
+" My plugin. inspaired toggle.vim, monday.vim
+let g:sunday_pairs = [
+  \ ['light', 'dark'],
+  \ ['extends', 'implements'],
+  \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
+  \ ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
+  \ ]
+" }}}
+" Plugin: vim-multiple-switcher {{{
+"let g:multiple_switcher_no_default_key_maps = 1
+nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
+nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
+nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
+vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
+" }}}
+" Plugin: submode.vim (Reside Window) {{{
 function! s:resizeWindow()
   call submode#enter_with('winsize', 'n', '', 'mws', '<Nop>')
   call submode#leave_with('winsize', 'n', '', '<Esc>')
@@ -1070,7 +1068,7 @@ endfunction
 
 nmap <C-w>R ;<C-u>call <SID>resizeWindow()<CR>mws
 " }}}
-" ## vim-airline {{{
+" Plugin: vim-airline {{{
 let g:airline_theme = 'badwolf'
 "let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
@@ -1089,30 +1087,13 @@ let g:airline_detect_modified  = 1
 let g:airline_detect_paste     = 1
 let g:airline_powerline_fonts  = 0
 " }}}
-" ## vim-powerline {{{
+" Plugin: vim-powerline {{{
 "let g:Powerline_cache_file  = s:tmpdir . '/Powerline.cache'
 "let g:Powerline_symbols    = 'fancy'
 "let g:Powerline_theme = 'solarized256'
 "let g:Powerline_colorscheme = 'solarized256'
 " }}}
-" ## jscomplatete.vim {{{
-let g:jscomplete_use = ['dom']
-" }}}
-" ## vim-rooter {{{
-silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
-let g:rooter_manual_only = 1
-let g:rooter_use_lcd = 1
-let g:rooter_patterns = [
-  \   '.git/', '.hg/',
-  \   'Gemfile', 'Rakefile', 'Guardfile',
-  \   'Vagrantfile',
-  \   'composer.json',
-  \   'build.xml',
-  \   'build.gradle',
-  \ ]
-let g:rooter_change_directory_for_non_project_files = 0
-" }}}
-" ## context_filetype.vim {{{
+" Plugin: context_filetype.vim {{{
 let g:context_filetype#filetypes = {
   \ 'perl6' : [{
   \   'start' : 'Q:PIR\s*{',
@@ -1130,6 +1111,25 @@ let g:context_filetype#filetypes = {
   \   'filetype' : '\1',
   \ }],
   \}
+" }}}
+" Plugin: jscomplatete.vim {{{
+let g:jscomplete_use = ['dom']
+" }}}
+" Plugin: vim-php-cs-fixer {{{
+let g:php_cs_fixer_default_mapping = 1                     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_path            = "/usr/sbin/php-cs-fixer/php-cs-fixer" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level           = "all"                 " which level ?
+let g:php_cs_fixer_config          = "default"             " configuration
+"let g:php_cs_fixer_php_path        = "php"                 " Path to PHP
+let g:php_cs_fixer_fixers_list     = ""                    " List of fixers
+let g:php_cs_fixer_dry_run         = 0                     " Call command with dry-run option
+let g:php_cs_fixer_use_sudo         = 1                     " Call command with dry-run option
+" }}}
+" Plugin: vim-symfony {{{
+let g:symfony_enable_auto_completefunc = 1
+" }}}
+" Plugin: dbext.vim {{{
+let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
 " }}}
 " # [unite] Mappings "{{{
 " The prefix key.
