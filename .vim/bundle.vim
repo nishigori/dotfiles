@@ -78,7 +78,7 @@ NeoBundle 'Shougo/neocomplete', {
   \ }
 " }}}
 " Complete, Snippet {{{
-NeoBundle 'Shougo/neocomplcache'
+"NeoBundle 'Shougo/neocomplcache'
 "call neobundle#config('neocomplcache', {
   "\ 'lazy' : 1,
   "\ 'autoload' : {
@@ -205,6 +205,7 @@ NeoBundle 'vim-scripts/JSON.vim'
 autocmd FileType javascript,json NeoBundleSource JSON.vim
 " }}}
 " Ruby {{{
+NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'ujihisa/unite-gem', { 'depends' : 'Shougo/unite.vim' }
 " need ruby-debug-ide19
 " $ gem install ruby-debug-ide19

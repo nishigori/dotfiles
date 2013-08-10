@@ -801,96 +801,32 @@ let g:ref_cmd_filetype_map = {
   \ }
 " \   'php.phpunit' : 'phpunit',
 " }}}
-" ## neocomplcache {{{
-call neobundle#config('neocomplcache', {
-  \ 'lazy' : 1,
-  \ 'autoload' : {
-  \     'insert' : 1,
-  \ }})
-let g:neocomplcache_temporary_dir =
-  \ get(g:, 'local_neocomplcache_temporary_dir', s:tmpdir . '/neocom')
+" ## neocomplete {{{
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#max_list = 30
+let g:neocomplete#max_keyword_width = 20
+let g:neocomplete#auto_completion_start_length = 3
+let g:neocomplete#manual_completion_start_length = 3
+let g:neocomplete#min_keyword_length = 5
+"let g:neocomplete#enable_ignore_case = 'ignorecase'
+let g:neocomplete#enable_smart_case = 'infercase'
+let g:neocomplete#enable_insert_char_pre = 1 " Really??
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
+let g:neocomplete#use_vimproc = 1
 
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_max_list = 30
-let g:neocomplcache_max_menu_width = 20
-let g:neocomplcache_auto_completion_start_length = 3
-let g:neocomplcache_manual_completion_start_length = 3
-"let g:neocomplcache_min_syntax_length = 5
-let g:neocomplcache_enable_smart_case = 1
-" this is enbug for vimshell
-"let g:neocomplcache_enable_insert_char_pre = 1
-let g:neocomplcache_enable_auto_select = 1
-" -を入力すると候補横の数字で選択可になる
-let g:neocomplcache_enable_camel_case_completion = 0
-let g:neocomplcache_enable_underbar_completion = 0
+"if !exists('g:neocomplete#same_filetypes')
+  "let g:neocomplete#same_filetypes = {}
+"endif
+"let g:neocomplete#same_filetypes.twig = 'twig'
 
-let g:neocomplcache_keyword_patterns =
-  \ get(g:, 'neocomplcache_keyword_patterns', {})
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*' 
-
-let g:neocomplcache_omni_patterns =
-  \ get(g:, 'neocomplcache_omni_patterns', {})
-"let g:neocomplcache_omni_patterns['ruby'] = '[^. *\t]\.\h\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns['php'] = '[^. \t]->\h\w*\|\h\w*::'
-
-" unite
-imap <C-u>  <Plug>(neocomplcache_start_unite_complete)
-"imap <C-m>  <Plug>(neocomplcache_start_unite_quick_match)
-
-" dictionary
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'     : '',
-  \ 'vimshell'    : $HOME . '/.vim/dict/.vimshell.dict',
-  \ 'java'        : $HOME . '/.vim/dict/java.dict',
-  \ 'c'           : $HOME . '/.vim/dict/c.dict',
-  \ 'javascript'  : $HOME . '/.vim/dict/javascript.dict',
-  \ 'php'         : $HOME . '/.vim/dict/PHP.dict',
-  \ 'phpunit'     : s:bundle_dir . '/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'php.phpunit' : s:bundle_dir . '/vim-php-dictionary/dict/PHP.dict,' . $HOME . '/.vim/dict/phpunit.dict',
-  \ 'python'      : $HOME . '/.vim/dict/python.dict',
-  \ 'pyunit'      : $HOME . '/.vim/dict/python.dict,' . $HOME . '/.vim/dict/pyunit.dict',
-  \ }
-
-let g:neocomplcache_ignore_composite_filetype_lists = {
-  \ 'python.unit': 'python',
-  \ 'php.phpunit': 'php',
-  \ }
-
-" xUnit filetype dict
-" g:neocomplcache_dictionary_filetype_listsに辞書を複数していするか、
-" g:neocomplcache_same_filetype_listsで相互互換指定する必要がある。
-let g:neocomplcache_same_filetype_lists = {
-  \ 'phpunit' : 'php',
-  \ }
-
-" Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-c>  neocomplcache#cancel_popup()
-
-"let g:neocomplcache_delimiter_patterns =
-"\ get(g:, 'neocomplcache_delimiter_patterns', {})
-"let g:neocomplcache_delimiter_patterns.php = ['\', '::', '->']
-
-" for salaryman-omni-complete
-"let g:neocomplcache_omni_patterns = {
-"\ 'txt' : '*'
-"\ }
-" <CR>: close popup and save indent.
-if g:my_config_use_plugin
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    "return neocomplcache#smart_close_popup() . "\<CR>"
-    " For no inserting <CR> key.
-    return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-  endfunction
-endif
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  "return neocomplete#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
 " }}}
 " ## neosnippet {{{
 let g:neocomplcache_snippets_dir =
