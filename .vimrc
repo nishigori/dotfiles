@@ -1,6 +1,6 @@
 " Initialize
 " # runtimepath {{{
-if has('win32')
+if has('vim_starting') && has('win32')
   " INFO: .vimrc unifies vimrc
   "       .vim   unifies vimfiles
   set runtimepath^=$HOME/.vim
@@ -15,7 +15,7 @@ if !has('gui_macvim') || !has('kaoriya')
   set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
 endif
 if has('win32')
-  set termencoding=&encoding
+  let &termencoding=&encoding
   set encoding=utf-8
   set fileencodings=utf-8,cp932,shiftjis,euc-jp,iso-2022-jp
 endif
@@ -27,15 +27,16 @@ set showcmd                    " Highliting bracket set.
 set hidden                     " Enable open new file, when while editing other file.
 set autoread
 set history=255
-set viminfo='20,\"50           " Read/write a .viminfo file, don't store more than 50 lines of registers
+set viminfo='20,\"100           " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set ambiwidth=double
 set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
 set title
-set completeopt=menuone        " チラツキ防止
+set completeopt=menuone        " A comma separated list of options
 
 set helplang=ja,en
+set keywordprg=:help
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 let mapleader = " "
@@ -657,50 +658,48 @@ unlet s:comment_leadings
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 "nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
 nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:updatetime=10 -split 'rightbelow 50vsp'<CR>
-if has('clientserver')
-  "if has('clientserver') && !empty(v:servername)
-  let b:quickrun_config = {
-    \   'runner/vimproc' : 90,
-    \   'runner/vimproc/updatetime' : 90,
+
+let b:quickrun_config = {
+  \   'runner/vimproc' : 90,
+  \   'runner/vimproc/updatetime' : 90,
+  \ }
+let g:quickrun_config = {
+  \   '_' : {
+  \     'runner/vimproc' : 90,
+  \     'runner/vimproc/updatetime' : 90,
+  \     'outputter' : 'buffer',
+  \   },
+  \   'run/vimproc' : {
+  \     'exec' : '%s:p:r %a',
+  \     'runner' : 'vimproc',
+  \     'outputter' : 'buffer',
+  \   },
+  \   'ruby' : {
+  \     'command' : 'irb',
+  \     'cmdopt' : '--simple-prompt',
+  \     'runner' : 'process_manager',
+  \     'runner/process_manager/load' : "load '%s'",
+  \     'runner/process_manager/prompt' : '>> ',
+  \   },
+  \   'ruby.rspec' : {
+  \     'command' : "rspec -l %{line('.')}",
+  \   },
+  \   'php.phpunit' : {
+  \     'command' : 'phpunit',
+  \   },
+  \   'phpunit.php' : {
+  \     'command' : 'phpunit',
+  \   },
+  \   'javascript' : {
+  \     'command' : 'phantomjs',
+  \   },
+  \ }
+if exists('g:sphinx_build_bin')
+  let g:quickrun_config['rst'] = {
+    \     'command': g:sphinx_build_bin,
+    \     'hook/sphinx/enable' : 1,
+    \     'cmdopt': '-b html',
     \ }
-  let g:quickrun_config = {
-    \   '_' : {
-    \     'runner/vimproc' : 90,
-    \     'runner/vimproc/updatetime' : 90,
-    \     'outputter' : 'buffer',
-    \   },
-    \   'run/vimproc' : {
-    \     'exec' : '%s:p:r %a',
-    \     'runner' : 'vimproc',
-    \     'outputter' : 'buffer',
-    \   },
-    \   'ruby' : {
-    \     'command' : 'irb',
-    \     'cmdopt' : '--simple-prompt',
-    \     'runner' : 'process_manager',
-    \     'runner/process_manager/load' : "load '%s'",
-    \     'runner/process_manager/prompt' : '>> ',
-    \   },
-    \   'ruby.rspec' : {
-    \     'command' : "rspec -l %{line('.')}",
-    \   },
-    \   'php.phpunit' : {
-    \     'command' : 'phpunit',
-    \   },
-    \   'phpunit.php' : {
-    \     'command' : 'phpunit',
-    \   },
-    \   'javascript' : {
-    \     'command' : 'phantomjs',
-    \   },
-    \ }
-  if exists('g:sphinx_build_bin')
-    let g:quickrun_config['rst'] = {
-      \     'command': g:sphinx_build_bin,
-      \     'hook/sphinx/enable' : 1,
-      \     'cmdopt': '-b html',
-      \ }
-  endif
 endif
 if has('mac')
   " TODO: Sikuli 起動は引数渡さねば??
@@ -949,10 +948,10 @@ augroup END " }}}
       \| call vimshell#altercmd#define('ll', 'ls -l')
       \| call vimshell#altercmd#define('la', 'ls -al')
       \| call vimshell#altercmd#define('cl', 'clear')
-      \| call vimshell#hook#add('chpwd', 'my_chpwd', 'g:my_chpwd')
+      \| call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpWd')
   augroup END
 
-  function! g:my_chpwd(args, context)
+  function! MyChpWd(args, context)
     call vimshell#execute('ls')
   endfunction
 "endfunction
@@ -1128,6 +1127,8 @@ xnoremap [unite] <Nop>
 nmap e [unite]
 xmap e [unite]
 
+nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
+
 nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir
   \ -buffer-name=files buffer bookmark file<CR>
 "nnoremap <silent> [unite]f :<C-u>Unite file<CR>
@@ -1142,13 +1143,11 @@ nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
 nnoremap <silent> [unite]M :<C-u>Unite menu<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
-nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
 "nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
 nnoremap <silent> [unite]T :<C-u>Unite -buffer-name=search line
-  \ -winheight=10 -no-quit<CR>
-  \ todo\\|fixme\\|warn\\|hackme<ESC>
+  \ -winheight=10 -no-quit<CR>todo\\|fixme\\|warn\\|hackme<ESC>
 " for current buffer
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
