@@ -61,9 +61,9 @@ NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
 " }}}
 " Buffer, Tag {{{
 NeoBundle 'alpaca-tc/alpaca_powertabline'
-NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
-"NeoBundle 'bling/vim-bufferline'
-"NeoBundle 'bling/vim-airline'
+"NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+NeoBundle 'bling/vim-bufferline'
+NeoBundle 'bling/vim-airline'
 NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'vim-scripts/current-func-info.vim'
