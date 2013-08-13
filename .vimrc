@@ -502,7 +502,7 @@ if has('persistent_undo')
   function! ReadUndo() "{{{2
     let undo_file = substitute(expand('%:p'), '\/\|\\', '\_', 'g')
     if filereadable(&undodir .'/'. undo_file)
-      execute 'rundo' &undodir.'/'.undo_file
+      silent execute 'rundo' &undodir.'/'.undo_file
     endif
   endfunction "}}}
   function! WriteUndo() "{{{2
@@ -510,7 +510,7 @@ if has('persistent_undo')
       call mkdir(&undodir)
     endif
     let undo_file = substitute(expand('%:p'), '\/\|\\', '\_', 'g')
-    execute 'wundo' &undodir.'/'.undo_file
+    silent execute 'wundo' &undodir.'/'.undo_file
   endfunction "}}}
 endif
 " }}}
