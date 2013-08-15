@@ -1,3 +1,24 @@
+"=============================================================================
+" FILE:    .gvimrc
+" AUTHOR:  Takuya Nishigori <nishigori.tak@gmail.com>
+" LICENSE: WTFPL Version 2 {{{
+"           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+"                    Version 2, December 2004
+"
+" Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+"
+" Everyone is permitted to copy and distribute verbatim or modified
+" copies of this license document, and changing it is allowed as long
+" as the name is changed.
+"
+"            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+"   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+"
+"  0. You just DO WHAT THE FUCK YOU WANT TO.
+" }}}
+"=============================================================================
+" vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+
 " # Basic {{{
 set norestorescreen
 set guioptions=
@@ -98,6 +119,3 @@ if !g:my_config_use_plugin || !exists('g:colors_name')
   set background=light
 endif
 " }}}
-
-
-" vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

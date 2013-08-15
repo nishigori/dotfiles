@@ -1,4 +1,31 @@
-" Initialize
+"=============================================================================
+"  _       _    ____              _ _                       _        _
+" | |__   | |  |  _ \  ___  _ __ ( ) |_   _ __   __ _ _ __ (_) ___  | |
+" | '_ \  | |  | | | |/ _ \| '_ \|/| __| | '_ \ / _` | '_ \| |/ __| | |
+" | | | | |_|  | |_| | (_) | | | | | |_  | |_) | (_| | | | | | (__  |_|
+" |_| |_| (_)  |____/ \___/|_| |_|  \__| | .__/ \__,_|_| |_|_|\___| (_)
+"                                        |_|
+"
+" FILE:    .vimrc
+" AUTHOR:  Takuya Nishigori <nishigori.tak@gmail.com>
+" LICENSE: WTFPL Version 2 {{{
+"           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+"                    Version 2, December 2004
+"
+" Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+"
+" Everyone is permitted to copy and distribute verbatim or modified
+" copies of this license document, and changing it is allowed as long
+" as the name is changed.
+"
+"            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+"   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+"
+"  0. You just DO WHAT THE FUCK YOU WANT TO.
+" }}}
+"=============================================================================
+" vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+
 " # runtimepath {{{
 if has('vim_starting') && has('win32')
   " INFO: .vimrc unifies vimrc
@@ -1313,6 +1340,3 @@ nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<CR>
 nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<CR>
 nnoremap <silent> <Leader>ts :TweetVimSay<CR>
 " }}}
-
-
-" vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
