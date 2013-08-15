@@ -56,12 +56,8 @@ let s:neocomplcache_temporary_dir_suffix = 'neocom'
 let g:local_neocomplcache_temporary_dir =
   \ s:ramdisk_dir .'/'. s:neocomplcache_temporary_dir_suffix
 " }}}
-" TwitVim {{{
-let twitvim_browser_cmd = 'firefox'
-let twitvim_count       = 120
-let twitvim_login_b64   = ''
-let twitvim_bitly_user  = ''
-let twitvim_bitly_key   = ''
+" TweetVim {{{
+let g:tweetvim_display_icon = 1 " Require imagemagick
 " }}}
 " bitly.vim {{{
 let g:bitly_login   = ''

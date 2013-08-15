@@ -716,6 +716,10 @@ endif
 " Plugin: TweetVim {{{
 let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
 let g:tweetvim_include_rts = 1
+let g:tweetvim_open_buffer_cmd = 'split -winheight=12 edit!'
+nnoremap <silent> ts :<C-u>TweetVimSay<Cr>
+" unite mapping
+nnoremap <silent> tt :<C-u>Unite tweetvim<Cr>
 " }}}
 " Plugin: jscomplatete.vim {{{
 let g:jscomplete_use = ['dom']
