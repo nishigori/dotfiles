@@ -974,7 +974,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_session_enable_auto_save = 1
 "autocmd VimEnter * UniteSessionLoad
 " window options
-let g:unite_winheight             = 12
+let g:unite_winheight             = 20
 let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 120
 let g:unite_update_time           = 256
@@ -996,26 +996,6 @@ let g:unite_source_alias_aliases.workspace = {
 let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
   \ 'args':   '~/workspace',
-  \ }
-" source menus
-let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
-let g:unite_source_menu_menus.shortcut =
-  \ {
-  \   'description' : '',
-  \   'command_candidates' : [
-  \     ['edit vimrc', 'edit $MYVIMRC'],
-  \     ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
-  \     ['edit gvimrc', 'edit $MYGVIMRC'],
-  \     ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
-  \   ],
-  \ }
-let g:unite_source_menu_menus.interactive_chan =
-  \ {
-  \   'description': '',
-  \   'command_candidates': [
-  \     ['ruby', 'VimShellInteractive ruby'],
-  \     ['python', 'VimShellInteractive python'],
-  \   ],
   \ }
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
@@ -1042,6 +1022,106 @@ let g:unite_source_file_rec_ignore_pattern =
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
+" }}}
+" Plugin: unite.vim >> source menus {{{
+let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
+let g:unite_source_menu_menus.shortcut =
+  \ {
+  \   'description' : 'My shortcut',
+  \   'command_candidates' : [
+  \     ['edit vimrc', 'edit $MYVIMRC'],
+  \     ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
+  \     ['edit gvimrc', 'edit $MYGVIMRC'],
+  \     ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
+  \   ],
+  \ }
+let g:unite_source_menu_menus.interactive_mode =
+  \ {
+  \   'description': 'Mode of interactive programming languages',
+  \   'command_candidates': [
+  \     ['ruby', 'VimShellInteractive ruby'],
+  \     ['python', 'VimShellInteractive python'],
+  \   ],
+  \ }
+let g:unite_source_menu_menus.git =
+  \ {
+  \   'description' : '            gestionar repositorios git
+  \                            ⌘ [espacio]g',
+  \ }
+let g:unite_source_menu_menus.git.command_candidates =
+  \ [
+  \   [
+  \     '▷ tig                                              [unite]t',
+  \     'Unite tig -no-start-insert -winheight=20'
+  \   ],
+  \   [
+  \     '▷ git status        (Fugitive)                     <Leader>gs',
+  \     'Gstatus'
+  \   ],
+  \   [
+  \     '▷ git diff          (Fugitive)                     <Leader>gd',
+  \     'Gsdiff'
+  \   ],
+  \   [
+  \     '▷ git diff --cached (Fugitive)                     <Leader>gD',
+  \     'Gsdiff --cached'
+  \   ],
+  \   [
+  \     '▷ git commit        (Fugitive)                     <Leader>gc',
+  \     'Gcommit'
+  \   ],
+  \   [
+  \     '▷ git blame         (Fugitive)',
+  \     'Gblame'
+  \   ],
+  \   [
+  \     '▷ git push          (Fugitive, salida por buffer)',
+  \     'Git! push'
+  \   ],
+  \   [
+  \     '▷ git pull          (Fugitive, salida por buffer)',
+  \     'Git! pull'
+  \   ],
+  \   [
+  \     '▷ git stage         (Fugitive)',
+  \     'Gwrite'
+  \   ],
+  \   [
+  \     '▷ git checkout      (Fugitive)',
+  \     'Gread'
+  \   ],
+  \   [
+  \     '▷ git rm            (Fugitive)',
+  \     'Gremove'
+  \   ],
+  \   [
+  \     '▷ git mv            (Fugitive)',
+  \     'exe "Gmove " input("destino: ")'
+  \   ],
+  \   [
+  \     '▷ git prompt        (Fugitive, salida por buffer)',
+  \     'exe "Git! " input("comando git: ")'
+  \   ],
+  \   [
+  \     '▷ git cd            (Fugitive)',
+  \     'Gcd'
+  \   ],
+  \   [
+  \     '▷ help git status   (Fugitive)',
+  \     'help Gstatus'
+  \   ],
+  \]
+
+" The prefix key.
+nnoremap [menu] <Nop>
+xnoremap [menu] <Nop>
+nmap m [menu]
+xmap m [menu]
+
+nnoremap <silent>[menu]m :Unite menu<Cr>
+nnoremap <silent>[menu]g :Unite -silent -start-insert menu:git<Cr>
+nnoremap <silent>[menu]s :Unite -silent -start-insert menu:shortcut<Cr>
+nnoremap <silent>[menu]i :Unite -silent -start-insert menu:interactive_mode<Cr>
 " }}}
 " Plugin: unite-tag {{{
 let g:unite_tig_default_line_count = 80
