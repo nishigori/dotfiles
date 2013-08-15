@@ -1055,6 +1055,8 @@ let g:unite_source_menu_menus.shortcut =
   \     ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
   \     ['edit gvimrc', 'edit $MYGVIMRC'],
   \     ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
+  \     ['edit zshrc', 'edit $HOME/.zshrc'],
+  \     ['edit zshrc.local', 'edit $HOME/.zshrc.local'],
   \   ],
   \ }
 let g:unite_source_menu_menus.interactive_mode =
