@@ -547,6 +547,9 @@ let g:airline_powerline_fonts  = 0
 "let g:Powerline_theme = 'solarized256'
 "let g:Powerline_colorscheme = 'solarized256'
 " }}}
+" Plugin: alpaca_powertabline {{{
+let g:alpaca_powertabline_enable = 1
+" }}}
 " Plugin: calendar.vim {{{
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
 let g:calendar_weeknm = 1 " WK01
