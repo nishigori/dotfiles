@@ -68,7 +68,7 @@ nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 let mapleader = " "
 " }}}
-" Local Dependency
+" Local Dependency {{{
 set nobackup noswapfile
 let g:my_config_use_plugin = get(g:, 'my_config_use_plugin', 0)
 
@@ -108,7 +108,7 @@ endif
 let s:tmpdir = exists('g:local_config["tmp_dir"]')
   \ ? g:local_config['tmp_dir']
   \ : $HOME
-
+" }}}
 " # Switch ; <-> : {{{
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
