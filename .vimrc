@@ -514,6 +514,28 @@ if has('persistent_undo')
   endfunction "}}}
 endif
 " }}}
+" # Alt key {{{
+" By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
+if has('unix') && !has('gui_running')
+  " Use meta keys in console.
+  function! s:use_meta_keys()  " {{{2
+    for i in map(
+    \   range(char2nr('a'), char2nr('z'))
+    \ + range(char2nr('A'), char2nr('Z'))
+    \ + range(char2nr('0'), char2nr('9'))
+    \ , 'nr2char(v:val)')
+      " <ESC>O do not map because used by arrow keys.
+      if i != 'O'
+        execute 'nmap <ESC>' . i '<M-' . i . '>'
+      endif
+    endfor
+  endfunction  " }}}2
+
+  call s:use_meta_keys()
+  map <NUL> <C-Space>
+  map! <NUL> <C-Space>
+endif
+" }}}
 " Plugin
 if !g:my_config_use_plugin
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
@@ -1110,18 +1132,24 @@ let g:unite_source_menu_menus.git.command_candidates =
   \     '▷ help git status   (Fugitive)',
   \     'help Gstatus'
   \   ],
-  \]
+  \ ]
 
 " The prefix key.
-nnoremap [menu] <Nop>
-xnoremap [menu] <Nop>
-nmap m [menu]
-xmap m [menu]
+"nnoremap [menu] <Nop>
+"xnoremap [menu] <Nop>
+"nmap x [menu]
+"xmap x [menu]
 
-nnoremap <silent>[menu]m :Unite menu<Cr>
-nnoremap <silent>[menu]g :Unite -silent -start-insert menu:git<Cr>
-nnoremap <silent>[menu]s :Unite -silent -start-insert menu:shortcut<Cr>
-nnoremap <silent>[menu]i :Unite -silent -start-insert menu:interactive_mode<Cr>
+" TODO: Check Macで<M- はCommand-keyに該当するか
+nnoremap <silent><M-l> :Unite menu<Cr>
+nnoremap <silent><M-g> :Unite -silent -start-insert menu:git<Cr>
+nnoremap <silent><M-s> :Unite -silent -start-insert menu:shortcut<Cr>
+nnoremap <silent><M-i> :Unite -silent -start-insert menu:interactive_mode<Cr>
+" For CUI mode
+nmap <ESC>l <M-l>
+nmap <ESC>g <M-g>
+nmap <ESC>s <M-s>
+nmap <ESC>i <M-i>
 " }}}
 " Plugin: unite-tag {{{
 let g:unite_tig_default_line_count = 80
