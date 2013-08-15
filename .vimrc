@@ -410,11 +410,11 @@ endif
 augroup MkviewAccessor " Save fold settings. Vim-user.jp Hack #84
   autocmd!
   autocmd BufWritePost *
-    \ if &filetype !~ 'vim\|php\|ruby'
+    \ if &filetype !~ 'vim\|php\|ruby\|git'
     \   | exe "mkview" |
     \ endif
   autocmd BufRead *
-    \ if &filetype !~ 'vim\|php\|ruby'
+    \ if &filetype !~ 'vim\|php\|ruby\|git'
     \   | exe "silent loadview" |
     \ endif
 augroup END

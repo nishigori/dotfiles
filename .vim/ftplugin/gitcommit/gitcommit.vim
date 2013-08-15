@@ -1,2 +1,2 @@
 setlocal ts=2
-setlocal nofoldenable
+setlocal foldlevel=2
