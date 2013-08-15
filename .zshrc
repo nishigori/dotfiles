@@ -62,7 +62,7 @@ case "${OSTYPE}" in
             plugins=( \
                 debian gnu-utils \
                 autojump \
-                vagrant knife \
+                docker vagrant knife \
                 nyan \
                 ant \
                 terminitor \
