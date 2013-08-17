@@ -1164,12 +1164,17 @@ let g:unite_source_menu_menus.git.command_candidates =
   \ ]
 
 " The prefix key.
-"nnoremap [menu] <Nop>
-"xnoremap [menu] <Nop>
-"nmap x [menu]
-"xmap x [menu]
+if has('mac')
+    nnoremap [menu] <Nop>
+    xnoremap [menu] <Nop>
+    nmap x [menu]
+    xmap x [menu]
+    nnoremap <silent>[menu]l :Unite menu<Cr>
+    nnoremap <silent>[menu]g :Unite -silent -start-insert menu:git<Cr>
+    nnoremap <silent>[menu]s :Unite -silent -start-insert menu:shortcut<Cr>
+    nnoremap <silent>[menu]i :Unite -silent -start-insert menu:interactive_mode<Cr>
+endif
 
-" TODO: Check Macで<M- はCommand-keyに該当するか
 nnoremap <silent><M-l> :Unite menu<Cr>
 nnoremap <silent><M-g> :Unite -silent -start-insert menu:git<Cr>
 nnoremap <silent><M-s> :Unite -silent -start-insert menu:shortcut<Cr>
