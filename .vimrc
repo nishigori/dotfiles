@@ -1164,21 +1164,23 @@ let g:unite_source_menu_menus.git.command_candidates =
   \ ]
 
 " The prefix key.
-if has('mac')
-    nnoremap [menu] <Nop>
-    xnoremap [menu] <Nop>
-    nmap x [menu]
-    xmap x [menu]
-    nnoremap <silent>[menu]l :Unite menu<Cr>
-    nnoremap <silent>[menu]g :Unite -silent -start-insert menu:git<Cr>
-    nnoremap <silent>[menu]s :Unite -silent -start-insert menu:shortcut<Cr>
-    nnoremap <silent>[menu]i :Unite -silent -start-insert menu:interactive_mode<Cr>
-endif
+"nnoremap [menu] <Nop>
+"xnoremap [menu] <Nop>
+"nmap x [menu]
+"xmap x [menu]
+"nnoremap <silent>[menu]l :Unite menu<Cr>
+"nnoremap <silent>[menu]g :Unite -silent -start-insert menu:git<Cr>
+"nnoremap <silent>[menu]s :Unite -silent -start-insert menu:shortcut<Cr>
+"nnoremap <silent>[menu]i :Unite -silent -start-insert menu:interactive_mode<Cr>
 
 nnoremap <silent><M-l> :Unite menu<Cr>
 nnoremap <silent><M-g> :Unite -silent -start-insert menu:git<Cr>
 nnoremap <silent><M-s> :Unite -silent -start-insert menu:shortcut<Cr>
 nnoremap <silent><M-i> :Unite -silent -start-insert menu:interactive_mode<Cr>
+nnoremap <silent><D-l> :Unite menu<Cr>
+nnoremap <silent><D-g> :Unite -silent -start-insert menu:git<Cr>
+nnoremap <silent><D-s> :Unite -silent -start-insert menu:shortcut<Cr>
+nnoremap <silent><D-i> :Unite -silent -start-insert menu:interactive_mode<Cr>
 " For CUI mode
 nmap <ESC>l <M-l>
 nmap <ESC>g <M-g>
