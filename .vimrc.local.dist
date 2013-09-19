@@ -38,22 +38,22 @@ let g:neobundle_default_git_protocol = 'https'
 let s:unite_date_directory_suffix = 'unite'
 let g:local_unite_data_directory =
   \ s:ramdisk_dir .'/'. s:unite_date_directory_suffix
-let g:unite_source_alias_aliases = {
-  \   'project/company': { 'source': 'directory', 'args': '$HOME/workspace/project' },
-  \ }
+"let g:unite_source_alias_aliases = {
+"  \   'project/company': { 'source': 'directory', 'args': '$HOME/workspace/project' },
+"  \ }
 " }}}
 " unite.vim >> source menu {{{
 let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
-let g:unite_source_menu_menus.project =
-  \ {
-  \   'description': 'Project resouces',
-  \   'command_candidates': [
-  \     ['project/company', 'Unite project/company -no-start-insert -default-action=vimshell'],
-  \   ],
-  \ }
-
-nnoremap <silent><M-p> :Unite -silent -start-insert menu:project<Cr>
-nmap <ESC>p <M-p>
+"let g:unite_source_menu_menus.project =
+"  \ {
+"  \   'description': 'Project resouces',
+"  \   'command_candidates': [
+"  \     ['project/company', 'Unite project/company -no-start-insert -default-action=vimshell'],
+"  \   ],
+"  \ }
+"
+"nnoremap <silent><M-p> :Unite -silent -start-insert menu:project<Cr>
+"nmap <ESC>p <M-p>
 " }}}
 " unite-sf2 {{{
 "let g:unite_source_sf2_root_dir = ''

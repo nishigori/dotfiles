@@ -1040,11 +1040,11 @@ let g:unite_cursor_line_highlight = 'PmenuSel'
 let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
 let g:unite_source_alias_aliases.workspace = {
   \ 'source': 'file',
-  \ 'args':   '~/workspace',
+  \ 'args':   "$HOME/workspace",
   \ }
 let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
-  \ 'args':   '~/workspace',
+  \ 'args':   "$HOME/workspace",
   \ }
 
 " ignore match patterns (Default: autoload/unite/source/file.vim)
@@ -1285,9 +1285,9 @@ nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir
 "nnoremap <silent> [unite]f :<C-u>Unite file<CR>
 nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
 nnoremap <silent> [unite]w :<C-u>Unite workspace
-  \ -buffer-name=files buffer bookmark file<CR>
+  \ -no-split -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
-  \ -buffer-name=files buffer bookmark file -input=!vendor <CR>
+  \ -no-split -buffer-name=files buffer bookmark file -input=!vendor <CR>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
