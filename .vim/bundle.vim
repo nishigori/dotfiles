@@ -7,11 +7,26 @@ if has('vim_starting')
 endif
 
 NeoBundle 'Shougo/neobundle.vim'
-" Core {{{
-NeoBundle 'Shougo/unite.vim'
-" }}}
 " unite source {{{
-NeoBundle 'thinca/vim-unite-history', { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'Shougo/unite.vim'
+
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'thinca/vim-unite-history'
+NeoBundle 'osyo-manga/unite-quickrun_config'
+NeoBundle 'ujihisa/unite-locate'
+NeoBundle 'tsukkee/unite-tag'
+NeoBundle 'tacroe/unite-mark'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'mattn/unite-nyancat'
+NeoBundle 'sgur/unite-git_grep'
+NeoBundle 'Kocha/vim-unite-tig'
+NeoBundle 'tsukkee/unite-help'
+" http://kmnk.blogspot.jp/2013/01/git-unite-unite-source.html
+"NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'pasela/unite-webcolorname'
+NeoBundle 'ujihisa/unite-gem'
+NeoBundleLazy 'nishigori/unite-sf2', { 'depends' : 'Shougo/unite.vim' }
+autocmd FileType php NeoBundleSource unite-sf2
 " }}}
 " Debug, Backend {{{
 if has('python')
@@ -25,9 +40,6 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-" }}}
-" Command {{{
-NeoBundle 'ujihisa/unite-locate', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " Projects {{{
 NeoBundle 'airblade/vim-rooter'
@@ -64,13 +76,11 @@ NeoBundle 'alpaca-tc/alpaca_powertabline'
 "NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
 NeoBundle 'bling/vim-bufferline'
 NeoBundle 'bling/vim-airline'
-NeoBundle 'h1mesuke/unite-outline', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'vim-scripts/current-func-info.vim'
 NeoBundle 'vim-scripts/trinity.vim'
 NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'vim-scripts/TagHighlight'
-NeoBundle 'tsukkee/unite-tag', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " Syntax {{{
 NeoBundle 'scrooloose/syntastic'
@@ -110,12 +120,10 @@ NeoBundle 'vim-scripts/matchparenpp'
 NeoBundle 'h1mesuke/vim-alignta'
 " }}}
 " Marker {{{
-NeoBundle 'tacroe/unite-mark', { 'depends' : 'Shougo/unite.vim' }
 "NeoBundle 'vim-scripts/ShowMarks'
 "NeoBundle 'vim-scripts/number-marks'
 " }}}
 " Colorsheme & Font {{{
-NeoBundle 'ujihisa/unite-colorscheme', { 'depends' : 'Shougo/unite.vim' }
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -153,22 +161,16 @@ NeoBundle 'vim-scripts/copypath.vim'
 NeoBundle 'mattn/calendar-vim'
 NeoBundle 'vim-scripts/submode'
 NeoBundle 'thinca/vim-openbuf'
-NeoBundle 'mattn/unite-nyancat', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " ref, help {{{
 NeoBundle 'thinca/vim-ref'
-NeoBundle 'tsukkee/unite-help', { 'depends' : 'Shougo/unite.vim' }
 " }}}
 " VCS {{{
 NeoBundle 'tpope/vim-fugitive'
-" http://kmnk.blogspot.jp/2013/01/git-unite-unite-source.html
-"NeoBundle 'kmnk/vim-unite-giti'
 "NeoBundleLazy 'Shougo/vim-vcs', {
   "\   'depends' : 'thinca/vim-openbuf',
   "\   'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
   "\ }
-NeoBundle 'sgur/unite-git_grep', { 'depends' : 'Shougo/unite.vim' }
-NeoBundle 'Kocha/vim-unite-tig', { 'depends' : 'Shougo/unite.vim' }
 " TODO: require vim-powerline, change using plugin for show branch status
 NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
 NeoBundle 'sudo.vim'
@@ -185,7 +187,6 @@ NeoBundleLazy 'othree/html5.vim'
 autocmd FileType html NeoBundleSource html5.vim
 " }}}
 " CSS {{{
-NeoBundle 'pasela/unite-webcolorname', { 'depends' : 'Shougo/unite.vim' }
 NeoBundleLazy 'vim-scripts/css3'
 autocmd FileType css NeoBundleSource css3
 " }}}
@@ -209,7 +210,6 @@ autocmd FileType javascript,json NeoBundleSource JSON.vim
 " }}}
 " Ruby {{{
 NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'ujihisa/unite-gem', { 'depends' : 'Shougo/unite.vim' }
 " need ruby-debug-ide19
 " $ gem install ruby-debug-ide19
 "NeoBundle 'astashov/vim-ruby-debugger'
@@ -270,8 +270,6 @@ NeoBundleLazy 'nishigori/vim-php-dictionary'
 autocmd FileType php NeoBundleSource vim-php-dictionary
 NeoBundleLazy 'nishigori/vim-php-cs-fixer'
 autocmd FileType php NeoBundleSource vim-php-cs-fixer
-NeoBundleLazy 'nishigori/unite-sf2', { 'depends' : 'Shougo/unite.vim' }
-autocmd FileType php NeoBundleSource unite-sf2
 NeoBundleLazy 'nishigori/phpfolding.vim'
 autocmd FileType php NeoBundleSource phpfolding.vim
 NeoBundleLazy 'nishigori/neocomplcache-phpunit-snippet'
