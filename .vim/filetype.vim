@@ -23,8 +23,7 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile Vagrantfile  set filetype=ruby
   "au! BufRead,BufNewFile,BufWinEnter *sikuli/*.py setfiletype python.sikuli
   au! BufRead,BufNewFile */nginx/*,*nginx.conf    setfiletype nginx
-  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,/etc/apache/*,*.conf
-        \ setfiletype apache
+  au! BufRead,BufNewFile /etc/httpd/conf/*,/etc/httpd/conf.d/*,/etc/apache/*,*.conf setfiletype apache
   au! BufRead,BufNewFile *vimperatorrc*,*.vimp   setfiletype vimperator
   au! BufRead,BufNewFile *muttatorrc*,*.muttator setfiletype muttator
   au! BufRead,BufNewFile */bundle/*/doc/*        setfiletype help
