@@ -17,7 +17,6 @@ NeoBundle 'ujihisa/unite-locate'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'mattn/unite-nyancat'
 NeoBundle 'sgur/unite-git_grep'
 NeoBundle 'Kocha/vim-unite-tig'
 NeoBundle 'tsukkee/unite-help'
@@ -164,6 +163,10 @@ NeoBundle 'thinca/vim-openbuf'
 " }}}
 " ref, help {{{
 NeoBundle 'thinca/vim-ref'
+" }}}
+" Joke {{{
+NeoBundle 'mattn/unite-nyancat'
+NeoBundle 'mhinz/vim-startify'
 " }}}
 " VCS {{{
 NeoBundle 'tpope/vim-fugitive'
