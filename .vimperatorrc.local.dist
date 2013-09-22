@@ -4,7 +4,7 @@ colorscheme default
 
 " plugin_loader.js
 js <<EOF
-liberator.globalVariables.plugin_loader_plugins = <>
+liberator.globalVariables.plugin_loader_plugins = `
   _libly
   _smooziee
   appendAnchor
@@ -36,7 +36,7 @@ liberator.globalVariables.plugin_loader_plugins = <>
   twittperator
   usi
   firebug
-</>.toString().split(/\s+/).filter(function(n) n);
+`.split(/\s+/).filter(function(n) !/^!/.test(n));
 EOF
 
 " For Windows

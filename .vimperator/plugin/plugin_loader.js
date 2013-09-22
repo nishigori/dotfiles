@@ -64,7 +64,6 @@ let PLUGIN_INFO = xml`
 // }}}
 
 
-(function() {
 {
   function toArray (obj) {
     return obj instanceof Array ? obj
@@ -134,4 +133,3 @@ let PLUGIN_INFO = xml`
 
   liberator.log('plugin_loader: loaded');
 }
-});
