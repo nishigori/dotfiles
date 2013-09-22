@@ -281,6 +281,10 @@ autocmd FileType haskell NeoBundleSource ref-hoogle
 NeoBundle 'ujihisa/unite-haskellimport', { 'depends' : 'Shougo/unite.vim' }
 autocmd FileType haskell NeoBundleSource unite-haskellimport
 " }}}
+" Erlang {{{
+NeoBundleLazy 'jimenezrick/vimerl'
+autocmd FileType erlang NeoBundleSource vimerl
+" }}}
 " VimScript {{{
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundleLazy 'dsummersl/vimunit'
