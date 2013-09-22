@@ -145,6 +145,10 @@ if has('syntax')
   set number
   set numberwidth=4
 endif
+
+set showmatch
+set matchtime=3
+set matchpairs& matchpairs+=<:>
 " }}}
 " # Indent {{{
 set autoindent

@@ -1,4 +1,3 @@
-setlocal omnifunc=pythoncomplete#Complete
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 "setlocal encoding=utf-8
@@ -19,6 +18,7 @@ autocmd BufWritePost *.py :call lint#python()
 
 " # PLUGIN
 if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
+  setlocal omnifunc=pythoncomplete#Complete
   finish
 endif
 

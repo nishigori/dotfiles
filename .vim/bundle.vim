@@ -82,7 +82,11 @@ NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'vim-scripts/TagHighlight'
 " }}}
 " Syntax {{{
-NeoBundle 'scrooloose/syntastic'
+NeoBundle "scrooloose/syntastic", {
+      \ "build": {
+      \   "mac": ["pip install flake8", "npm -g install coffeelint"],
+      \   "unix": ["pip install flake8", "npm -g install coffeelint"],
+      \ }}
 " neocomplete requires vim 7.3.885 or above.
 NeoBundle 'Shougo/neocomplete', {
   \ 'depends' : 'Shougo/context_filetype.vim',
@@ -234,6 +238,28 @@ autocmd FileType ruby,rails NeoBundleSource unite-rails
 " Python {{{
 NeoBundleLazy 'vim-scripts/python.vim--Vasiliev'
 autocmd FileType python,django NeoBundleSource python.vim--Vasiliev
+NeoBundleLazy "davidhalter/jedi-vim", {
+  \ "autoload": {
+  \   "filetypes": ["python", "python3", "djangohtml"],
+  \ },
+  \ "build": {
+  \   "mac": "pip install jedi",
+  \   "unix": "pip install jedi",
+  \ }}
+let s:hooks = neobundle#get_hooks("jedi-vim")
+function! s:hooks.on_source(bundle)
+  " jediにvimの設定を任せると'completeopt+=preview'するので
+  " 自動設定機能をOFFにし手動で設定を行う
+  let g:jedi#auto_vim_configuration = 0
+  " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+  let g:jedi#popup_select_first = 0
+  " quickrunと被るため大文字に変更
+  let g:jedi#rename_command = '<Leader>R'
+  " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
+  let g:jedi#goto_assignments_command = '<Leader>G'
+endfunction
+"NeoBundlelazy 'mitsuhiko/vim-jinja'
+"autocmd FileType python,jinja NeoBundleSource vim-jinja
 " }}}
 " PHP {{{
 NeoBundleLazy 'arnaud-lb/vim-php-namespace'
