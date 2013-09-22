@@ -818,17 +818,27 @@ let g:user_emmet_settings = {
 "}}}
 " Plugin: neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><S-Space> neocomplete#start_manual_complete()
+inoremap <expr> <S-Space> neocomplete#start_manual_complete()
+inoremap <expr> <C-q> neocomplete#cancel_popup()
+
 let g:neocomplete#max_list = 30
-let g:neocomplete#max_keyword_width = 20
-let g:neocomplete#auto_completion_start_length = 3
-let g:neocomplete#manual_completion_start_length = 3
+let g:neocomplete#max_keyword_width = 30
+let g:neocomplete#auto_completion_start_length = 4
+let g:neocomplete#manual_completion_start_length = 4
 let g:neocomplete#min_keyword_length = 5
 "let g:neocomplete#enable_ignore_case = 'ignorecase'
 let g:neocomplete#enable_smart_case = 'infercase'
 let g:neocomplete#enable_insert_char_pre = 1 " Really??
-let g:neocomplete#enable_auto_select = 1
 let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
 let g:neocomplete#use_vimproc = 1
+
+let g:neocomplete#enable_auto_select = 1
+if exists('g:pached_vimjp_issue_385')
+  set completeopt+=noselect
+  let g:neocomplete#enable_complete_select = 1
+endif
 
 "if !exists('g:neocomplete#same_filetypes')
   "let g:neocomplete#same_filetypes = {}
