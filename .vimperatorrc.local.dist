@@ -25,16 +25,13 @@ liberator.globalVariables.plugin_loader_plugins = `
   longcat
   lookupDictionary
   microsoft-translator
-  nextlink
   pdf-js
   personas
-  property-panel
   simg
   slideshare
   statusline-toolbar
   stella
   twittperator
-  usi
   firebug
 `.split(/\s+/).filter(function(n) !/^!/.test(n));
 EOF
