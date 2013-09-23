@@ -946,7 +946,7 @@ function! s:bundle.hooks.on_source(bundle)
   "    \ -auto-cd=1
   "augroup END " }}}
 endfunction
-nnoremap : :<C-u>VimFilerSplit -winwidth=45<CR>
+nnoremap : :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
 augroup VimFilerUniteAction " {{{
   autocmd!
   autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
