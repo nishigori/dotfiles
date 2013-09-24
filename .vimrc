@@ -572,6 +572,18 @@ if !g:my_config_use_plugin
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
   finish " ここまで読んだらお前は死ぬ
 endif
+" Plugin: vim-startify {{{
+let g:startify_files_number = 15
+"let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
+let g:startify_list_order = ['files', 'bookmarks', 'sessions']
+let g:startify_bookmarks = [
+  \ '~/.ssh/config',
+  \ '~/.vimrc',
+  \ '~/.vimrc.local',
+  \ '~/.gvimrc',
+  \ '~/.gvimrc.local',
+  \ ]
+" }}}
 " Plugin: vimproc {{{
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
 " }}}
