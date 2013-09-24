@@ -578,6 +578,8 @@ let g:startify_files_number = 15
 let g:startify_list_order = ['files', 'bookmarks', 'sessions']
 let g:startify_bookmarks = [
   \ '~/.ssh/config',
+  \ '~/.vim/bundle.vim',
+  \ '~/.vim/bundle.vim.local',
   \ '~/.vimrc',
   \ '~/.vimrc.local',
   \ '~/.gvimrc',
