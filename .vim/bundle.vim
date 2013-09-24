@@ -171,6 +171,7 @@ NeoBundle 'thinca/vim-ref'
 " Joke {{{
 NeoBundle 'mattn/unite-nyancat'
 NeoBundle 'mhinz/vim-startify'
+NeoBundle 'junegunn/vim-emoji'
 " }}}
 " VCS {{{
 NeoBundle 'tpope/vim-fugitive'
