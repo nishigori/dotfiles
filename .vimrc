@@ -590,7 +590,8 @@ let g:startify_bookmarks = [
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
 " }}}
 " Plugin: vim-airline {{{
-let g:airline_theme = 'badwolf'
+" Themes https://github.com/bling/vim-airline/wiki/Screenshots
+let g:airline_theme = 'luna'
 "let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 "let g:airline_right_sep = '«'
