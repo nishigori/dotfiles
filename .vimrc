@@ -606,13 +606,33 @@ let g:airline_enable_branch    = 1
 let g:airline_enable_syntastic = 1
 let g:airline_detect_modified  = 1
 let g:airline_detect_paste     = 1
-let g:airline_powerline_fonts  = 0
+let g:airline_powerline_fonts  = 1
+
+" タブラインにもairlineを適用
+let g:airline#extensions#tabline#enabled = 1
+" （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
+let g:airline#extensions#tabline#show_buffers = 0
+" 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
+let g:airline#extensions#tabline#tab_nr_type = 1
+" タブに表示する名前（fnamemodifyの第二引数）
+let g:airline#extensions#tabline#fnamemod = ':t'
 " }}}
-" Plugin: vim-powerline {{{
-"let g:Powerline_cache_file  = s:tmpdir . '/Powerline.cache'
-"let g:Powerline_symbols    = 'fancy'
-"let g:Powerline_theme = 'solarized256'
-"let g:Powerline_colorscheme = 'solarized256'
+" Plugin: vim-anzu {{{
+" TODO: 通常検索と同じくfoldも自動で開かれるようになったら有効にする
+"nmap n nzz<Plug>(anzu-update-search-status)
+"nmap N Nzz<Plug>(anzu-update-search-status)
+"nmap * <Plug>(anzu-star)
+"nmap # <Plug>(anzu-sharp)
+"" ESC2回押しで検索ハイライトを消去
+"nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
+"" format = (該当数/全体数)
+"let g:anzu_status_format = "(%i/%l)"
+
+"" for vim-airline
+"" vim-anzuの表示を statuslineに
+"let g:airline_section_c = '%F %{anzu#search_status()}'
+"" whitespace無効
+"let g:airline#extensions#whitespace#enabled = 0
 " }}}
 " Plugin: alpaca_powertabline {{{
 let g:alpaca_powertabline_enable = 1

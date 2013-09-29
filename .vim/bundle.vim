@@ -80,6 +80,7 @@ NeoBundle 'vim-scripts/current-func-info.vim'
 NeoBundle 'vim-scripts/trinity.vim'
 NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'vim-scripts/TagHighlight'
+NeoBundle 'osyo-manga/vim-anzu'
 " }}}
 " Syntax {{{
 NeoBundle "scrooloose/syntastic", {
