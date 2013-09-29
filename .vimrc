@@ -825,6 +825,16 @@ let g:jscomplete_use = ['dom']
 " Plugin: dbext.vim {{{
 let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
 " }}}
+" Plugin: surround.vim {{{
+nmap ,( csw(
+nmap ,) csw)
+nmap ,{ csw{
+nmap ,} csw}
+nmap ,[ csw[
+nmap ,] csw]
+nmap ,' csw'
+nmap ," csw"
+" }}}
 " Plugin: Emmet.vim (Replaced from zenconding.vim) {{{
 let g:user_emmet_mode = 'a'
 let g:user_emmet_leader_key = '<c-y>'
