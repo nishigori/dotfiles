@@ -52,15 +52,17 @@ endif
 set nocompatible               " Use Vim defaults (much better!)
 set showcmd                    " Highliting bracket set.
 set hidden                     " Enable open new file, when while editing other file.
-set autoread
+set autoread                   " When a file has been detected to have been changed outside
 set history=255
-set viminfo='20,\"100           " Read/write a .viminfo file, don't store more than 50 lines of registers
+set viminfo='20,\"150           " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set ambiwidth=double
 set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
 set title
 set completeopt=menuone        " A comma separated list of options
+set scrolloff=5                " Minimal number of screen lines to keep above and below the cursor
+set formatoptions+=mM          " This is a sequence of letters
 
 set helplang=ja,en
 set keywordprg=:help
