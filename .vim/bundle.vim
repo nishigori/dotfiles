@@ -163,7 +163,7 @@ NeoBundle 'basyura/bitly.vim'
 NeoBundle 'vim-scripts/Headlights'
 NeoBundle 'vim-scripts/copypath.vim'
 NeoBundle 'mattn/calendar-vim'
-NeoBundle 'vim-scripts/submode'
+NeoBundle 'kana/vim-submode'
 NeoBundle 'thinca/vim-openbuf'
 " }}}
 " ref, help {{{

@@ -919,7 +919,7 @@ if has('conceal')
 endif
 " }}}
 " Plugin: vim-rooter {{{
-silent! nmap <unique> gh <Plug>RooterChangeToRootDirectory
+silent! nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
 let g:rooter_manual_only = 1
 let g:rooter_use_lcd = 1
 let g:rooter_patterns = [
