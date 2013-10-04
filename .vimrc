@@ -1133,6 +1133,7 @@ endif
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
 " }}}
 " Plugin: TweetVim {{{
+let g:tweetvim_tweet_per_page = 40
 let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
 let g:tweetvim_include_rts = 1
 let g:tweetvim_open_buffer_cmd = 'split -winheight=12 edit!'
