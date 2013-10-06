@@ -369,8 +369,9 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     " quickrunと被るため大文字に変更
     let g:jedi#rename_command = '<Leader>R'
     " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
-    let g:jedi#goto_assignments_command = '<Leader>G'
+    "let g:jedi#goto_assignments_command = '<Leader>G'
   endfunction
+  NeoBundle 'jmcantrell/vim-virtualenv'
   "NeoBundlelazy 'mitsuhiko/vim-jinja'
   "autocmd FileType python,jinja NeoBundleSource vim-jinja
   " }}}
