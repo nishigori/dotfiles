@@ -271,7 +271,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " Utility {{{
   " FIXME: vim-template, そのうち使う
   "NeoBundle 'thinca/vim-template'
-  NeoBundle 'vim-scripts/Headlights'
+  "NeoBundle 'vim-scripts/Headlights'
   NeoBundle 'vim-scripts/copypath.vim'
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'kana/vim-submode'
