@@ -1205,8 +1205,8 @@ let g:neocomplete#enable_at_startup = 1
 inoremap <expr> <S-Space> neocomplete#start_manual_complete()
 inoremap <expr> <C-q> neocomplete#cancel_popup()
 
-let g:neocomplete#max_list = 30
-let g:neocomplete#max_keyword_width = 30
+let g:neocomplete#max_list = 39
+let g:neocomplete#max_keyword_width = 64
 let g:neocomplete#auto_completion_start_length = 4
 let g:neocomplete#manual_completion_start_length = 4
 let g:neocomplete#min_keyword_length = 5
@@ -1216,8 +1216,8 @@ let g:neocomplete#enable_insert_char_pre = 1 " Really??
 let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
 let g:neocomplete#use_vimproc = 1
 
-let g:neocomplete#enable_auto_select = 1
 if exists('g:pached_vimjp_issue_385')
+  let g:neocomplete#enable_auto_select = 1
   set completeopt+=noselect
   let g:neocomplete#enable_complete_select = 1
 endif
