@@ -1326,10 +1326,10 @@ function! s:bundle.hooks.on_source(bundle)
   "augroup END " }}}
 endfunction
 nnoremap : :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
-augroup VimFilerUniteAction " {{{
-  autocmd!
-  autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
-augroup END " }}}
+"augroup VimFilerUniteAction " {{{
+  "autocmd!
+  "autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
+"augroup END " }}}
 " }}}
 " Plugin: vimshell {{{
 "let s:bundle = neobundle#get('vimshell')
@@ -1414,21 +1414,46 @@ let g:unite_enable_start_insert = 1
 " For unite-session.
 " Load session automatically.
 let g:unite_source_session_enable_auto_save = 1
-"autocmd VimEnter * UniteSessionLoad
+
 " window options
 let g:unite_winheight             = 20
 let g:unite_split_rule            = 'below'
-let g:unite_source_file_mru_limit = 120
-let g:unite_update_time           = 256
+let g:unite_source_file_mru_limit = 255
+let g:unite_update_time           = 255
+
+" file
+call unite#custom#source(
+  \   'file',
+  \   'ignore_pattern',
+  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|\)$'
+  \ )
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern' : '[[:alnum:]]',
+  \ 'subst' : '\0',
+  \ 'priority' : 100,
+  \ })
+
+" file_rec
+call unite#custom#source(
+  \   'file_rec',
+  \   'ignore_pattern',
+  \   '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
+  \ )
+
 " mru options
-let g:unite_source_file_mru_filename_format = ''
+let g:unite_source_file_mru_filename_format = ':p:~'
 let g:unite_source_file_mru_limit           = 200
+let g:unite_source_directory_mru_ignore_pattern =
+  \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\|idea\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+
 " history options
 let g:unite_source_history_yank_enable = 1
 let g:unite_source_history_yank_limit  = 100
+
 " color options
 let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
+
 " aliases
 let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
 let g:unite_source_alias_aliases.workspace = {
@@ -1439,14 +1464,6 @@ let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
   \ 'args':   "$HOME/workspace",
   \ }
-
-" ignore match patterns (Default: autoload/unite/source/file.vim)
-let g:unite_source_file_ignore_pattern =
-  \ '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|\)$'
-let g:unite_source_directory_mru_ignore_pattern =
-  \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\|idea\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
-let g:unite_source_file_rec_ignore_pattern =
-  \ '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
 
 "call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
 "call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
