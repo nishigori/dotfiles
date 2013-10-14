@@ -109,10 +109,6 @@ alias hl='history'
 # SVN
 export SVN_EDITOR=vim
 
-# git
-#alias gitlog='git log --graph --all --color --pretty="%x09%h %cn%x09%s %Cred%d"'
-alias gitlog='git log --graph --color --pretty="%x09%h %cn%x09%s %Cred%d"'
-
 # ctags
 # ctag config file is .ctags
 alias ctag='ctags -R ./'
@@ -123,7 +119,10 @@ PATH="/var/lib/gems/1.8/bin:$PATH"
 #alias phpwatchr='watchr $HOME/workspace/phpunit-stack/watchr.rb'
 alias phpwatchr='cd $HOME/workspace/phpunit-stack; watchr watchr.rb'
 
-# MacPort
-alias port='/opt/local/bin/port'
+# For golang
+export GOROOT=/usr/local/Cellar/go/1.1.2
+export GOPATH=$HOME/_go
+export PATH=$PATH:$GOROOT/bin
+
 
 # vim:set foldmethod=marker ts=2 sw=2 sts=0 expandtab:

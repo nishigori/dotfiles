@@ -9,6 +9,7 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *.txt        setfiletype txt
   au! BufRead,BufNewFile *.xml.*      setfiletype xml
   au! BufRead,BufNewFile *.php*       setfiletype php
+  au! BufRead,BufNewFile *.go         setfiletype go
   au! BufRead,BufNewFile *.phl        setfiletype php.html
   au! BufRead,BufNewFile *.pht        setfiletype php.html
   au! BufRead,BufNewFile *.md.*       set filetype=markdown
