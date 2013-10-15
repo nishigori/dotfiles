@@ -229,7 +229,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'smartchr'
   NeoBundle 'scrooloose/nerdcommenter'
   NeoBundle 't9md/vim-textmanip'
-  NeoBundle 't9md/vim-quickhl'
+  "NeoBundle 't9md/vim-quickhl', { 'depends' : 'tyru/operator-star.vim' }
   NeoBundle 'visualstar.vim'
   NeoBundle 'vim-scripts/matchparenpp'
   NeoBundle 'h1mesuke/vim-alignta'
