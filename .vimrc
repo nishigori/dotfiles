@@ -125,7 +125,13 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'thinca/vim-unite-history'
   NeoBundle 'osyo-manga/unite-quickrun_config'
   NeoBundle 'ujihisa/unite-locate'
-  NeoBundle 'tsukkee/unite-tag'
+  NeoBundleLazy 'tsukkee/unite-tag',
+    \ {
+    \   'depends' : ['Shougo/unite.vim'],
+    \   'autoload' : {
+    \     'unite_sources' : ['tag', 'tag/file', 'tag/include'],
+    \   }
+    \ }
   NeoBundle 'tacroe/unite-mark'
   NeoBundle 'ujihisa/unite-colorscheme'
   NeoBundle 'sgur/unite-git_grep'
@@ -191,6 +197,13 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'vim-scripts/trinity.vim'
   NeoBundle 'vim-scripts/taglist.vim'
   NeoBundle 'vim-scripts/TagHighlight'
+  NeoBundleLazy 'alpaca-tc/alpaca_tags',
+    \ {
+    \   'depends': 'Shougo/vimproc',
+    \   'autoload' : {
+    \     'commands': ['TagsUpdate', 'TagsSet', 'TagsBundle'],
+    \   }
+    \ }
   NeoBundle 'osyo-manga/vim-anzu'
   " }}}
   " Syntax {{{
@@ -221,6 +234,10 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \ 'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
     \ }})
   NeoBundle 'thinca/vim-ambicmd'
+  NeoBundleLazy 'alpaca-tc/vim-endwise.git',
+    \ {
+    \   'autoload' : { 'insert' : 1 },
+    \ }
   " }}}
   " Text operation {{{
   NeoBundle 'vim-scripts/matchit.zip'
@@ -1105,7 +1122,9 @@ let g:quickrun_config = {
   \     'runner/process_manager/prompt' : '>> ',
   \   },
   \   'ruby.rspec' : {
-  \     'command' : "rspec -l %{line('.')}",
+  \     'command' : "rspec",
+  \     'cmdopt': 'bundle exec',
+  \     'exec': '%o %c %s',
   \   },
   \   'php.phpunit' : {
   \     'command' : 'phpunit',
@@ -1597,9 +1616,20 @@ nmap <ESC>g <M-g>
 nmap <ESC>s <M-s>
 nmap <ESC>i <M-i>
 " }}}
+" Plugin: alpaca_tags {{{
+augroup AlpacaTags
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost Gemfile TagsBundle
+    autocmd BufEnter * TagsSet
+    " 毎回保存と同時更新する場合はコメントを外す
+    " autocmd BufWritePost * TagsUpdate
+  endif
+augroup END
+" }}}
 " Plugin: unite-tag {{{
 let g:unite_tig_default_line_count = 80
-"nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
+nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
 autocmd BufEnter *
   \ if empty(&buftype)
   \   | nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR> |
