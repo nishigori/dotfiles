@@ -1671,6 +1671,9 @@ let g:ref_source_webdict_sites = {
   \     'cache': 1,
   \   },
   \   'wikipedia:ja': 'http://ja.wikipedia.org/wiki/%s',
+  \   'chef': {
+  \     'url': 'http://docs.opscode.com/resource_%s.html',
+  \   },
   \ }
 " 出力に対するフィルタ。最初の数行を削除している。
 function! g:ref_source_webdict_sites.weblio.filter(output)
