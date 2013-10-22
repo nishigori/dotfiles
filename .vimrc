@@ -1617,6 +1617,11 @@ nmap <ESC>s <M-s>
 nmap <ESC>i <M-i>
 " }}}
 " Plugin: alpaca_tags {{{
+let g:alpaca_tags_config = {
+  \ '_' : '-R --exclude=".git*" --sort=yes',
+  \ 'js' : '-R --languages=+js',
+  \ 'ruby': '--langmap=RUBY:.rb --exclude="*.js" --exclude=".git*',
+  \ }
 augroup AlpacaTags
   autocmd!
   if exists(':Tags')
