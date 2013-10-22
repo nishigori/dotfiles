@@ -3,8 +3,8 @@ setlocal omnifunc=phpcomplete#CompletePHP
 setlocal expandtab
 setlocal autoindent
 setlocal smartindent
-setlocal tabstop=4
-setlocal shiftwidth=4
+setlocal tabstop=2
+setlocal shiftwidth=2
 setlocal softtabstop=0
 
 let g:php_sql_query = 1      " 文字列中のSQLをハイライト
