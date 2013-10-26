@@ -62,6 +62,9 @@ nnoremap <silent> <A-k> :tabprevious<Cr>
 nnoremap <silent> <A-j> :tabnext<Cr>
 nnoremap <silent> <A-p> :tabprevious<Cr>
 nnoremap <silent> <A-n> :tabnext<Cr>
+
+" Toggle tab
+nnoremap <silent> <Tab> <C-6>
 " }}}
 " # <Leader> commands {{{
 let mapleader = ","
