@@ -1039,6 +1039,7 @@ if filereadable(s:bundle_dir . '/matchit.zip/plugin/matchit.vim')
 endif
 " }}}
 " Plugin: vim-textmanip {{{
+let g:textmanip_enable_mappings = get(g:, 'textmanip_enable_mappings', 0)
 xmap <C-j> <Plug>(Textmanip.move_selection_down)
 xmap <C-k> <Plug>(Textmanip.move_selection_up)
 xmap <C-h> <Plug>(Textmanip.move_selection_left)
