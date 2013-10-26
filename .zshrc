@@ -39,9 +39,10 @@ case "${OSTYPE}" in
             git git-flow-avh ssh-agent \
             python pip mercurial virtualenv virtualenvwrapper \
             ruby rbenv gem rake bundler rails4 capistrano \
+            npm bower \
+            composer symfony2 \
             scala \
             gradle \
-            composer symfony2 \
             )
         ;;
     linux*)
@@ -56,6 +57,7 @@ case "${OSTYPE}" in
                 git git-flow-avh ssh-agent \
                 python pip mercurial virtualenv virtualenvwrapper \
                 ruby rbenv gem rake bundler rails4 capistrano \
+                npm bower \
                 composer symfony2 cake \
                 )
         else
@@ -69,6 +71,7 @@ case "${OSTYPE}" in
                 git git-flow-avh github ssh-agent \
                 python pip mercurial virtualenv virtualenvwrapper \
                 ruby rbenv gem rake bundler rails4 capistrano \
+                npm bower \
                 composer symfony2 \
                 )
         fi
