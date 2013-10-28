@@ -13,9 +13,6 @@ setlocal commentstring=\ #\ %s
 
 let g:python_highlight_all = 1
 
-"nnoremap <F12> :!/usr/lib/python2.4/pdb.py %<CR>
-autocmd BufWritePost *.py :call lint#python()
-
 " # PLUGIN
 if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
   setlocal omnifunc=pythoncomplete#Complete

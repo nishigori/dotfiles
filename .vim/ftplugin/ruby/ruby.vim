@@ -26,7 +26,7 @@ let g:ruby_no_comment_fold = 1
 let g:ruby_space_errors    = 1
 
 " RubyLint
-autocmd BufWritePost *.rb :call lint#ruby()
+"autocmd BufWritePost *.rb :call lint#ruby()
 nmap ,l :call lint#ruby()<CR>
 
 if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
