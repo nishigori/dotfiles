@@ -37,7 +37,7 @@ case "${OSTYPE}" in
             nyan \
             ant \
             git git-flow-avh ssh-agent \
-            python pip mercurial virtualenv virtualenvwrapper \
+            python pip mercurial virtualenv virtualenvwrapper fabric \
             ruby rbenv gem rake bundler rails4 capistrano \
             npm bower \
             composer symfony2 \
@@ -55,7 +55,7 @@ case "${OSTYPE}" in
                 ant \
                 terminitor \
                 git git-flow-avh ssh-agent \
-                python pip mercurial virtualenv virtualenvwrapper \
+                python pip mercurial virtualenv virtualenvwrapper fabric \
                 ruby rbenv gem rake bundler rails4 capistrano \
                 npm bower \
                 composer symfony2 cake \
@@ -69,7 +69,7 @@ case "${OSTYPE}" in
                 ant \
                 terminitor \
                 git git-flow-avh github ssh-agent \
-                python pip mercurial virtualenv virtualenvwrapper \
+                python pip mercurial virtualenv virtualenvwrapper fabric \
                 ruby rbenv gem rake bundler rails4 capistrano \
                 npm bower \
                 composer symfony2 \
