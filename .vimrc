@@ -1050,6 +1050,7 @@ let g:syntastic_mode_map =
   \     'vim',
   \   ],
   \   'passive_filetypes': [
+  \     'zsh',
   \   ],
   \ }
 " }}}
