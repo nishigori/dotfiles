@@ -337,13 +337,15 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundleLazy 'heavenshell/vim-quickrun-hook-sphinx'
   autocmd FileType rst NeoBundleSource vim-quickrun-hook-sphinx
   " }}}
+  " JSON {{{
+  NeoBundle 'elzr/vim-json'
+  autocmd FileType javascript,json NeoBundleSource vim-json
+  " }}}
   " JavaScript {{{
   NeoBundle 'teramako/jscomplete-vim'
   autocmd FileType javascript,js NeoBundleSource jscomplete-vim
   NeoBundleLazy 'basyura/jslint.vim'
   autocmd FileType javascript,js NeoBundleSource vim-ref-jquery
-  NeoBundle 'vim-scripts/JSON.vim'
-  autocmd FileType javascript,json NeoBundleSource JSON.vim
   " }}}
   " Ruby {{{
   NeoBundle 'vim-ruby/vim-ruby'
