@@ -33,7 +33,7 @@ case "${OSTYPE}" in
         plugins=( \
             osx brew \
             autojump \
-            vagrant knife \
+            vagrant knife knife_ssh \
             nyan \
             ant \
             git git-flow-avh ssh-agent \
@@ -50,7 +50,7 @@ case "${OSTYPE}" in
             plugins=( \
                 yum gnu-utils \
                 autojump \
-                vagrant knife \
+                vagrant knife knife_ssh \
                 nyan \
                 ant \
                 terminitor \
@@ -64,7 +64,7 @@ case "${OSTYPE}" in
             plugins=( \
                 debian gnu-utils \
                 autojump \
-                docker vagrant knife \
+                docker vagrant knife knife_ssh \
                 nyan \
                 ant \
                 terminitor \
