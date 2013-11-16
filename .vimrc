@@ -351,7 +351,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType javascript,js NeoBundleSource vim-ref-jquery
   " }}}
   " Ruby {{{
-  NeoBundle 'vim-ruby/vim-ruby'
   " need ruby-debug-ide19
   " $ gem install ruby-debug-ide19
   "NeoBundle 'astashov/vim-ruby-debugger'
