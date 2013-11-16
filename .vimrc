@@ -921,6 +921,16 @@ if has('unix') && !has('gui_running')
   map! <NUL> <C-Space>
 endif
 " }}}
+" Under the $VIMRUNTIME {{{
+" plugin/matchparen.vim
+let g:loaded_matchparen = 1
+" ftplugin/gitrebase.vim
+autocmd FileType gitrebase nnoremap <buffer>p :<C-u>Pick<CR>
+autocmd FileType gitrebase nnoremap <buffer>s :<C-u>Squash<CR>
+autocmd FileType gitrebase nnoremap <buffer>e :<C-u>Edit<CR>
+autocmd FileType gitrebase nnoremap <buffer>r :<C-u>Reword<CR>
+autocmd FileType gitrebase nnoremap <buffer>f :<C-u>Fixup<CR>
+" }}}
 " Plugin
 if !g:my_config_use_plugin
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
