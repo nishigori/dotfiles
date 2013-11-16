@@ -105,7 +105,7 @@ let s:tmpdir = exists('g:local_config["tmp_dir"]')
   \ ? g:local_config['tmp_dir']
   \ : $HOME
 " }}}
-" # Bundle {{{
+" # Bundles {{{
 if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   let s:bundle_dir = $HOME . '/.vim/bundle'
 
@@ -293,6 +293,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'mattn/calendar-vim'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'thinca/vim-openbuf'
+  NeoBundle 'yonchu/accelerated-smooth-scroll'
   " }}}
   " ref, help {{{
   NeoBundle 'thinca/vim-ref'
@@ -982,6 +983,10 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " }}}
 " Plugin: alpaca_powertabline {{{
 let g:alpaca_powertabline_enable = 1
+" }}}
+" Plugin: accelerated-smooth-scroll {{{
+let g:ac_smooth_scroll_du_sleep_time_msec = 1
+let g:ac_smooth_scroll_fb_sleep_time_msec = 1
 " }}}
 " Plugin: calendar.vim {{{
 let g:calendar_wruler = '日 月 火 水 木 金 土 '
