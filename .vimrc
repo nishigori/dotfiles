@@ -1598,8 +1598,16 @@ let g:unite_source_menu_menus.git.command_candidates =
   \     'Gstatus'
   \   ],
   \   [
+  \     '▷ git diff (vertical) (Fugitive)                   <Leader>gd',
+  \     'Gvdiff'
+  \   ],
+  \   [
   \     '▷ git diff          (Fugitive)                     <Leader>gd',
   \     'Gsdiff'
+  \   ],
+  \   [
+  \     '▷ git diff --cached (vertical) (Fugitive)          <Leader>gD',
+  \     'Gsdiff --cached'
   \   ],
   \   [
   \     '▷ git diff --cached (Fugitive)                     <Leader>gD',
@@ -1607,7 +1615,7 @@ let g:unite_source_menu_menus.git.command_candidates =
   \   ],
   \   [
   \     '▷ git commit        (Fugitive)                     <Leader>gc',
-  \     'Gcommit'
+  \     'Gcommit --verbose'
   \   ],
   \   [
   \     '▷ git blame         (Fugitive)',
