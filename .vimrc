@@ -1288,6 +1288,12 @@ let g:neocomplete#enable_insert_char_pre = 1 " Really??
 let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
 let g:neocomplete#use_vimproc = 1
 
+" For jedi-vim
+let g:jedi#auto_vim_configuration = 0
+let g:neocomplete#force_omni_input_patterns =
+  \ get(g:, 'neocomplete#force_omni_input_patterns', {})
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
+
 if exists('g:pached_vimjp_issue_385')
   let g:neocomplete#enable_auto_select = 1
   set completeopt+=noselect
