@@ -423,8 +423,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " VimScript {{{
   NeoBundle 'nathanaelkane/vim-indent-guides'
-  NeoBundleLazy 'dsummersl/vimunit'
-  autocmd FileType vim NeoBundleSource vimunit
+  "NeoBundleLazy 'dsummersl/vimunit'
+  "autocmd FileType vim NeoBundleSource vimunit
   "NeoBundleLazy 'ujihisa/vital.vim'
   " }}}
   " Nginx {{{
@@ -864,6 +864,14 @@ endif
 if has('migemo')
   set migemo
 endif
+" }}}
+" # Spell {{{
+" @see https://github.com/vim-jp/vimdoc-ja/blob/master/doc/spell.jax
+"set spell
+"set spelllang=en,cjk
+"if empty('&spellfile')
+  "set spellfile="$HOME/.vim/spell/en.utf-8.add"
+"endif
 " }}}
 " # Omni complete {{{
 " omni_complete, completed each ftplugin
@@ -1471,7 +1479,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_session_enable_auto_save = 1
 
 " window options
-let g:unite_winheight             = 20
+let g:unite_winheight             = 25
 let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 255
 let g:unite_update_time           = 255
