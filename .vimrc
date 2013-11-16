@@ -330,6 +330,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " Markdown {{{
   NeoBundle 'mattn/mkdpreview-vim'
   autocmd FileType markdown NeoBundleSource mkdpreview-vim
+  NeoBundle 'plasticboy/vim-markdown'
+  autocmd FileType markdown NeoBundleSource vim-markdown
   " }}}
   " reST {{{
   NeoBundleLazy 'jtriley/vim-rst-headings'
@@ -1030,6 +1032,9 @@ let g:context_filetype#filetypes = {
 let g:indent_guides_color_change_percent = 30
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
+" }}}
+" Plugin: vim-markdown {{{
+let g:vim_markdown_initial_foldlevel = 2
 " }}}
 " Plugin: syntastic {{{
 "let g:syntastic_debug = 1
