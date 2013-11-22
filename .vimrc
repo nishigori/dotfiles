@@ -294,6 +294,10 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'kana/vim-submode'
   NeoBundle 'thinca/vim-openbuf'
   NeoBundle 'yonchu/accelerated-smooth-scroll'
+  " gist repos
+  NeoBundle 'gist:koron/5992868:', {
+    \ 'name': 'pyibus.vim',
+    \ 'script_type': 'plugin' }
   " }}}
   " ref, help {{{
   NeoBundle 'thinca/vim-ref'
