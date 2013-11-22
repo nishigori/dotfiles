@@ -58,8 +58,8 @@ nnoremap e> :<C-u>edit $MYGVIMRC<CR>
 nnoremap eS :<C-u>source $MYGVIMRC<CR>
 " }}}
 " # Window {{{
-set lines=80
-set columns=120
+set lines=85
+set columns=150
 
 nnoremap <silent> ZZ :<C-u>close<CR>
 " }}}
