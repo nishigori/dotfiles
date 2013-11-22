@@ -53,7 +53,7 @@ set nocompatible               " Use Vim defaults (much better!)
 set showcmd                    " Highliting bracket set.
 set hidden                     " Enable open new file, when while editing other file.
 set autoread                   " When a file has been detected to have been changed outside
-set history=255
+set history=511
 set viminfo='20,\"150           " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set ambiwidth=double
@@ -1496,7 +1496,7 @@ let g:unite_source_session_enable_auto_save = 1
 " window options
 let g:unite_winheight             = 25
 let g:unite_split_rule            = 'below'
-let g:unite_source_file_mru_limit = 255
+let g:unite_source_file_mru_limit = 511
 let g:unite_update_time           = 255
 
 " file
@@ -1520,13 +1520,12 @@ call unite#custom#source(
 
 " mru options
 let g:unite_source_file_mru_filename_format = ':p:~'
-let g:unite_source_file_mru_limit           = 200
 let g:unite_source_directory_mru_ignore_pattern =
   \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\|idea\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 
 " history options
 let g:unite_source_history_yank_enable = 1
-let g:unite_source_history_yank_limit  = 100
+let g:unite_source_history_yank_limit  = 50
 
 " color options
 let g:unite_cursor_line_highlight = 'PmenuSel'
