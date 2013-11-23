@@ -5,3 +5,6 @@
 	path = .vimperator/ervandew-plugin
 	url = https://github.com/ervandew/vimperator-plugins.git
 
+[submodule ".vimperator/jagua-readable-plugin"]
+	path = .vimperator/jagua-readable-plugin
+	url = https://gist.github.com/5653116.git
