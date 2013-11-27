@@ -1,7 +1,6 @@
 augroup FiletypeDetect
   " setfiletype:  different settings and syntax files to be loaded
   " set filetype: overwrite
-  au! BufRead,BufNewFile *.md         setfiletype markdown
   au! BufRead,BufNewFile *.json*      setfiletype json
   au! BufRead,BufNewFile *.mine       setfiletype mine
   au! BufRead,BufNewFile *.xyz        setfiletype drawing
@@ -18,6 +17,7 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *Test.php    set filetype=phpunit.php
   au! BufRead,BufNewFile *.json.twig  set filetype=json.twig
   au! BufRead,BufNewFile *.html.twig  set filetype=html.twig
+  au! BufRead,BufNewFile *.md         set filetype=markdown
   au! BufRead,BufNewFile Capfile      set filetype=ruby
   au! BufRead,BufNewFile Gemfile      set filetype=ruby
   au! BufRead,BufNewFile Guardfile    set filetype=ruby

@@ -361,6 +361,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   "autocmd FileType ruby
   "\ NeoBundleSource 'tpope/rails.vim'
   " @see http://qiita.com/items/839f4b9e07cf7f341835
+  NeoBundleLazy 'tpope/vim-rbenv'
+  autocmd FileType ruby NeoBundleSource vim-rbenv
   NeoBundleLazy 'rhysd/neco-ruby-keyword-args'
   autocmd FileType ruby NeoBundleSource neco-ruby-keyword-args
   NeoBundleLazy 'ruby-matchit' " TODO: Need fork, cause no use ftplugin ;(
