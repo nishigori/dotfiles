@@ -34,11 +34,10 @@ case "${OSTYPE}" in
             osx brew \
             autojump \
             vagrant knife knife_ssh \
-            nyan \
             ant \
             git git-flow-avh ssh-agent \
             python pip mercurial virtualenv virtualenvwrapper fabric \
-            ruby rbenv gem rake bundler rails4 capistrano \
+            ruby rbenv gem rake bundler capistrano \
             npm bower \
             composer symfony2 \
             scala \
@@ -51,12 +50,11 @@ case "${OSTYPE}" in
                 yum gnu-utils \
                 autojump \
                 vagrant knife knife_ssh \
-                nyan \
                 ant \
                 terminitor \
                 git git-flow-avh ssh-agent \
                 python pip mercurial virtualenv virtualenvwrapper fabric \
-                ruby rbenv gem rake bundler rails4 capistrano \
+                ruby rbenv gem rake bundler capistrano \
                 npm bower \
                 composer symfony2 cake \
                 )
@@ -65,12 +63,11 @@ case "${OSTYPE}" in
                 debian gnu-utils \
                 autojump \
                 docker vagrant knife knife_ssh \
-                nyan \
                 ant \
                 terminitor \
                 git git-flow-avh github ssh-agent \
                 python pip mercurial virtualenv virtualenvwrapper fabric \
-                ruby rbenv gem rake bundler rails4 capistrano \
+                ruby rbenv gem rake bundler capistrano \
                 npm bower \
                 composer symfony2 \
                 )
