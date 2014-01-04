@@ -441,7 +441,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " My Plugins {{{
   NeoBundle 'nishigori/vim-multiple-switcher'
-  NeoBundle 'nishigori/vim-sunday'
+  NeoBundle 'nishigori/increment-activator'
   NeoBundleLazy 'nishigori/vim-php-dictionary'
   autocmd FileType php NeoBundleSource vim-php-dictionary
   NeoBundleLazy 'nishigori/vim-php-cs-fixer'
@@ -1785,13 +1785,41 @@ nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
 nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
 " }}}
-" My Plugin: vim-sunday {{{
-let g:sunday_pairs = [
-  \ ['light', 'dark'],
-  \ ['extends', 'implements'],
-  \ ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
-  \ ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
-  \ ]
+" My Plugin: IncrementActivator {{{
+let g:increment_activator#config =
+  \ {
+  \   '_': [
+  \     ['light', 'dark'],
+  \     ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
+  \     ['previous', 'current', 'next'],
+  \     ['ぬるぽ', 'ガッ'],
+  \     ['=', ':='],
+  \   ],
+  \   'php': [
+  \     ['private', 'protected', 'public'],
+  \     ['extends', 'implements'],
+  \     ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
+  \   ],
+  \   'vim': [
+  \     ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
+  \     ['nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap'],
+  \     ['NeoBundle', 'NeoBundleLazy'],
+  \     ['Home', 'End', 'Left', 'Right', 'Delete'],
+  \     ['has', 'has_key', 'exists'],
+  \   ],
+  \   'go': [
+  \     ['true', 'false', 'iota', 'nil'],
+  \     ['print', 'println'],
+  \     ['byte', 'complex64', 'complex128'],
+  \     ['int', 'int8', 'int16', 'int32', 'int64'],
+  \     ['uint', 'uint8', 'uint16', 'uint32', 'uint64'],
+  \     ['float32', 'float64'],
+  \     ['interface', 'struct'],
+  \   ],
+  \   'cucumber': [
+  \     ['Given', 'And', 'When', 'Then'],
+  \   ],
+  \ }
 " }}}
 " # [unite] Mappings "{{{
 " The prefix key.
