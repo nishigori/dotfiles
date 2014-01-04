@@ -430,9 +430,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " VimScript {{{
   NeoBundle 'nathanaelkane/vim-indent-guides'
-  "NeoBundleLazy 'dsummersl/vimunit'
-  "autocmd FileType vim NeoBundleSource vimunit
-  "NeoBundleLazy 'ujihisa/vital.vim'
   " }}}
   " Nginx {{{
   autocmd FileType nginx NeoBundleSource 'chase/nginx.vim'

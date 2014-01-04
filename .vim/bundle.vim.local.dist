@@ -23,6 +23,9 @@ NeoBundleLazy 'taichouchou2/vim-endwise.git', {
 " unite source
 NeoBundle 'mattn/unite-remotefile', { 'depends' : 'Shougo/unite.vim' }
 
+" VimScript
+NeoBundleLazy 'vim-jp/vital.vim'
+
 " examples
 NeoBundle "toritori0318/vim-redmine"
 NeoBundle 'ujihisa/vimshell-ssh', { 'depends': 'Shougo/vimshell' }
