@@ -978,7 +978,9 @@ let g:airline_enable_branch    = 1
 let g:airline_enable_syntastic = 1
 let g:airline_detect_modified  = 1
 let g:airline_detect_paste     = 1
-let g:airline_powerline_fonts  = 1
+if !has('gui_macvim')
+  let g:airline_powerline_fonts  = 1
+endif
 
 " タブラインにもairlineを適用
 let g:airline#extensions#tabline#enabled = 1
@@ -1086,6 +1088,7 @@ let g:syntastic_mode_map =
   \   ],
   \   'passive_filetypes': [
   \     'zsh',
+  \     'html',
   \   ],
   \ }
 " }}}
