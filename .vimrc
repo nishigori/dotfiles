@@ -241,7 +241,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " Text operation {{{
   NeoBundle 'vim-scripts/matchit.zip'
-  NeoBundle 'mattn/emmet-vim'
+  NeoBundleLazy 'mattn/emmet-vim'
+  autocmd FileType html NeoBundleSource emmet-vim
   NeoBundle 'tpope/vim-surround'
   NeoBundle 'smartchr'
   NeoBundle 'scrooloose/nerdcommenter'
