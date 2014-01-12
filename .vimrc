@@ -1632,9 +1632,9 @@ let g:unite_data_directory =
   \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
 
 let g:unite_enable_start_insert = 1
-" Save session automatically.
-" For unite-session.
-" Load session automatically.
+let g:unite_enable_short_source_names = 1
+
+" For unite-session Save & Load session automatically.
 let g:unite_source_session_enable_auto_save = 1
 
 " window options
@@ -1642,25 +1642,6 @@ let g:unite_winheight             = 25
 let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 511
 let g:unite_update_time           = 255
-
-" file
-call unite#custom#source(
-  \   'file',
-  \   'ignore_pattern',
-  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|\)$'
-  \ )
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern' : '[[:alnum:]]',
-  \ 'subst' : '\0',
-  \ 'priority' : 100,
-  \ })
-
-" file_rec
-call unite#custom#source(
-  \   'file_rec',
-  \   'ignore_pattern',
-  \   '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
-  \ )
 
 " mru options
 let g:unite_source_file_mru_filename_format = ':p:~'
@@ -1674,6 +1655,109 @@ let g:unite_source_history_yank_limit  = 50
 " color options
 let g:unite_cursor_line_highlight = 'PmenuSel'
 "let g:unite_abbr_highlight       = 'TabLine'
+" }}}
+" Plugin: unite.vim >> key mappings {{{
+augroup UniteBufferKeyMappings
+  autocmd!
+  autocmd FileType unite call s:define_unite_keymaps()
+augroup END
+function! s:define_unite_keymaps() " {{{
+  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
+  imap <buffer> <C-q> <Plug>(unite_exit)
+
+  nmap <buffer> <C-p> k
+  nmap <buffer> <C-n> j
+
+  nmap <silent><buffer> <C-w> <Plug>(unite_delete_backward_word)
+  imap <silent><buffer> <C-w> <Plug>(unite_delete_backward_word)
+  inoremap <silent><buffer> <C-d> <Delete>
+  inoremap <silent><buffer> <C-b> <Left>
+  inoremap <silent><buffer> <C-f> <Right>
+
+  nnoremap <silent><buffer><expr> <C-j> unite#do_action('split')
+  inoremap <silent><buffer><expr> <C-j> unite#do_action('split')
+  nnoremap <silent><buffer><expr> <C-l> unite#do_action('vsplit')
+  inoremap <silent><buffer><expr> <C-l> unite#do_action('vsplit')
+endfunction " }}}
+
+nnoremap <C-p> :<C-u>Unite file_mru<CR>
+nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
+"nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
+" }}}
+" Plugin: unite.vim >> profiles {{{
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern' : '[[:alnum:]]',
+  \ 'subst' : '\0',
+  \ 'priority' : 100,
+  \ })
+
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '\$\w\+',
+  \ 'subst': '\=eval(submatch(0))',
+  \ 'priority': 200,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '^@@',
+  \ 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"',
+  \ 'priority': 2,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '^@',
+  \ 'subst': '\=getcwd()."/*"',
+  \ 'priority': 1,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '^;r',
+  \ 'subst': '\=$VIMRUNTIME."/"',
+  \ 'priority': 1,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '^\~',
+  \ 'subst': escape($HOME, '\'),
+  \ 'priority': -2,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '\\\@<! ',
+  \ 'subst': '\\ ',
+  \ 'priority': -20,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern': '\\ \@!',
+  \ 'subst': '/',
+  \ 'priority': -30,
+  \ })
+if has('win32') || has('win64')
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^;p',
+    \ 'subst': 'C:/Program Files/',
+    \ 'priority': 1,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^;v',
+    \ 'subst': '~/vimfiles/',
+    \ 'priority': 1,
+    \ })
+else
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^;v',
+    \ 'subst': '~/.vim/',
+    \ 'priority': 1,
+    \ })
+endif
+" }}}
+" Plugin: unite.vim >> custom sources & aliases {{{
+" file
+call unite#custom#source(
+  \   'file',
+  \   'ignore_pattern',
+  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|\)$'
+  \ )
+" file_rec
+call unite#custom#source(
+  \   'file_rec',
+  \   'ignore_pattern',
+  \   '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
+  \ )
 
 " aliases
 let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
@@ -1685,23 +1769,6 @@ let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
   \ 'args':   "$HOME/workspace",
   \ }
-
-"call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
-"call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
-"call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
-"call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
-"call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
-"call unite#set_substitute_pattern('file', '^\\', '~/*')
-"call unite#set_substitute_pattern('file', '^;v', '~/.vim/*')
-"call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
-"call unite#set_substitute_pattern('file', '\*\*\+', '*', -1)
-"call unite#set_substitute_pattern('file', '^\~', escape($HOME, '\'), -2)
-"call unite#set_substitute_pattern('file', '\\\@<! ', '\\ ', -20)
-"call unite#set_substitute_pattern('file', '\\ \@!', '/', -30)
-
-nnoremap <C-p> :<C-u>Unite file_mru<CR>
-nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
-"nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " Plugin: unite.vim >> source menus {{{
 let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
@@ -1980,6 +2047,8 @@ nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
 nnoremap <silent> [unite]M :<C-u>Unite menu<CR>
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
+nnoremap <silent> [unite]d
+  \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
 "nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
