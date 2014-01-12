@@ -1043,7 +1043,7 @@ endfunction
 function! MyFugitive()
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = ''  " edit here for cool mark
+      let mark = '⭠ '  " edit here for cool mark
       let _ = fugitive#head()
       return strlen(_) ? mark._ : ''
     endif
@@ -1633,6 +1633,7 @@ let g:unite_data_directory =
 
 let g:unite_enable_start_insert = 1
 let g:unite_enable_short_source_names = 1
+let g:unite_prompt = '☁  '
 
 " For unite-session Save & Load session automatically.
 let g:unite_source_session_enable_auto_save = 1
