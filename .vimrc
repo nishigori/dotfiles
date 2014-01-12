@@ -188,10 +188,12 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
   " }}}
   " Buffer, Tag {{{
-  NeoBundle 'alpaca-tc/alpaca_powertabline'
   "NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
+  "NeoBundle 'alpaca-tc/alpaca_powertabline'
+  "NeoBundle 'bling/vim-airline'
+  NeoBundle 'itchyny/lightline.vim'
+
   NeoBundle 'bling/vim-bufferline'
-  NeoBundle 'bling/vim-airline'
   NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'vim-scripts/current-func-info.vim'
   NeoBundle 'vim-scripts/trinity.vim'
@@ -258,6 +260,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " Colorsheme & Font {{{
   NeoBundle 'nanotech/jellybeans.vim'
+  NeoBundle 'itchyny/landscape.vim'
   NeoBundle 'w0ng/vim-hybrid'
   NeoBundle 'altercation/vim-colors-solarized'
   NeoBundle 'tomasr/molokai'
@@ -273,7 +276,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'Diablo3'
   NeoBundle 'candycode.vim'
   NeoBundle 'jonathanfilip/vim-lucius'
-  NeoBundle 'peaksea'
   NeoBundle 'vim-scripts/darkZ'
   NeoBundle 'vim-scripts/highlights-for-radiologist'
 
@@ -990,6 +992,137 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 " タブに表示する名前（fnamemodifyの第二引数）
 let g:airline#extensions#tabline#fnamemod = ':t'
+" }}}
+" Plugin: lightline.vim {{{
+let g:lightline = {
+  \ 'colorscheme': 'landscape',
+  \ 'active': {
+  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+  \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+  \ },
+  \ 'component_function': {
+  \   'fugitive': 'MyFugitive',
+  \   'filename': 'MyFilename',
+  \   'fileformat': 'MyFileformat',
+  \   'filetype': 'MyFiletype',
+  \   'fileencoding': 'MyFileencoding',
+  \   'mode': 'MyMode',
+  \   'ctrlpmark': 'CtrlPMark',
+  \ },
+  \ 'component_expand': {
+  \   'syntastic': 'SyntasticStatuslineFlag',
+  \ },
+  \ 'component_type': {
+  \   'syntastic': 'error',
+  \ },
+  \ 'separator': { 'left': '⮀', 'right': '⮂' },
+  \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+  \ }
+
+function! MyModified()
+  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help' && &readonly ? '⭤' : ''
+endfunction
+
+function! MyFilename()
+  let fname = expand('%:t')
+  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+    \ fname == '__Tagbar__' ? g:lightline.fname :
+    \ fname =~ '__Gundo\|NERD_tree' ? '' :
+    \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+    \ &ft == 'unite' ? unite#get_status_string() :
+    \ &ft == 'vimshell' ? vimshell#get_status_string() :
+    \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+    \ ('' != fname ? fname : '[No Name]') .
+    \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+      let mark = ''  " edit here for cool mark
+      let _ = fugitive#head()
+      return strlen(_) ? mark._ : ''
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  let fname = expand('%:t')
+  return fname == '__Tagbar__' ? 'Tagbar' :
+    \ fname == 'ControlP' ? 'CtrlP' :
+    \ fname == '__Gundo__' ? 'Gundo' :
+    \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+    \ fname =~ 'NERD_tree' ? 'NERDTree' :
+    \ &ft == 'unite' ? 'Unite' :
+    \ &ft == 'vimfiler' ? 'VimFiler' :
+    \ &ft == 'vimshell' ? 'VimShell' :
+    \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! CtrlPMark()
+  if expand('%:t') =~ 'ControlP'
+    call lightline#link('iR'[g:lightline.ctrlp_regex])
+    return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+      \ , g:lightline.ctrlp_next], 0)
+  else
+    return ''
+  endif
+endfunction
+
+let g:ctrlp_status_func = {
+  \ 'main': 'CtrlPStatusFunc_1',
+  \ 'prog': 'CtrlPStatusFunc_2',
+  \ }
+
+function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+  let g:lightline.ctrlp_regex = a:regex
+  let g:lightline.ctrlp_prev = a:prev
+  let g:lightline.ctrlp_item = a:item
+  let g:lightline.ctrlp_next = a:next
+  return lightline#statusline(0)
+endfunction
+
+function! CtrlPStatusFunc_2(str)
+  return lightline#statusline(0)
+endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+  let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+
+augroup AutoSyntastic
+  autocmd!
+  autocmd BufWritePost *.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+  SyntasticCheck
+  call lightline#update()
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
 " }}}
 " Plugin: vim-anzu {{{
 " TODO: 通常検索と同じくfoldも自動で開かれるようになったら有効にする
