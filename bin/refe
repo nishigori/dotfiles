@@ -1,3 +1,0 @@
-#!/bin/sh
-exec ruby -Ke -I ~/.vim/ref/ruby/bitclust/lib \
-  ~/.vim/ref/ruby/bitclust/bin/refe.rb -d ~/.vim/ref/ruby/db-1_8_7 "$@"
