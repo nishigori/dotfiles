@@ -253,6 +253,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'visualstar.vim'
   NeoBundle 'vim-scripts/matchparenpp'
   NeoBundle 'h1mesuke/vim-alignta'
+  " TODO: If multiple-cursor is active updating, it'll be enabled
+  "NeoBundle 'terryma/vim-multiple-cursors'
   " }}}
   " Marker {{{
   "NeoBundle 'vim-scripts/ShowMarks'
@@ -293,7 +295,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   "NeoBundle 'thinca/vim-template'
   "NeoBundle 'vim-scripts/Headlights'
   NeoBundle 'vim-scripts/copypath.vim'
-  NeoBundle 'mattn/calendar-vim'
+  "NeoBundle 'mattn/calendar-vim'
+  NeoBundle 'itchyny/calendar.vim'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'thinca/vim-openbuf'
   NeoBundle 'yonchu/accelerated-smooth-scroll'
@@ -329,6 +332,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   "NeoBundle 'vim-scripts/dbext.vim'
   "NeoBundle 'xenoterracide/sql_iabbr'
   " }}}
+  " filetype {{{
   " HTML {{{
   NeoBundleLazy 'othree/html5.vim'
   autocmd FileType html NeoBundleSource html5.vim
@@ -435,6 +439,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " VimScript {{{
   NeoBundle 'nathanaelkane/vim-indent-guides'
+  " }}}
   " }}}
   " Nginx {{{
   autocmd FileType nginx NeoBundleSource 'chase/nginx.vim'
@@ -1148,8 +1153,9 @@ let g:ac_smooth_scroll_du_sleep_time_msec = 1
 let g:ac_smooth_scroll_fb_sleep_time_msec = 1
 " }}}
 " Plugin: calendar.vim {{{
-let g:calendar_wruler = '日 月 火 水 木 金 土 '
-let g:calendar_weeknm = 1 " WK01
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
 " }}}
 " Plugin: taglist.vim {{{
 if has('path_extra')
@@ -1474,6 +1480,9 @@ imap <silent> <C-s> <Plug>(neosnippet_start_unite_snippet)
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+" }}}
+" Plugin: vim-multiple-cursors {{{
+let g:multi_cursor_start_key = 'm'
 " }}}
 " Plugin: vim-rooter {{{
 silent! nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
