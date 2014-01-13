@@ -489,10 +489,9 @@ if has('syntax')
   augroup ZenSpace
     autocmd!
     autocmd ColorScheme * highlight ZenSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
-    autocmd WinEnter,BufNew,BufReadPost,ColorScheme *
-      \ if &filetype !~ 'unite\|vimshell\|vimfiler\|git\|rst'
-      \   | match ZenSpace /　\|\s\+$/ |
-      \ endif
+    autocmd FileType * match ZenSpace /　\|\s\+$/
+    autocmd FileType git,rst match ZenSpace //
+    autocmd FileType unite,vimshell,vimfiler,calendar,startify match ZenSpace //
   augroup END
 
   if v:version >= 703
