@@ -945,6 +945,18 @@ autocmd FileType gitrebase nnoremap <buffer>e :<C-u>Edit<CR>
 autocmd FileType gitrebase nnoremap <buffer>r :<C-u>Reword<CR>
 autocmd FileType gitrebase nnoremap <buffer>f :<C-u>Fixup<CR>
 " }}}
+" Under the $VIMRUNTIME {{{
+function! s:StartMyVimMode()
+  set nocompatible           " be iMproved
+  filetype plugin indent off " required!!
+
+  NeoBundle 'vim-jp/vital.vim'
+  NeoBundle 'h1mesuke/vim-benchmark'
+
+  filetype plugin indent on " required!
+endfunction
+command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
+" }}}
 " Plugin
 if !g:my_config_use_plugin
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
