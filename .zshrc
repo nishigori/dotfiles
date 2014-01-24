@@ -59,16 +59,16 @@ case "${OSTYPE}" in
                 composer symfony2 cake \
                 )
         else
+            # autojump github mercurial npm
             plugins=( \
                 debian gnu-utils \
-                autojump \
                 docker vagrant knife knife_ssh \
                 ant \
                 terminitor \
-                git git-flow-avh github ssh-agent \
-                python pip mercurial virtualenv virtualenvwrapper fabric \
+                git git-flow-avh ssh-agent \
+                python pip virtualenv virtualenvwrapper fabric \
                 ruby rbenv gem rake bundler capistrano \
-                npm bower \
+                bower \
                 composer symfony2 \
                 )
         fi
