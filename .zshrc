@@ -46,6 +46,12 @@ case "${OSTYPE}" in
         ;;
     linux*)
         if [ -f /etc/redhat-release ]; then
+            # https://gist.github.com/msabramo/2355834
+            function git_prompt_info() {
+                ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+                echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+            }
+
             plugins=( \
                 yum gnu-utils \
                 autojump \
@@ -59,6 +65,12 @@ case "${OSTYPE}" in
                 composer symfony2 cake \
                 )
         else
+            # https://gist.github.com/msabramo/2355834
+            function git_prompt_info() {
+                ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+                echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+            }
+
             # autojump github mercurial npm
             plugins=( \
                 debian gnu-utils \
