@@ -495,6 +495,7 @@ if has('syntax')
     autocmd!
     autocmd ColorScheme * highlight ZenSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
     autocmd FileType * match ZenSpace /　\|\s\+$/
+    autocmd FileType txt match ZenSpace /\s\+$/
     autocmd FileType git,rst match ZenSpace //
     autocmd FileType unite,vimshell,vimfiler,calendar,startify match ZenSpace //
   augroup END
