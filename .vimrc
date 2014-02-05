@@ -2010,7 +2010,7 @@ nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
 " }}}
 " My Plugin: IncrementActivator {{{
-let g:increment_activator#config =
+let g:increment_activator_filetype_candidates =
   \ {
   \   '_': [
   \     ['light', 'dark'],
