@@ -121,6 +121,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " unite source {{{
   NeoBundle 'Shougo/unite.vim'
 
+  NeoBundle 'Shougo/neomru.vim'
   NeoBundle 'Shougo/unite-outline'
   NeoBundle 'thinca/vim-unite-history'
   NeoBundle 'osyo-manga/unite-quickrun_config'
@@ -220,6 +221,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \ 'vim_version' : '7.3.885'
     \ }
   " }}}
+  NeoBundle 'Shougo/neosnippet-snippets'
   " Complete, Snippet {{{
   "NeoBundle 'Shougo/neocomplcache'
   "call neobundle#config('neocomplcache', {
@@ -316,7 +318,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'junegunn/vim-emoji'
   " }}}
   " VCS {{{
-  NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
   "NeoBundleLazy 'Shougo/vim-vcs', {
   "\   'depends' : 'thinca/vim-openbuf',
   "\   'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
