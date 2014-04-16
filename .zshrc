@@ -37,7 +37,7 @@ case "${OSTYPE}" in
             ant \
             git git-flow-avh ssh-agent \
             python pip mercurial virtualenv virtualenvwrapper fabric \
-            ruby rbenv gem rake bundler capistrano \
+            ruby rbenv gem rake bundler \
             npm bower \
             composer symfony2 \
             scala \
@@ -60,7 +60,7 @@ case "${OSTYPE}" in
                 terminitor \
                 git git-flow-avh ssh-agent \
                 python pip mercurial virtualenv virtualenvwrapper fabric \
-                ruby rbenv gem rake bundler capistrano \
+                ruby rbenv gem rake bundler \
                 npm bower \
                 composer symfony2 cake \
                 )
@@ -73,13 +73,13 @@ case "${OSTYPE}" in
 
             # autojump github mercurial npm
             plugins=( \
-                debian gnu-utils \
+                gnu-utils \
                 docker vagrant knife knife_ssh \
                 ant \
                 terminitor \
                 git git-flow-avh ssh-agent \
                 python pip virtualenv virtualenvwrapper fabric \
-                ruby rbenv gem rake bundler capistrano \
+                ruby rbenv gem rake bundler \
                 bower \
                 composer symfony2 \
                 )
