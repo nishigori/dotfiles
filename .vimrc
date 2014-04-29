@@ -521,6 +521,11 @@ set shiftwidth=4
 set softtabstop=0
 
 let g:vim_indent_cont = 2
+
+augroup DisableAutomaticNewlineAtEndOfFile
+  autocmd!
+  autocmd BufNewFile,BufReadPost * set binary noeol
+augroup END
 " }}}
 " # Filetype Detect {{{
 " Moved ~/.vim/filetype.vim
