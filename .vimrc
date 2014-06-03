@@ -202,6 +202,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'vim-scripts/TagHighlight'
   NeoBundleLazy 'alpaca-tc/alpaca_tags',
     \ {
+    \   'rev': 'v2.0',
     \   'depends': 'Shougo/vimproc',
     \   'autoload' : {
     \     'commands': ['TagsUpdate', 'TagsSet', 'TagsBundle'],
