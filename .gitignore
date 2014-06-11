@@ -1,3 +1,7 @@
+# Jetbrains IDE
+*.iml
+.idea
+
 # Local settings
 tmp/*
 bin/*
@@ -13,6 +17,7 @@ bin/*
 .vim/ref/*
 .vim/tmp/*
 .vim/bundle.vim.local
+.*sw[op]
 
 # Vimperator
 .vimperator/info/*
