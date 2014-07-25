@@ -440,6 +440,11 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundleLazy 'jimenezrick/vimerl'
   autocmd FileType erlang NeoBundleSource vimerl
   " }}}
+  " Scheme, scm {{{
+  " gauche
+  NeoBundle 'aharisu/vim_goshrepl'
+  NeoBundle 'aharisu/vim-gdev'
+  " }}}
   " VimScript {{{
   NeoBundle 'nathanaelkane/vim-indent-guides'
   " }}}
@@ -1358,6 +1363,19 @@ let g:quickrun_config = {
   \   'javascript' : {
   \     'command' : 'phantomjs',
   \   },
+  \   'scheme': {
+  \     'type': executable('gosh')     ? 'scheme/gauche':
+  \             executable('mzscheme') ? 'scheme/mzscheme': '',
+  \   },
+  \   'scheme/gauche': {
+  \     'command': 'gosh',
+  \     'exec': '%c %o %s:p %a',
+  \     'hook/eval/template': '(display (begin %s))',
+  \   },
+  \   'scheme/mzscheme': {
+  \     'command': 'mzscheme',
+  \     'exec': '%c %o -f %s %a',
+  \   },
   \ }
 if exists('g:sphinx_build_bin')
   let g:quickrun_config['rst'] = {
@@ -1482,6 +1500,11 @@ function! s:my_cr_function()
   " For no inserting <CR> key.
   return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
+
+" scheme for SICP
+let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
+let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
+vmap <CR> <Plug>(gosh_repl_send_block)
 " }}}
 " Plugin: neosnippet {{{
 let g:neosnippet#snippets_directory =
