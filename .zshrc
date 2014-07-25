@@ -33,15 +33,13 @@ case "${OSTYPE}" in
         plugins=( \
             osx brew \
             autojump \
-            vagrant knife knife_ssh \
+            docker vagrant \
             ant \
             git git-flow-avh ssh-agent \
             python pip mercurial virtualenv virtualenvwrapper fabric \
             ruby rbenv gem rake bundler \
             npm bower \
             composer symfony2 \
-            scala \
-            gradle \
             )
         ;;
     linux*)
