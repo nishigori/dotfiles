@@ -199,6 +199,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   "NeoBundle 'bling/vim-airline'
   NeoBundle 'itchyny/lightline.vim'
 
+  NeoBundle 'vim-scripts/PreserveNoEOL'
+
   NeoBundle 'bling/vim-bufferline'
   NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'vim-scripts/current-func-info.vim'
@@ -1001,6 +1003,14 @@ let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
 " }}}
 " Plugin: vimproc {{{
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
+" }}}
+" Plugin: PreserveNoEOL {{{
+augroup MyPreserveNoEOL
+  au! BufRead,BufNewFile * setlocal noeol | let b:PreserveNoEOL = 1
+augroup END
+"setlocal noeol | let b:PreserveNoEOL = 1
+let b:PreserveNoEOL = 1
+let g:PreserveNoEOL = 1
 " }}}
 " Plugin: vim-airline {{{
 " Themes https://github.com/bling/vim-airline/wiki/Screenshots
