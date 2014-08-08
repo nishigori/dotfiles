@@ -66,5 +66,7 @@ NeoBundle 'basyura/TweetVim'
 " Another
 NeoBundle 'thinca/vim-splash'
 
+" SmoothScroll
+NeoBundle 'yonchu/accelerated-smooth-scroll', { 'rev': '1.0.1' }
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

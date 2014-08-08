@@ -307,7 +307,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'itchyny/calendar.vim'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'thinca/vim-openbuf'
-  NeoBundle 'yonchu/accelerated-smooth-scroll'
   if !has('win32') && !has('mac')
     " Linux only
     NeoBundle 'gist:koron/5992868:', {
