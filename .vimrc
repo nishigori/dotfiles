@@ -1072,8 +1072,6 @@ let g:lightline = {
   \ 'component_type': {
   \   'syntastic': 'error',
   \ },
-  \ 'separator': { 'left': '⮀', 'right': '⮂' },
-  \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
   \ }
 
 function! MyModified()
@@ -1983,7 +1981,7 @@ augroup AlpacaTags
   autocmd!
   if exists(':Tags')
     autocmd BufWritePost Gemfile TagsBundle
-    autocmd BufEnter * TagsSet
+    "autocmd BufEnter * TagsSet
     " 毎回保存と同時更新する場合はコメントを外す
     " autocmd BufWritePost * TagsUpdate
   endif
@@ -2077,6 +2075,8 @@ let g:increment_activator_filetype_candidates =
   \     ['previous', 'current', 'next'],
   \     ['ぬるぽ', 'ガッ'],
   \     ['=', ':='],
+  \     ['true', 'false'],
+  \     ['月','火','水','木','金','土','日'],
   \   ],
   \   'php': [
   \     ['private', 'protected', 'public'],
