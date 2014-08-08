@@ -369,8 +369,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType javascript,json NeoBundleSource vim-json
   " }}}
   " JavaScript {{{
-  NeoBundle 'teramako/jscomplete-vim'
-  autocmd FileType javascript,js NeoBundleSource jscomplete-vim
   NeoBundleLazy 'basyura/jslint.vim'
   autocmd FileType javascript,js NeoBundleSource vim-ref-jquery
   " }}}
@@ -446,10 +444,16 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundleLazy 'jimenezrick/vimerl'
   autocmd FileType erlang NeoBundleSource vimerl
   " }}}
+  " Go/golang {{{
+  NeoBundle 'golang/lint', { 'rtp': 'misc/vim' }
+  " }}}
   " Scheme, scm {{{
   " gauche
   NeoBundle 'aharisu/vim_goshrepl'
   NeoBundle 'aharisu/vim-gdev'
+  " }}}
+  " Puppet {{{
+  NeoBundle 'rodjek/vim-puppet'
   " }}}
   " VimScript {{{
   NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -459,6 +463,9 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType nginx NeoBundleSource 'chase/nginx.vim'
   NeoBundleLazy 'nishigori/neocomplcache-nginx-snippet'
   autocmd FileType nginx NeoBundleSource 'neocomplcache-nginx-snippet'
+  " }}}
+  " Docker {{{
+  NeoBundle 'ekalinin/Dockerfile.vim'
   " }}}
   " My Plugins {{{
   NeoBundle 'nishigori/vim-multiple-switcher'
