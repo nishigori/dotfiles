@@ -114,10 +114,15 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
 
   if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
-    call neobundle#rc(expand('~/.vim/bundle/'))
   endif
 
-  NeoBundle 'Shougo/neobundle.vim'
+  " Required:
+  call neobundle#begin(expand('~/.vim/bundle/'))
+
+  " Let NeoBundle manage NeoBundle
+  " Required:
+  NeoBundleFetch 'Shougo/neobundle.vim'
+
   " unite source {{{
   NeoBundle 'Shougo/unite.vim'
 
@@ -475,7 +480,13 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     source $HOME/.vim/bundle.vim.local
   endif
 
+  call neobundle#end()
+
   filetype plugin indent on " required!
+
+  " If there are uninstalled bundles found on startup,
+  " this will conveniently prompt you to install them.
+  "NeoBundleCheck
 endif
 " }}}
 " # Switch ; <-> : {{{
