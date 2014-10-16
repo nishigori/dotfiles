@@ -73,8 +73,9 @@ if has('gui_gtk2')
   set guifontwide=めんまフォント
 elseif has('gui_macvim')
   " TODO: めんまフォントに漢字合成
-  set guifont=Ricty:h14,\ Monaco:h14
-  "set guifontwide=ゆたぽん（コーディング）,\ みかちゃん,\ あくあフォント,\ Monaco
+  "set guifont=Ricty:h14,\ Monaco:h14
+  set guifont=Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
+  set guifontwide=ゆたぽん（コーディング）,\ みかちゃん,\ あくあフォント,\ Monaco
   set antialias
 elseif has('win32')
   " WARNING: encodingを一時的に変える必要があるかもしれない
