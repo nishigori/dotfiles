@@ -353,9 +353,9 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType haml,scss,scss NeoBundleSource vim-haml
   " }}}
   " Markdown {{{
-  NeoBundle 'mattn/mkdpreview-vim'
-  autocmd FileType markdown NeoBundleSource mkdpreview-vim
-  NeoBundle 'plasticboy/vim-markdown'
+  "NeoBundle 'mattn/mkdpreview-vim'
+  "autocmd FileType markdown NeoBundleSource mkdpreview-vim
+  NeoBundle 'tpope/vim-markdown'
   autocmd FileType markdown NeoBundleSource vim-markdown
   " }}}
   " reST {{{
