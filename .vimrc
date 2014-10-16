@@ -343,8 +343,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " filetype {{{
   " HTML {{{
-  NeoBundleLazy 'othree/html5.vim'
-  autocmd FileType html NeoBundleSource html5.vim
+  "NeoBundleLazy 'othree/html5.vim'
+  "autocmd FileType html NeoBundleSource html5.vim
   " }}}
   " CSS|SCSS|SASS|LESS {{{
   NeoBundleLazy 'vim-scripts/css3'
