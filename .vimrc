@@ -396,6 +396,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " Python {{{
   NeoBundleLazy 'vim-scripts/python.vim--Vasiliev'
   autocmd FileType python,django NeoBundleSource python.vim--Vasiliev
+  NeoBundleLazy 'hynek/vim-python-pep8-indent', {
+    \ "autoload": {"insert": 1, "filetypes": ["python", "python3", "djangohtml"]}}
   NeoBundleLazy "davidhalter/jedi-vim", {
     \ "autoload": {
     \   "filetypes": ["python", "python3", "djangohtml"],
@@ -1594,7 +1596,7 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_split_action        = 'left'
   "let g:vimfiler_execute_file_list   = 'vim'
-  let g:vimfiler_ignore_pattern = '^.*\%(.git\|.DS_Store\|.idea\|.iml\)$'
+  let g:vimfiler_ignore_pattern = '^.*\%(.git\|.DS_Store\|.idea\|.iml\|.pyc\)$'
   let g:vimfiler_edit_action         = 'open'
   let g:vimfiler_sort_type           = 'filename'
   let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
@@ -1724,7 +1726,7 @@ let g:unite_update_time           = 255
 " mru options
 let g:unite_source_file_mru_filename_format = ':p:~'
 let g:unite_source_directory_mru_ignore_pattern =
-  \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\|idea\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
+  \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\|idea\|pyc\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 
 " history options
 let g:unite_source_history_yank_enable = 1
