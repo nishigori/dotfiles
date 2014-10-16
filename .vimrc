@@ -681,10 +681,10 @@ cnoremap { {}<LEFT>
 cnoremap [ []<LEFT>
 cnoremap ( ()<LEFT>
 cnoremap \| \|\|<LEFT>
+cnoremap \|\| \|<LEFT>
 cnoremap "" ""<LEFT>
 cnoremap '' ''<LEFT>
 cnoremap `` ``<LEFT>
-cnoremap \|\| \|\|<LEFT>
 
 " Support Input Date
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
@@ -992,7 +992,8 @@ function! s:StartMyVimMode()
 endfunction
 command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
 " }}}
-" Plugin
+
+" Plugins
 if !g:my_config_use_plugin
   echo "INFO: g:my_config_use_plugin is 0 or not defined. and no reading plugin settings"
   finish " ここまで読んだらお前は死ぬ
@@ -1264,7 +1265,6 @@ let g:vim_markdown_initial_foldlevel = 2
 "let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_error_symbol='✗'
-let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_mode_map =
   \ {
   \   'mode': 'active',
@@ -1369,54 +1369,8 @@ let g:quickrun_config = {
   \     'runner' : 'vimproc',
   \     'outputter' : 'buffer',
   \   },
-  \   'ruby' : {
-  \     'command' : 'irb',
-  \     'cmdopt' : '--simple-prompt',
-  \     'runner' : 'process_manager',
-  \     'runner/process_manager/load' : "load '%s'",
-  \     'runner/process_manager/prompt' : '>> ',
-  \   },
-  \   'ruby.rspec' : {
-  \     'command' : "rspec",
-  \     'cmdopt': 'bundle exec',
-  \     'exec': '%o %c %s',
-  \   },
-  \   'php.phpunit' : {
-  \     'command' : 'phpunit',
-  \   },
-  \   'phpunit.php' : {
-  \     'command' : 'phpunit',
-  \   },
-  \   'javascript' : {
-  \     'command' : 'phantomjs',
-  \   },
-  \   'scheme': {
-  \     'type': executable('gosh')     ? 'scheme/gauche':
-  \             executable('mzscheme') ? 'scheme/mzscheme': '',
-  \   },
-  \   'scheme/gauche': {
-  \     'command': 'gosh',
-  \     'exec': '%c %o %s:p %a',
-  \     'hook/eval/template': '(display (begin %s))',
-  \   },
-  \   'scheme/mzscheme': {
-  \     'command': 'mzscheme',
-  \     'exec': '%c %o -f %s %a',
-  \   },
   \ }
-if exists('g:sphinx_build_bin')
-  let g:quickrun_config['rst'] = {
-    \     'command': g:sphinx_build_bin,
-    \     'hook/sphinx/enable' : 1,
-    \     'cmdopt': '-b html',
-    \ }
-endif
-if has('mac')
-  " TODO: Sikuli 起動は引数渡さねば??
-  "let g:quickrun_config['python.sikuli'] = {
-  "  \   'command': '/Applications/Sikuli-IDE.app/sikuli-ide.sh',
-  "  \ }
-endif
+
 " TODO: Add QuickRun's syntax for xUnit family
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
 " }}}
@@ -1428,9 +1382,6 @@ let g:tweetvim_open_buffer_cmd = 'split -winheight=12 edit!'
 nnoremap <silent> ts :<C-u>TweetVimSay<Cr>
 " unite mapping
 nnoremap <silent> tt :<C-u>Unite tweetvim<Cr>
-" }}}
-" Plugin: jscomplatete.vim {{{
-let g:jscomplete_use = ['dom']
 " }}}
 " Plugin: dbext.vim {{{
 let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
@@ -1449,45 +1400,11 @@ nmap ," csw"
 let g:user_emmet_mode = 'a'
 let g:user_emmet_leader_key = '<c-y>'
 let g:use_emmet_complete_tag = 1
-let g:user_emmet_settings = {
-  \  'lang' : 'ja',
-  \  'html' : {
-  \    'filters' : 'html',
-  \    'indentation' : ' '
-  \  },
-  \  'perl' : {
-  \    'indentation' : '  ',
-  \    'aliases' : {
-  \      'req' : "require '|'"
-  \    },
-  \    'snippets' : {
-  \      'use' : "use strict\nuse warnings\n\n",
-  \      'w' : "warn \"${cursor}\";",
-  \    },
-  \  },
-  \  'php' : {
-  \    'extends' : 'html',
-  \    'filters' : 'html,c',
-  \  },
-  \  'css' : {
-  \    'filters' : 'fc',
-  \  },
-  \  'javascript' : {
-  \    'snippets' : {
-  \      'jq' : "$(function() {\n\t${cursor}${child}\n});",
-  \      'jq:each' : "$.each(arr, function(index, item)\n\t${child}\n});",
-  \      'fn' : "(function() {\n\t${cursor}\n})();",
-  \      'tm' : "setTimeout(function() {\n\t${cursor}\n}, 100);",
-  \    },
-  \  },
-  \ 'haml': {
-  \   'extends': 'html',
-  \ }
-  \ }
-"}}}
+let g:user_emmet_settings = get(g:, 'user_emmet_settings', {'lang' : 'ja'})
+" }}}
 " Plugin: neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
-"let g:neocomplete#disable_auto_complete = 1
+let g:neocomplete#disable_auto_complete = 1
 "inoremap <expr><S-Space> neocomplete#start_manual_complete()
 inoremap <expr> <S-Space> neocomplete#start_manual_complete()
 inoremap <expr> <C-q> neocomplete#cancel_popup()
@@ -1514,11 +1431,6 @@ if exists('g:pached_vimjp_issue_385')
   set completeopt+=noselect
   let g:neocomplete#enable_complete_select = 1
 endif
-
-"if !exists('g:neocomplete#same_filetypes')
-  "let g:neocomplete#same_filetypes = {}
-"endif
-"let g:neocomplete#same_filetypes.twig = 'twig'
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -1974,20 +1886,9 @@ nmap <ESC>s <M-s>
 nmap <ESC>i <M-i>
 " }}}
 " Plugin: alpaca_tags {{{
-let g:alpaca_tags_config = {
-  \ '_' : '-R --exclude=".git*" --sort=yes',
-  \ 'js' : '-R --languages=+js',
-  \ 'ruby': '--langmap=RUBY:.rb --exclude="*.js" --exclude=".git*',
-  \ }
-augroup AlpacaTags
-  autocmd!
-  if exists(':Tags')
-    autocmd BufWritePost Gemfile TagsBundle
-    "autocmd BufEnter * TagsSet
-    " 毎回保存と同時更新する場合はコメントを外す
-    " autocmd BufWritePost * TagsUpdate
-  endif
-augroup END
+let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {
+  \   '_': '-R --exclude=".git*" --sort=yes',
+  \ })
 " }}}
 " Plugin: unite-tag {{{
 let g:unite_tig_default_line_count = 80
@@ -1996,11 +1897,6 @@ autocmd BufEnter *
   \ if empty(&buftype)
   \   | nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR> |
   \ endif
-" }}}
-" Plugin: unite-sf2 {{{
-" NOTE: unite-sf2 avairables is depends local environment.
-"let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
-"let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
 " }}}
 " Plugin: unite-grep {{{
 let g:unite_source_grep_default_opts = '-Hn'  " By the default
@@ -2043,23 +1939,7 @@ function! g:ref_source_webdict_sites.weblio.filter(output)
 endfunction
 let g:ref_source_webdict_sites.default = 'weblio'
 
-" My ref filetype mapping
-let g:ref_cmd_filetype_map = {
-  \   'python': 'pydoc',
-  \   'perl':   'perldoc',
-  \   'php':    'php',
-  \ }
-" \   'php.phpunit' : 'phpunit',
-" }}}
-" Forked Plugin: vim-php-cs-fixer {{{
-let g:php_cs_fixer_default_mapping = 1                     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_path            = "/usr/sbin/php-cs-fixer/php-cs-fixer" " define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level           = "all"                 " which level ?
-let g:php_cs_fixer_config          = "default"             " configuration
-"let g:php_cs_fixer_php_path        = "php"                 " Path to PHP
-let g:php_cs_fixer_fixers_list     = ""                    " List of fixers
-let g:php_cs_fixer_dry_run         = 0                     " Call command with dry-run option
-let g:php_cs_fixer_use_sudo         = 1                     " Call command with dry-run option
+let g:ref_cmd_filetype_map = get(g:, 'ref_cmd_filetype_map', {})
 " }}}
 " My Plugin: vim-multiple-switcher {{{
 "let g:multiple_switcher_no_default_key_maps = 1
@@ -2069,8 +1949,7 @@ nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
 " }}}
 " My Plugin: IncrementActivator {{{
-let g:increment_activator_filetype_candidates =
-  \ {
+let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {
   \   '_': [
   \     ['light', 'dark'],
   \     ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
@@ -2080,32 +1959,169 @@ let g:increment_activator_filetype_candidates =
   \     ['true', 'false'],
   \     ['月','火','水','木','金','土','日'],
   \   ],
-  \   'php': [
-  \     ['private', 'protected', 'public'],
-  \     ['extends', 'implements'],
-  \     ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
-  \   ],
-  \   'vim': [
-  \     ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
-  \     ['nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap'],
-  \     ['NeoBundle', 'NeoBundleLazy'],
-  \     ['Home', 'End', 'Left', 'Right', 'Delete'],
-  \     ['has', 'has_key', 'exists'],
-  \   ],
-  \   'go': [
-  \     ['true', 'false', 'iota', 'nil'],
-  \     ['print', 'println'],
-  \     ['byte', 'complex64', 'complex128'],
-  \     ['int', 'int8', 'int16', 'int32', 'int64'],
-  \     ['uint', 'uint8', 'uint16', 'uint32', 'uint64'],
-  \     ['float32', 'float64'],
-  \     ['interface', 'struct'],
-  \   ],
-  \   'cucumber': [
-  \     ['Given', 'And', 'When', 'Then'],
-  \   ],
+  \ })
+" }}}
+
+"" Each filetype (not on ftplugin but define require first on vimrc)
+
+" VimScript {{{
+let g:increment_activator_filetype_candidates['vim'] = [
+  \   ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
+  \   ['nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap'],
+  \   ['NeoBundle', 'NeoBundleLazy'],
+  \   ['Home', 'End', 'Left', 'Right', 'Delete'],
+  \   ['has', 'has_key', 'exists'],
+  \ ]
+" }}}
+" go/golang {{{
+let g:increment_activator_filetype_candidates['go'] = [
+  \   ['true', 'false', 'iota', 'nil'],
+  \   ['print', 'println'],
+  \   ['byte', 'complex64', 'complex128'],
+  \   ['int', 'int8', 'int16', 'int32', 'int64'],
+  \   ['uint', 'uint8', 'uint16', 'uint32', 'uint64'],
+  \   ['float32', 'float64'],
+  \   ['interface', 'struct'],
+  \ ]
+" }}}
+" scheme {{{
+let g:quickrun_config['scheme/gauche'] = {
+  \   'command': 'gosh',
+  \   'exec': '%c %o %s:p %a',
+  \   'hook/eval/template': '(display (begin %s))',
+  \ }
+let g:quickrun_config['scheme/mzscheme'] = {
+  \   'command': 'mzscheme',
+  \   'exec': '%c %o -f %s %a',
+  \ }
+let g:quickrun_config['scheme'] = {
+  \   'type': executable('gosh')     ? 'scheme/gauche':
+  \           executable('mzscheme') ? 'scheme/mzscheme': '',
+  \ }
+
+" }}}
+" Python {{{
+let g:syntastic_python_checkers = ['flake8']
+let g:ref_cmd_filetype_map['python'] = 'pydoc'
+" }}}
+" ReStructedText / Sphinx {{{
+if exists('g:sphinx_build_bin')
+  let g:quickrun_config['rst'] = {
+    \     'command': g:sphinx_build_bin,
+    \     'hook/sphinx/enable' : 1,
+    \     'cmdopt': '-b html',
+    \ }
+endif
+" }}}
+" Ruby {{{
+let g:alpaca_tags#config['ruby'] = '--langmap=RUBY:.rb --exclude="*.js" --exclude=".git*'
+augroup AlpacaTagsRubyBundler
+  autocmd!
+  if exists(':Tags')
+    autocmd BufWritePost Gemfile AlpacaTagsBundle
+    "autocmd BufEnter * TagsSet
+    " 毎回保存と同時更新する場合はコメントを外す
+    " autocmd BufWritePost * TagsUpdate
+  endif
+augroup END
+
+let g:quickrun_config['ruby'] = {
+  \   'command' : 'irb',
+  \   'cmdopt' : '--simple-prompt',
+  \   'runner' : 'process_manager',
+  \   'runner/process_manager/load' : "load '%s'",
+  \   'runner/process_manager/prompt' : '>> ',
+  \ }
+let g:quickrun_config['ruby.rspec'] = {
+  \   'command' : "rspec",
+  \   'cmdopt': 'bundle exec',
+  \   'exec': '%o %c %s',
+  \ }
+
+let g:user_emmet_settings['haml'] = {
+  \   'extends': 'html',
+  \ }
+
+" }}}
+" Cucumber {{{
+let g:increment_activator_filetype_candidates['cucumber'] = [
+  \   ['Given', 'And', 'When', 'Then'],
+  \ ]
+" }}}
+" JavaScript {{{
+let g:alpaca_tags#config['js'] = '-R --languages=+js'
+let g:quickrun_config['javascript'] = {
+  \   'command' : 'phantomjs',
+  \ }
+
+let g:user_emmet_settings['javascript'] = {
+  \   'snippets' : {
+  \     'jq': "$(function() {\n\t${cursor}${child}\n});",
+  \     'jq:each': "$.each(arr, function(index, item)\n\t${child}\n});",
+  \     'fn': "(function() {\n\t${cursor}\n})();",
+  \     'tm': "setTimeout(function() {\n\t${cursor}\n}, 100);",
+  \   },
+  \ }
+
+" plugin jscomplatete.vim
+let g:jscomplete_use = ['dom']
+" }}}
+" Perl {{{
+let g:user_emmet_settings['perl'] = {
+  \   'indentation': '  ',
+  \   'aliases': {
+  \     'req': "require '|'"
+  \   },
+  \   'snippets' : {
+  \     'use': "use strict\nuse warnings\n\n",
+  \     'w': "warn \"${cursor}\";",
+  \   },
+  \ }
+
+let g:ref_cmd_filetype_map['perl'] = 'perldoc'
+" }}}
+" PHP {{{
+" NOTE: unite-sf2 avairables is depends local environment.
+"let g:unite_source_sf2_root_dir = $HOME . '/workspace/sandbox/Studies/symfony-standard'
+"let g:unite_source_sf2_bundles = get(g:, 'unite_source_sf2_bundles', {})
+" (forked) vim-php-cs-fixer
+let g:php_cs_fixer_default_mapping = 1                     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_path            = "/usr/sbin/php-cs-fixer/php-cs-fixer" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level           = "all"                 " which level ?
+let g:php_cs_fixer_config          = "default"             " configuration
+"let g:php_cs_fixer_php_path        = "php"                 " Path to PHP
+let g:php_cs_fixer_fixers_list     = ""                    " List of fixers
+let g:php_cs_fixer_dry_run         = 0                     " Call command with dry-run option
+let g:php_cs_fixer_use_sudo         = 1                     " Call command with dry-run option
+
+let g:increment_activator_filetype_candidates['php'] = [
+  \   ['private', 'protected', 'public'],
+  \   ['extends', 'implements'],
+  \   ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
+  \ ]
+
+let g:ref_cmd_filetype_map['php'] = 'php'
+
+let g:quickrun_config['php.phpunit'] = { 'command': 'phpunit' }
+let g:quickrun_config['phpunit.php'] = { 'command': 'phpunit' }
+
+let g:user_emmet_settings['perl'] = {
+  \  'extends': 'html',
+  \  'filters': 'html,c',
   \ }
 " }}}
+" HTML {{{
+let g:user_emmet_settings['html'] = {
+  \   'filters' : 'html',
+  \   'indentation' : ' '
+  \ }
+" }}}
+" CSS / SCSS / LESS {{{
+let g:user_emmet_settings['css'] = {
+  \  'filters': 'fc',
+  \ }
+" }}}
+
 " # [unite] Mappings "{{{
 " The prefix key.
 nnoremap [unite] <Nop>
@@ -2159,6 +2175,7 @@ nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit
 "nnoremap <Leader>sb :<C-u>Unite sf2/bundles<CR>
 "nnoremap <Leader>sc :<C-u>Unite sf2/app/config<CR>
 "}}}
+
 " # <Leader> Mappings "{{{
 nnoremap <silent><Leader><Leader> f<Space>
 " change just before buffer
