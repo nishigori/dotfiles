@@ -30,13 +30,16 @@ zstyle ':completion:*:default' menu select=1
 case "${OSTYPE}" in
     freebsd*|darwin*)
         # Mac OS X
+        #
+        # using https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt
         plugins=( \
-            osx brew \
+            osx brew brew-cask \
+            colored-man \
             autojump \
             docker vagrant \
-            ant \
-            git git-flow-avh ssh-agent \
-            python pip mercurial virtualenv virtualenvwrapper fabric \
+            aws \
+            git ssh-agent \
+            python pip mercurial virtualenv virtualenvwrapper pep8 virtualenv-prompt \
             ruby rbenv gem rake bundler \
             npm bower \
             composer symfony2 \
@@ -52,6 +55,7 @@ case "${OSTYPE}" in
 
             plugins=( \
                 yum gnu-utils \
+                colored-man \
                 autojump \
                 vagrant knife knife_ssh \
                 ant \
@@ -72,6 +76,7 @@ case "${OSTYPE}" in
             # autojump github mercurial npm
             plugins=( \
                 gnu-utils \
+                colored-man \
                 docker vagrant knife knife_ssh \
                 ant \
                 terminitor \
