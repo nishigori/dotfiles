@@ -59,11 +59,6 @@ let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
 "let g:unite_source_sf2_root_dir = ''
 let g:unite_source_sf2_bundles = {}
 " }}}
-" neocomplcache {{{
-let s:neocomplcache_temporary_dir_suffix = 'neocom'
-let g:local_neocomplcache_temporary_dir =
-  \ s:ramdisk_dir .'/'. s:neocomplcache_temporary_dir_suffix
-" }}}
 " TweetVim {{{
 let g:tweetvim_display_icon = 1 " Require imagemagick
 " }}}

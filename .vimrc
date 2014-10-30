@@ -105,6 +105,7 @@ let s:tmpdir = exists('g:local_config["tmp_dir"]')
   \ ? g:local_config['tmp_dir']
   \ : $HOME
 " }}}
+
 " # Bundles {{{
 if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   let s:bundle_dir = $HOME . '/.vim/bundle'
@@ -154,6 +155,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   if has('python')
     NeoBundle 'vim-scripts/Gundo'
   endif
+  " Require `brew install rmtrash`
   NeoBundle 'Shougo/vimproc', {
     \ 'build' : {
     \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
@@ -499,6 +501,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   "NeoBundleCheck
 endif
 " }}}
+
 " # Switch ; <-> : {{{
 " Warning: Don't use ':remap' as possible (for Unaffected).
 nnoremap ; :
@@ -1404,7 +1407,12 @@ let g:user_emmet_settings = get(g:, 'user_emmet_settings', {'lang' : 'ja'})
 " }}}
 " Plugin: neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
+
 let g:neocomplete#disable_auto_complete = 1
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_refresh_always = 0
+
 "inoremap <expr><S-Space> neocomplete#start_manual_complete()
 inoremap <expr> <S-Space> neocomplete#start_manual_complete()
 inoremap <expr> <C-q> neocomplete#cancel_popup()
@@ -1417,19 +1425,25 @@ let g:neocomplete#min_keyword_length = 5
 "let g:neocomplete#enable_ignore_case = 'ignorecase'
 let g:neocomplete#enable_smart_case = 'infercase'
 let g:neocomplete#enable_insert_char_pre = 1 " Really??
-let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
 let g:neocomplete#use_vimproc = 1
 
-" For jedi-vim
-let g:jedi#auto_vim_configuration = 0
 let g:neocomplete#force_omni_input_patterns =
   \ get(g:, 'neocomplete#force_omni_input_patterns', {})
-let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
+let g:neocomplete#sources#omni#functions
+  \ = get(g:, 'neocomplete#sources#omni#functions', {})
 
-if exists('g:pached_vimjp_issue_385')
+try
+  set completeopt-=noselect
+  set completeopt+=noinsert
   let g:neocomplete#enable_auto_select = 1
-  set completeopt+=noselect
   let g:neocomplete#enable_complete_select = 1
+catch /^Vim\%((\a\+)\)\=:E474/
+  " when the patch isn't applied
+endtry
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
 " <CR>: close popup and save indent.
@@ -1469,16 +1483,17 @@ let g:multi_cursor_start_key = 'm'
 " }}}
 " Plugin: vim-rooter {{{
 silent! nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
-let g:rooter_manual_only = 1
+
+let g:rooter_manual_only = 0
+
 let g:rooter_use_lcd = 1
 let g:rooter_patterns = [
   \   '.git/', '.hg/',
-  \   'setup.py',
-  \   'Gemfile', 'Rakefile', 'Guardfile',
+  \   'Makefile', 'setup.py', 'Rakefile', 'build.xml', 'build.gradle',
+  \   'requirements.txt', 'Gemfile', 'composer.json',
+  \   'README', 'README.txt', 'README.rst', 'README.md', 'README.mkd', 'README.markdown',
+  \   'Guardfile',
   \   'Vagrantfile',
-  \   'composer.json',
-  \   'build.xml',
-  \   'build.gradle',
   \ ]
 let g:rooter_change_directory_for_non_project_files = 0
 " }}}
@@ -1508,12 +1523,11 @@ function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer = 1
   let g:vimfiler_split_action        = 'left'
   "let g:vimfiler_execute_file_list   = 'vim'
-  let g:vimfiler_ignore_pattern = '^.*\%(.git\|.DS_Store\|.idea\|.iml\|.pyc\)$'
+  let g:vimfiler_ignore_pattern = '^.*\%(.git\|.DS_Store\|.idea\|.iml\|.pyc\|.tox\|__pycache__\|.ruby-version\)$'
   let g:vimfiler_edit_action         = 'open'
   let g:vimfiler_sort_type           = 'filename'
   let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
-  " Note: This variable works in file source.
-  "let g:vimfiler_enable_auto_cd      = 1
+  let g:vimfiler_enable_auto_cd      = 1
   let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
   let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
 
@@ -1538,7 +1552,8 @@ function! s:bundle.hooks.on_source(bundle)
   "    \ -auto-cd=1
   "augroup END " }}}
 endfunction
-nnoremap : :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
+  \ -split -simple -winwidth=35 -project -auto-cd -no-quit -find<CR>
 "augroup VimFilerUniteAction " {{{
   "autocmd!
   "autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
@@ -1624,7 +1639,9 @@ let g:unite_data_directory =
 
 let g:unite_enable_start_insert = 1
 let g:unite_enable_short_source_names = 1
+
 let g:unite_prompt = '☁  '
+call unite#custom#profile('default', 'context', { 'prompt_direction': 'top'})
 
 " For unite-session Save & Load session automatically.
 let g:unite_source_session_enable_auto_save = 1
@@ -1983,6 +2000,8 @@ let g:increment_activator_filetype_candidates['go'] = [
   \   ['float32', 'float64'],
   \   ['interface', 'struct'],
   \ ]
+
+let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 " }}}
 " scheme {{{
 let g:quickrun_config['scheme/gauche'] = {
@@ -2003,6 +2022,7 @@ let g:quickrun_config['scheme'] = {
 " Python {{{
 let g:syntastic_python_checkers = ['flake8']
 let g:ref_cmd_filetype_map['python'] = 'pydoc'
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
 " }}}
 " ReStructedText / Sphinx {{{
 if exists('g:sphinx_build_bin')
@@ -2042,6 +2062,7 @@ let g:user_emmet_settings['haml'] = {
   \   'extends': 'html',
   \ }
 
+let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 " }}}
 " Cucumber {{{
 let g:increment_activator_filetype_candidates['cucumber'] = [
@@ -2078,7 +2099,8 @@ let g:user_emmet_settings['perl'] = {
   \   },
   \ }
 
-let g:ref_cmd_filetype_map['perl'] = 'perldoc'
+let g:ref_cmd_filetype_map.perl = 'perldoc'
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 " PHP {{{
 " NOTE: unite-sf2 avairables is depends local environment.
@@ -2149,7 +2171,6 @@ nnoremap <silent> [unite]d
   \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
-"nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -winheight=12<CR>
 nnoremap <silent> [unite]T :<C-u>Unite -buffer-name=search line
   \ -winheight=10 -no-quit<CR>todo\\|fixme\\|warn\\|hackme<ESC>
 " for current buffer
