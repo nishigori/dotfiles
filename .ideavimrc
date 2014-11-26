@@ -1,0 +1,4 @@
+set hlsearch
+set number
+set relativenumber
+set novisualbell
