@@ -552,10 +552,6 @@ set softtabstop=0
 
 let g:vim_indent_cont = 2
 
-augroup DisableAutomaticNewlineAtEndOfFile
-  autocmd!
-  autocmd BufNewFile,BufReadPost * set binary noeol
-augroup END
 " }}}
 " # Filetype Detect {{{
 " Moved ~/.vim/filetype.vim
@@ -1018,9 +1014,6 @@ let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
 "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
 " }}}
 " Plugin: PreserveNoEOL {{{
-augroup MyPreserveNoEOL
-  au! BufRead,BufNewFile * setlocal noeol | let b:PreserveNoEOL = 1
-augroup END
 "setlocal noeol | let b:PreserveNoEOL = 1
 let b:PreserveNoEOL = 1
 let g:PreserveNoEOL = 1
