@@ -1,4 +1,73 @@
+set nowrapscan
+set ignorecase
 set hlsearch
+set scrolloff=10
+
 set number
 set relativenumber
+
 set novisualbell
+
+inoremap <C-]> <Esc>
+
+"選択範囲のインデントを連続して変更
+vnoremap < <gv
+vnoremap > >gv
+
+" Bash like insert
+inoremap <C-a> <C-o>^
+inoremap <C-e> <C-o>$<Right>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+inoremap <C-h> <BS>
+inoremap <C-d> <Del>
+inoremap <C-k> <C-o>D<Right>
+inoremap <C-u> <C-o>d^
+
+" # <Tab> {{{
+"nnoremap tn :<C-u>tabnew<Space>
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+" }}}
+" # Yank {{{
+" Like nmap 'D' and 'C'
+nnoremap Y y$
+
+" カーソル位置の単語をヤンクした単語に置換
+nnoremap <silent> cy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
+nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
+" }}}
+
+
+" for snippet complete
+nnoremap j gj
+onoremap j gj
+xnoremap j gj
+nnoremap k gk
+onoremap k gk
+xnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
+
+nnoremap cw ciw
+nnoremap dw diw
+inoremap <C-w> <ESC>ciw
+
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-l> <C-d>
+cnoremap <C-d> <Delete>
+
+" # Switch ; <-> :
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+nnoremap q; q:
+vnoremap q; q:
