@@ -327,11 +327,9 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'junegunn/vim-emoji'
   " }}}
   " VCS {{{
-  NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-  "NeoBundleLazy 'Shougo/vim-vcs', {
-  "\   'depends' : 'thinca/vim-openbuf',
-  "\   'autoload' : {'functions' : 'vcs#info', 'commands' : 'Vcs'},
-  "\ }
+  " NOTE: disabled cause revision:2c8461d is crashed multibyte encoding.
+  "NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
+
   " TODO: require vim-powerline, change using plugin for show branch status
   NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
   NeoBundle 'sudo.vim'
@@ -449,7 +447,15 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType erlang NeoBundleSource vimerl
   " }}}
   " Go/golang {{{
-  NeoBundle 'golang/lint', { 'rtp': 'misc/vim' }
+  " Require `go get -u github.com/nsf/gocode`
+  NeoBundleLazy 'Blackrush/vim-gocode'
+  autocmd FileType go NeoBundleSource vim-gocode
+  NeoBundleLazy 'nsf/gocode', {
+    \   'rtp' : 'vim',
+    \   'autoload' : { 'filetypes' : 'go' },
+    \ }
+  NeoBundleLazy 'golang/lint', { 'rtp': 'misc/vim' }
+  autocmd FileType go NeoBundleSource lint
   " }}}
   " Scheme, scm {{{
   " gauche
@@ -1447,6 +1453,11 @@ function! s:my_cr_function()
   return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 
+" popup highlight
+highlight Pmenu ctermbg=8 guibg=#606060
+highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
+highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
+
 " scheme for SICP
 let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
 let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
@@ -1972,6 +1983,12 @@ let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_fil
   \ })
 " }}}
 
+" external patches
+if exists('+breakindent')
+  set breakindent
+endif
+
+
 "" Each filetype (not on ftplugin but define require first on vimrc)
 
 " VimScript {{{
@@ -1984,7 +2001,23 @@ let g:increment_activator_filetype_candidates['vim'] = [
   \ ]
 " }}}
 " go/golang {{{
-let g:increment_activator_filetype_candidates['go'] = [
+
+" RSS:
+" - http://kaworu.jpn.org/vim/vimのGo開発環境
+
+" https://github.com/majutsushi/tagbar/wiki#google-go
+let g:tagbar_type_go = {
+  \   'ctagstype': 'go',
+  \   'kinds': [
+  \     'p:package',
+  \     'f:function',
+  \     'v:variables',
+  \     't:type',
+  \     'c:const',
+  \   ],
+  \ }
+
+let g:increment_activator_filetype_candidates.go = [
   \   ['true', 'false', 'iota', 'nil'],
   \   ['print', 'println'],
   \   ['byte', 'complex64', 'complex128'],
@@ -1995,6 +2028,7 @@ let g:increment_activator_filetype_candidates['go'] = [
   \ ]
 
 let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+let g:neocomplete#sources#omni#functions.go =  'gocomplete#Complete'
 " }}}
 " scheme {{{
 let g:quickrun_config['scheme/gauche'] = {
@@ -2015,7 +2049,19 @@ let g:quickrun_config['scheme'] = {
 " Python {{{
 let g:syntastic_python_checkers = ['flake8']
 let g:ref_cmd_filetype_map['python'] = 'pydoc'
-let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
+
+" For jedi-vim
+" TODO: fixme {{{
+
+""let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
+"let g:jedi#auto_vim_configuration = 0
+
+"autocmd FileType python setlocal omnifunc=jedi#completions
+"let g:jedi#completions_enabled = 0
+"let g:jedi#auto_vim_configuration = 0
+"let g:neocomplete#force_omni_input_patterns.python =
+  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+  "}}}
 " }}}
 " ReStructedText / Sphinx {{{
 if exists('g:sphinx_build_bin')
