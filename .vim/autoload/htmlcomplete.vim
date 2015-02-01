@@ -779,6 +779,10 @@ function! htmlcomplete#LoadData() " {{{
 	endif
 endfunction
 " }}}
+function! htmlcomplete#DetectOmniFlavor() " {{{
+  " this empty func is cover MacVim Kaoriya's bug on -
+  " /Applications/MacVim.app/Contents/Resources/vim/runtime/ftplugin/html.vim
+endfunction " }}}
 function! htmlcomplete#CheckDoctype() " {{{
 	if exists('b:html_omni_flavor')
 		let old_flavor = b:html_omni_flavor
