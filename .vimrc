@@ -773,6 +773,8 @@ cnoremap <C-f> <Right>
 cnoremap <C-l> <C-d>
 cnoremap <C-d> <Delete>
 
+nnoremap w e
+nnoremap W E
 nnoremap cw ciw
 nnoremap dw diw
 inoremap <C-w> <ESC>ciw
@@ -1724,7 +1726,7 @@ function! s:define_unite_keymaps() " {{{
 endfunction " }}}
 
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
-nnoremap <C-n> :<C-u>Unite buffer<CR>
+nnoremap <C-n> :<C-u>Unite buffer bookmark<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " Plugin: unite.vim >> profiles {{{
