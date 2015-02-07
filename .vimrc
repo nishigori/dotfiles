@@ -1558,18 +1558,9 @@ nnoremap <Leader>gc :<C-u>Gcommit<CR>
 let s:bundle = neobundle#get('vimfiler')
 function! s:bundle.hooks.on_source(bundle)
   let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_split_action        = 'left'
-  "let g:vimfiler_execute_file_list   = 'vim'
   let g:vimfiler_ignore_pattern = '^.*\%(.git\|.DS_Store\|.idea\|.iml\|.pyc\|.tox\|__pycache__\|.ruby-version\)$'
-  let g:vimfiler_edit_action         = 'open'
-  let g:vimfiler_sort_type           = 'filename'
-  let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
-  let g:vimfiler_enable_auto_cd      = 1
   let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
   let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
-
-  " Enable file operation commands.
-  "let g:vimfiler_safe_mode_by_default = 0
 
   " Like Textmate icons.
   let g:vimfiler_tree_leaf_icon = ' '
@@ -1583,18 +1574,20 @@ function! s:bundle.hooks.on_source(bundle)
   endif
 
   "augroup StartupWithVimFiler " {{{
-  "  autocmd!
-  "  autocmd VimEnter * VimFiler
-  "    \ -buffer-name=explorer -split -simple -winwidth=40 -toggle -no-quit
-  "    \ -auto-cd=1
+    "autocmd!
+    "autocmd VimEnter * VimFiler
+      "\ $HOME/workspace
   "augroup END " }}}
 endfunction
+
 nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
-  \ -split -simple -winwidth=35 -project -auto-cd -no-quit -find<CR>
-"augroup VimFilerUniteAction " {{{
-  "autocmd!
-  "autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
-"augroup END " }}}
+  \ -split -direction=topleft -simple -winwidth=35 -project -auto-cd -no-quit -find<CR>
+
+call vimfiler#custom#profile('default', 'context', {
+  \ 'safe' : 0,
+  \ 'edit_action': 'open',
+  \ 'sort_type': 'filename',
+  \ })
 " }}}
 " Plugin: vimshell {{{
 "let s:bundle = neobundle#get('vimshell')
