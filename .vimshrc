@@ -1,4 +1,5 @@
-let $PATH="~/bin:~/.rbenv/bin:".$PATH
+let $PATH="~/bin:~/.rbenv/bin:/usr/local/bin:".$PATH
+let $PATH=$GOPATH."/bin:".$PATH
 
 alias l  = 'ls -l'
 alias ll = 'ls -l'
@@ -18,12 +19,5 @@ alias rs = 'rsync -e ssh -az --progress $$args[1] $$args[2]'
 alias ctag = 'ctags -R ./'
 
 # git
+alias g = 'git'
 alias gitlog = 'git log --graph --all --color --pretty="%x09%h %cn%x09%s %Cred%d"'
-
-# show swap files
-# TODO: removed $TEMP_DIR (I must read ~/.vimrc.local. about g:dependency_XXXX)
-alias showswaps = 'ls -l $TEMP_DIR/vim/swaps'
-
-# throw watchr's path
-# for phpunit-stack
-alias phpwatchr = '/var/lib/gems/1.8/bin/watchr $HOME/workspace/phpunit-stack/watchr.rb'
