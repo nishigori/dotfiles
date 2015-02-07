@@ -61,7 +61,7 @@ set virtualedit+=block         " Block-select to the end of the line for blockwi
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
 set title
 set completeopt=menuone        " A comma separated list of options
-set scrolloff=5                " Minimal number of screen lines to keep above and below the cursor
+set scrolloff=10               " Typewriter mode = keep current line in the center
 set formatoptions+=mM          " This is a sequence of letters
 
 set helplang=ja,en
