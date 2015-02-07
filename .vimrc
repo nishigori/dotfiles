@@ -1406,28 +1406,59 @@ let g:user_emmet_settings = get(g:, 'user_emmet_settings', {'lang' : 'ja'})
 " }}}
 " Plugin: neocomplete {{{
 let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
-
-let g:neocomplete#disable_auto_complete = 1
-let g:neocomplete#enable_auto_select = 0
-let g:neocomplete#enable_refresh_always = 0
-
-"inoremap <expr><S-Space> neocomplete#start_manual_complete()
-inoremap <expr> <S-Space> neocomplete#start_manual_complete()
-inoremap <expr> <C-q> neocomplete#cancel_popup()
-
 let g:neocomplete#max_list = 39
 let g:neocomplete#max_keyword_width = 64
 let g:neocomplete#auto_completion_start_length = 4
 let g:neocomplete#manual_completion_start_length = 4
-let g:neocomplete#min_keyword_length = 5
+let g:neocomplete#min_keyword_length = 4
 "let g:neocomplete#enable_ignore_case = 'ignorecase'
 let g:neocomplete#enable_smart_case = 'infercase'
+"let g:neocomplete#enable_camel_case = 0
+"let g:neocomplete#disable_auto_complete = 0
+let g:neocomplete#enable_cursor_hold_i = 0
+let g:neocomplete#cursor_hold_i_time = 300
 let g:neocomplete#enable_insert_char_pre = 1 " Really??
-let g:neocomplete#use_vimproc = 1
-
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_auto_delimiter = 0
+let g:neocomplete#enable_fuzzy_completion = 1
+"let g:neocomplete#enable_multibyte_completion = 0
+"let g:neocomplete#lock_buffer_name_pattern = ''
+"let g:neocomplete#lock_iminsert = 0
+let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
+let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
 let g:neocomplete#force_omni_input_patterns =
   \ get(g:, 'neocomplete#force_omni_input_patterns', {})
+"let g:neocomplete#same_filetypes = {}
+"let g:neocomplete#text_mode_filetypes = 0
+"let g:neocomplete#text_mode_filetypes = 'ctags'
+"let g:neocomplete#ctags_arguments
+"let g:neocomplete#delimiter_patterns = {}
+let g:neocomplete#sources = get(g:, 'neocomplete#sources', {})
+let g:neocomplete#release_cache_time = 900
+" let g:neocomplete#tags_filter_patterns
+let g:neocomplete#use_vimproc = 1
+let g:neocomplete#ignore_composite_filetypes = {
+  \ 'ruby.spec' : 'ruby'
+  \ }
+"let g:neocomplete#skip_auto_completion_time
+let g:neocomplete#fallback_mappings = []
+
+
+inoremap <expr><S-Space> neocomplete#start_manual_complete()
+
+" Plugin key-mappings.
+inoremap <expr><C-g>  neocomplete#undo_completion()
+inoremap <expr><C-l>  neocomplete#complete_common_string()
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible()
+  \ ? neocomplete#close_popup()."\<Space>" : "\<Space>"
+" Enable omni completion.
+
 let g:neocomplete#sources#omni#functions
   \ = get(g:, 'neocomplete#sources#omni#functions', {})
 
@@ -1459,7 +1490,6 @@ highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
 highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
 " scheme for SICP
-let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
 let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
 vmap <CR> <Plug>(gosh_repl_send_block)
 " }}}
@@ -1694,7 +1724,7 @@ function! s:define_unite_keymaps() " {{{
 endfunction " }}}
 
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
-nnoremap <C-n> :<C-u>Unite buffer_tab<CR>
+nnoremap <C-n> :<C-u>Unite buffer<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 " }}}
 " Plugin: unite.vim >> profiles {{{
