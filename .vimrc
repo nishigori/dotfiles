@@ -2361,3 +2361,8 @@ nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<CR>
 nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<CR>
 nnoremap <silent> <Leader>ts :TweetVimSay<CR>
 " }}}
+
+" Hook loaded vimrc
+if exists("*LoadedHookVIMRC")
+  call LoadedHookVIMRC()
+endif

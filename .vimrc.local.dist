@@ -210,5 +210,10 @@ let g:startify_custom_footer = [
   \ ]
 " }}}
 
+" Hooks
+
+function! LoadedHookVIMRC()
+  " This function called when loaded $MYVIMRC
+endfunction
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
