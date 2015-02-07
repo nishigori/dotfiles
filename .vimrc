@@ -140,6 +140,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \   }
     \ }
   NeoBundle 'tacroe/unite-mark'
+  NeoBundle 'basyura/unite-converter-file-directory'
   NeoBundle 'ujihisa/unite-colorscheme'
   NeoBundle 'sgur/unite-git_grep'
   NeoBundle 'Kocha/vim-unite-tig'
@@ -1454,8 +1455,8 @@ inoremap <expr><C-l>  neocomplete#complete_common_string()
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+"inoremap <expr><C-y>  neocomplete#close_popup()
+"inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 inoremap <expr><Space> pumvisible()
   \ ? neocomplete#close_popup()."\<Space>" : "\<Space>"
@@ -1673,20 +1674,15 @@ nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
 let g:unite_data_directory =
   \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
 
-let g:unite_enable_start_insert = 1
 let g:unite_enable_short_source_names = 1
 
 let g:unite_prompt = '☁  '
-call unite#custom#profile('default', 'context', { 'prompt_direction': 'top'})
 
 " For unite-session Save & Load session automatically.
 let g:unite_source_session_enable_auto_save = 1
 
 " window options
-let g:unite_winheight             = 25
-let g:unite_split_rule            = 'below'
 let g:unite_source_file_mru_limit = 511
-let g:unite_update_time           = 255
 
 " mru options
 let g:unite_source_file_mru_filename_format = ':p:~'
@@ -1728,14 +1724,80 @@ endfunction " }}}
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer bookmark<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings() "{{{
+  " Overwrite settings.
+
+  imap <buffer> q      <Plug>(unite_insert_leave)
+  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+
+  imap <buffer><expr> j unite#smart_map('j', '')
+  imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+  imap <buffer> '     <Plug>(unite_quick_match_default_action)
+  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+  imap <buffer><expr> x
+    \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+  nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
+  nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+  imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+  nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+  nnoremap <silent><buffer><expr> l
+    \ unite#smart_map('l', unite#do_action('default'))
+
+  let unite = unite#get_current_unite()
+  if unite.profile_name ==# 'search'
+    nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+  else
+    nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+  endif
+
+  nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+  nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+    \ empty(unite#mappings#get_current_filters()) ?
+    \ ['sorter_reverse'] : [])
+
+  " Runs "split" action by <C-s>.
+  imap <silent><buffer><expr> <C-s>     unite#do_action('split')
+endfunction "}}}
+
+" find
+let g:unite_source_find_default_opts = '-L' " Follow symlinks
+
+" grep & async
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--follow --nocolor --nogroup --hidden -g ""'
+  let g:unite_source_grep_recursive_opt = ''
+
+  let g:unite_source_rec_async_command =
+    \ 'ag --follow --nocolor --nogroup --hidden -g ""'
+elseif executable('ack')
+  let g:unite_source_grep_command = 'ack'
+  let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
+  let g:unite_source_grep_recursive_opt = ''
+
+  let g:unite_source_rec_async_command = 'ack -f --nofilter'
+endif
 " }}}
-" Plugin: unite.vim >> profiles {{{
+" Plugin: unite.vim >> custom >> profile {{{
+call unite#custom#profile('default', 'context', {
+  \ 'prompt_direction': 'top',
+  \ 'start_insert': 1,
+  \ 'direction': 'below',
+  \ 'winheight': '25',
+  \ })
+
 call unite#custom#profile('files', 'substitute_patterns', {
   \ 'pattern' : '[[:alnum:]]',
   \ 'subst' : '\0',
   \ 'priority' : 100,
   \ })
-
 call unite#custom#profile('files', 'substitute_patterns', {
   \ 'pattern': '\$\w\+',
   \ 'subst': '\=eval(submatch(0))',
@@ -1757,9 +1819,16 @@ call unite#custom#profile('files', 'substitute_patterns', {
   \ 'priority': 1,
   \ })
 call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '^\~',
-  \ 'subst': escape($HOME, '\'),
-  \ 'priority': -2,
+  \ 'pattern' : '^\~',
+  \ 'subst' : substitute(
+  \     unite#util#substitute_path_separator($HOME),
+  \           ' ', '\\\\ ', 'g'),
+  \ 'priority' : -100,
+  \ })
+call unite#custom#profile('files', 'substitute_patterns', {
+  \ 'pattern' : '\.\{2,}\ze[^/]',
+  \ 'subst' : "\\=repeat('../', len(submatch(0))-1)",
+  \ 'priority' : 10000,
   \ })
 call unite#custom#profile('files', 'substitute_patterns', {
   \ 'pattern': '\\\@<! ',
@@ -1790,21 +1859,7 @@ else
     \ })
 endif
 " }}}
-" Plugin: unite.vim >> custom sources & aliases {{{
-" file
-call unite#custom#source(
-  \   'file',
-  \   'ignore_pattern',
-  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|\)$'
-  \ )
-" file_rec
-call unite#custom#source(
-  \   'file_rec',
-  \   'ignore_pattern',
-  \   '\%(^\|/\)\.$\|\~$\|\.\%(o\|exe\|dll\|bak\|sw[po]\|vimundo\)$\|\%(^\|/\)\.\%(hg\|git\|bzr\|svn\)\%($\|/\)'
-  \ )
-
-" aliases
+" Plugin: unite.vim >> custom >> aliases / sources {{{
 let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
 let g:unite_source_alias_aliases.workspace = {
   \ 'source': 'file',
@@ -1814,6 +1869,27 @@ let g:unite_source_alias_aliases.workspace_rec = {
   \ 'source': 'file_rec',
   \ 'args':   "$HOME/workspace",
   \ }
+
+call unite#custom#source(
+  \   'file',
+  \   'ignore_pattern',
+  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|gif|jpg|jpeg|png|\)$'
+  \ )
+call unite#custom#source(
+  \   'file,file_rec,file_rec/async',
+  \   'ignore_pattern',
+  \   join([
+  \     '\%(^\|/\)\.$\|\~$',
+  \     '\.\%(o\|exe\|dll\|sw[po]\|vimundo\)$',
+  \     '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|idea\)\%($\|/\)',
+  \   ], '\|')
+  \ )
+
+call unite#custom#source(
+  \ 'file_rec,file_mru,file_rec,file_rec/async',
+  \ 'converters',
+  \ ['converter_file_directory']
+  \ )
 " }}}
 " Plugin: unite.vim >> source menus {{{
 let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
@@ -2224,14 +2300,13 @@ xmap e [unite]
 
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 
-nnoremap <silent> [unite]f :<C-u>UniteWithCurrentDir
-  \ -buffer-name=files buffer bookmark file<CR>
-"nnoremap <silent> [unite]f :<C-u>Unite file<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file
+  \ -wrap -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
 nnoremap <silent> [unite]w :<C-u>Unite workspace
-  \ -no-split -buffer-name=files buffer bookmark file<CR>
+  \ -no-split -buffer-name=bookmark<CR>
 nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
-  \ -no-split -buffer-name=files buffer bookmark file -input=!vendor <CR>
+  \ -no-split -buffer-name=bookmark file -input=!vendor <CR>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
