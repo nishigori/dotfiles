@@ -1873,14 +1873,14 @@ let g:unite_source_alias_aliases.workspace_rec = {
 call unite#custom#source(
   \   'file',
   \   'ignore_pattern',
-  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|gif|jpg|jpeg|png|\)$'
+  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|gif|jpg|jpeg|png|pyc|\)$'
   \ )
 call unite#custom#source(
   \   'file,file_rec,file_rec/async',
   \   'ignore_pattern',
   \   join([
   \     '\%(^\|/\)\.$\|\~$',
-  \     '\.\%(o\|exe\|dll\|sw[po]\|vimundo\)$',
+  \     '\.\%(o\|exe\|dll\|sw[po]\|vimundo\|pyc\)$',
   \     '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|idea\)\%($\|/\)',
   \   ], '\|')
   \ )
