@@ -197,9 +197,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
   " }}}
   " Buffer, Tag {{{
-  "NeoBundle 'Lokaltog/powerline', { 'rtp' : 'powerline/bindings/vim'}
-  "NeoBundle 'alpaca-tc/alpaca_powertabline'
-  "NeoBundle 'bling/vim-airline'
   NeoBundle 'itchyny/lightline.vim'
 
   NeoBundle 'vim-scripts/PreserveNoEOL'
@@ -1030,37 +1027,6 @@ let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
 let b:PreserveNoEOL = 1
 let g:PreserveNoEOL = 1
 " }}}
-" Plugin: vim-airline {{{
-" Themes https://github.com/bling/vim-airline/wiki/Screenshots
-let g:airline_theme = 'luna'
-"let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_linecolumn_prefix = '␊ '
-let g:airline_linecolumn_prefix = '␤ '
-let g:airline_linecolumn_prefix = '¶ '
-let g:airline_branch_prefix = '⎇ '
-let g:airline_paste_symbol = 'ρ'
-let g:airline_paste_symbol = 'Þ'
-let g:airline_paste_symbol = '∥'
-let g:airline_enable_branch    = 1
-let g:airline_enable_syntastic = 1
-let g:airline_detect_modified  = 1
-let g:airline_detect_paste     = 1
-if !has('gui_macvim')
-  let g:airline_powerline_fonts  = 1
-endif
-
-" タブラインにもairlineを適用
-let g:airline#extensions#tabline#enabled = 1
-" （タブが一個の場合）バッファのリストをタブラインに表示する機能をオフ
-let g:airline#extensions#tabline#show_buffers = 0
-" 0でそのタブで開いてるウィンドウ数、1で左のタブから連番
-let g:airline#extensions#tabline#tab_nr_type = 1
-" タブに表示する名前（fnamemodifyの第二引数）
-let g:airline#extensions#tabline#fnamemod = ':t'
-" }}}
 " Plugin: lightline.vim {{{
 let g:lightline = {
   \ 'colorscheme': 'landscape',
@@ -1207,12 +1173,6 @@ let g:vimshell_force_overwrite_statusline = 0
 "nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
 "" format = (該当数/全体数)
 "let g:anzu_status_format = "(%i/%l)"
-
-"" for vim-airline
-"" vim-anzuの表示を statuslineに
-"let g:airline_section_c = '%F %{anzu#search_status()}'
-"" whitespace無効
-"let g:airline#extensions#whitespace#enabled = 0
 " }}}
 " Plugin: alpaca_powertabline {{{
 let g:alpaca_powertabline_enable = 1
@@ -1725,7 +1685,7 @@ function! s:unite_my_settings() "{{{
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
   imap <buffer><expr> j unite#smart_map('j', '')
-  imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+  "imap <buffer> <TAB>   <Plug>(unite_select_next_line)
   imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
   imap <buffer> '     <Plug>(unite_quick_match_default_action)
   nmap <buffer> '     <Plug>(unite_quick_match_default_action)
