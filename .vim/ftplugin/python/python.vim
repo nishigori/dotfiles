@@ -13,10 +13,12 @@ setlocal commentstring=\ #\ %s
 
 let g:python_highlight_all = 1
 
-" # PLUGIN
+" Disable popup for docstring
+setlocal completeopt-=preview
+
+" # Plugin
 if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
   setlocal omnifunc=pythoncomplete#Complete
-  finish
 endif
 
 " ## unite-ref {{{

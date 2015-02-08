@@ -404,8 +404,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \   "filetypes": ["python", "python3", "djangohtml"],
     \ },
     \ "build": {
-    \   "mac": "pip install jedi",
-    \   "unix": "pip install jedi",
+    \   "mac": "pip install -U jedi",
+    \   "unix": "pip install -U jedi",
     \ }}
   let s:hooks = neobundle#get_hooks("jedi-vim")
   function! s:hooks.on_source(bundle)
@@ -1060,10 +1060,11 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:lightline = {
   \ 'colorscheme': 'landscape',
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
+  \   'left': [ [ 'mode', 'paste' ], ['venv'], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
   \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
   \ },
   \ 'component_function': {
+  \   'venv': 'MyVirtualEnv',
   \   'fugitive': 'MyFugitive',
   \   'filename': 'MyFilename',
   \   'fileformat': 'MyFileformat',
@@ -1079,6 +1080,12 @@ let g:lightline = {
   \   'syntastic': 'error',
   \ },
   \ }
+
+
+let g:virtualenv_stl_format = 'venv@%n'
+function! MyVirtualEnv()
+  return virtualenv#statusline()
+endfunction
 
 function! MyModified()
   return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -2157,17 +2164,16 @@ let g:syntastic_python_checkers = ['flake8']
 let g:ref_cmd_filetype_map['python'] = 'pydoc'
 
 " For jedi-vim
-" TODO: fixme {{{
+"let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
+let g:jedi#auto_vim_configuration = 0
 
-""let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
-"let g:jedi#auto_vim_configuration = 0
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
 
-"autocmd FileType python setlocal omnifunc=jedi#completions
-"let g:jedi#completions_enabled = 0
-"let g:jedi#auto_vim_configuration = 0
-"let g:neocomplete#force_omni_input_patterns.python =
-  "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-  "}}}
+let g:neocomplete#force_omni_input_patterns.python =
+  \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+" alternative pattern: '\h\w*\|[^. \t]\.\w*'
 " }}}
 " ReStructedText / Sphinx {{{
 if exists('g:sphinx_build_bin')
