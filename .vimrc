@@ -210,14 +210,19 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'vim-scripts/trinity.vim'
   NeoBundle 'vim-scripts/taglist.vim'
   NeoBundle 'vim-scripts/TagHighlight'
-  NeoBundleLazy 'alpaca-tc/alpaca_tags',
-    \ {
-    \   'rev': 'v2.0',
-    \   'depends': 'Shougo/vimproc',
-    \   'autoload' : {
-    \     'commands': ['TagsUpdate', 'TagsSet', 'TagsBundle'],
-    \   }
-    \ }
+  " INFO: alpaca_tags is disabled cause:
+  "   * I'm not using ruby frequently
+  "   * alpaca_tags is not controllable tag update/create PATH
+  "NeoBundleLazy 'alpaca-tc/alpaca_tags', {
+    "\    'depends': ['Shougo/vimproc'],
+    "\    'autoload' : {
+    "\       'commands' : [
+    "\          { 'name' : 'AlpacaTagsBundle', 'complete': 'customlist,alpaca_tags#complete_source' },
+    "\          { 'name' : 'AlpacaTagsUpdate', 'complete': 'customlist,alpaca_tags#complete_source' },
+    "\          'AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsEnable', 'AlpacaTagsDisable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus',
+    "\       ],
+    "\    }
+    "\ }
   NeoBundle 'osyo-manga/vim-anzu'
   " }}}
   " Syntax {{{
@@ -2020,17 +2025,69 @@ let g:neomru#file_mru_limit = 1024
 let g:neomru#filename_format = ':p:~'
 " }}}
 " Plugin: alpaca_tags {{{
-let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {
-  \   '_': '-R --exclude=".git*" --sort=yes',
-  \ })
+"let g:alpaca_tags#cache_dir = g:local_config['tmp_dir'] . '/.alpaca_tags'
+"let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {
+  "\   '_': '-R --exclude=".git*" --sort=yes',
+  "\ 'default' : '--languages=-css,scss,html,js,JavaScript',
+  "\ 'js' : '--languages=+js',
+  "\ '-js' : '--languages=-js,JavaScript',
+  "\ 'vim' : '--languages=+Vim,vim',
+  "\ 'php' : '--languages=+php --php-types=c+f+d',
+  "\ '-vim' : '--languages=-Vim,vim',
+  "\ '-style': '--languages=-css,scss,js,JavaScript,html',
+  "\ 'scss' : '--languages=+scss --languages=-css',
+  "\ 'css' : '--languages=+css',
+  "\ 'java' : '--languages=+java $JAVA_HOME/src',
+  "\ 'ruby': '--languages=+Ruby',
+  "\ 'coffee': '--languages=+coffee',
+  "\ '-coffee': '--languages=-coffee',
+  "\ 'bundle': '--languages=+Ruby',
+  "\ 'go': '--langdef=Go --langmap=Go:.go'
+  "\   . ' --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/'
+  "\   . ' --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/',
+  "\ 'python': '--python-kinds=-iv --exclude="build" --exclude=".venv" --exclude="dist"',
+  "\ 'erlang': '--languages=erlang --file-scope=no',
+  "\ })
+
+"" This variable is options for debug.
+"let g:alpaca_tags#console = {'report' : 1}
+
+"augroup AlpacaTags
+  "autocmd!
+  "if exists(':AlpacaTags')
+    ""autocmd BufWritePost Gemfile AlpacaTagsBundle
+    "autocmd BufWritePost * AlpacaTagsUpdate
+  "endif
+"augroup END
+
+"autocmd BufEnter * AlpacaTagsSet
+augroup MyAutoSetCtagPath
+  autocmd!
+  au BufEnter * execute ":set tags="
+    \ . unite#util#path2project_directory(unite#util#substitute_path_separator(getcwd()))
+    \ . '/tags'
+    "\ . escape(unite#util#path2project_directory(unite#util#substitute_path_separator(getcwd())), ' ')
+augroup END
 " }}}
 " Plugin: unite-tag {{{
-let g:unite_tig_default_line_count = 80
-nnoremap <silent> <C-]> :<C-u>Unite -immediately -no-start-insert tags:<C-r>=expand('<cword>')<CR><CR>
+let g:unite_source_tag_max_name_length = 25
+let g:unite_source_tag_max_fname_length = 80
+let g:unite_source_tag_strict_truncate_string = 1
+let g:unite_source_tag_show_location = 1
+let g:unite_source_tag_show_fname = 1
+
 autocmd BufEnter *
-  \ if empty(&buftype)
-  \   | nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR> |
-  \ endif
+  \   if empty(&buftype)
+  \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+  \|  endif
+" http://qiita.com/kazu0620/items/d7da3047daed04fc5eba
+autocmd BufEnter *
+  \   if empty(&buftype)
+  \|      nnoremap <buffer> <C-t> :<C-u>Unite jump<CR>
+  \|  endif
+" }}}
+" Plugin: unite-tig {{{
+let g:unite_tig_default_line_count = 80
 " }}}
 " Plugin: unite-grep {{{
 let g:unite_source_grep_default_opts = '-Hn'  " By the default
