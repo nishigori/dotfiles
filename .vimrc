@@ -774,8 +774,6 @@ cnoremap <C-f> <Right>
 cnoremap <C-l> <C-d>
 cnoremap <C-d> <Delete>
 
-nnoremap w e
-nnoremap W E
 nnoremap cw ciw
 nnoremap dw diw
 inoremap <C-w> <ESC>ciw
@@ -1667,20 +1665,7 @@ call vimfiler#custom#profile('default', 'context', {
 let g:unite_data_directory =
   \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
 
-let g:unite_enable_short_source_names = 1
-
 let g:unite_prompt = '☁  '
-
-" For unite-session Save & Load session automatically.
-let g:unite_source_session_enable_auto_save = 1
-
-" window options
-let g:unite_source_file_mru_limit = 511
-
-" mru options
-let g:unite_source_file_mru_filename_format = ':p:~'
-let g:unite_source_directory_mru_ignore_pattern =
-  \ '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|vimundo\|idea\|pyc\)\%($\|/\)\|^\%(\\\\\|/mnt/\|/media/\|/Volumes/\)'
 
 " history options
 let g:unite_source_history_yank_enable = 1
@@ -1716,13 +1701,15 @@ endfunction " }}}
 
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer bookmark<CR>
+nnoremap <C-m> :<C-u>Unite mark<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings() "{{{
   " Overwrite settings.
 
-  imap <buffer> q      <Plug>(unite_insert_leave)
+  imap <buffer> <S-z>      <Plug>(unite_exit)
+  imap <buffer> <D-z>      <Plug>(unite_exit)
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
   imap <buffer><expr> j unite#smart_map('j', '')
@@ -1784,6 +1771,7 @@ call unite#custom#profile('default', 'context', {
   \ 'start_insert': 1,
   \ 'direction': 'below',
   \ 'winheight': '25',
+  \ 'short_source_names': 1,
   \ })
 
 call unite#custom#profile('files', 'substitute_patterns', {
@@ -1863,23 +1851,36 @@ let g:unite_source_alias_aliases.workspace_rec = {
   \ 'args':   "$HOME/workspace",
   \ }
 
+let s:unite_ignore_file_extention_regex = '\.\%(' . join([
+  \   'o',
+  \   'exe', 'dll', 'app',
+  \   'zip', 'tar\.gz',
+  \   'sw[po]', 'vimundo',
+  \   'iml', 'idea',
+  \   'gif', 'jpg', 'jpeg', 'png',
+  \   'svn', 'git', 'bzr', 'hg',
+  \   '__pycache__', 'pyc', 'egg', 'egg-info',
+  \ ]) . '\)$'
 call unite#custom#source(
-  \   'file',
+  \   'file,neomu/file',
   \   'ignore_pattern',
-  \   '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$\|\.\%(o|exe|dll|bak|sw[po]|vimundo|app|iml|gif|jpg|jpeg|png|pyc|\)$'
+  \   join([
+  \     '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$',
+  \     s:unite_ignore_file_extention_regex,
+  \   ], '\|')
   \ )
 call unite#custom#source(
   \   'file,file_rec,file_rec/async',
   \   'ignore_pattern',
   \   join([
   \     '\%(^\|/\)\.$\|\~$',
-  \     '\.\%(o\|exe\|dll\|sw[po]\|vimundo\|pyc\)$',
   \     '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|idea\)\%($\|/\)',
+  \     s:unite_ignore_file_extention_regex,
   \   ], '\|')
   \ )
 
 call unite#custom#source(
-  \ 'file_rec,file_mru,file_rec,file_rec/async',
+  \ 'buffer,file_rec,file_mru,file_rec,file_rec/async',
   \ 'converters',
   \ ['converter_file_directory']
   \ )
@@ -2006,6 +2007,10 @@ nmap <ESC>l <M-l>
 nmap <ESC>g <M-g>
 nmap <ESC>s <M-s>
 nmap <ESC>i <M-i>
+" }}}
+" Plugin: neomru {{{
+let g:neomru#file_mru_limit = 1024
+let g:neomru#filename_format = ':p:~'
 " }}}
 " Plugin: alpaca_tags {{{
 let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {
@@ -2293,33 +2298,33 @@ xmap e [unite]
 
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 
-nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir file
-  \ -wrap -buffer-name=files buffer bookmark file<CR>
-nnoremap <silent> [unite]F :<C-u>Unite file_rec<CR>
+nnoremap <silent> [unite]f :<C-u>Unite file_rec/async
+  \ -input=** -buffer-name=files buffer bookmark file<CR>
+nnoremap <silent> [unite]p :<C-u>UniteWithProjectDir file_rec/async
+  \ -input=** -buffer-name=files buffer bookmark file<CR>
+nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir file
+  \ -input=** -buffer-name=files buffer bookmark file<CR>
+nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir
+  \ -input=** -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]w :<C-u>Unite workspace
   \ -no-split -buffer-name=bookmark<CR>
 nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
   \ -no-split -buffer-name=bookmark file -input=!vendor <CR>
-nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
+
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
-nnoremap <silent> [unite]m :<C-u>Unite mark<CR>
-nnoremap <silent> [unite]M :<C-u>Unite menu<CR>
-nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]m :<C-u>Unite menu<CR>
 nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
-nnoremap <silent> [unite]d
-  \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
 nnoremap <silent> [unite]T :<C-u>Unite -buffer-name=search line
-  \ -winheight=10 -no-quit<CR>todo\\|fixme\\|warn\\|hackme<ESC>
+  \ -wrap -winheight=10 -no-quit<CR>todo\\|fixme\\|warn\\|hackme<ESC>
 " for current buffer
 nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
 nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
 nnoremap <silent> [unite]l :<C-u>Unite line -no-split -winheight=20<CR>
-nnoremap <silent> [unite]c :<C-u>Unite colorscheme -auto-preview<CR>
+nnoremap <silent> [unite]C :<C-u>Unite colorscheme -auto-preview<CR>
 nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
-nnoremap <silent> [unite]p :<C-u>Unite process -no-split<CR>
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
 nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:! -no-start-insert -auto-quit<CR>
@@ -2330,10 +2335,6 @@ nnoremap <silent> [unite]N :<C-u>Unite neobundle/install -no-start-insert -auto-
 nmap <silent> [unite]r <Plug>(ref_filetype_complete)
 
 nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
-
-"nnoremap <Leader>S :<C-u>Unite<Space>sf2/
-"nnoremap <Leader>sb :<C-u>Unite sf2/bundles<CR>
-"nnoremap <Leader>sc :<C-u>Unite sf2/app/config<CR>
 "}}}
 
 " # <Leader> Mappings "{{{
