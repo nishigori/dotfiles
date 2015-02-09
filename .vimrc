@@ -1741,9 +1741,9 @@ endif
 call unite#custom#profile('default', 'context', {
   \ 'prompt_direction': 'top',
   \ 'start_insert': 1,
-  \ 'direction': 'below',
-  \ 'winheight': '25',
   \ 'short_source_names': 1,
+  \ 'wrap': 1,
+  \ 'split': 0,
   \ })
 
 call unite#custom#profile('files', 'substitute_patterns', {
@@ -1766,11 +1766,11 @@ call unite#custom#profile('files', 'substitute_patterns', {
   \ 'subst': '\=getcwd()."/*"',
   \ 'priority': 1,
   \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '^;r',
-  \ 'subst': '\=$VIMRUNTIME."/"',
-  \ 'priority': 1,
-  \ })
+"call unite#custom#profile('files', 'substitute_patterns', {
+  "\ 'pattern': '^;r',
+  "\ 'subst': '\=$VIMRUNTIME."/"',
+  "\ 'priority': 1,
+  "\ })
 call unite#custom#profile('files', 'substitute_patterns', {
   \ 'pattern' : '^\~',
   \ 'subst' : substitute(
@@ -1783,16 +1783,17 @@ call unite#custom#profile('files', 'substitute_patterns', {
   \ 'subst' : "\\=repeat('../', len(submatch(0))-1)",
   \ 'priority' : 10000,
   \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '\\\@<! ',
-  \ 'subst': '\\ ',
-  \ 'priority': -20,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '\\ \@!',
-  \ 'subst': '/',
-  \ 'priority': -30,
-  \ })
+" INFO: Not using cause I hope to match rule like flie_mru
+"call unite#custom#profile('files', 'substitute_patterns', {
+  "\ 'pattern': '\\\@<! ',
+  "\ 'subst': '\\ ',
+  "\ 'priority': -20,
+  "\ })
+"call unite#custom#profile('files', 'substitute_patterns', {
+  "\ 'pattern': '\\ \@!',
+  "\ 'subst': '/',
+  "\ 'priority': -30,
+  "\ })
 if has('win32') || has('win64')
   call unite#custom#profile('files', 'substitute_patterns', {
     \ 'pattern': '^;p',
@@ -2322,17 +2323,17 @@ xmap e [unite]
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 
 nnoremap <silent> [unite]f :<C-u>Unite file_rec/async
-  \ -input=** -buffer-name=files buffer bookmark file<CR>
+  \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]p :<C-u>UniteWithProjectDir file_rec/async
-  \ -input=** -buffer-name=files buffer bookmark file<CR>
+  \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir file
-  \ -input=** -buffer-name=files buffer bookmark file<CR>
+  \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir
-  \ -input=** -buffer-name=files buffer bookmark file<CR>
+  \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]w :<C-u>Unite workspace
-  \ -no-split -buffer-name=bookmark<CR>
+  \ -buffer-name=bookmark<CR>
 nnoremap <silent> [unite]W :<C-u>Unite workspace_rec
-  \ -no-split -buffer-name=bookmark file -input=!vendor <CR>
+  \ -buffer-name=bookmark file -input=!vendor <CR>
 
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 nnoremap <silent> [unite]m :<C-u>Unite menu<CR>
