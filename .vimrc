@@ -225,8 +225,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " Syntax {{{
   NeoBundle "scrooloose/syntastic", {
     \ "build": {
-    \   "mac": ["pip install flake8", "npm -g install coffeelint"],
-    \   "unix": ["pip install flake8", "npm -g install coffeelint"],
+    \   "mac": ["pip install -U flake8", "npm -g install coffeelint"],
+    \   "unix": ["pip install -U flake8", "npm -g install coffeelint"],
     \ }}
   " neocomplete requires vim 7.3.885 or above.
   NeoBundle 'Shougo/neocomplete', {
@@ -1681,7 +1681,9 @@ function! s:unite_my_settings() "{{{
   " Overwrite settings.
 
   imap <buffer> <S-z>      <Plug>(unite_exit)
+  nmap <buffer> <S-z>      <Plug>(unite_exit)
   imap <buffer> <D-z>      <Plug>(unite_exit)
+  nmap <buffer> <D-z>      <Plug>(unite_exit)
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
   imap <buffer><expr> j unite#smart_map('j', '')
@@ -1987,6 +1989,7 @@ let g:neomru#filename_format = ':p:~'
 " }}}
 " Plugin: alpaca_tags {{{
 "let g:alpaca_tags#cache_dir = g:local_config['tmp_dir'] . '/.alpaca_tags'
+let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {})
 "let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {
   "\   '_': '-R --exclude=".git*" --sort=yes',
   "\ 'default' : '--languages=-css,scss,html,js,JavaScript',
