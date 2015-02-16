@@ -85,9 +85,6 @@ if filereadable(expand($MYVIMRC_LOCAL))
   nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
   nnoremap <silent> eS :<C-u>source $MYVIMRC<CR>
 
-  " Use weekly buffer for GTD.
-  nnoremap <silent> <S-t><S-t> :call weekly_buffer#open()<CR>
-
   " Load settings for each location {{{
   augroup load_local_config
     autocmd!
@@ -2117,6 +2114,14 @@ let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_fil
   \     ['月','火','水','木','金','土','日'],
   \   ],
   \ })
+" }}}
+" My Plugin: Project TODO {{{
+nnoremap <silent> <S-t><S-t> :call OpenMyToDo()<CR>
+function! OpenMyToDo()
+  execute 'e ' . unite#util#path2project_directory(
+    \ unite#util#substitute_path_separator(getcwd())
+    \ ) . '/TODO.rst'
+endfunction
 " }}}
 
 " external patches

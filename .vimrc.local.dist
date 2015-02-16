@@ -3,7 +3,6 @@ let g:use_plugin = 0 " 0: Disabled loading code depends plugin, 1: Enabled
 let g:local_config = {
   \ 'dotfiles_dir'        : $HOME . '/src/dotfiles',
   \ 'tmp_dir'             : $HOME . '/.vim/tmp',
-  \ 'weekly_buffer_dir'   : $HOME . '/.vim/tmp/.gtd',
   \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref/php',
   \ 'ref_jquery_path'     : $HOME . '/.vim/ref/jqapi-latest',
   \ }
