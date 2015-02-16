@@ -1423,8 +1423,10 @@ inoremap <expr><S-Space> neocomplete#start_manual_complete()
 inoremap <expr><C-g>  neocomplete#undo_completion()
 inoremap <expr><C-l>  neocomplete#complete_common_string()
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+if has('gui_runnig')
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+endif
 "inoremap <expr><C-y>  neocomplete#close_popup()
 "inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
