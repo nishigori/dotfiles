@@ -128,7 +128,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'Shougo/unite-outline'
   NeoBundle 'thinca/vim-unite-history'
   NeoBundle 'osyo-manga/unite-quickrun_config'
-  NeoBundle 'ujihisa/unite-locate'
   NeoBundleLazy 'tsukkee/unite-tag',
     \ {
     \   'depends' : ['Shougo/unite.vim'],
@@ -142,12 +141,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'sgur/unite-git_grep'
   NeoBundle 'Kocha/vim-unite-tig'
   NeoBundle 'tsukkee/unite-help'
-  " http://kmnk.blogspot.jp/2013/01/git-unite-unite-source.html
-  "NeoBundle 'kmnk/vim-unite-giti'
-  NeoBundle 'pasela/unite-webcolorname'
-  NeoBundle 'ujihisa/unite-gem'
-  NeoBundleLazy 'nishigori/unite-sf2', { 'depends' : 'Shougo/unite.vim' }
-  autocmd FileType php NeoBundleSource unite-sf2
   " }}}
   " Debug, Backend {{{
   if has('python')
@@ -163,9 +156,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \    },
     \ }
   " }}}
-  " Projects {{{
-  NeoBundle 'airblade/vim-rooter'
-  " }}}
   " Shell {{{
   NeoBundleLazy 'Shougo/vimshell',{
     \ 'depends' : 'Shougo/vimproc',
@@ -177,6 +167,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \   'mappings' : ['<Plug>(vimshell_switch)'],
     \ }}
   NeoBundle 'sudo.vim'
+  " TODO: require vim-powerline, change using plugin for show branch status
+  NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
   " }}}
   " Explorer, Filer {{{
   NeoBundleLazy 'Shougo/vimfiler', {
@@ -231,14 +223,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
     \ 'vim_version' : '7.3.885'
     \ }
   " }}}
-  NeoBundle 'Shougo/neosnippet-snippets'
   " Complete, Snippet {{{
-  "NeoBundle 'Shougo/neocomplcache'
-  "call neobundle#config('neocomplcache', {
-  "\ 'lazy' : 1,
-  "\ 'autoload' : {
-  "\     'insert' : 1,
-  "\ }})
+  NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'Shougo/neosnippet', '', 'default'
   call neobundle#config('neosnippet', {
     \ 'lazy' : 1,
@@ -265,8 +251,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'visualstar.vim'
   NeoBundle 'vim-scripts/matchparenpp'
   NeoBundle 'h1mesuke/vim-alignta'
-  " TODO: If multiple-cursor is active updating, it'll be enabled
-  "NeoBundle 'terryma/vim-multiple-cursors'
   " }}}
   " Marker {{{
   "NeoBundle 'vim-scripts/ShowMarks'
@@ -300,7 +284,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'tyru/urilib.vim'
   NeoBundle 'mattn/webapi-vim'
   NeoBundle 'basyura/twibill.vim'
-  NeoBundle 'basyura/bitly.vim'
   " }}}
   " Utility {{{
   " FIXME: vim-template, そのうち使う
@@ -308,7 +291,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   "NeoBundle 'vim-scripts/Headlights'
   NeoBundle 'vim-scripts/copypath.vim'
   "NeoBundle 'mattn/calendar-vim'
-  NeoBundle 'itchyny/calendar.vim'
   NeoBundle 'kana/vim-submode'
   NeoBundle 'thinca/vim-openbuf'
   if !has('win32') && !has('mac')
@@ -325,14 +307,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'mattn/unite-nyancat'
   NeoBundle 'mhinz/vim-startify'
   NeoBundle 'junegunn/vim-emoji'
-  " }}}
-  " VCS {{{
-  " NOTE: disabled cause revision:2c8461d is crashed multibyte encoding.
-  "NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-
-  " TODO: require vim-powerline, change using plugin for show branch status
-  NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
-  NeoBundle 'sudo.vim'
   " }}}
   " DB {{{
   "NeoBundle 'mattn/vdbi-vim'
@@ -389,8 +363,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType ruby NeoBundleSource unite-rake
   NeoBundleLazy 'rhysd/unite-ruby-require.vim'
   autocmd FileType ruby NeoBundleSource unite-ruby-require
-  NeoBundleLazy 'basyura/unite-rails'
-  autocmd FileType ruby,rails NeoBundleSource unite-rails
   "NeoBundle 'rhysd/vim-textobj-ruby' " TODO: occurred unknown error
   " }}}
   " Python {{{

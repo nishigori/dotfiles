@@ -22,6 +22,16 @@ NeoBundleLazy 'taichouchou2/vim-endwise.git', {
 
 " unite source
 NeoBundle 'mattn/unite-remotefile', { 'depends' : 'Shougo/unite.vim' }
+NeoBundle 'ujihisa/unite-locate'
+" http://kmnk.blogspot.jp/2013/01/git-unite-unite-source.html
+"NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'pasela/unite-webcolorname'
+NeoBundleLazy 'nishigori/unite-sf2', { 'depends' : 'Shougo/unite.vim' }
+autocmd FileType php NeoBundleSource unite-sf2
+NeoBundle 'ujihisa/unite-gem'
+NeoBundle 'ujihisa/unite-font', { 'depends': 'Shougo/unite.vim' }
+NeoBUndle 'oppara/vim-unite-cake', { 'depends': 'Shougo/unite.vim' }
+NeoBundle 'ujihisa/unite-launch'
 
 " examples
 NeoBundle "toritori0318/vim-redmine"
@@ -31,11 +41,11 @@ NeoBundle 'mattn/salaryman-complete-vim'
 NeoBundle 'neco-look'
 NeoBundle 'tyru/operator-star.vim'
 NeoBundle 'mattn/salaryman-complete-vim'
+" TODO: If multiple-cursor is active updating, it'll be enabled
+"NeoBundle 'terryma/vim-multiple-cursors'
 
-" unite-plugins
-NeoBundle 'ujihisa/unite-font', { 'depends': 'Shougo/unite.vim' }
-NeoBUndle 'oppara/vim-unite-cake', { 'depends': 'Shougo/unite.vim' }
-NeoBundle 'ujihisa/unite-launch'
+" Projects
+NeoBundle 'airblade/vim-rooter'
 
 " VimL
 NeoBundle 'mattn/learn-vimscript'
@@ -61,10 +71,12 @@ NeoBundle 'vim-scripts/Atom'
 NeoBundle 'vim-scripts/github-theme'
 
 " Social
+NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/TweetVim'
 
 " Another
 NeoBundle 'thinca/vim-splash'
+NeoBundle 'itchyny/calendar.vim'
 
 " SmoothScroll
 NeoBundle 'yonchu/accelerated-smooth-scroll', { 'rev': '1.0.1' }

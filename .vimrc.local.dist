@@ -24,7 +24,6 @@ endif
 " Sphinx bin path
 let g:sphinx_build_bin = '/usr/share/python/sphinx-build'
 
-let s:ramdisk_dir       = '/tmp/ramdisk'
 let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
 
 " lint
@@ -32,14 +31,6 @@ let g:ruby_bin = '/usr/local/bin/ruby'
 
 " neobundle {{{
 let g:neobundle_default_git_protocol = 'https'
-" }}}
-" unite.vim {{{
-let s:unite_date_directory_suffix = 'unite'
-let g:local_unite_data_directory =
-  \ s:ramdisk_dir .'/'. s:unite_date_directory_suffix
-"let g:unite_source_alias_aliases = {
-"  \   'project/company': { 'source': 'directory', 'args': '$HOME/workspace/project' },
-"  \ }
 " }}}
 " unite.vim >> source menu {{{
 let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
@@ -54,16 +45,8 @@ let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
 "nnoremap <silent><M-p> :Unite -silent -start-insert menu:project<Cr>
 "nmap <ESC>p <M-p>
 " }}}
-" unite-sf2 {{{
-"let g:unite_source_sf2_root_dir = ''
-let g:unite_source_sf2_bundles = {}
-" }}}
 " TweetVim {{{
 let g:tweetvim_display_icon = 1 " Require imagemagick
-" }}}
-" bitly.vim {{{
-let g:bitly_login   = ''
-let g:bitly_api_key = ''
 " }}}
 " github {{{
 let g:github_user  = ''
@@ -99,37 +82,10 @@ let g:dbext_default_buffer_lines = 20
 "
 " }}}
 " }}}
-" vim-symfony {{{
-let g:symfony_app_console_path = $HOME.'/workspace/symfony/app/console'
-" }}}
-" php-cs-fixer {{{
-let g:php_cs_fixer_path = "~/tmp/lib/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
-" }}}
 " ftplugin/php.vim {{{
 let g:php_version = 5.4
 " }}}
 
-" Startup Hook {{{1
-" mount ramdisk_dir "{{{2
-" INFO: auto mount for CentOS
-" $ tmpfs {s:ramdisk_dir} tmpfs defaults 0 0
-if 0 == isdirectory(s:ramdisk_dir)
-  " for CentOS)
-  "   $ mount -t tmpfs -o size=4g /dev/shm /mnt/ramdisk
-  call vimproc#system('mount -t tmpfs none ' . s:ramdisk_dir)
-endif "}}}2
-call s:check_require_dirs([
-  \ s:alias_ramdisk_dir,
-  \ s:alias_ramdisk_dir .'/'. s:neocomplcache_temporary_dir_suffix,
-  \ s:alias_ramdisk_dir .'/'. s:unite_date_directory_suffix,
-  \ ])
-function! s:check_require_dirs(dirs) "{{{2
-  for dir in a:dirs
-    if 0 == isdirectory(dir)
-      mkdir(dir)
-    endif
-  endfor
-endfunction "}}}2
 " unite.vim {{{2
 call vimproc#system(
   \ 'cp -a -R '
@@ -143,14 +99,6 @@ call vimproc#system(
   \ . g:local_neocomplcache_temporary_dir
   \ ) " }}}2
 " }}}1
-augroup HookVimLeave "{{{
-  autocmd!
-  autocmd VimLeavePre * call s:copy_ramdisk()
-  function! s:copy_ramdisk()
-    
-  endfunction
-augroup END "}}}
-
 " vim-startify {{{
 let g:startify_custom_header = [
   \ '____/\\\________/\\\___/\\\\\\\\\\\___/\\\\____________/\\\\__________',
