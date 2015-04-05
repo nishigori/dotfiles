@@ -2324,8 +2324,7 @@ xmap e [unite]
 
 nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
 
-nnoremap <silent> [unite]f :<C-u>Unite file_rec/async
-  \ -buffer-name=files buffer bookmark file<CR>
+nnoremap <silent> [unite]f :<C-u>Unite file_rec/async -buffer-name=files<CR>
 nnoremap <silent> [unite]p :<C-u>UniteWithProjectDir file_rec/async
   \ -buffer-name=files buffer bookmark file<CR>
 nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir file
