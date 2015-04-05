@@ -1,7 +1,7 @@
 set nowrapscan
 set ignorecase
 set hlsearch
-set scrolloff=10
+set scrolloff=8
 
 set number
 set relativenumber
