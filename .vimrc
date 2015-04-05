@@ -1226,6 +1226,13 @@ let g:syntastic_mode_map =
   \     'html',
   \   ],
   \ }
+
+let g:syntastic_quiet_messages = get(g:, 'syntastic_quiet_messages', {})
+let g:syntastic_quiet_messages = {
+  \   "!level": "errors",
+  \   "type": "style",
+  \   "file:p": ['\m.rst$', '\m\c\.h$']
+  \ }
 " }}}
 " Plugin: matchit.vim {{{
 " INFO: Extended % command.
@@ -2095,15 +2102,25 @@ function! OpenMyToDo()
     \ ) . '/TODO.rst'
 endfunction
 " }}}
-
-" external patches
-if exists('+breakindent')
-  set breakindent
+" pythonのsys.pathの設定 " {{{
+if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
+    let $PYTHON_DLL = "/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python"
 endif
 
+function! s:set_python_path()
+    let s:python_path = system('python -', 'import sys;sys.stdout.write(",".join(sys.path))')
 
-"" Each filetype (not on ftplugin but define require first on vimrc)
+    python <<EOT
+import sys
+import vim
 
+python_paths = vim.eval('s:python_path').split(',')
+for path in python_paths:
+    if not path in sys.path:
+        sys.path.insert(0, path)
+EOT
+endfunction
+" }}}
 " VimScript {{{
 let g:increment_activator_filetype_candidates['vim'] = [
   \   ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
@@ -2162,6 +2179,9 @@ let g:quickrun_config['scheme'] = {
 " Python {{{
 let g:syntastic_python_checkers = ['flake8']
 let g:ref_cmd_filetype_map['python'] = 'pydoc'
+if has('mac')
+  let g:syntastic_python_python_exec = '/usr/local/bin/python'
+endif
 
 " For jedi-vim
 "let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\w*'
