@@ -275,7 +275,6 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'candycode.vim'
   NeoBundle 'jonathanfilip/vim-lucius'
   NeoBundle 'vim-scripts/darkZ'
-  NeoBundle 'vim-scripts/highlights-for-radiologist'
 
   NeoBundle 'thinca/vim-fontzoom'
   " }}}
@@ -401,8 +400,9 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   autocmd FileType php,twig.html,html.twig NeoBundleSource vim-twig
   " }}}
   " Groovy {{{
-  NeoBundleLazy 'nobeans/unite-grails'
-  autocmd FileType groovy NeoBundleSource unite-grails
+  " NeoBundleLazy 'nobeans/unite-grails'
+  " autocmd FileType groovy NeoBundleSource unite-grails
+  NeoBundle 'rdolgushin/groovy.vim'
   " }}}
   " Clojure {{{
   NeoBundleLazy 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
