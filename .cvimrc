@@ -1,0 +1,13 @@
+let hintcharacters="abcdfjkl"
+let locale = "jp"
+
+map <C-f> scrollPageDown
+map <C-b> scrollPageUp
+map ; :
+map <C-p> previousTab
+map <C-n> nextTab
+
+imap <C-w> deleteWord
+imap <C-[> <ESC>gi
+imap <C-p> backwardLine
+imap <C-h> deleteChar
