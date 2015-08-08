@@ -91,3 +91,9 @@ case "${OSTYPE}" in
 esac
 
 source $ZSH/oh-my-zsh.sh
+
+# Around the sushi
+# http://getemoji.com/
+DEFAULT=$'\U0001f37b '
+ERROR=$'\u2757 '
+PROMPT=${PROMPT}$'%(?.${DEFAULT}.${ERROR}) '
