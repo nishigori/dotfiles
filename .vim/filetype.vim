@@ -15,7 +15,8 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *.gradle     set filetype=groovy
   au! BufRead,BufNewFile *.snip*      set filetype=snippet
   au! BufRead,BufNewFile *Test.php    set filetype=phpunit.php
-  au! BufRead,BufNewFile *.json.twig  set filetype=json.twig
+  au! BufRead,BufNewFile *.json.twig  setfiletype=json
+  au! BufRead,BufNewFile *.template   setfiletype json
   au! BufRead,BufNewFile *.html.twig  set filetype=html.twig
   au! BufRead,BufNewFile *.md         set filetype=markdown
   au! BufRead,BufNewFile Capfile      set filetype=ruby

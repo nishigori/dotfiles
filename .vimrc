@@ -302,6 +302,9 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " ref, help {{{
   NeoBundle 'thinca/vim-ref'
   " }}}
+  " VCS {{{
+  NeoBundle 'airblade/vim-gitgutter'
+  " }}}
   " Joke {{{
   NeoBundle 'mattn/unite-nyancat'
   NeoBundle 'mhinz/vim-startify'
@@ -436,6 +439,8 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " }}}
   " Puppet {{{
   NeoBundle 'rodjek/vim-puppet'
+  NeoBundleLazy 'puppetlabs/puppet-syntax-vim'
+  autocmd FileType puppet NeoBundleSource 'puppet-syntax-vim'
   " }}}
   " VimScript {{{
   NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -732,8 +737,10 @@ nnoremap <C-k> <C-b>
 " but up-down mapped j-k
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
-inoremap <C-k> <Up>
-inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+"inoremap <C-j> <Down>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 inoremap <C-d> <Delete>
@@ -1651,6 +1658,7 @@ endfunction " }}}
 
 nnoremap <C-p> :<C-u>Unite file_mru<CR>
 nnoremap <C-n> :<C-u>Unite buffer bookmark<CR>
+nnoremap <D-b> :<C-u>Unite bookmark<CR>
 nnoremap <C-m> :<C-u>Unite mark<CR>
 "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 
@@ -2101,6 +2109,7 @@ function! OpenMyToDo()
     \ unite#util#substitute_path_separator(getcwd())
     \ ) . '/TODO.rst'
 endfunction
+nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
 " }}}
 " pythonのsys.pathの設定 " {{{
 if filereadable('/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Python')
@@ -2348,7 +2357,7 @@ nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
 " for all buffer
 nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
 nnoremap <silent> [unite]l :<C-u>Unite line -no-split -winheight=20<CR>
-nnoremap <silent> [unite]C :<C-u>Unite colorscheme -auto-preview<CR>
+nnoremap <silent> [unite]C :<C-u>Unite colorscheme -auto-preview -split -winheight=10 -start-insert<CR>
 nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
 nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
