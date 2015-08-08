@@ -24,7 +24,6 @@ set focuscontent
 set runtimepath=~/.vimperator
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
-set expandtemplate=true
 
 nnoremap U :undo<Space>
 nnoremap pa :panorama<Space>add<Space>
