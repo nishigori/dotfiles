@@ -1,0 +1,55 @@
+; vim: set ts=4 sw=4 sts=0 noexpandtab:
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+
+[gui]
+	recentrepo =
+
+[grep]
+	lineNumber = true
+
+[pager]
+	;; diff-highlight is {git-repo}/contrib/diff-highlight/diff-highlight
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+	grep = cat
+	stash = false
+
+[push]
+	default = simple
+
+[pull]
+	rebase = true
+	default = simple
+
+[merge]
+	tool = vimdiff
+
+[alias]
+	co = checkout
+	cob = checkout -b
+	ci = commit --verbose
+	di = diff --ignore-space-change
+	dic = diff --cached --ignore-space-change
+	dis = diff --stat
+	br = branch --verbose
+	bra = branch --verbose --all
+	brd = branch --delete -vv
+	fv = fetch --verbose --prune
+	hist = log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'
+	logpretty = log --decorate --graph --name-status --oneline
+	pv = pull --verbose
+	rb = rebase --verbose
+	st = status
+	wc = whatchanged
+
+[include]
+	path = ~/.gitsecret

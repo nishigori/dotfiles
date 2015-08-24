@@ -1,3 +1,6 @@
+# Git
+.gitsecret
+
 # Jetbrains IDE
 *.iml
 .idea
