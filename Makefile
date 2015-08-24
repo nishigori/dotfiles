@@ -41,7 +41,7 @@ BREW_PKGS = brew-cask \
   gauche \
   erlang \
   ghc cabal-install \
-  objective-caml \
+  ocaml \
   lua luajit \
   nodebrew \
   rbenv ruby-build \
@@ -50,10 +50,10 @@ BREW_PKGS = brew-cask \
   php56 php56-mcrypt php56-xdebug php56-xhprof php56-msgpack \
   groovy \
   awscli s3cmd \
-  packer docker rocket \
+  packer rocket \
   jenkins-lts
 
-BREW_CASK_PKGS = virtualbox vagrant docker-compose docker-machine \
+BREW_CASK_PKGS = virtualbox vagrant dockertoolbox \
   google-chrome google-japanese-ime \
   alfred xtrafinder \
   flash adobe-reader gimp \
