@@ -214,7 +214,7 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   " Syntax {{{
   NeoBundle "scrooloose/syntastic", {
     \ "build": {
-    \   "mac": ["pip install -U flake8", "npm -g install coffeelint"],
+    \   "mac": ["npm -g install coffeelint"],
     \   "unix": ["pip install -U flake8", "npm -g install coffeelint"],
     \ }}
   " neocomplete requires vim 7.3.885 or above.
