@@ -35,7 +35,7 @@ install: me
 clean: $(os)/clean
 	zgen selfupdate
 
-update: links $(os)/update
+update: links $(os)/update shell/update
 
 links: $(links)
 
