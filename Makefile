@@ -1,110 +1,52 @@
 # Makefile in nishigori/dotfiles
 #
-SHELL = zsh
-
+SHELL := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
-BREW_PKGS = brew-cask \
-  cmake automake bsdmake \
-  zsh bash \
-  wget curl \
-  coreutils gnu-sed pstree pcre readline tree \
-  zlib libzip libxml2 libssh2 libtiff \
-  libxslt libarchive libelf libevent \
-  libffi libmagic libmemcached libpng jpeg libsodium \
-  beecrypt lzop thrift \
-  glog mcrypt  \
-  libtasn1 libtool libyaml \
-  bison unixodbc re2c \
-  ack cscope jq ossp-uuid sshpass \
-  tmux \
-  autoconf ctags \
-  lz4 pango tbb \
-  lzo the_silver_searcher \
-  dos2unix gmp \
-  boost mhash rlwrap watch \
-  gobject-introspection mysql rmtrash \
-  cairo \
-  imap-uw \
-  oniguruma popt sl snappy \
-  gettext splhack/splhack/gettext-mk \
-  freetype harfbuzz neon rocksdb xz \
-  icu4c nkf pixman \
-  gflags \
-  wxmac \
-  openssl \
-  fontconfig fontforge ricty figlet \
-  gd imagemagick \
-  pkg-config rpm rpm2cpio \
-  osquery peco \
-  mercurial git subversion tig gist gist-img \
-  czmq zeromq \
-  mysql-connector-c++ sqlite berkeley-db gdbm memcached \
-  go \
-  gauche \
-  erlang \
-  ghc cabal-install \
-  ocaml \
-  lua luajit \
-  nodebrew \
-  rbenv ruby-build \
-  pyenv pyenv-virtualenv python python3 pypy pypy3 \
-  plenv perl-build cpanminus \
-  php56 php56-mcrypt php56-xdebug php56-xhprof php56-msgpack \
-  groovy \
-  awscli s3cmd \
-  packer rocket \
-  jenkins-lts
+# Internal variables that it is (maybe) you do not need to set.
+os := $(shell uname -s)
+links = $(RC_FILES) bin tmp .zsh .vim .vimperator
 
-BREW_CASK_PKGS = virtualbox vagrant dockertoolbox \
-  google-chrome google-japanese-ime \
-  alfred xtrafinder \
-  flash adobe-reader gimp \
-  atom \
-  dropbox \
-  iterm2 \
-  slack
-
-
-.PHONY: help install update upgrade \
-    $(BREW_PKGS) $(BREW_CASK_PKGS) \
-    $(RC_FILES) \
-    shell
+.PHONY: help $(os)/*
 
 help:
 	@more Makefile
 
-test:
-	@echo $@
+# Declared on $(os).mk, It's template
+$(os)/clean:
+	@echo $@: nothing todo
+$(os)/install:
+	@echo $@: nothing todo
+$(os)/update:
+	@echo $@: nothing todo
 
-install: $(BREW_PKGS) $(BREW_CASK_PKGS) \
-    shell
+-include $(os).mk
+
+
+.PHONY: clean me install update \
+  $(links) shell*
+
+me: links $(os)/install shell
 	@echo Make me happy :D
 
-update:
-	brew update
-	brew -v
+# Alias
+install: me
 
-upgrade:
-	brew upgrade
+clean: $(os)/clean
+	zgen selfupdate
 
-brew_pkgs: $(BREW_PKGS)
+update: links $(os)/update
 
-$(BREW_PKGS):
-	brew install $@
+links: $(links)
 
-brew_cask_pkgs: $(BREW_CASK_PKGS)
+$(links):
+	test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
 
-$(BREW_CASK_PKGS):
-	brew cask install $@
-
-shell: shell_bin := $(shell which $(SHELL))
 shell:
 	@echo Setup SHELL
-	echo $$SHELL | grep -q $(SHELL) || chsh -s $(shell_bin)
-	$(shell_bin) --version
+	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
+	$(SHELL) --version
+	time ( source ~/.$(notdir $(SHELL))rc )
 
-rc: $(RC_FILES)
-
-$(RC_FILES):
-	test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
+shell/update:
+	zgen selfupdate
