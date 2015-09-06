@@ -1,3 +1,6 @@
 Dotfiles
 ========
 
+```sh
+$ make me
+```

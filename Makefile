@@ -22,14 +22,13 @@ $(os)/%:
 .PHONY: clean me install update \
   $(links) shell*
 
-me: links $(os)/install shell
+me: links $(os)/install shell/install
 	@echo Make me happy :D
 
 # Alias
 install: me
 
-clean: $(os)/clean
-	zgen selfupdate
+clean: $(os)/clean shell/clean
 
 update: links $(os)/update shell/update
 
@@ -38,11 +37,14 @@ links: $(links)
 $(links):
 	test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
 
-shell:
+shell/install:
 	@echo Setup SHELL
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
 	time ( source ~/.$(notdir $(SHELL))rc )
+
+shell/clean:
+	zgen reset
 
 shell/update:
 	zgen selfupdate
