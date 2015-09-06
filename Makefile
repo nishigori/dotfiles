@@ -13,11 +13,7 @@ help:
 	@more Makefile
 
 # Declared on $(os).mk, It's template
-$(os)/clean:
-	@echo $@: nothing todo
-$(os)/install:
-	@echo $@: nothing todo
-$(os)/update:
+$(os)/%:
 	@echo $@: nothing todo
 
 -include $(os).mk
