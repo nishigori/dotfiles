@@ -1,99 +1,112 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# My zshrc
+#
+export PATH=$HOME/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="cloud"
-source $HOME/.zshrc.local
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want disable red dots displayed while waiting for completion
-# DISABLE_COMPLETION_WAITING_DOTS="true"
+# Python
+export VIRTUALENVWRAPPER_PYTHON=$(which python)
 
 # Select complations list like emacs
 zstyle ':completion:*:default' menu select=1
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-case "${OSTYPE}" in
-    freebsd*|darwin*)
-        # Mac OS X
-        #
-        # using https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt
-        plugins=( \
-            osx brew brew-cask \
-            colored-man \
-            autojump \
-            docker vagrant \
-            aws \
-            git ssh-agent \
-            python pip mercurial virtualenv virtualenvwrapper pep8 virtualenv-prompt \
-            ruby rbenv gem rake bundler \
-            npm bower \
-            composer symfony2 \
-            )
-        ;;
-    linux*)
-        if [ -f /etc/redhat-release ]; then
-            # https://gist.github.com/msabramo/2355834
-            function git_prompt_info() {
-                ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-                echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-            }
+[ -d ~/.zsh/zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zsh/zgen
+source $HOME/.zsh/zgen/zgen.zsh
 
-            plugins=( \
-                yum gnu-utils \
-                colored-man \
-                autojump \
-                vagrant knife knife_ssh \
-                ant \
-                terminitor \
-                git git-flow-avh ssh-agent \
-                python pip mercurial virtualenv virtualenvwrapper fabric \
-                ruby rbenv gem rake bundler \
-                npm bower \
-                composer symfony2 cake \
-                )
-        else
-            # https://gist.github.com/msabramo/2355834
-            function git_prompt_info() {
-                ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-                echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-            }
+# check if there's no init script
+if ! zgen saved; then
+    echo "Creating a zgen save"
 
-            # autojump github mercurial npm
-            plugins=( \
-                gnu-utils \
-                colored-man \
-                docker vagrant knife knife_ssh \
-                ant \
-                terminitor \
-                git git-flow-avh ssh-agent \
-                python pip virtualenv virtualenvwrapper fabric \
-                ruby rbenv gem rake bundler \
-                bower \
-                composer symfony2 \
-                )
-        fi
-        ;;
-esac
+    zgen oh-my-zsh
 
-source $ZSH/oh-my-zsh.sh
+    # plugins
+    zgen load zsh-users/zsh-completions src
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load kennethreitz/autoenv
+    zgen load Tarrasch/zsh-bd
 
-# Around the sushi
-# http://getemoji.com/
-DEFAULT=$'\U0001f37b '
-ERROR=$'\u2757 '
-PROMPT=${PROMPT}$'%(?.${DEFAULT}.${ERROR}) '
+    ## oh-my-zsh
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/autojump
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/command-not-found
+    zgen oh-my-zsh plugins/colored-man
+    zgen oh-my-zsh plugins/ssh-agent
+
+    # bulk load
+    zgen loadall <<EOPLUGINS
+        zsh-users/zsh-history-substring-search
+EOPLUGINS
+    # ^ can't indent this EOPLUGINS
+
+    if [ -f ~/.zsh/zgenrc_local ]; then
+        source ~/.zsh/zgenrc_local
+    else
+        zgen oh-my-zsh themes/bira
+    fi
+
+    # save all to init script
+    zgen save
+fi
+
+alias ls="ls -G"
+alias l='ls -l'
+alias la='ls -al'
+alias cl='clear'
+alias tailf='tail -f'
+alias vimless='vim -R'
+alias vless='vim -R'
+
+# Ctags
+# like vimrc alpaca_tags settings
+local ctags_default_opt='-R --exclude=".git*" --sort=yes'
+alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
+alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
+
+# History
+HISTFILE=~/.zsh_history
+SIZEHIST=100000
+HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
+setopt hist_ignore_dups
+setopt hist_no_store
+setopt EXTENDED_HISTORY
+setopt SHARE_HISTORY
+bindkey "^R" history-incremental-search-backward
+bindkey "^S" history-incremental-search-forward
+
+# Subversion
+export SVN_EDITOR=vim
+
+# Apache Ant
+export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
+export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
+
+# sshpass
+# brew install https://raw.github.com/eugeneoden/homebrew/eca9de1/Library/Formula/sshpass.rb
+alias issh="sshpass -f ~/.ssh/pass ssh -o StrictHostKeyChecking=no "
+
+# Travis CI
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -d ~/google-cloud-sdk ]; then
+    source ~/google-cloud-sdk/path.zsh.inc
+    source ~/google-cloud-sdk/completion.zsh.inc
+fi
+
+# Pygments
+if type "pygmentize" > /dev/null; then
+    export LESS='-R'
+    export LESSOPEN='|~/bin/lessfilter %s'
+
+    # unaliases 3rd-parties aliases
+    type "c" > /dev/null && unalias c
+    type "cl" > /dev/null && unalias cl
+
+    alias c="pygmentize -O style=monokai -f console256 -g"
+    function cl() {
+        pygmentize -O style=monokai -f console256 -g $1 | nl -n ln -b a
+    }
+    alias cl=cl
+fi
+
+# Local dependency
+test -f ~/.zshrc.local && source ~/.zshrc.local

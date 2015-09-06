@@ -1,3 +1,48 @@
-# My favorite themes
-# murilasso fox fino gallois re5et xiong-chiamiov-plus murilasso
-ZSH_THEME="random"
+# zshrc on local
+#
+
+# Environment Variable(s)
+## Go/golang
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$PATH
+## Groory
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
+# cabal via GHC
+export PATH=$HOME/.cabal/bin:$PATH
+# nodebrew
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+# Composer
+export PATH=$HOME/.composer/vendor/bin:$PATH
+# Docker
+export DOCKER_TLS_VERIFY=1
+## Perl > plenv
+if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+PERL_MB_OPT="--install_base \"~/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=~/perl5"; export PERL_MM_OPT;
+
+# Directory aliases
+hash -d ws=~/workspace
+hash -d gh=~/workspace/github
+hash -d github=~/workspace/github
+hash -d dotfiles=~/workspace/nishigori/dotfiles
+
+# Example of *nix OS
+##function git_prompt_info() {
+##    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+##    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+##}
+
+# Example of Darwin
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
+alias ls="ls -G -w"
+alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
+alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+
+# Around the sushi: http://getemoji.com/
+DEFAULT=$'\U0001f37b '
+ERROR=$'\u2757 '
+PROMPT=${PROMPT}$'%(?.${DEFAULT}.${ERROR}) '
