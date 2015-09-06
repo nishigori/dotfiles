@@ -171,17 +171,18 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
   " }}}
   " Explorer, Filer {{{
-  NeoBundleLazy 'Shougo/vimfiler', {
-    \ 'depends' : 'Shougo/unite.vim',
-    \ 'autoload' : {
-    \    'commands' : [{ 'name' : 'VimFiler',
-    \                    'complete' : 'customlist,vimfiler#complete' },
-    \                  'VimFilerExplorer',
-    \                  'Edit', 'Read', 'Source', 'Write'],
-    \    'mappings' : ['<Plug>(vimfiler_switch)'],
-    \    'explorer' : 1,
-    \ }
-    \ }
+  NeoBundle 'Shougo/vimfiler'
+  "NeoBundleLazy 'Shougo/vimfiler', {
+    "\ 'depends' : 'Shougo/unite.vim',
+    "\ 'autoload' : {
+    "\    'commands' : [{ 'name' : 'VimFiler',
+    "\                    'complete' : 'customlist,vimfiler#complete' },
+    "\                  'VimFilerExplorer',
+    "\                  'Edit', 'Read', 'Source', 'Write'],
+    "\    'mappings' : ['<Plug>(vimfiler_switch)'],
+    "\    'explorer' : 1,
+    "\ }
+    "\ }
   NeoBundle 'vim-scripts/SrcExpl'
   NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
   " }}}
