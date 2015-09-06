@@ -35,7 +35,8 @@ update: links $(os)/update shell/update
 links: $(links)
 
 $(links):
-	test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
+	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
+	@ls -ld ~/$@
 
 shell/install:
 	@echo Setup SHELL

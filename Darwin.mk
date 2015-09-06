@@ -68,12 +68,17 @@ BREW_CASK_PKGS = virtualbox vagrant dockertoolbox \
 
 Darwin/install: brew/install brew_cask/install
 
+Darwin/clean: brew/clean brew_cask/clean
+
 Darwin/update: brew/update brew/upgrade brew_cask/update
 
 brew/install: $(BREW_PKGS)
 
 $(BREW_PKGS):
-	brew install $@
+	@brew install $@
+
+brew/clean:
+	brew cleanup
 
 brew/update:
 	brew update
@@ -86,6 +91,9 @@ brew_cask/install: $(BREW_CASK_PKGS)
 
 $(BREW_CASK_PKGS):
 	brew cask install $@
+
+brew_cask/clean:
+	brew cask cleanup
 
 brew_cask/update:
 	brew cask update
