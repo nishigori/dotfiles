@@ -2,6 +2,8 @@
 #
 SHELL = zsh
 
+RC_FILES := $(wildcard .*rc)
+
 BREW_PKGS = brew-cask \
   cmake automake bsdmake \
   zsh bash \
@@ -15,6 +17,7 @@ BREW_PKGS = brew-cask \
   libtasn1 libtool libyaml \
   bison unixodbc re2c \
   ack cscope jq ossp-uuid sshpass \
+  tmux \
   autoconf ctags \
   lz4 pango tbb \
   lzo the_silver_searcher \
@@ -65,10 +68,11 @@ BREW_CASK_PKGS = virtualbox vagrant dockertoolbox \
 
 .PHONY: help install update upgrade \
     $(BREW_PKGS) $(BREW_CASK_PKGS) \
+    $(RC_FILES) \
     shell
 
 help:
-	more Makefile
+	@more Makefile
 
 test:
 	@echo $@
@@ -99,3 +103,8 @@ shell:
 	@echo Setup SHELL
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(shell_bin)
 	$(shell_bin) --version
+
+rc: $(RC_FILES)
+
+$(RC_FILES):
+	test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
