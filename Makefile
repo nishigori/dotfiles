@@ -45,7 +45,7 @@ shell/install:
 	time ( source ~/.$(notdir $(SHELL))rc )
 
 shell/clean:
-	zgen reset
+	-. ~/.$(notdir $(SHELL))rc && zgen-reset
 
 shell/update:
-	zgen selfupdate
+	. ~/.$(notdir $(SHELL))rc && zgen-selfupdate
