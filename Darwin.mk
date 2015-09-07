@@ -61,6 +61,7 @@ BREW_CASK_PKGS = virtualbox vagrant dockertoolbox \
   atom \
   dropbox \
   iterm2 \
+  macvim-kaoriya \
   slack
 
 .PHONY: $(BREW_PKGS) $(BREW_CASK_PKGS) \

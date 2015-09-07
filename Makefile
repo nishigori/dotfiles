@@ -22,7 +22,7 @@ $(os)/%:
 .PHONY: clean me install update \
   $(links) shell*
 
-me: links $(os)/install shell/install
+me: links $(os)/install shell/install vim
 	@echo Make me happy :D
 
 # Alias
@@ -37,6 +37,9 @@ links: $(links)
 $(links):
 	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
 	@ls -ld ~/$@
+
+vim:
+	./bin/neobundle
 
 shell/install:
 	@echo Setup SHELL
