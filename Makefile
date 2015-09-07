@@ -38,9 +38,6 @@ $(links):
 	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
 	@ls -ld ~/$@
 
-vim:
-	./bin/neobundle
-
 shell/install:
 	@echo Setup SHELL
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
@@ -52,3 +49,6 @@ shell/clean:
 
 shell/update:
 	. ~/.$(notdir $(SHELL))rc && zgen-selfupdate
+
+vim:
+	./bin/neobundle
