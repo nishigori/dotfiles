@@ -5,7 +5,8 @@ RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-links = $(RC_FILES) bin tmp .zsh .vim .vimperator
+credentials = .gitsecret .zsh/zgenrc_local
+links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
 
 .PHONY: help $(os)/*
 
@@ -20,9 +21,9 @@ $(os)/%:
 
 
 .PHONY: clean me install update \
-  $(links) shell*
+  $(links) $(credentials) shell*
 
-me: links $(os)/install shell/install vim
+me: links credentials $(os)/install shell/install
 	@echo Make me happy :D
 
 # Alias
@@ -31,6 +32,14 @@ install: me
 clean: $(os)/clean shell/clean
 
 update: links $(os)/update shell/update
+
+credentials: $(credentials)
+
+$(credentials):
+	@if ! [ -f ~/$@ ]; then \
+		/bin/cp -i ./$@.example ~/$@; \
+		echo "(maybe) U should edit $@ just putting"; \
+	fi
 
 links: $(links)
 

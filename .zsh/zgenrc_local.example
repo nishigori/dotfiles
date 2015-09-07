@@ -21,28 +21,27 @@ zgen oh-my-zsh plugins/vagrant
 zgen oh-my-zsh plugins/aws
 
 # NOTE: If you're static on OS, without-able case stmt.
-case ${OSTYPE} in
-    darwin*)
-        zgen oh-my-zsh plugins/osx
-        zgen oh-my-zsh plugins/brew
-        zgen oh-my-zsh plugins/brew-cask
-        zgen oh-my-zsh plugins/tmux
-        ;;
-    freebsd*)
-        ;;
-    linux*)
-        zgen oh-my-zsh plugins/gnu-utils
-        if [ -f /etc/redhat-release ]; then
-            zgen oh-my-zsh plugins/yum
-        elif [ -f /etc/debian_version ]; then
-            zgen oh-my-zsh plugins/debian
-        fi
-        ;;
-esac
+## case ${OSTYPE} in
+##     darwin*)
+##         zgen oh-my-zsh plugins/osx
+##         zgen oh-my-zsh plugins/brew
+##         zgen oh-my-zsh plugins/brew-cask
+##         zgen oh-my-zsh plugins/tmux
+##         ;;
+##     freebsd*)
+##         ;;
+##     linux*)
+##         zgen oh-my-zsh plugins/gnu-utils
+##         if [ -f /etc/redhat-release ]; then
+##             zgen oh-my-zsh plugins/yum
+##         elif [ -f /etc/debian_version ]; then
+##             zgen oh-my-zsh plugins/debian
+##         fi
+##         ;;
+## esac
 
 
-#zgen load /path/to/super-secret-private-plugin
-zgen load mitchellh/packer contrib/zsh-completions
+## zgen load mitchellh/packer contrib/zsh-completions
 
 # theme candidates: bira rkj-repos ys fox fino murilasso
-zgen oh-my-zsh themes/bira
+zgen oh-my-zsh themes/dallas
