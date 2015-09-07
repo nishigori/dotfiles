@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# neobundle: https://gist.github.com/thinca/3421512
+#
+# vim: set ts=4 sw=4 sts=0 expandtab filetype=sh:
+vim \
+-N -u NONE -i NONE -V1 -e -s \
+--cmd "source ~/.vimrc" \
+--cmd "
+try
+  NeoBundleInstall!
+catch
+  qall!
+endtry" \
+--cmd qall!
+echo ''
