@@ -42,7 +42,7 @@ shell/install:
 	@echo Setup SHELL
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
-	time ( source ~/.$(notdir $(SHELL))rc )
+	-time ( source ~/.$(notdir $(SHELL))rc )
 
 shell/clean:
 	-. ~/.$(notdir $(SHELL))rc && zgen-reset
