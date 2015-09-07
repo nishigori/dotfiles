@@ -21,7 +21,7 @@ $(os)/%:
 
 
 .PHONY: clean me install update \
-  $(links) $(credentials) shell*
+  $(links) $(credentials) shell* vim
 
 me: links credentials $(os)/install shell/install
 	@echo Make me happy :D
