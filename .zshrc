@@ -29,7 +29,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/command-not-found
     zgen oh-my-zsh plugins/colored-man
-    zgen oh-my-zsh plugins/ssh-agent
 
     # bulk load
     zgen loadall <<EOPLUGINS

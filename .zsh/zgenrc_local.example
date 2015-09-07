@@ -2,6 +2,7 @@
 #
 # vim: set ts=4 sw=4 sts=0 expandtab filetype=zsh:
 #
+zgen oh-my-zsh plugins/ssh-agent
 zgen oh-my-zsh plugins/docker
 zgen oh-my-zsh plugins/docker-compose
 zgen oh-my-zsh plugins/python
