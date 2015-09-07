@@ -91,7 +91,7 @@ brew/upgrade:
 brew_cask/install: $(BREW_CASK_PKGS)
 
 $(BREW_CASK_PKGS):
-	brew cask install $@
+	@brew cask list | grep -q $@ || brew cask install $@
 
 brew_cask/clean:
 	brew cask cleanup
