@@ -115,7 +115,7 @@ if filereadable(expand($MYGVIMRC_LOCAL))
 endif
 " }}}
 " # Colorsheme {{{
-if !g:my_config_use_plugin || !exists('g:colors_name')
+if !exists('g:colors_name')
   let g:colors_name = 'desert'
   set background=light
 endif

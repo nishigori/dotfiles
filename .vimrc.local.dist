@@ -1,7 +1,7 @@
-let g:use_plugin = 0 " 0: Disabled loading code depends plugin, 1: Enabled
+let g:myvim_feasures = MYVIM_FEATURES_NORMAL " See .vimrc > # Local Dependency
 
 let g:local_config = {
-  \ 'dotfiles_dir'        : $HOME . '/src/dotfiles',
+  \ 'dotfiles_dir'        : $HOME . '/workspace/dotfiles',
   \ 'tmp_dir'             : $HOME . '/.vim/tmp',
   \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref/php',
   \ 'ref_jquery_path'     : $HOME . '/.vim/ref/jqapi-latest',
