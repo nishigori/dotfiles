@@ -38,7 +38,7 @@ BREW_PKGS = brew-cask \
   mercurial git subversion tig gist gist-img \
   czmq zeromq \
   mysql-connector-c++ sqlite berkeley-db gdbm memcached \
-  go \
+  go gotags \
   gauche \
   erlang \
   ghc cabal-install \
