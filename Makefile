@@ -5,7 +5,7 @@ RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials = .gitsecret .zsh/zgenrc_local
+credentials = .gitsecret .zsh/zgenrc_local .zshrc.local .vimrc.local .gvimrc.local
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
 
 .PHONY: help $(os)/*
