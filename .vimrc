@@ -422,6 +422,10 @@ if g:my_config_use_plugin && !exists('g:loaded_neobundle')
   NeoBundleLazy 'jimenezrick/vimerl'
   autocmd FileType erlang NeoBundleSource vimerl
   " }}}
+  " Lua {{{
+  NeoBundleLazy 'vim-scripts/lua.vim'
+  autocmd FileType lua NeoBundleSource lua.vim
+  " }}}
   " Go/golang {{{
   " Require `go get -u github.com/nsf/gocode`
   NeoBundleLazy 'Blackrush/vim-gocode'
