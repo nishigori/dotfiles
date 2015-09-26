@@ -1,3 +1,8 @@
+setlocal expandtab
+setlocal tabstop=2
+setlocal shiftwidth=2
+setlocal softtabstop=0
+
 " For vim-scripts/lua.vim
 let g:lua_complete_omni = 1
 let g:lua_check_syntax = 1
