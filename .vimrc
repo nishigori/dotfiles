@@ -1081,6 +1081,7 @@ let g:quickrun_config['scheme'] = {
   \ }
 let g:quickrun_config['php.phpunit'] = { 'command': 'phpunit' }
 let g:quickrun_config['phpunit.php'] = { 'command': 'phpunit' }
+let g:quickrun_config['lua'] = { 'command': 'luajit' }
 
 " TODO: Add QuickRun's syntax for xUnit family
 "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
