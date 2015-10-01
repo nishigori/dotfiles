@@ -101,7 +101,7 @@ if type "pygmentize" > /dev/null; then
     type "c" > /dev/null && unalias c
     type "cl" > /dev/null && unalias cl
 
-    alias c="pygmentize -O style=monokai -f console256 -g"
+    alias c="pygmentize -O style=tango -f console256 -g"
     function cl() {
         pygmentize -O style=monokai -f console256 -g $1 | nl -n ln -b a
     }
