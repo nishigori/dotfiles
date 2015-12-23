@@ -24,7 +24,7 @@
 "  0. You just DO WHAT THE FUCK YOU WANT TO.
 " }}}
 "=============================================================================
-" vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+" vim: set fdm=marker ts=2 sw=2 sts=0 textwidth=120 expandtab filetype=vim:
 
 " # runtimepath {{{
 if has('vim_starting') && has('win32')
@@ -1859,12 +1859,16 @@ let g:user_emmet_settings['perl'] = {
 
 " }}}
 " Plugin: neocomplete {{{
-if has("patch-7.4.314")
-  set shortmess+=c
-endif
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_auto_select = 0
+try
+  set completeopt-=noselect
+  set completeopt+=noinsert
+  let g:neocomplete#enable_auto_select = 0
+catch /^Vim\%((\a\+)\)\=:E474/
+  " when the patch isn't applied
+endtry
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
@@ -1902,71 +1906,46 @@ let g:neocomplete#ignore_composite_filetypes = {
   \ }
 "let g:neocomplete#skip_auto_completion_time
 let g:neocomplete#fallback_mappings = []
-
-
-inoremap <expr><S-Space> neocomplete#start_manual_complete()
-
-" Plugin key-mappings.
-inoremap <expr><C-g>  neocomplete#undo_completion()
-inoremap <expr><C-l>  neocomplete#complete_common_string()
-" <C-h>, <BS>: close popup and delete backword char.
-if has('gui_runnig')
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-endif
-"inoremap <expr><C-y>  neocomplete#close_popup()
-"inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-inoremap <expr><Space> pumvisible()
-  \ ? neocomplete#close_popup()."\<Space>" : "\<Space>"
 " Enable omni completion.
-
-let g:neocomplete#sources#omni#functions
-  \ = get(g:, 'neocomplete#sources#omni#functions', {})
-
-try
-  set completeopt-=noselect
-  set completeopt+=noinsert
-  let g:neocomplete#enable_auto_select = 0
-catch /^Vim\%((\a\+)\)\=:E474/
-  " when the patch isn't applied
-endtry
-
+let g:neocomplete#sources#omni#functions = get(g:, 'neocomplete#sources#omni#functions', {})
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  "return neocomplete#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
+let g:neocomplete#force_omni_input_patterns.python =
+  \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+let g:neocomplete#sources#omni#functions.go =  'gocomplete#Complete'
+let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" scheme for SICP
+let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
+vmap <CR> <Plug>(gosh_repl_send_block)
 
 " popup highlight
 highlight Pmenu ctermbg=8 guibg=#606060
 highlight PmenuSel ctermbg=1 guifg=#dddd00 guibg=#1f82cd
 highlight PmenuSbar ctermbg=0 guibg=#d6d6d6
 
-" scheme for SICP
-let g:neocomplete#keyword_patterns['gosh-repl'] = "[[:alpha:]+*/@$_=.!?-][[:alnum:]+*/@$_:=.!?-]*"
-vmap <CR> <Plug>(gosh_repl_send_block)
+" Plugin key-mappings.
+inoremap <silent><expr><C-g>  neocomplete#undo_completion()
+inoremap <silent><expr><C-l>  neocomplete#complete_common_string()
+inoremap <silent><expr><C-q>  neocomplete#cancel_popup()
+inoremap <silent><expr><S-Space> neocomplete#start_manual_complete()
+if has('gui_runnig')
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+endif
 
-" Go,golang
-let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
-let g:neocomplete#sources#omni#functions.go =  'gocomplete#Complete'
-
-" Python
-let g:neocomplete#force_omni_input_patterns.python =
-  \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-
-" Ruby
-let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" Perl
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" <CR>: close popup and save indent.
+function! s:my_cr_function()
+  "return neocomplete#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 " }}}
 " Plugin: neosnippet {{{
 let g:neosnippet#snippets_directory =
