@@ -3,8 +3,6 @@ let g:myvim_feasures = MYVIM_FEATURES_NORMAL " See .vimrc > # Local Dependency
 let g:local_config = {
   \ 'dotfiles_dir'        : $HOME . '/workspace/dotfiles',
   \ 'tmp_dir'             : $HOME . '/.vim/tmp',
-  \ 'ref_phpmanual_path'  : $HOME . '/.vim/ref/php',
-  \ 'ref_jquery_path'     : $HOME . '/.vim/ref/jqapi-latest',
   \ }
 
 " Not use white space into the statement (Suck!!)
