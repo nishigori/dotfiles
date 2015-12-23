@@ -24,6 +24,8 @@ set focuscontent
 set runtimepath=~/.vimperator
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false
+" not-waiting installing add-ons
+set! security.dialog_enable_delay=0
 
 nnoremap U :undo<Space>
 nnoremap pa :panorama<Space>add<Space>
@@ -175,30 +177,35 @@ nnoremap sp :slideshare prev<CR>
 nnoremap <S-n> :slideshare next<CR>
 nnoremap <S-p> :slideshare prev<CR>
 " }}}
-" ## Disabled `auto commands for .*.` message {{{
-js <<EOM
-let (original = liberator.echomsg)
-  liberator.echomsg = function (msg) {
-    const REAC = RegExp('@chrome://liberator/content/autocommands\\.js:\\d+');
-    if (Error().stack.split(/\n/).some(RegExp.prototype.test.bind(REAC)) && /Executing .* Auto commands for .*/.test(msg))
-      liberator.log(msg);
-    else
-      original.apply(liberator, arguments);
-  };
-EOM
-" }}}
-" ## Customized Title Button {{{
-js <<EOM
-var button = document.getElementById("appmenu-button");
-if (button) {
-    button.label = config.name;
-    options.add(["fxbuttonlabel"], "Edit Firefox button's label",
-        "string", config.name, {
-            setter: function (val) button.label = val,
-            getter: function () button.label,
-        });
-}
-EOM
+
+" https://gist.github.com/anekos/1028562
+
+"js <<EOM
+"let (original = liberator.echomsg)
+"  liberator.echomsg = function (msg) {
+"   const REAC = RegExp('-> liberator://template/chrome://liberator/content/as\\.js:\\d+');
+"    if (Error().stack.split(/\n/).some(RegExp.prototype.test.bind(REAC)) && /Executing .* Auto commands for .*/.test(msg))
+"      liberator.log(msg);
+"    else
+"      original.apply(liberator, arguments);
+"  };
+"
+"
+"" ## Customized Title Button {{{
+"var button = document.getElementById("appmenu-button");
+"if (button) {
+"    button.label = config.name;
+"    options.add(["fxbuttonlabel"],
+"                "Edit Firefox button's label",
+"                "string",
+"                config.name,
+"                {
+"                  setter: function (val) button.label = val,
+"                  getter: function () button.label
+"                }
+"                );
+"}
+"EOM
 " }}}
 " ## plugin_loader.js {{{
 let g:plugin_loader_roots = "~/.vimperator/vimpr-plugin/ ~/.vimperator/plugin ~/.vimperator/ervandew-plugin ~/.vimperator/local-plugin"

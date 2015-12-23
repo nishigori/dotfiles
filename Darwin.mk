@@ -2,6 +2,10 @@
 #
 # For Darwin
 #
+BREW_TAPS =  omebrew/dupes \
+             homebrew/versions \
+             mcuadros/homebrew-hhvm
+
 BREW_PKGS = brew-cask \
   cmake automake bsdmake \
   zsh bash \
@@ -49,6 +53,7 @@ BREW_PKGS = brew-cask \
   pyenv pyenv-virtualenv python python3 pypy pypy3 \
   plenv perl-build cpanminus \
   php56 php56-mcrypt php56-xdebug php56-xhprof php56-msgpack \
+  binutils hhvm \
   groovy \
   awscli s3cmd \
   packer rocket \
@@ -73,7 +78,10 @@ Darwin/clean: brew/clean brew_cask/clean
 
 Darwin/update: brew/update brew/upgrade brew_cask/update
 
-brew/install: $(BREW_PKGS)
+brew/install: $(BREW_TAPS) $(BREW_PKGS)
+
+$(BREW_TAPS):
+	brew tap $@
 
 $(BREW_PKGS):
 	@brew install $@

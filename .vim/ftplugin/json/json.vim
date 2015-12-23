@@ -4,4 +4,4 @@ setlocal textwidth=78 shiftwidth=2
 setlocal softtabstop=2 tabstop=2
 setlocal expandtab
 setlocal foldmethod=syntax
-setlocal foldlevel=1
+setlocal foldlevel=3

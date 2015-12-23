@@ -327,7 +327,8 @@ if s:assert_with_features(MYVIM_FEATURES_BIG, 'More then BIG')
     NeoBundle 'thinca/vim-ref'
     " }}}
     " VCS {{{
-    NeoBundle 'airblade/vim-gitgutter'
+    "NeoBundle 'airblade/vim-gitgutter', {'rev': '51d9a3f'}
+    "NeoBundle 'airblade/vim-gitgutter', {'rev': 'b18e23c'}
     " }}}
     " Browse {{{
     NeoBundle 'tyru/open-browser.vim'
@@ -996,6 +997,9 @@ let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_fil
   \     ['月','火','水','木','金','土','日'],
   \   ],
   \ })
+" For AWS
+call add(g:increment_activator_filetype_candidates['_'], ['dedicated', 'default'])
+call add(g:increment_activator_filetype_candidates['_'], ['standard', 'io1', 'gp2'])
 let g:increment_activator_filetype_candidates['php'] = [
   \   ['private', 'protected', 'public'],
   \   ['extends', 'implements'],
@@ -1286,14 +1290,14 @@ if executable('ag')
   let g:unite_source_grep_default_opts = '--follow --nocolor --nogroup --hidden -g ""'
   let g:unite_source_grep_recursive_opt = ''
 
+  "let g:unite_source_rec_async_command = 'ack -f --nofilter'
   let g:unite_source_rec_async_command =
-    \ 'ag --follow --nocolor --nogroup --hidden -g ""'
+    \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""']
 elseif executable('ack')
   let g:unite_source_grep_command = 'ack'
   let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
   let g:unite_source_grep_recursive_opt = ''
 
-  let g:unite_source_rec_async_command = 'ack -f --nofilter'
 endif
 " }}}
 " Plugin: unite.vim >> custom >> profile {{{
@@ -1855,24 +1859,30 @@ let g:user_emmet_settings['perl'] = {
 
 " }}}
 " Plugin: neocomplete {{{
+if has("patch-7.4.314")
+  set shortmess+=c
+endif
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_auto_select = 0
+" Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#max_list = 39
 let g:neocomplete#max_keyword_width = 64
 let g:neocomplete#auto_completion_start_length = 4
 let g:neocomplete#manual_completion_start_length = 4
 let g:neocomplete#min_keyword_length = 4
-"let g:neocomplete#enable_ignore_case = 'ignorecase'
-let g:neocomplete#enable_smart_case = 'infercase'
 "let g:neocomplete#enable_camel_case = 0
 "let g:neocomplete#disable_auto_complete = 0
 let g:neocomplete#enable_cursor_hold_i = 0
 let g:neocomplete#cursor_hold_i_time = 300
 let g:neocomplete#enable_insert_char_pre = 1 " Really??
-let g:neocomplete#enable_auto_select = 0
 let g:neocomplete#enable_auto_delimiter = 0
 let g:neocomplete#enable_fuzzy_completion = 1
 "let g:neocomplete#enable_multibyte_completion = 0
-"let g:neocomplete#lock_buffer_name_pattern = ''
 "let g:neocomplete#lock_iminsert = 0
 let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
 let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
@@ -1917,8 +1927,7 @@ let g:neocomplete#sources#omni#functions
 try
   set completeopt-=noselect
   set completeopt+=noinsert
-  let g:neocomplete#enable_auto_select = 1
-  let g:neocomplete#enable_complete_select = 1
+  let g:neocomplete#enable_auto_select = 0
 catch /^Vim\%((\a\+)\)\=:E474/
   " when the patch isn't applied
 endtry
@@ -2051,10 +2060,10 @@ nnoremap <Leader>gc :<C-u>Gcommit<CR>
       \ )
 
     "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-    call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+    "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
     let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-    call vimshell#set_execute_file('tgz,gz', 'gzcat')
-    call vimshell#set_execute_file('tbz,bz2', 'bzcat')
+    "call vimshell#set_execute_file('tgz,gz', 'gzcat')
+    "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
   endif
   let g:vimshell_prompt = '└[☁ ] '
   "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'

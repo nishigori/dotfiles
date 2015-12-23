@@ -94,8 +94,8 @@ fi
 
 # Pygments
 if type "pygmentize" > /dev/null; then
-    export LESS='-R'
-    export LESSOPEN='|~/bin/lessfilter %s'
+    #export LESS='-R'
+    #export LESSOPEN='|~/bin/lessfilter %s'
 
     # unaliases 3rd-parties aliases
     type "c" > /dev/null && unalias c
