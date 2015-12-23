@@ -24,7 +24,7 @@
 "  0. You just DO WHAT THE FUCK YOU WANT TO.
 " }}}
 "=============================================================================
-" vim: set fdm=marker ts=2 sw=2 sts=0 textwidth=120 expandtab filetype=vim:
+" vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
 
 " # runtimepath {{{
 if has('vim_starting') && has('win32')
