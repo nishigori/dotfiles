@@ -27,6 +27,9 @@ set scrollbars=false
 " not-waiting installing add-ons
 set! security.dialog_enable_delay=0
 
+" undo limit
+set! browser.sessionstore.max_tabs_undo=100
+
 nnoremap U :undo<Space>
 nnoremap pa :panorama<Space>add<Space>
 nnoremap pl :panorama<Space>list<Cr>
@@ -50,7 +53,7 @@ set complete=bsl
 set ignorecase
 set smartcase
 set hlsearch
-set maxitems=15
+set maxitems=27
 " }}}
 " # <Tab> & WINDOW {{{
 "set tabnumbers

@@ -70,11 +70,11 @@ BREW_CASK_PKGS = virtualbox vagrant dockertoolbox \
   slack
 
 .PHONY: $(BREW_PKGS) $(BREW_CASK_PKGS) \
-  Darwin/* brew/* brew_cask/*
+  Darwin/* brew/* brew_cask/* firefox/*
 
 Darwin/install: brew/install brew_cask/install
 
-Darwin/clean: brew/clean brew_cask/clean
+Darwin/clean: brew/clean brew_cask/clean firefox/clean
 
 Darwin/update: brew/update brew/upgrade brew_cask/update
 
@@ -106,3 +106,6 @@ brew_cask/clean:
 
 brew_cask/update:
 	brew cask update
+
+firefox/clean:
+	find ~/Library/Application\ Support/Firefox/Profiles/ -maxdepth 2 -type f -name "*.sqlite" | xargs -I {} sqlite3 {} "VACUUM; REINDEX;"
