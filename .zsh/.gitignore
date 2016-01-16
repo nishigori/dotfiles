@@ -1,2 +1,6 @@
-zgen
-zgenrc_local
+# zplug
+zplug/bin/*
+zplug/repos/*
+zplug/zcompdump
+zplug/zplug
+zplug/.cache

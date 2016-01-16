@@ -8,44 +8,23 @@ export VIRTUALENVWRAPPER_PYTHON=$(which python)
 # Select complations list like emacs
 zstyle ':completion:*:default' menu select=1
 
-[ -d ~/.zsh/zgen ] || git clone https://github.com/tarjoilija/zgen.git ~/.zsh/zgen
-source $HOME/.zsh/zgen/zgen.zsh
+# zplug: https://github.com/b4b4r07/zplug
+export ZPLUG_HOME=${0:a:h}/.zsh/zplug
+source $ZPLUG_HOME/zplug
 
-# check if there's no init script
-if ! zgen saved; then
-    echo "Creating a zgen save"
-
-    zgen oh-my-zsh
-
-    # plugins
-    zgen load zsh-users/zsh-completions src
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load kennethreitz/autoenv
-    zgen load Tarrasch/zsh-bd
-
-    ## oh-my-zsh
-    zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/autojump
-    zgen oh-my-zsh plugins/sudo
-    zgen oh-my-zsh plugins/command-not-found
-    zgen oh-my-zsh plugins/colored-man
-    zgen oh-my-zsh plugins/ssh-agent
-
-    # bulk load
-    zgen loadall <<EOPLUGINS
-        zsh-users/zsh-history-substring-search
-EOPLUGINS
-    # ^ can't indent this EOPLUGINS
-
-    if [ -f ~/.zsh/zgenrc_local ]; then
-        source ~/.zsh/zgenrc_local
-    else
-        zgen oh-my-zsh themes/bira
+# check コマンドで未インストール項目があるかどうか verbose にチェックし
+# false のとき（つまり未インストール項目がある）y/N プロンプトで
+# インストールする
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
     fi
-
-    # save all to init script
-    zgen save
 fi
+
+# プラグインを読み込み、コマンドにパスを通す
+zplug load --verbose
+
 
 alias ls="ls -G"
 alias l='ls -l'

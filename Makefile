@@ -21,7 +21,7 @@ $(os)/%:
 
 
 .PHONY: clean me install update \
-  $(links) $(credentials) shell* vim
+  $(links) $(credentials) shell/* vim
 
 me: links credentials $(os)/install shell/install
 	@echo Make me happy :D
@@ -29,9 +29,9 @@ me: links credentials $(os)/install shell/install
 # Alias
 install: me
 
-clean: $(os)/clean shell/clean
+clean: $(os)/clean
 
-update: links $(os)/update shell/update
+update: links $(os)/update
 
 credentials: $(credentials)
 
@@ -52,12 +52,6 @@ shell/install:
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
 	-time ( source ~/.$(notdir $(SHELL))rc )
-
-shell/clean:
-	-. ~/.$(notdir $(SHELL))rc && zgen-reset
-
-shell/update:
-	. ~/.$(notdir $(SHELL))rc && zgen-selfupdate
 
 vim:
 	./bin/neobundle

@@ -25,6 +25,3 @@ bin/*
 # Vimperator
 .vimperator/info/*
 .vimperator/local-plugin/*
-
-# Pentadactyl
-.pentadactyl/info
