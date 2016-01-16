@@ -53,8 +53,11 @@ zplug "tcnksm/docker-alias", of:zshrc, as:plugin
 #zplug "docker/docker", of:"contrib/completion/zsh/_docker"
 
 # Themes
-zplug "themes/bira", from:oh-my-zsh
-zplug "themes/bureau", from:oh-my-zsh
+zplug "plugins/themes", from:oh-my-zsh
+zplug "halfo/lambda-mod-zsh-theme"
+#zplug "caiogondim/bullet-train-oh-my-zsh-theme"
+#zplug "themes/bureau", from:oh-my-zsh
+#zplug "themes/bira", from:oh-my-zsh
 
 # NOTE: If you're static on OS, delete comment-out
 ## case ${OSTYPE} in

@@ -8,6 +8,8 @@ export VIRTUALENVWRAPPER_PYTHON=$(which python)
 # Select complations list like emacs
 zstyle ':completion:*:default' menu select=1
 
+export TERM="xterm-256color"
+
 # zplug: https://github.com/b4b4r07/zplug
 export ZPLUG_HOME=${0:a:h}/.zsh/zplug
 source $ZPLUG_HOME/zplug
