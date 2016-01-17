@@ -244,7 +244,6 @@ if s:assert_with_features(MYVIM_FEATURES_BIG, 'More then BIG')
     "NeoBundle 'vim-scripts/Headlights'
     NeoBundle 'vim-scripts/copypath.vim'
     "NeoBundle 'mattn/calendar-vim'
-    NeoBundle 'kana/vim-submode'
     NeoBundle 'thinca/vim-openbuf'
     if !has('win32') && !has('mac')
       " Linux only
@@ -1642,17 +1641,6 @@ if has('path_extra')
   "let g:Tlist_Process_File_Always = 1
   "let g:Tlist_Show_One_File = 1
 endif
-" }}}
-" Plugin: submode.vim {{{
-" Reside window
-call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-call submode#map('winsize', 'n', '', '>', '<C-w>>')
-call submode#map('winsize', 'n', '', '<', '<C-w><')
-call submode#map('winsize', 'n', '', '+', '<C-w>-')
-call submode#map('winsize', 'n', '', '-', '<C-w>+')
 " }}}
 " Plugin: context_filetype.vim {{{
 let g:context_filetype#filetypes = {
