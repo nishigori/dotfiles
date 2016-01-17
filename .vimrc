@@ -1134,11 +1134,6 @@ function! s:bundle.hooks.on_source(bundle)
     let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_trashbox'
   endif
 
-  "augroup StartupWithVimFiler " {{{
-    "autocmd!
-    "autocmd VimEnter * VimFiler
-      "\ $HOME/workspace
-  "augroup END " }}}
 endfunction
 
 nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer

@@ -5,13 +5,13 @@ let g:local_config = {
   \ 'tmp_dir'             : $HOME . '/.vim/tmp',
   \ }
 
-" Not use white space into the statement (Suck!!)
-set directory=~/.vim/tmp/swap
-set backupdir=~/.vim/tmp/backup
-set viewdir=~/.vim/tmp/view
-if has('persistent_undo')
-  set undodir=~/.vim/tmp/undo
-endif
+"" Not use white space into the statement (Suck!!)
+"set directory=~/.vim/tmp/swap
+"set backupdir=~/.vim/tmp/backup
+"set viewdir=~/.vim/tmp/view
+"if has('persistent_undo')
+"  set undodir=~/.vim/tmp/undo
+"endif
 
 " colorscheme
 if !has('gui_running')
@@ -20,12 +20,10 @@ if !has('gui_running')
 endif
 
 " Sphinx bin path
-let g:sphinx_build_bin = '/usr/share/python/sphinx-build'
-
-let s:alias_ramdisk_dir = $HOME . '/.vim/tmp/ramdisk'
+"let g:sphinx_build_bin = '/usr/share/python/sphinx-build'
 
 " lint
-let g:ruby_bin = '/usr/local/bin/ruby'
+"let g:ruby_bin = '/usr/local/bin/ruby'
 
 " neobundle {{{
 let g:neobundle_default_git_protocol = 'https'
@@ -52,9 +50,6 @@ let g:github_token = ''
 " }}}
 " Calendar.vim {{{
 let g:calendar_diary = $HOME.'/tmp/diary'
-" }}}
-" ftplugin/php.vim {{{
-"let g:php_version = 5.4
 " }}}
 
 " vim-startify {{{
