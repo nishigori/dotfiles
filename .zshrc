@@ -11,12 +11,43 @@ zstyle ':completion:*:default' menu select=1
 export TERM="xterm-256color"
 
 # zplug: https://github.com/b4b4r07/zplug
-export ZPLUG_HOME=${0:a:h}/.zsh/zplug
-source $ZPLUG_HOME/zplug
+source ~/.zplug/zplug
 
-# check コマンドで未インストール項目があるかどうか verbose にチェックし
-# false のとき（つまり未インストール項目がある）y/N プロンプトで
-# インストールする
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+
+zplug "mollifier/anyframe"
+
+zplug "k4rthik/git-cal", as:command, frozen:1
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/python", from:oh-my-zsh
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
+zplug "tcnksm/docker-alias", of:zshrc, as:plugin
+
+# NOTE: If you want apply theme, write on $ZPLUG_HOME/init.zsh
+zplug "plugins/themes", from:oh-my-zsh
+
+case ${OSTYPE} in
+    darwin*)
+        zplug "plugins/osx", from:oh-my-zsh
+        zplug "plugins/brew", from:oh-my-zsh
+        zplug "plugins/brew-cask", from:oh-my-zsh
+        zplug "plugins/tmux", from:oh-my-zsh
+        ;;
+    freebsd*)
+        ;;
+    linux*)
+        zplug "plugins/gnu-utils", from:oh-my-zsh
+        if [ -f /etc/redhat-release ]; then
+            zplug "plugins/yum", from:oh-my-zsh
+        elif [ -f /etc/debian_version ]; then
+            zplug "plugins/debian", from:oh-my-zsh
+        fi
+        ;;
+esac
+
+# Checking not-installing list
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -24,7 +55,6 @@ if ! zplug check --verbose; then
     fi
 fi
 
-# プラグインを読み込み、コマンドにパスを通す
 zplug load --verbose
 
 
