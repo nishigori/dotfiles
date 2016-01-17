@@ -86,11 +86,11 @@ function! s:assert_with_features(...)
   " a:1 => features
   " a:2 => not exit if assert invalid
   if g:myvim_feasures >= a:1
-    return 1
+    return 0
   endif
 
-  echo "INFO: g:myvim_feasures is not over " . a:1
-    \ . ", and no reading more plugin settings"
+  "echo "INFO: g:myvim_feasures is not over " . a:1
+  "  \ . ", and no reading more plugin settings"
   if !exists("a:2") | finish | endif
 
   return 0
