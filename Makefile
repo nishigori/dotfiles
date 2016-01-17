@@ -5,8 +5,8 @@ RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local
-links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .zplug/init.zh
+credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zh
+links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
 vim_requires = Shougo/neobundle.vim Shougo/vimproc
 
 .PHONY: me $(os)/*
@@ -25,7 +25,7 @@ $(os)/%:
   $(links) $(credentials) shell/* vim
 
 # Alias
-install:  $(os)/install shell/install vim
+install:  $(os)/install shell/install credentials vim
 
 clean: $(os)/clean
 
