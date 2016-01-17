@@ -1,0 +1,43 @@
+#!/bin/zsh
+# -*- mode: zsh -*-
+# vim:ft=zsh
+#
+# *** ZPLUG EXTERNAL FILE ***
+# You can register plugins or commands to zplug on the
+# command-line. If you use zplug on the command-line,
+# it is possible to write more easily its settings
+# by grace of the command-line completion.
+# In this case, zplug spit out its settings to
+# /Users/t-nishigori/.zplug/init.zsh instead of .zshrc.
+# If you launch new zsh process, zplug load command
+# automatically search this file and run source command.
+#
+#
+# Example:
+# zplug "b4b4r07/enhancd", as:plugin, of:"*.zsh"
+# zplug "rupa/z",          as:plugin, of:"*.sh"
+#
+
+#zplug "junegunn/dotfiles", as:command, of:bin/vimcat
+#zplug "plugins/pip", from:oh-my-zsh
+#zplug "plugins/virtualenv", from:oh-my-zsh
+#zplug "plugins/virtualenvwrapper", from:oh-my-zsh
+#zplug "plugins/ruby", from:oh-my-zsh
+#zplug "plugins/rbenv", from:oh-my-zsh
+#zplug "plugins/gem", from:oh-my-zsh
+#zplug "plugins/bundler", from:oh-my-zsh
+#zplug "plugins/node", from:oh-my-zsh
+#zplug "plugins/npm", from:oh-my-zsh
+#zplug "plugins/composer", from:oh-my-zsh
+#zplug "plugins/aws", from:oh-my-zsh
+
+# => TODO: why source cannot read?
+#zplug "mitchellh/packer", of:"contrib/zsh-completions/_packer"
+#zplug "docker/docker", of:"contrib/completion/zsh/_docker"
+
+# => NOTE: you can select one for zsh theme
+#zplug "halfo/lambda-mod-zsh-theme"
+#zplug "caiogondim/bullet-train-oh-my-zsh-theme"
+#zplug "themes/bureau", from:oh-my-zsh
+# => ys for remote server theme :)
+#zplug "themes/ys", from:oh-my-zsh
