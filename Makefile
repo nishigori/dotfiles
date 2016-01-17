@@ -5,7 +5,7 @@ RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zh
+credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
 vim_requires = Shougo/neobundle.vim Shougo/vimproc
 
