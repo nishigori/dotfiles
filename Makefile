@@ -5,13 +5,13 @@ RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials = .gitsecret .zsh/zgenrc_local .zshrc.local .vimrc.local .gvimrc.local
+credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
 
-.PHONY: help $(os)/*
+.PHONY: me $(os)/*
 
-help:
-	@more Makefile
+me: links credentials
+	@echo Make me happy :D
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -20,14 +20,11 @@ $(os)/%:
 -include $(os).mk
 
 
-.PHONY: clean me install update \
+.PHONY: clean install update \
   $(links) $(credentials) shell/* vim
 
-me: links credentials $(os)/install shell/install
-	@echo Make me happy :D
-
 # Alias
-install: me
+install:  $(os)/install shell/install
 
 clean: $(os)/clean
 
