@@ -53,50 +53,10 @@ let g:github_token = ''
 " Calendar.vim {{{
 let g:calendar_diary = $HOME.'/tmp/diary'
 " }}}
-" dbext.vim {{{
-let g:dbext_default_profile      = ""
-let g:dbext_default_type         = "MYSQL"
-let g:dbext_default_user         = "user"
-let g:dbext_default_passwd       = "password"
-let g:dbext_default_dbname       = "dbname"
-let g:dbext_default_host         = "localhost"
-let g:dbext_default_buffer_lines = 20
-
-"let g:dbext_default_profile = 'mysql_local'
-"let g:dbext_default_profile_mysql_local = ''
-"let g:dbext_default_profile_mysql_local_DBI =
-  "\ 'type=DBI:user=root:passwd=password=mysql:conn_parms=database=test;host=localhost'
-"let g:dbext_default_profile_mysql_local_ODBC =
-  "\ 'type=ODBC:user=root:passwd=password=mysql'
-
-" vdbi {{{
-" INFO: Install depends CPAM Modules
-"
-" Mac OS.)
-"
-"   $ sudo perl -MCPAN -e shell
-"   cpan> install DBI
-"   cpan> install DBD::mysql
-"
-" }}}
-" }}}
 " ftplugin/php.vim {{{
-let g:php_version = 5.4
+"let g:php_version = 5.4
 " }}}
 
-" unite.vim {{{2
-call vimproc#system(
-  \ 'cp -a -R '
-  \ .' '. s:alias_ramdisk_dir .'/'. s:unite_date_directory_suffix
-  \ . g:local_unite_data_directory
-  \ ) " }}}2
-" neocomplcache {{{2
-call vimproc#system(
-  \ 'cp -a -R '
-  \ .' '. s:alias_ramdisk_dir .'/'. s:neocomplcache_temporary_dir_suffix
-  \ . g:local_neocomplcache_temporary_dir
-  \ ) " }}}2
-" }}}1
 " vim-startify {{{
 let g:startify_custom_header = [
   \ '____/\\\________/\\\___/\\\\\\\\\\\___/\\\\____________/\\\\__________',
