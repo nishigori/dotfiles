@@ -7,6 +7,7 @@ RC_FILES := $(wildcard .*rc)
 os := $(shell uname -s)
 credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
+vim_requires = Shougo/neobundle.vim Shougo/vimproc
 
 .PHONY: me $(os)/*
 
@@ -53,9 +54,11 @@ shell/install: ~/.zplug/zplug
 ~/.zplug/zplug:
 	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 
-vim: .vim/bundle/neobundle.vim
+
+vim: $(vim_requires)
 	./bin/neobundle
 
-.vim/bundle/neobundle.vim:
-	mkdir -p .vim/bundle/
-	git clone https://github.com/Shougo/neobundle.vim $@
+$(vim_requires): clone_dir=.vim/bundle/$(notdir $@)
+$(vim_requires):
+	mkdir -p .vim/bundle
+	test -d $(clone_dir) || git clone https://github.com/$@ $(clone_dir)
