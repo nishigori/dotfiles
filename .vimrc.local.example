@@ -1,3 +1,5 @@
+set backup swapfile
+
 let g:myvim_feasures = MYVIM_FEATURES_NORMAL " See .vimrc > # Local Dependency
 
 let g:local_config = {

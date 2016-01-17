@@ -98,7 +98,6 @@ endfunction
 
 let $MYVIMRC_LOCAL = $HOME . '/.vimrc.local'
 if filereadable(expand($MYVIMRC_LOCAL))
-  set backup swapfile
   " INFO: Read more .vimrc.local.dist
   source $MYVIMRC_LOCAL
 
@@ -162,22 +161,7 @@ if s:assert_with_features(MYVIM_FEATURES_BIG, 'More then BIG')
   NeoBundle 'sudo.vim'
   NeoBundle 'thinca/vim-quickrun'
   NeoBundle 'Shougo/vimfiler'
-  "NeoBundleLazy 'Shougo/vimfiler', {
-  "  \ 'depends' : 'Shougo/unite.vim',
-  "  \ 'autoload' : {
-  "  \    'commands' : [{ 'name' : 'VimFiler',
-  "  \                    'complete' : 'customlist,vimfiler#complete' },
-  "  \                  'VimFilerExplorer',
-  "  \                  'Edit', 'Read', 'Source', 'Write'],
-  "  \    'mappings' : ['<Plug>(vimfiler_switch)'],
-  "  \    'explorer' : 1,
-  "  \ }
-  "  \ }
-  NeoBundle "scrooloose/syntastic",
-  " \ {
-  " \   "build": { "mac": ["npm -g install coffeelint"], }
-  " \   'unix': ['pip install -U flake8', 'npm -g install coffeelint'],
-  " \ }
+  NeoBundle "scrooloose/syntastic"
   NeoBundle 'vim-scripts/matchit.zip'
   NeoBundle 'smartchr'
   NeoBundle 'scrooloose/nerdcommenter'
