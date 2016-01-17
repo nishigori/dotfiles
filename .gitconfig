@@ -23,12 +23,8 @@
 	grep = cat
 	stash = false
 
-[push]
-	default = simple
-
 [pull]
 	rebase = true
-	default = simple
 
 [merge]
 	tool = vimdiff
