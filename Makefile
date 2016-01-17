@@ -24,7 +24,7 @@ $(os)/%:
   $(links) $(credentials) shell/* vim
 
 # Alias
-install:  $(os)/install shell/install
+install:  $(os)/install shell/install vim
 
 clean: $(os)/clean
 
@@ -53,5 +53,9 @@ shell/install: ~/.zplug/zplug
 ~/.zplug/zplug:
 	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 
-vim:
+vim: .vim/bundle/neobundle.vim
 	./bin/neobundle
+
+.vim/bundle/neobundle.vim:
+	mkdir -p .vim/bundle/
+	git clone https://github.com/Shougo/neobundle.vim $@
