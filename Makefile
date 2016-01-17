@@ -44,11 +44,14 @@ $(links):
 	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
 	@ls -ld ~/$@
 
-shell/install:
+shell/install: ~/.zplug/zplug
 	@echo Setup SHELL
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
 	-time ( source ~/.$(notdir $(SHELL))rc )
+
+~/.zplug/zplug:
+	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 
 vim:
 	./bin/neobundle
