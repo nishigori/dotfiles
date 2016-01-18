@@ -80,7 +80,7 @@ let MYVIM_FEATURES_NORMAL = 3 | lockvar MYVIM_FEATURES_NORMAL
 let MYVIM_FEATURES_BIG    = 3 | lockvar MYVIM_FEATURES_BIG
 let MYVIM_FEATURES_HUGE   = 4 | lockvar MYVIM_FEATURES_HUGE
 
-let g:myvim_feasures = get(g:, 'myvim_features', MYVIM_FEATURES_TINY)
+let g:myvim_features = get(g:, 'myvim_features', MYVIM_FEATURES_TINY)
 
 let $MYVIMRC_LOCAL = $HOME . '/.vimrc.local'
 if filereadable(expand($MYVIMRC_LOCAL))
@@ -111,9 +111,8 @@ let s:tmpdir = exists('g:local_config["tmp_dir"]')
 " }}}
 
 " # Bundles {{{
-if MYVIM_FEATURES_BIG >= g:myvim_feasures && !exists('g:loaded_neobundle')
-  let s:bundle_dir = $HOME . '/.vim/bundle'
-
+let s:bundle_dir = $HOME . '/.vim/bundle'
+if MYVIM_FEATURES_BIG >= g:myvim_features && !exists('g:loaded_neobundle')
   set nocompatible           " be iMproved
   filetype plugin indent off " required!!
 
@@ -175,7 +174,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_feasures && !exists('g:loaded_neobundle')
   NeoBundle 'Diablo3'
   NeoBundle 'altercation/vim-colors-solarized'
 
-  if MYVIM_FEATURES_HUGE >= g:myvim_feasures
+  if MYVIM_FEATURES_HUGE <= g:myvim_features
     " (more) Colorsheme & Font {{{
     NeoBundle 'itchyny/landscape.vim'
     NeoBundle 'w0ng/vim-hybrid'
@@ -951,7 +950,7 @@ command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
 " }}}
 
 " Plugins
-if MYVIM_FEATURES_BIG >= g:myvim_feasures
+if MYVIM_FEATURES_BIG <= g:myvim_features
   " My Plugin: IncrementActivator {{{
   let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {
     \   '_': [
@@ -1419,7 +1418,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_feasures
   " }}}
 endif
 
-if MYVIM_FEATURES_HUGE >= g:myvim_feasures
+if MYVIM_FEATURES_HUGE <= g:myvim_features
   " Plugin: vim-startify {{{
   let g:startify_files_number = 15
   "let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
