@@ -83,8 +83,8 @@ nnoremap <Leader>r :panorama<Space>remove<Space>
 " # MOVEMENT {{{
 " Scroll's space
 " That's needless, cause using _smooziee.js plugin.
-" map j 5<C-e>
-" map k 5<C-y>
+"map j 5<C-e>
+"map k 5<C-y>
 
 " Emacs like
 " INFO: C-(a,e,h,b,j,b,f) settings 
@@ -152,13 +152,13 @@ command! cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
 command! clip javascript Evernote.Overlay.init(null)
 " }}}
 " ## Persona(Themes) {{{
-style -name personas chrome://* <<EOM
-#main-window { background-repeat: repeat-y !important; }
-#browser-bottombox { background-image: none !important; }
-#liberator-multiline-output, #liberator-completions { background: transparent !important; }
-#content tabpanels { background-color: transparent !important; }
-EOM
-autocmd LocationChange .* :js getBrowser().mCurrentBrowser.collapsed = buffer.URL == "about:blank" ? true : false
+"style -name personas chrome://* <<EOM
+"#main-window { background-repeat: repeat-y !important; }
+"#browser-bottombox { background-image: none !important; }
+"#liberator-multiline-output, #liberator-completions { background: transparent !important; }
+"#content tabpanels { background-color: transparent !important; }
+"EOM
+"autocmd LocationChange .* :js getBrowser().mCurrentBrowser.collapsed = buffer.URL == "about:blank" ? true : false
 " }}}
 " ## _smooziee.js {{{
 let g:smooziee_scroll_amount="200"
