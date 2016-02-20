@@ -174,7 +174,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features && !exists('g:loaded_neobundle')
   NeoBundle 'Diablo3'
   NeoBundle 'altercation/vim-colors-solarized'
 
-  if MYVIM_FEATURES_HUGE <= g:myvim_features
+  if MYVIM_FEATURES_HUGE >= g:myvim_features
     " (more) Colorsheme & Font {{{
     NeoBundle 'itchyny/landscape.vim'
     NeoBundle 'w0ng/vim-hybrid'
@@ -950,7 +950,7 @@ command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
 " }}}
 
 " Plugins
-if MYVIM_FEATURES_BIG <= g:myvim_features
+if MYVIM_FEATURES_BIG >= g:myvim_features
   " My Plugin: IncrementActivator {{{
   let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {
     \   '_': [
@@ -1418,7 +1418,7 @@ if MYVIM_FEATURES_BIG <= g:myvim_features
   " }}}
 endif
 
-if MYVIM_FEATURES_HUGE <= g:myvim_features
+if MYVIM_FEATURES_HUGE >= g:myvim_features
   " Plugin: vim-startify {{{
   let g:startify_files_number = 15
   "let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
