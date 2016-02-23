@@ -5,24 +5,27 @@
 # Environment Variable(s)
 #########################
 
-# => Go/golang
+## => Go/golang
 #export GOROOT=/usr/local/opt/go/libexec
 #export GOPATH=$HOME/.go
 #export PATH=$GOPATH/bin:$PATH
-# => Groory
+## => Groory
 #export GROOVY_HOME=/usr/local/opt/groovy/libexec
-# => cabal via GHC
+## => cabal via GHC
 #export PATH=$HOME/.cabal/bin:$PATH
-# => nodebrew
+## => nodebrew
 #export PATH=$HOME/.nodebrew/current/bin:$PATH
-# => Composer
+## => Composer
 #export PATH=$HOME/.composer/vendor/bin:$PATH
-# => Docker
+## => Docker
 #export DOCKER_TLS_VERIFY=1
-# => Perl > plenv
+## => Perl > plenv
 #if which plenv > /dev/null; then eval "$(plenv init -)"; fi
 #PERL_MB_OPT="--install_base \"~/perl5\""; export PERL_MB_OPT;
 #PERL_MM_OPT="INSTALL_BASE=~/perl5"; export PERL_MM_OPT;
+## => Python > pyenv
+#export PYENV_ROOT=/usr/local/opt/pyenv
+#if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 
 ####################
