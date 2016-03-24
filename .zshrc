@@ -65,6 +65,11 @@ alias cl='clear'
 alias tailf='tail -f'
 alias vimless='vim -R'
 alias vless='vim -R'
+alias st='git status'
+alias co='git checkout'
+alias cob='git checkout -b'
+alias fv='git fetch --verbose --prune'
+alias pv='git pull --verbose'
 
 # Ctags
 # like vimrc alpaca_tags settings

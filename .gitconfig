@@ -17,10 +17,10 @@
 
 [pager]
 	;; diff-highlight is {git-repo}/contrib/diff-highlight/diff-highlight
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
-	grep = cat
+	log = diff-highlight | less --no-init --quit-if-one-screen
+	show = diff-highlight | less --no-init --quit-if-one-screen
+	diff = diff-highlight | less --no-init --quit-if-one-screen
+	grep = less --no-init --quit-if-one-screen
 	stash = false
 
 [pull]
