@@ -70,6 +70,9 @@ alias co='git checkout'
 alias cob='git checkout -b'
 alias fv='git fetch --verbose --prune'
 alias pv='git pull --verbose'
+alias di='git diff --ignore-space-change'
+alias dic='git diff --cached --ignore-space-change'
+alias dis='git diff --stat'
 
 # Ctags
 # like vimrc alpaca_tags settings
