@@ -162,8 +162,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features && !exists('g:loaded_neobundle')
   " ReStructedText
   NeoBundleLazy 'jtriley/vim-rst-headings'
   autocmd FileType python,rest,rst NeoBundleSource vim-rst-headings
-  NeoBundleLazy 'heavenshell/vim-quickrun-hook-sphinx'
-  autocmd FileType rst NeoBundleSource vim-quickrun-hook-sphinx
   " JSON
   NeoBundle 'elzr/vim-json'
   autocmd FileType javascript,json NeoBundleSource vim-json
@@ -247,19 +245,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features && !exists('g:loaded_neobundle')
   NeoBundle 'vim-scripts/trinity.vim'
   NeoBundle 'vim-scripts/taglist.vim'
   NeoBundle 'vim-scripts/TagHighlight'
-  " INFO: alpaca_tags is disabled cause:
-  "   * I'm not using ruby frequently
-  "   * alpaca_tags is not controllable tag update/create PATH
-  "NeoBundleLazy 'alpaca-tc/alpaca_tags', {
-    "\    'depends': ['Shougo/vimproc'],
-    "\    'autoload' : {
-    "\       'commands' : [
-    "\          { 'name' : 'AlpacaTagsBundle', 'complete': 'customlist,alpaca_tags#complete_source' },
-    "\          { 'name' : 'AlpacaTagsUpdate', 'complete': 'customlist,alpaca_tags#complete_source' },
-    "\          'AlpacaTagsSet', 'AlpacaTagsCleanCache', 'AlpacaTagsEnable', 'AlpacaTagsDisable', 'AlpacaTagsKillProcess', 'AlpacaTagsProcessStatus',
-    "\       ],
-    "\    }
-    "\ }
   NeoBundle 'osyo-manga/vim-anzu'
   " }}}
     " Text operation {{{
