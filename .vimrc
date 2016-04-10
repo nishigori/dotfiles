@@ -110,335 +110,44 @@ let s:tmpdir = exists('g:local_config["tmp_dir"]')
   \ : $HOME
 " }}}
 
-" # Bundles {{{
-let s:bundle_dir = $HOME . '/.vim/bundle'
-if MYVIM_FEATURES_BIG >= g:myvim_features && !exists('g:loaded_neobundle')
-  set nocompatible           " be iMproved
-  filetype plugin indent off " required!!
-
-  if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+" # dein {{{
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+if MYVIM_FEATURES_BIG >= g:myvim_features
+  if &compatible
+    set nocompatible
   endif
 
-  " Required:
-  call neobundle#begin(expand('~/.vim/bundle/'))
-  " Let NeoBundle manage NeoBundle
-  NeoBundleFetch 'Shougo/neobundle.vim'
+  " reset augroup
+  augroup MyAutoCmd
+    autocmd!
+  augroup END
 
-  NeoBundle 'Shougo/unite.vim'
-  NeoBundle 'Shougo/unite-outline'
-  NeoBundle 'Shougo/neoyank.vim'
-  NeoBundle 'Shougo/neomru.vim'
-  NeoBundle 'thinca/vim-unite-history'
-  NeoBundle 'osyo-manga/unite-quickrun_config'
-  NeoBundle 'tacroe/unite-mark'
+  let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+  endif
+  let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
-  " Require `brew install rmtrash`
-  NeoBundle 'Shougo/vimproc', {
-    \ 'build' : {
-    \     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
-    \     'cygwin' : 'make',
-    \     'mac' : 'make',
-    \     'unix' : 'make',
-    \    },
-    \ }
-  NeoBundle 'sudo.vim'
-  NeoBundle 'thinca/vim-quickrun'
-  NeoBundle 'Shougo/vimfiler'
-  NeoBundle "scrooloose/syntastic"
-  NeoBundle 'vim-scripts/matchit.zip'
-  NeoBundle 'smartchr'
-  NeoBundle 'scrooloose/nerdcommenter'
-  NeoBundle 'h1mesuke/vim-alignta'
-  NeoBundle 'nishigori/vim-multiple-switcher'
-  NeoBundle 'nishigori/increment-activator'
-  " Nginx
-  autocmd FileType nginx NeoBundleSource 'chase/nginx.vim'
-  NeoBundleLazy 'nishigori/neocomplcache-nginx-snippet'
-  autocmd FileType nginx NeoBundleSource 'neocomplcache-nginx-snippet'
-  " Markdown
-  NeoBundle 'tpope/vim-markdown'
-  autocmd FileType markdown NeoBundleSource vim-markdown
-  " ReStructedText
-  NeoBundleLazy 'jtriley/vim-rst-headings'
-  autocmd FileType python,rest,rst NeoBundleSource vim-rst-headings
-  " JSON
-  NeoBundle 'elzr/vim-json'
-  autocmd FileType javascript,json NeoBundleSource vim-json
-  " Colorscheme(s)
-  NeoBundle 'nanotech/jellybeans.vim'
-  NeoBundle 'tomasr/molokai'
-  NeoBundle 'desert256.vim'
-  NeoBundle 'Diablo3'
-  NeoBundle 'altercation/vim-colors-solarized'
-
-  if MYVIM_FEATURES_HUGE >= g:myvim_features
-    " (more) Colorsheme & Font {{{
-    NeoBundle 'itchyny/landscape.vim'
-    NeoBundle 'w0ng/vim-hybrid'
-    NeoBundle 'jpo/vim-railscasts-theme'
-
-    NeoBundle 'ujihisa/mrkn256.vim'
-    NeoBundle 'wombat256.vim'
-    " :colorscheme wombat256mod
-    NeoBundle 'xoria256.vim'
-    NeoBundle 'vim-scripts/calmar256-lightdark.vim'
-
-    NeoBundle 'candycode.vim'
-    NeoBundle 'jonathanfilip/vim-lucius'
-    NeoBundle 'vim-scripts/darkZ'
-
-    NeoBundle 'thinca/vim-fontzoom'
-    " }}}
-    " (more) unite sources {{{
-    NeoBundleLazy 'tsukkee/unite-tag',
-      \ {
-      \   'depends' : ['Shougo/unite.vim'],
-      \   'autoload' : {
-      \     'unite_sources' : ['tag', 'tag/file', 'tag/include'],
-      \   }
-      \ }
-    NeoBundle 'basyura/unite-converter-file-directory'
-    NeoBundle 'ujihisa/unite-colorscheme'
-    NeoBundle 'sgur/unite-git_grep'
-    NeoBundle 'Kocha/vim-unite-tig'
-    NeoBundle 'Shougo/unite-help'
-    " }}}
-    " Utility {{{
-    " FIXME: vim-template, そのうち使う
-    "NeoBundle 'thinca/vim-template'
-    "NeoBundle 'vim-scripts/Headlights'
-    NeoBundle 'vim-scripts/copypath.vim'
-    "NeoBundle 'mattn/calendar-vim'
-    NeoBundle 'thinca/vim-openbuf'
-    if !has('win32') && !has('mac')
-      " Linux only
-      NeoBundle 'gist:koron/5992868:', {
-        \ 'name': 'pyibus.vim',
-        \ 'script_type': 'plugin' }
+  let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.config/dein/plugins.toml'
+  let s:toml_file_local = fnamemodify(expand('<sfile>'), ':h').'/.config/plugins.local.toml'
+  if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+    call dein#load_toml(s:toml_file)
+    if filereadable(s:toml_file_local)
+      call dein#load_toml(s:toml_file_local)
     endif
-    " }}}
-    " Shell {{{
-    NeoBundleLazy 'Shougo/vimshell',{
-      \ 'depends' : 'Shougo/vimproc',
-      \ 'autoload' : {
-      \   'commands' : [{ 'name' : 'VimShell',
-      \                   'complete' : 'customlist,vimshell#complete'},
-      \                 'VimShellExecute', 'VimShellInteractive',
-      \                 'VimShellTerminal', 'VimShellPop'],
-      \   'mappings' : ['<Plug>(vimshell_switch)'],
-      \ }}
-    " TODO: require vim-powerline, change using plugin for show branch status
-    NeoBundle 'yomi322/vim-gitcomplete', { 'depends' : 'Shougo/vimshell' }
-    " }}}
-    " Explorer, Filer {{{
-    NeoBundle 'vim-scripts/SrcExpl'
-    NeoBundle 'vim-scripts/Source-Explorer-srcexpl.vim'
-    " }}}
-  " Buffer, Tag {{{
-  NeoBundle 'itchyny/lightline.vim'
 
-  NeoBundle 'vim-scripts/PreserveNoEOL'
-
-  NeoBundle 'bling/vim-bufferline'
-  NeoBundle 'vim-scripts/current-func-info.vim'
-  NeoBundle 'vim-scripts/trinity.vim'
-  NeoBundle 'vim-scripts/taglist.vim'
-  NeoBundle 'vim-scripts/TagHighlight'
-  NeoBundle 'osyo-manga/vim-anzu'
-  " }}}
-    " Text operation {{{
-    NeoBundle 'haya14busa/incsearch.vim'
-    NeoBundleLazy 'mattn/emmet-vim'
-    autocmd FileType html NeoBundleSource emmet-vim
-    NeoBundle 'tpope/vim-surround'
-    NeoBundle 't9md/vim-textmanip'
-    "NeoBundle 't9md/vim-quickhl', { 'depends' : 'tyru/operator-star.vim' }
-    NeoBundle 'visualstar.vim'
-    NeoBundle 'vim-scripts/matchparenpp'
-    " }}}
-    " Complete, Snippet {{{
-    " neocomplete requires vim 7.3.885 or above.
-    NeoBundle 'Shougo/neocomplete', {
-      \ 'rev': 'd1cb4c5',
-      \ 'depends' : 'Shougo/context_filetype.vim',
-      \ 'vim_version' : '7.3.885'
-      \ }
-    NeoBundle 'Shougo/neosnippet-snippets'
-    NeoBundle 'Shougo/neosnippet', '', 'default'
-    call neobundle#config('neosnippet', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \ 'insert' : 1,
-      \ 'filetypes' : 'snippet',
-      \ 'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
-      \ }})
-    NeoBundle 'thinca/vim-ambicmd'
-    NeoBundleLazy 'alpaca-tc/vim-endwise.git',
-      \ {
-      \   'autoload' : { 'insert' : 1 },
-      \ }
-    " }}}
-    " VCS {{{
-    "NeoBundle 'airblade/vim-gitgutter', {'rev': '51d9a3f'}
-    "NeoBundle 'airblade/vim-gitgutter', {'rev': 'b18e23c'}
-    " }}}
-    " Browse {{{
-    NeoBundle 'tyru/open-browser.vim'
-    NeoBundle 'tyru/urilib.vim'
-    NeoBundle 'mattn/webapi-vim'
-    NeoBundle 'basyura/twibill.vim'
-    " }}}
-    " Debug, Backend {{{
-    if has('python')
-      NeoBundle 'vim-scripts/Gundo'
-    endif
-    " }}}
-    " Database {{{
-    "NeoBundle 'mattn/vdbi-vim'
-    " INFO: dbext.vim' latest version is into the vim.org.
-    "       http://vim.sourceforge.net/scripts/script.php?script_id=356
-    "NeoBundle 'vim-scripts/dbext.vim'
-    "NeoBundle 'xenoterracide/sql_iabbr'
-    " }}}
-    " Go/golang {{{
-    " Require `go get -u github.com/nsf/gocode`
-    NeoBundleLazy 'Blackrush/vim-gocode'
-    autocmd FileType go NeoBundleSource vim-gocode
-    NeoBundleLazy 'nsf/gocode', {
-      \   'rtp' : 'vim',
-      \   'autoload' : { 'filetypes' : 'go' },
-      \ }
-    NeoBundleLazy 'golang/lint', { 'rtp': 'misc/vim' }
-    autocmd FileType go NeoBundleSource lint
-    " }}}
-    " Scheme, scm {{{
-    " gauche
-    NeoBundle 'aharisu/vim_goshrepl'
-    NeoBundle 'aharisu/vim-gdev'
-    " }}}
-    " Haskell {{{
-    NeoBundleLazy 'ujihisa/ref-hoogle'
-    autocmd FileType haskell NeoBundleSource ref-hoogle
-    NeoBundle 'ujihisa/unite-haskellimport', { 'depends' : 'Shougo/unite.vim' }
-    autocmd FileType haskell NeoBundleSource unite-haskellimport
-    " }}}
-    " Erlang {{{
-    NeoBundleLazy 'jimenezrick/vimerl'
-    autocmd FileType erlang NeoBundleSource vimerl
-    " }}}
-    " Clojure {{{
-    NeoBundleLazy 'https://bitbucket.org/kotarak/vimclojure', {'type': 'hg'}
-    autocmd FileType clojure NeoBundleSource vimclojure
-    " }}}
-    " Groovy {{{
-    " NeoBundleLazy 'nobeans/unite-grails'
-    " autocmd FileType groovy NeoBundleSource unite-grails
-    NeoBundle 'rdolgushin/groovy.vim'
-    " }}}
-    " Lua {{{
-    NeoBundleLazy 'vim-scripts/lua.vim'
-    autocmd FileType lua NeoBundleSource lua.vim
-    " }}}
-    " Python {{{
-    NeoBundleLazy 'vim-scripts/python.vim--Vasiliev'
-    autocmd FileType python,django NeoBundleSource python.vim--Vasiliev
-    NeoBundleLazy 'hynek/vim-python-pep8-indent', {
-      \ "autoload": {"insert": 1, "filetypes": ["python", "python3", "djangohtml"]}}
-    NeoBundleLazy "davidhalter/jedi-vim", {
-      \ "autoload": {
-      \   "filetypes": ["python", "python3", "djangohtml"],
-      \ },
-      \ "build": {
-      \   "mac": "pip install -U jedi",
-      \   "unix": "pip install -U jedi",
-      \ }}
-    let s:hooks = neobundle#get_hooks("jedi-vim")
-    function! s:hooks.on_source(bundle)
-      " jediにvimの設定を任せると'completeopt+=preview'するので
-      " 自動設定機能をOFFにし手動で設定を行う
-      let g:jedi#auto_vim_configuration = 0
-      " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-      let g:jedi#popup_select_first = 0
-      " quickrunと被るため大文字に変更
-      let g:jedi#rename_command = '<Leader>R'
-      " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
-      "let g:jedi#goto_assignments_command = '<Leader>G'
-    endfunction
-    NeoBundle 'jmcantrell/vim-virtualenv'
-    "NeoBundlelazy 'mitsuhiko/vim-jinja'
-    "autocmd FileType python,jinja NeoBundleSource vim-jinja
-    " }}}
-    " Ruby {{{
-    " need ruby-debug-ide19
-    " $ gem install ruby-debug-ide19
-    "NeoBundle 'astashov/vim-ruby-debugger'
-    "autocmd FileType ruby
-    "\ NeoBundleSource 'tpope/rails.vim'
-    " @see http://qiita.com/items/839f4b9e07cf7f341835
-    NeoBundleLazy 'tpope/vim-rbenv'
-    autocmd FileType ruby NeoBundleSource vim-rbenv
-    NeoBundleLazy 'rhysd/neco-ruby-keyword-args'
-    autocmd FileType ruby NeoBundleSource neco-ruby-keyword-args
-    NeoBundleLazy 'ruby-matchit' " TODO: Need fork, cause no use ftplugin ;(
-    autocmd FileType ruby NeoBundleSource ruby-matchit
-    NeoBundleLazy 'ujihisa/unite-rake', { 'depends' : 'Shougo/unite.vim' }
-    autocmd FileType ruby NeoBundleSource unite-rake
-    NeoBundleLazy 'rhysd/unite-ruby-require.vim'
-    autocmd FileType ruby NeoBundleSource unite-ruby-require
-    "NeoBundle 'rhysd/vim-textobj-ruby' " TODO: occurred unknown error
-    " }}}
-    " PHP {{{
-    NeoBundleLazy 'arnaud-lb/vim-php-namespace'
-    autocmd FileType php NeoBundleSource vim-php-namespace
-    NeoBundleLazy 'beyondwords/vim-twig'
-    autocmd FileType php,twig.html,html.twig NeoBundleSource vim-twig
-    NeoBundleLazy 'nishigori/vim-php-dictionary'
-    autocmd FileType php NeoBundleSource vim-php-dictionary
-    NeoBundleLazy 'nishigori/phpfolding.vim'
-    autocmd FileType php NeoBundleSource phpfolding.vim
-    NeoBundleLazy 'nishigori/neocomplcache-phpunit-snippet'
-    autocmd FileType php NeoBundleSource neocomplcache-phpunit-snippet
-    " }}}
-    " JavaScript {{{
-    NeoBundleLazy 'basyura/jslint.vim'
-    autocmd FileType javascript,js NeoBundleSource vim-ref-jquery
-    " }}}
-    " CSS|SCSS|SASS|LESS {{{
-    NeoBundleLazy 'vim-scripts/css3'
-    autocmd FileType css NeoBundleSource css3
-    NeoBundleLazy 'tpope/vim-haml'
-    autocmd FileType haml,scss,scss NeoBundleSource vim-haml
-    " }}}
-    " VimScript {{{
-    NeoBundle 'nathanaelkane/vim-indent-guides'
-    " }}}
-    " Puppet {{{
-    NeoBundle 'rodjek/vim-puppet'
-    NeoBundleLazy 'puppetlabs/puppet-syntax-vim'
-    autocmd FileType puppet NeoBundleSource 'puppet-syntax-vim'
-    " }}}
-    " Docker {{{
-    NeoBundle 'ekalinin/Dockerfile.vim'
-    " }}}
-    " Joke {{{
-    NeoBundle 'mattn/unite-nyancat'
-    NeoBundle 'mhinz/vim-startify'
-    NeoBundle 'junegunn/vim-emoji'
-    " }}}
+    call dein#end()
+    call dein#save_state()
   endif
 
-  if filereadable(expand($HOME . '/.vim/bundle.vim.local'))
-    source $HOME/.vim/bundle.vim.local
+  " Install if declared plugins is not installed
+  if has('vim_starting') && dein#check_install()
+    call dein#install()
   endif
 
-  call neobundle#end()
-
-  filetype plugin indent on " required!
-
-  " If there are uninstalled bundles found on startup,
-  " this will conveniently prompt you to install them.
-  "NeoBundleCheck
+  filetype plugin indent on
 endif
 " }}}
 
@@ -580,6 +289,8 @@ set incsearch   " Typed so far, matches
 set ignorecase  " Ignoring case in a pattern
 set smartcase   " Override ignorecase option (search contains upper case).
 set nowrapscan  " Searches nowrap around.
+
+let g:loaded_matchparen = 1
 
 nnoremap * *N
 nnoremap # #N
@@ -937,17 +648,16 @@ command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
 " Plugins
 if MYVIM_FEATURES_BIG >= g:myvim_features
   " My Plugin: IncrementActivator {{{
-  let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {
-    \   '_': [
-    \     ['light', 'dark'],
-    \     ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
-    \     ['previous', 'current', 'next'],
-    \     ['ぬるぽ', 'ガッ'],
-    \     ['=', ':='],
-    \     ['true', 'false'],
-    \     ['月','火','水','木','金','土','日'],
-    \   ],
-    \ })
+  let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {})
+  let g:increment_activator_filetype_candidates['_'] = [
+    \   ['light', 'dark'],
+    \   ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
+    \   ['previous', 'current', 'next'],
+    \   ['ぬるぽ', 'ガッ'],
+    \   ['=', ':='],
+    \   ['true', 'false'],
+    \   ['月','火','水','木','金','土','日'],
+    \ ]
   " For AWS
   call add(g:increment_activator_filetype_candidates['_'], ['dedicated', 'default'])
   call add(g:increment_activator_filetype_candidates['_'], ['standard', 'io1', 'gp2'])
@@ -1041,9 +751,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   " TODO: Add QuickRun's syntax for xUnit family
   "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
   " }}}
-  " Plugin: vimproc {{{
-  "let g:vimproc_dll_path = s:bundle_dir . '/vimproc/autoload'
-  " }}}
   " Plugin: vim-rooter {{{
   silent! nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
 
@@ -1061,8 +768,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   let g:rooter_change_directory_for_non_project_files = 0
   " }}}
   " Plugin: vimfiler {{{
-  let s:bundle = neobundle#get('vimfiler')
-  function! s:bundle.hooks.on_source(bundle)
+  if dein#tap('vimfiler')
     let g:vimfiler_as_default_explorer = 1
     let g:vimfiler_ignore_pattern = [
       \ '^\.git$', '^\.svn$', '^\.hg$',
@@ -1087,7 +793,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
       let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_trashbox'
     endif
 
-  endfunction
+  endif
 
   nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
     \ -split -direction=topleft -simple -winwidth=35 -project -auto-cd -no-quit -find<CR>
@@ -1355,7 +1061,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
   nnoremap <silent> [unite]l :<C-u>Unite line -no-split -winheight=20<CR>
   nnoremap <silent> [unite]m :<C-u>Unite menu<CR>
-  nnoremap <silent> [unite]n :<C-u>Unite neobundle/install:! -no-start-insert -auto-quit<CR>
+  "nnoremap <silent> [unite]n :<C-u>Unite
   nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]p :<C-u>UniteWithProjectDir file_rec/async -buffer-name=files buffer bookmark file<CR>
   nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
@@ -1366,7 +1072,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
   nnoremap <silent> [unite]C :<C-u>Unite colorscheme -auto-preview -split -winheight=10 -start-insert<CR>
   nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
-  nnoremap <silent> [unite]N :<C-u>Unite neobundle/install -no-start-insert -auto-quit<CR>
+  "nnoremap <silent> [unite]N :<C-u>Unite
   nnoremap <silent> [unite]T :<C-u>Unite -buffer-name=search line
     \ -wrap -winheight=10 -no-quit<CR>todo\\|fixme\\|warn\\|hackme<ESC>
   nnoremap <silent> [unite]W :<C-u>Unite workspace_rec -buffer-name=bookmark file -input=!vendor <CR>
@@ -1654,7 +1360,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " Plugin: matchit.vim {{{
   " INFO: Extended % command.
   "if filereadable($HOME . '/macros/matchit.vim')
-  if filereadable(s:bundle_dir . '/matchit.zip/plugin/matchit.vim')
+  if filereadable(s:dein_dir . '/repos/matchit.zip/plugin/matchit.vim')
     runtime macros/matchit.vim
     let b:match_words = 'if:endif'
     let b:match_ignorecase = 1
@@ -1666,6 +1372,17 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   autocmd FileType python setlocal omnifunc=jedi#completions
   let g:jedi#completions_enabled = 0
   let g:jedi#auto_vim_configuration = 0
+  if dein#tap('jedi-vim')
+    " jediにvimの設定を任せると'completeopt+=preview'するので
+    " 自動設定機能をOFFにし手動で設定を行う
+    let g:jedi#auto_vim_configuration = 0
+    " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+    let g:jedi#popup_select_first = 0
+    " quickrunと被るため大文字に変更
+    let g:jedi#rename_command = '<Leader>R'
+    " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
+    "let g:jedi#goto_assignments_command = '<Leader>G'
+  endif
   " }}}
   " Plugin: vim-textmanip {{{
   let g:textmanip_enable_mappings = get(g:, 'textmanip_enable_mappings', 0)
@@ -1841,12 +1558,10 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
   " }}}
   " Plugin: neosnippet {{{
-  let g:neosnippet#snippets_directory =
-    \ s:bundle_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
-    \ .','. $HOME . '/.vim/snippets'
-    " TODO: Update phpunit snippet for neosnippet
-    "\ .','. s:bundle_dir . '/vim-phpunit-snippets/snippets'
-    "\ .','. s:bundle_dir . '/neocomplcache-phpunit-snippet/autoload/neocomplcache/sources/snippets_complete'
+  " TODO: clear snippets_directory
+  "let g:neosnippet#snippets_directory =
+  "  \ s:dein_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
+  "  \ .','. $HOME . '/.vim/snippets'
 
   nmap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
   imap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
@@ -1886,7 +1601,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   nnoremap <Leader>gc :<C-u>Gcommit<CR>
   "}}}
   " Plugin: vimshell {{{
-  "let s:bundle = neobundle#get('vimshell')
   "function! s:bundle.hooks.on_source(bundle)
     let g:vimshell_temporary_directory = s:tmpdir . '/.vimshell'
     "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'

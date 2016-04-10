@@ -6,8 +6,9 @@ RC_FILES := $(wildcard .*rc)
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
 credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
-links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator
-vim_requires = Shougo/neobundle.vim Shougo/vimproc
+links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
+vim_requires = Shougo/dein.vim
+dir_requires = ~/.config
 
 .PHONY: me $(os)/*
 
@@ -25,7 +26,10 @@ $(os)/%:
   $(links) $(credentials) shell/* vim
 
 # Alias
-install: $(os)/install shell/install credentials vim bin/diff-highlight
+install: $(dir_requires) $(os)/install shell/install credentials vim bin/diff-highlight
+
+$(dir_requires):
+	@mkdir -p $@
 
 clean: $(os)/clean
 
@@ -42,8 +46,8 @@ $(credentials):
 links: $(links)
 
 $(links):
-	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/
-	@ls -ld ~/$@
+	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/$@
+	@ls -dF ~/$@
 
 shell/install: ~/.zplug/zplug
 	@echo Setup SHELL
@@ -56,11 +60,10 @@ shell/install: ~/.zplug/zplug
 
 
 vim: $(vim_requires)
-	./bin/neobundle
 
-$(vim_requires): clone_dir=.vim/bundle/$(notdir $@)
+$(vim_requires): clone_dir=.vim/dein/repos/github.com/$(notdir $@)
 $(vim_requires):
-	mkdir -p .vim/bundle
+	mkdir -p .vim/dein/repos/github.com/
 	test -d $(clone_dir) || git clone https://github.com/$@ $(clone_dir)
 
 bin/diff-highlight:
