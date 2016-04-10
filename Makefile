@@ -25,7 +25,7 @@ $(os)/%:
   $(links) $(credentials) shell/* vim
 
 # Alias
-install:  $(os)/install shell/install credentials vim bin/diff-highlight
+install: $(os)/install shell/install credentials vim bin/diff-highlight
 
 clean: $(os)/clean
 
