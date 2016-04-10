@@ -1,5 +1,5 @@
 # vim: set fdm=marker expandtab filetype=ruby:
-cask_args appdir: '/Applications'
+cask_args appdir: '~/Applications'
 
 tap 'caskroom/cask'
 tap 'caskroom/cask'
@@ -212,6 +212,7 @@ cask 'consul'
   cask 'consul-template'
   cask 'consul-web-ui'
 cask 'dockertoolbox'
+  brew 'docker-machine'
 cask 'dropbox'
 cask 'flash'
 cask 'gimp'
