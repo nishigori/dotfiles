@@ -98,10 +98,6 @@ export SVN_EDITOR=vim
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 
-# sshpass
-# brew install https://raw.github.com/eugeneoden/homebrew/eca9de1/Library/Formula/sshpass.rb
-alias issh="sshpass -f ~/.ssh/pass ssh -o StrictHostKeyChecking=no "
-
 # Travis CI
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
