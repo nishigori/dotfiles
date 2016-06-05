@@ -2,7 +2,6 @@
 cask_args appdir: '~/Applications'
 
 tap 'caskroom/cask'
-tap 'caskroom/cask'
 tap 'caskroom/versions'
 tap 'homebrew/binary'
 tap 'homebrew/boneyard'
@@ -14,6 +13,7 @@ tap 'homebrew/php'
 tap 'homebrew/versions'
 tap 'sanemat/font'
 tap 'supermomonga/splhack'
+tap 'osx-cross/avr'
 
 # Applications
 brew 'homebrew/versions/jenkins-lts'
@@ -36,6 +36,7 @@ cask 'google-japanese-ime'
 cask 'iterm2-beta'
 cask 'java7'
 cask 'macvim-kaoriya'
+cask 'neovim/neovim/neovim'
 cask 'skitch'
 cask 'skype'
 cask 'slack'
@@ -43,6 +44,7 @@ cask 'vagrant'
 cask 'vlc'
 # cask 'wireshark'
 cask 'xtrafinder'
+cask 'xccello'
 
 # VCS, Shell
 brew 'bash'
@@ -148,6 +150,7 @@ brew 'homebrew/boneyard/rocket'
 brew 'homebrew/dupes/zlib'
 brew 'sanemat/font/ricty'
 brew 'supermomonga/splhack/gettext-mk'
+brew 'avr-libc'
 
 # CLI tools
 brew 'pstree'
