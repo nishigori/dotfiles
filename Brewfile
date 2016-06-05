@@ -14,6 +14,8 @@ tap 'homebrew/versions'
 tap 'sanemat/font'
 tap 'supermomonga/splhack'
 tap 'osx-cross/avr'
+tap 'neovim/neovim'
+tap 'rogual/neovim-dot-app'
 
 # Applications
 brew 'homebrew/versions/jenkins-lts'
@@ -36,7 +38,8 @@ cask 'google-japanese-ime'
 cask 'iterm2-beta'
 cask 'java7'
 cask 'macvim-kaoriya'
-cask 'neovim/neovim/neovim'
+cask 'neovim', args: ['HEAD']
+cask 'neovim-dot-app', args: ['HEAD']
 cask 'skitch'
 cask 'skype'
 cask 'slack'
