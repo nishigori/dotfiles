@@ -20,7 +20,6 @@
 " vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
 
 " # Basic {{{
-set norestorescreen
 set guioptions=
 set t_ti=
 set t_te=
@@ -38,6 +37,9 @@ set mouse=a
 " Show popup menu if right click.
 set mousemodel=popup
 set nomousefocus
+if !has('nvim')
+  set norestorescreen
+endif
 " }}}
 " # Quick Start $MYGVIMRC {{{
 if exists('g:local_config')
@@ -99,7 +101,7 @@ endif
 " }}}
 " # Depends On OS {{{
 "if has('gui_macvim')
-if has('mac')
+if has('mac') && !has('nvim')
   set transparency=8
   set noimdisableactivate
 elseif has('win32')

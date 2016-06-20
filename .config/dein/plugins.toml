@@ -22,12 +22,12 @@ depends = 'unite.vim'
 
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-on_path = '.*'
+#on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neoyank.vim'
 lazy = 1
-on_path = '.*'
+#on_path = '.*'
 on_i = 1
 
 [[plugins]]
@@ -146,7 +146,7 @@ repo = 'thinca/vim-visualstar'
 repo = 'Shougo/vimfiler.vim'
 
 [[plugins]]
-repo = 'vim-scripts/taglist.vim'
+repo = 'majutsushi/tagbar'
 # }}}
 
 # Buffer, Status {{{
@@ -215,6 +215,7 @@ on_i = 1
 # Go {{{
 [[plugins]]
 repo = 'zchee/deoplete-go'
+if = 'has("nvim")'
 lazy = 1
 on_i = 1
 on_ft = 'go'
@@ -408,10 +409,11 @@ lazy = 1
 on_ft = [['docker', 'dockerfile']]
 # }}}
 
-# ColorSchemes {{{
+# ColorSchemes if hope, must written on plugins.local.toml {{{
 
 [[plugins]]
 repo = 'Diablo3'
+script_type = 'colors'
 hook_add = '''
   set background=dark
   autocmd MyAutoCmd VimEnter * colorscheme diablo3
@@ -419,6 +421,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'w0ng/vim-hybrid'
+script_type = 'colors'
 hook_add = '''
   set background=dark
   autocmd MyAutoCmd VimEnter * colorscheme hybrid
@@ -426,6 +429,7 @@ hook_add = '''
 
 [[plugins]]
 repo = 'mhartington/oceanic-next'
+script_type = 'colors'
 hook_add = '''
   autocmd MyAutoCmd VimEnter * colorscheme OceanicNext
   set background=light

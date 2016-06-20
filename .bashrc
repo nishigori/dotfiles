@@ -121,7 +121,7 @@ alias phpwatchr='cd $HOME/workspace/phpunit-stack; watchr watchr.rb'
 
 # For golang
 export GOROOT=/usr/local/Cellar/go/1.1.2
-export GOPATH=$HOME/_go
+export GOPATH=~/.go
 export PATH=$PATH:$GOROOT/bin
 
 

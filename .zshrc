@@ -94,6 +94,9 @@ bindkey "^S" history-incremental-search-forward
 # Subversion
 export SVN_EDITOR=vim
 
+# xconfig
+export XDG_CONFIG_HOME=$HOME/.config
+
 # Apache Ant
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"

@@ -2,6 +2,9 @@
 #
 # For Darwin
 #
+VIM_FEATURE := HUGE
+
+
 .PHONY: Darwin/* brew/* firefox/*
 
 Darwin/install: brew/bundle

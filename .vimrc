@@ -24,7 +24,7 @@
 "  0. You just DO WHAT THE FUCK YOU WANT TO.
 " }}}
 "=============================================================================
-" vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
+" vim: set fletype=vim fdm=marker ts=2 sw=2 sts=0 expandtab:
 
 " # runtimepath {{{
 if has('vim_starting') && has('win32')
@@ -36,7 +36,7 @@ endif
 " }}}
 " # encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
-if !has('gui_macvim') || !has('kaoriya')
+if !has('nvim') && (!has('gui_macvim') || !has('kaoriya'))
   " INFO: If encode is fixed, :e ++enc={encoding-name}
   set encoding=utf-8
   set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
@@ -69,6 +69,27 @@ set keywordprg=:help
 nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
 
 let mapleader = " "
+
+if has('nvim')
+    let g:python_host_prog='/usr/local/bin/python3'
+endif
+" }}}
+" # Directory Settings {{{
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:cache_dir = s:cache_home . 'vim'
+if !isdirectory(s:cache_dir)
+  call system('mkdir -p ' . s:cache_dir . '/{swap,backup,view,undo}')
+endif
+
+set backup swapfile
+
+" Not use white space into the statement (Suck!!)
+set directory=~/.cache/vim/swap
+set backupdir=~/.cache/vim/backup
+set viewdir=~/.cache/vim/view
+if has('persistent_undo')
+  set undodir=~/.cache/vim/undo
+endif
 " }}}
 " # Local Dependency {{{
 set nobackup noswapfile
@@ -105,13 +126,9 @@ if filereadable(expand($MYVIMRC_LOCAL))
   endfunction " }}}
 endif
 
-let s:tmpdir = exists('g:local_config["tmp_dir"]')
-  \ ? g:local_config['tmp_dir']
-  \ : $HOME
 " }}}
 
 " # dein {{{
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 let s:dein_dir = s:cache_home . '/dein'
 if MYVIM_FEATURES_BIG >= g:myvim_features
   if &compatible
@@ -129,8 +146,8 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   endif
   let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
-  let s:toml_file = fnamemodify(expand('<sfile>'), ':h').'/.config/dein/plugins.toml'
-  let s:toml_file_local = fnamemodify(expand('<sfile>'), ':h').'/.config/plugins.local.toml'
+  let s:toml_file = '~/.config/dein/plugins.toml'
+  let s:toml_file_local = '~/.config/plugins.local.toml'
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
     call dein#load_toml(s:toml_file)
@@ -191,6 +208,20 @@ endif
 set showmatch
 set matchtime=3
 set matchpairs& matchpairs+=<:>
+
+" highlight each language in markdown
+" http://mattn.kaoriya.net/software/vim/20140523124903.htm
+let g:markdown_fenced_languages = [
+\  'css',
+\  'go',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'ruby',
+\  'sass',
+\  'xml',
+\  'erlang',
+\]
 " }}}
 " # Indent {{{
 set autoindent
@@ -300,10 +331,13 @@ nnoremap \ /^
 " # Copy & Paste {{{
 "set paste " When you're setting paste, can't use inoremap extend ;-<
 if has('clipboard')
-  set clipboard=unnamed,autoselect
-  " For Ubuntu "+y not * (;h clipboard)
+  if !has('nvim')
+    " https://github.com/neovim/neovim/wiki/FAQ#something-broke-after-updating-to-a-newer-version
+    set clipboard=unnamed,autoselect
+  endif
 
   " Copy
+  " For Ubuntu "+y not * (;h clipboard)
   vnoremap <C-c> "+y
   " Paste
   vnoremap <C-v> d"+P
@@ -644,6 +678,11 @@ function! s:StartMyVimMode()
 endfunction
 command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
 " }}}
+" # NeoVim loading key {{{
+if has('nvim')
+  source ~/.gvimrc
+endif
+" }}}
 
 " Plugins
 if MYVIM_FEATURES_BIG >= g:myvim_features
@@ -694,21 +733,33 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
       \ ) . '/TODO.rst'
   endfunction
   nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
+  nnoremap <silent> <M-t><M-t> :<C-u>edit $HOME/TODO.rst<CR>
   " }}}
   " Plugin: QuickRun, Quicklaunch & xUnit {{{
   let g:quickrun_config = get(g:, 'quickrun_config', {})
   "nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
-  nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:updatetime=10 -split 'rightbelow 50vsp'<CR>
+  nnoremap <silent> <Leader>r :<C-u>QuickRun<CR>
+
+  " Stop quickrun
+  nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
+  " Close quickrun buffer
+  nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
 
   let b:quickrun_config = {
-    \   'runner/vimproc' : 90,
-    \   'runner/vimproc/updatetime' : 90,
+    \   'runner' : 'vimproc',
+    \   'runner/vimproc/updatetime' : 60,
     \ }
   let g:quickrun_config = {
     \   '_' : {
-    \     'runner/vimproc' : 90,
-    \     'runner/vimproc/updatetime' : 90,
-    \     'outputter' : 'buffer',
+    \     'runner' : 'vimproc',
+    \     'runner/vimproc/updatetime' : 60,
+    \     'outputter/error/success' : 'buffer',
+    \     'outputter/error/error' : 'quickfix',
+    \     'outputter/buffer/close_on_empty' : 1,
+    \     'hook/time/enable': 1,
+    \     'outputter/buffer/split': 'top 8sp',
+    \     'outputter/buffer/running_mark': 'just running quickrun ...',
     \   },
     \   'run/vimproc' : {
     \     'exec' : '%s:p:r %a',
@@ -779,7 +830,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
       \ '^.*\.phar$',
       \ '^.*\.o$',
       \ ]
-    let g:vimfiler_data_directory      = s:tmpdir . '/vimfiler'
+    let g:vimfiler_data_directory      = s:cache_dir . '/vimfiler'
     let g:vimfiler_time_format         = "%y-%m-%d %H:%M"
 
     " Like Textmate icons.
@@ -790,13 +841,13 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     let g:vimfiler_marked_file_icon = '*'
 
     if has('win32')
-      let g:unite_kind_file_use_trashbox = s:tmpdir . '/vimfiler_trashbox'
+      let g:unite_kind_file_use_trashbox = s:cache_dir . '/vimfiler_trashbox'
     endif
 
   endif
 
   nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
-    \ -split -direction=topleft -simple -winwidth=35 -project -auto-cd -no-quit -find<CR>
+    \ -split -direction=topleft -simple -winwidth=45 -project -auto-cd -no-quit -find<CR>
 
   call vimfiler#custom#profile('default', 'context', {
     \ 'safe' : 0,
@@ -804,7 +855,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \ 'sort_type': 'filename',
     \ })
 
-  nnoremap <Leader>vf :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
+  nnoremap <Leader>vf :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit<CR>
   " }}}
   " Plugin: neomru {{{
   let g:neomru#file_mru_limit = 1024
@@ -847,7 +898,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   " }}}
   " Plugin: unite.vim {{{
   let g:unite_data_directory =
-    \ get(g:, 'local_unite_data_directory', s:tmpdir . '/unite')
+    \ get(g:, 'local_unite_data_directory', s:cache_dir . '/unite')
 
   let g:unite_prompt = '☁  '
 
@@ -1078,23 +1129,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <silent> [unite]W :<C-u>Unite workspace_rec -buffer-name=bookmark file -input=!vendor <CR>
 
   " }}}
-  " go/golang {{{
-
-  " RSS:
-  " - http://kaworu.jpn.org/vim/vimのGo開発環境
-
-  " https://github.com/majutsushi/tagbar/wiki#google-go
-  let g:tagbar_type_go = {
-    \   'ctagstype': 'go',
-    \   'kinds': [
-    \     'p:package',
-    \     'f:function',
-    \     'v:variables',
-    \     't:type',
-    \     'c:const',
-    \   ],
-    \ }
-  " }}}
   " ReStructedText / Sphinx {{{
   if exists('g:sphinx_build_bin')
     let g:quickrun_config['rst'] = {
@@ -1106,6 +1140,9 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   " }}}
   " Plugin: vim-markdown {{{
   let g:vim_markdown_initial_foldlevel = 2
+  " }}}
+  " Plugin: tagvar {{{
+  nnoremap <silent> tl :TagbarToggle<CR>
   " }}}
 endif
 
@@ -1136,7 +1173,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
     \ },
     \ 'component_function': {
-    \   'venv': 'MyVirtualEnv',
     \   'fugitive': 'MyFugitive',
     \   'filename': 'MyFilename',
     \   'fileformat': 'MyFileformat',
@@ -1155,9 +1191,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
 
   let g:virtualenv_stl_format = 'venv@%n'
-  function! MyVirtualEnv()
-    return virtualenv#statusline()
-  endfunction
 
   function! MyModified()
     return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -1286,16 +1319,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:calendar_google_calendar = 1
   let g:calendar_google_task = 1
 
-  " }}}
-  " Plugin: taglist.vim {{{
-  if has('path_extra')
-    nnoremap <silent> tl :<C-u>Tlist<CR>
-    let g:Tlist_Exit_OnlyWindow = 1 " Closable When last window is taglist
-    let g:Tlist_WinWidth = 40
-    let g:Tlist_Enable_Fold_Column = 2
-    "let g:Tlist_Process_File_Always = 1
-    "let g:Tlist_Show_One_File = 1
-  endif
+  let g:calendar_diary = '~/.cache/vim/calendar_vim_diary'
   " }}}
   " Plugin: context_filetype.vim {{{
   let g:context_filetype#filetypes = {
@@ -1366,6 +1390,17 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     let b:match_ignorecase = 1
   endif
   " }}}
+  " Plugin: vim-go {{{
+  let g:go_get_update = 0
+
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_fields = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_interfaces = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+  " }}}
   " Plugin: jedi-vim {{{
   let g:jedi#auto_vim_configuration = 0
 
@@ -1408,7 +1443,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " }}}
   " Plugin: TweetVim {{{
   let g:tweetvim_tweet_per_page = 30
-  let g:tweetvim_config_dir  = s:tmpdir . '/tweetvim'
+  let g:tweetvim_config_dir  = s:cache_dir . '/tweetvim'
   let g:tweetvim_include_rts = 1
   let g:tweetvim_open_buffer_cmd = 'split -winheight=12 edit!'
   nnoremap <silent> ts :<C-u>TweetVimSay<Cr>
@@ -1416,7 +1451,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   nnoremap <silent> tt :<C-u>Unite tweetvim<Cr>
   " }}}
   " Plugin: dbext.vim {{{
-  let g:dbext_default_history_file = s:tmpdir . '/dbext_sql_history.sql'
+  let g:dbext_default_history_file = s:cache_dir . '/dbext_sql_history.sql'
   " }}}
   " Plugin: surround.vim {{{
   nmap ,( csw(
@@ -1498,7 +1533,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:neocomplete#enable_fuzzy_completion = 1
   "let g:neocomplete#enable_multibyte_completion = 0
   "let g:neocomplete#lock_iminsert = 0
-  let g:neocomplete#data_directory = s:tmpdir . '/neocomplete'
+  let g:neocomplete#data_directory = s:cache_dir . '/neocomplete'
   let g:neocomplete#keyword_patterns = get(g:, 'neocomplete#keyword_patterns', {})
   let g:neocomplete#force_omni_input_patterns =
     \ get(g:, 'neocomplete#force_omni_input_patterns', {})
@@ -1581,7 +1616,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:jscomplete_use = ['dom']
   " }}}
   " Plugin: vim-vcs {{{
-  let g:vcs#config_log_file = s:tmpdir . '/vcs'
+  let g:vcs#config_log_file = s:cache_dir . '/vcs'
   " }}}
   " Plugin: vim-fugitive {{{
   " Gstatus
@@ -1602,7 +1637,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   "}}}
   " Plugin: vimshell {{{
   "function! s:bundle.hooks.on_source(bundle)
-    let g:vimshell_temporary_directory = s:tmpdir . '/.vimshell'
+    let g:vimshell_temporary_directory = s:cache_dir . '/.vimshell'
     "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
     let g:vimshell_enable_smart_case = 1
     let g:vimshell_enable_auto_slash = 1
@@ -1674,7 +1709,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   "endfunction
   " }}}
   " Plugin: alpaca_tags {{{
-  "let g:alpaca_tags#cache_dir = g:local_config['tmp_dir'] . '/.alpaca_tags'
   let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {})
   let g:alpaca_tags#config['js'] = '-R --languages=+js'
   let g:alpaca_tags#config['ruby'] = '--langmap=RUBY:.rb --exclude="*.js" --exclude=".git*'

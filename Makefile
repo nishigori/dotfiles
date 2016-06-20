@@ -8,7 +8,7 @@ os := $(shell uname -s)
 credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
 vim_requires = Shougo/dein.vim
-dir_requires = ~/.config
+dir_requires = ~/.config ~/.config/nvim/
 
 .PHONY: me $(os)/*
 
@@ -18,6 +18,9 @@ me: links credentials
 # Declared on $(os).mk, It's template
 $(os)/%:
 	@echo $@: nothing todo
+
+# Each OS variables but the defaults
+VIM_FEATURE := TINY
 
 -include $(os).mk
 
@@ -59,6 +62,10 @@ shell/install: ~/.zplug/zplug
 	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 
 
+bin/diff-highlight:
+	wget -O $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
+	chmod +x $@
+
 vim: $(vim_requires)
 
 $(vim_requires): clone_dir=.vim/dein/repos/github.com/$(notdir $@)
@@ -66,6 +73,6 @@ $(vim_requires):
 	mkdir -p .vim/dein/repos/github.com/
 	test -d $(clone_dir) || git clone https://github.com/$@ $(clone_dir)
 
-bin/diff-highlight:
-	wget -O $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
-	chmod +x $@
+neovim: $(dir_requires) $(vim_requires)
+	ln -snfv $$HOME/.vim $$HOME/.config/nvim/
+	ln -snfv $$HOME/.vimrc $$HOME/.config/nvim/init.vim

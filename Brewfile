@@ -14,7 +14,6 @@ tap 'homebrew/versions'
 tap 'sanemat/font'
 tap 'supermomonga/splhack'
 tap 'osx-cross/avr'
-tap 'neovim/neovim'
 tap 'rogual/neovim-dot-app'
 
 # Applications
@@ -34,11 +33,11 @@ cask 'dropbox'
 cask 'flash'
 cask 'gimp'
 cask 'google-chrome'
+cask 'vivaldi'
 cask 'google-japanese-ime'
 cask 'iterm2-beta'
 cask 'java7'
 cask 'macvim-kaoriya'
-cask 'neovim', args: ['HEAD']
 cask 'neovim-dot-app', args: ['HEAD']
 cask 'skitch'
 cask 'skype'
