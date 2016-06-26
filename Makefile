@@ -3,6 +3,8 @@
 SHELL := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
+DOCKER_ENV:=default
+
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
 credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
@@ -76,3 +78,5 @@ $(vim_requires):
 neovim: $(dir_requires) $(vim_requires)
 	ln -snfv $$HOME/.vim $$HOME/.config/nvim/
 	ln -snfv $$HOME/.vimrc $$HOME/.config/nvim/init.vim
+
+docker.start: $(os)/docker.start
