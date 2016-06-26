@@ -1,13 +1,30 @@
-let hintcharacters="abcdfjkl"
-let locale = "jp"
+set nohud
+set smoothscroll
+set typelinkhints
+set noautofocus
 
-map <C-f> scrollPageDown
-map <C-b> scrollPageUp
-map ; :
+let searchlimit = 40
+let scrollstep = 70
+let barposition = "bottom"
+
+let locale = "jp"
+let hintcharacters="abcdfjkl"
+
 map <C-p> previousTab
 map <C-n> nextTab
+map <C-f> scrollPageDown
+map <C-b> scrollPageUp
+map <S-g> scrollFullPageDown
+map d closeTab
+map <S-d> closeTab
+map u :undo<CR>
+map y yankUrl
+
+map ; openCommandBar
+
+map t :tabnew<Space>
 
 imap <C-w> deleteWord
-imap <C-[> <ESC>gi
+imap <C-[> <ESC>
 imap <C-p> backwardLine
 imap <C-h> deleteChar
