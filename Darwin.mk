@@ -30,6 +30,4 @@ firefox/clean:
 	find ~/Library/Application\ Support/Firefox/Profiles/ -maxdepth 2 -type f -name "*.sqlite" | xargs -I {} sqlite3 {} "VACUUM; REINDEX;"
 
 Darwin/docker.start:
-	@which docker-machine
-	docker-machine start $(DOCKER_ENV)
-	eval "$$(docker-machine env $(DOCKER_ENV))"
+	@echo "Darwin is other handle Docker for Mac as unused docker-toolbox"
