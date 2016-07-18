@@ -1097,7 +1097,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <C-p> :<C-u>Unite file_mru<CR>
   nnoremap <C-n> :<C-u>Unite buffer bookmark<CR>
   nnoremap <D-b> :<C-u>Unite bookmark<CR>
-  nnoremap <C-m> :<C-u>Unite mark<CR>
   "nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
 
   nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
@@ -1112,6 +1111,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
   nnoremap <silent> [unite]l :<C-u>Unite line -no-split -winheight=20<CR>
   nnoremap <silent> [unite]m :<C-u>Unite menu<CR>
+  nnoremap <silent> [unite]M :<C-u>Unite mark<CR>
   "nnoremap <silent> [unite]n :<C-u>Unite
   nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
   nnoremap <silent> [unite]p :<C-u>UniteWithProjectDir file_rec/async -buffer-name=files buffer bookmark file<CR>
