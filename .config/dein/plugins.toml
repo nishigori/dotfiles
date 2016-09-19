@@ -43,6 +43,10 @@ depends = 'unite.vim'
 #depends = 'unite.vim'
 
 [[plugins]]
+repo = 'sorah/unite-ghq'
+on_source = 'unite.vim'
+
+[[plugins]]
 repo = 'sgur/unite-git_grep'
 depends = 'unite.vim'
 
@@ -350,8 +354,13 @@ lazy = 1
 on_ft = 'json'
 
 [[plugin]]
-repo = 'tpope/vim-markdown'
+repo = 'godlygeek/tabular'
 lazy = 1
+
+[[plugin]]
+repo = 'plasticboy/vim-markdown'
+lazy = 1
+depends = 'tabular'
 on_ft = [['markdown', 'mkd']]
 
 [[plugins]]
@@ -412,28 +421,28 @@ on_ft = [['docker', 'dockerfile']]
 # ColorSchemes if hope, must written on plugins.local.toml {{{
 
 [[plugins]]
-repo = 'Diablo3'
-script_type = 'colors'
-hook_add = '''
-  set background=dark
-  autocmd MyAutoCmd VimEnter * colorscheme diablo3
-'''
-
-[[plugins]]
-repo = 'w0ng/vim-hybrid'
-script_type = 'colors'
-hook_add = '''
-  set background=dark
-  autocmd MyAutoCmd VimEnter * colorscheme hybrid
-'''
-
-[[plugins]]
 repo = 'mhartington/oceanic-next'
 script_type = 'colors'
 hook_add = '''
   autocmd MyAutoCmd VimEnter * colorscheme OceanicNext
   set background=light
 '''
+
+#[[plugins]]
+#repo = 'Diablo3'
+#script_type = 'colors'
+#hook_add = '''
+  #set background=dark
+  #autocmd MyAutoCmd VimEnter * colorscheme diablo3
+#'''
+
+#[[plugins]]
+#repo = 'w0ng/vim-hybrid'
+#script_type = 'colors'
+#hook_add = '''
+  #set background=dark
+  #autocmd MyAutoCmd VimEnter * colorscheme hybrid
+#'''
 
 
 # Other candidates

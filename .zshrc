@@ -73,7 +73,36 @@ alias di='git diff --ignore-space-change'
 alias dic='git diff --cached --ignore-space-change'
 alias dis='git diff --stat'
 
+####
+# Go
+####
+export GOPATH=$HOME
+if which go > /dev/null; then
+    export GOROOT=$( go env GOROOT )
+fi
+export PATH=$GOPATH/bin:$PATH
+
+
+######
+# peco
+######
+bindkey '^O' peco-src
+
+function peco-src () {
+    local selected_dir=$(ghq list | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        selected_dir="$GOPATH/src/$selected_dir"
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-src
+
+
+#######
 # Ctags
+#######
 # like vimrc alpaca_tags settings
 local ctags_default_opt='-R --exclude=".git*" --sort=yes'
 alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"

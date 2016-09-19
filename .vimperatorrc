@@ -20,7 +20,7 @@ vnoremap : ;
 " # BASIC {{{
 set titlestring="Vimperatorたん"
 set history=511
-set focuscontent
+set nofocuscontent
 set runtimepath=~/.vimperator
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 set scrollbars=false

@@ -165,6 +165,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   endif
 
   filetype plugin indent on
+  syntax enable
 endif
 " }}}
 
@@ -737,7 +738,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   " }}}
   " Plugin: QuickRun, Quicklaunch & xUnit {{{
   let g:quickrun_config = get(g:, 'quickrun_config', {})
-  "nnoremap <silent> <Leader>r :<C-u>QuickRun -runner vimproc:90 -split 'rightbelow 50vsp'<CR>
   nnoremap <silent> <Leader>r :<C-u>QuickRun<CR>
 
   " Stop quickrun
@@ -758,7 +758,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \     'outputter/error/error' : 'quickfix',
     \     'outputter/buffer/close_on_empty' : 1,
     \     'hook/time/enable': 1,
-    \     'outputter/buffer/split': 'top 8sp',
+    \     'outputter/buffer/split': 'rightbelow 50vsp',
     \     'outputter/buffer/running_mark': 'just running quickrun ...',
     \   },
     \   'run/vimproc' : {

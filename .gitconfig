@@ -49,3 +49,6 @@
 
 [include]
 	path = ~/.gitsecret
+
+[ghq]
+	root = ~/src

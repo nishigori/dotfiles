@@ -10,7 +10,7 @@ os := $(shell uname -s)
 credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
 vim_requires = Shougo/dein.vim
-dir_requires = ~/.config ~/.config/nvim/
+dir_requires = ~/src ~/bin ~/.config ~/.config/nvim/
 
 .PHONY: me $(os)/*
 
@@ -51,7 +51,7 @@ $(credentials):
 links: $(links)
 
 $(links):
-	@test -h ~/$@ || ln -s $(CURDIR)/$@ ~/$@
+	@ln -sf $(CURDIR)/$@ ~/$@
 	@ls -dF ~/$@
 
 shell/install: ~/.zplug/zplug
