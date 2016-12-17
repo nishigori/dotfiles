@@ -150,10 +150,13 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   let s:toml_file_local = '~/.config/plugins.local.toml'
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
-    call dein#load_toml(s:toml_file)
     if filereadable(s:toml_file_local)
       call dein#load_toml(s:toml_file_local)
     endif
+
+    call dein#load_toml(s:toml_file)
+    call dein#add('godlygeek/tabular')
+    call dein#add('plasticboy/vim-markdown', { 'lazy' : 1, 'on_ft': ['markdown', 'mkd'] })
 
     call dein#end()
     call dein#save_state()
@@ -1139,7 +1142,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   endif
   " }}}
   " Plugin: vim-markdown {{{
-  let g:vim_markdown_initial_foldlevel = 2
+  let g:vim_markdown_folding_level = 2
   " }}}
   " Plugin: tagvar {{{
   nnoremap <silent> tl :TagbarToggle<CR>
