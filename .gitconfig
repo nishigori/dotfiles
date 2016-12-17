@@ -2,6 +2,7 @@
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore
+	quotepath = false
 
 [color]
 	ui = auto
