@@ -51,7 +51,7 @@ $(credentials):
 links: $(links)
 
 $(links):
-	@ln -sf $(CURDIR)/$@ ~/$@
+	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
 	@ls -dF ~/$@
 
 shell/install: ~/.zplug/zplug
