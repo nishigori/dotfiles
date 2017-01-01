@@ -100,6 +100,10 @@ function peco-src () {
 }
 zle -N peco-src
 
+########
+# direnv
+########
+eval "$(direnv hook zsh)"
 
 #######
 # Ctags
