@@ -6,7 +6,8 @@ set scrolloff=8
 set number
 set relativenumber
 
-set novisualbell
+set visualbell
+set noerrorbells
 
 inoremap <C-]> <Esc>
 
