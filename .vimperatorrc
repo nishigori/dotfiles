@@ -9,6 +9,7 @@
 " nextlink.js:            AutoPagerize 用の XPath より "[[", "]]"をマッピング
 " statusline-toolbar.js:  ステータスラインにステータスバーのアイコンやツールバーボタンを表示
 " pdf-js plugin:          https://gist.github.com/1452357
+js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
 
 " # CAUTION Switch ; <-> : !! {{{
 " Don't use ':remap' as possible (for Unaffected).
@@ -56,7 +57,7 @@ set hlsearch
 set maxitems=27
 " }}}
 " # <Tab> & WINDOW {{{
-"set tabnumbers
+set tabnumbers
 
 nnoremap <silent> <C-n> :tabnext<Cr>
 " focus Alt key
