@@ -1,6 +1,6 @@
 # My zshrc
 #
-export PATH=$HOME/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:$PATH
 
 # Python
 export VIRTUALENVWRAPPER_PYTHON=$(which python)

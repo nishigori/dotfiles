@@ -63,6 +63,7 @@ set title
 set completeopt=menuone        " A comma separated list of options
 set scrolloff=10               " Typewriter mode = keep current line in the center
 set formatoptions+=mM          " This is a sequence of letters
+set visualbell t_vb=           " no bell
 
 set helplang=ja,en
 set keywordprg=:help

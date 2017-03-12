@@ -32,6 +32,7 @@ let g:tagbar_type_go = {
 \ }
 
 if $GOROOT != ''
+  set rtp+=$GOROOT/misc/vim
   exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
   autocmd FileType go :set completeopt=menu,preview
 endif

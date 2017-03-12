@@ -27,5 +27,5 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *vimperatorrc*,*.vimp   setfiletype vimperator
   au! BufRead,BufNewFile *muttatorrc*,*.muttator setfiletype muttator
   au! BufRead,BufNewFile */bundle/*/doc/*        setfiletype help
-  au! BufRead,BufNewFile Dockerfile.template     set filetype=Dockerfile
+  au! BufRead,BufNewFile Dockerfile.*     set filetype=Dockerfile
 augroup END
