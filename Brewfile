@@ -1,3 +1,5 @@
+cask_args appdir: '/Applications'
+
 tap 'caskroom/cask'
 tap 'caskroom/versions'
 tap 'homebrew/binary'
@@ -175,6 +177,7 @@ brew 'watch'
 brew 'wget'
 brew 'wrk'
 brew 'zsh'
+brew 'zplug'
 brew 'homebrew/boneyard/luarocks'
 brew 'homebrew/boneyard/powerline'
 brew 'homebrew/boneyard/rocket'

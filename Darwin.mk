@@ -3,21 +3,29 @@
 # For Darwin
 #
 VIM_FEATURE := HUGE
+BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/install
 
 
 .PHONY: Darwin/* brew/* firefox/*
 
-Darwin/install: brew/bundle
+Darwin/install: brew/install brew/tap brew/bunle
 
 Darwin/clean: brew/clean firefox/clean
 
 Darwin/update: brew/update brew/upgrade
 
+brew/install:
+	/usr/bin/ruby -e "$$(curl -fsSL $(BREW_DOWNLOAD_URL))"
+
+brew/tap:
+	brew tap Homebrew/bundle
+
 brew/bundle:
-	brew bundle -v
+	brew bundle
 
 brew/clean:
 	brew bundle cleanup
+	brew cask cleanup
 
 brew/update:
 	brew update

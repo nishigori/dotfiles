@@ -13,7 +13,17 @@ vim_requires := Shougo/dein.vim
 dir_requires := ~/src ~/bin ~/.config ~/.config/nvim/
 bin_requires := ~/bin/diff-highlight
 
-.PHONY: me $(os)/*
+
+.PHONY: help me $(os)/*
+.DEFAULT_GOAL: help
+
+help:
+	@cat ./asciiart.txt
+	@echo "These are public command list (\`・ω・´)"
+	@grep -E '^[a-zA-Z_%-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+
+all: me install vim
 
 me: links credentials
 	@echo Make me happy :D
@@ -32,7 +42,7 @@ VIM_FEATURE := TINY
   $(links) $(credentials) shell/* vim
 
 # Alias
-install: $(dir_requires) $(bin_requires) $(os)/install shell/install credentials vim
+install: $(dir_requires) $(bin_requires) $(os)/install shell/install credentials
 
 $(dir_requires):
 	@mkdir -p $@
@@ -55,14 +65,11 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
 	@ls -dF ~/$@
 
-shell/install: ~/.zplug/zplug
+shell/install:
 	@echo Setup SHELL
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
 	-time ( source ~/.$(notdir $(SHELL))rc )
-
-~/.zplug/zplug:
-	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 
 
 ~/bin/diff-highlight: ~/bin
