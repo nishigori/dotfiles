@@ -1,17 +1,17 @@
 # Makefile in nishigori/dotfiles
 #
-SHELL := $(shell which zsh)
+SHELL     = $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
 DOCKER_ENV:=default
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
-links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
-vim_requires = Shougo/dein.vim
-dir_requires = ~/src ~/bin ~/.config ~/.config/nvim/
-bin_requires = ~/bin/diff-highlight
+credentials  := .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
+links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
+vim_requires := Shougo/dein.vim
+dir_requires := ~/src ~/bin ~/.config ~/.config/nvim/
+bin_requires := ~/bin/diff-highlight
 
 .PHONY: me $(os)/*
 

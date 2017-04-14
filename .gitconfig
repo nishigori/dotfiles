@@ -1,12 +1,12 @@
 ; vim: set ts=4 sw=4 sts=0 noexpandtab:
 [core]
-	editor = vim
+	editor       = vim
 	excludesfile = ~/.gitignore
-	quotepath = false
+	quotepath    = false
 
 [color]
-	ui = auto
-	diff = auto
+	ui     = auto
+	diff   = auto
 	status = auto
 	branch = auto
 
@@ -31,24 +31,24 @@
 	tool = vimdiff
 
 [alias]
-	co = checkout
-	cob = checkout -b
-	ci = commit --verbose
-	di = diff --ignore-space-change
-	dic = diff --cached --ignore-space-change
-	dis = diff --stat
-	br = branch --verbose
-	bra = branch --verbose --all
-	brd = branch --delete -vv
-	fv = fetch --verbose --prune
-	hist = log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'
+	co        = checkout
+	cob       = checkout -b
+	ci        = commit --verbose
+	di        = diff --ignore-space-change
+	dic       = diff --cached --ignore-space-change
+	dis       = diff --stat
+	br        = branch --verbose
+	bra       = branch --verbose --all
+	brd       = branch --delete -vv
+	fv        = fetch --verbose --prune
+	hist      = log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'
 	logpretty = log --decorate --graph --name-status --oneline
-	pv = pull --verbose
-	rb = rebase --verbose
-	st = status
-	wc = whatchanged
-	souji = !git branch --merged | grep -vE '(^[*] | master)' | xargs git branch -d
-	master = !git checkout master && git fv && git rebase origin/master -v
+	pv        = pull --verbose
+	rb        = rebase --verbose
+	st        = status
+	wc        = whatchanged
+	souji     = !git branch --merged | grep -vE '(^[*] | master)' | xargs git branch -d
+	master    = !git checkout master && git fv && git rebase origin/master -v
 
 [include]
 	path = ~/.gitsecret
