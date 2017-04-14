@@ -14,7 +14,6 @@ tap 'neovim/neovim'
 tap 'osx-cross/avr'
 tap 'rogual/neovim-dot-app'
 tap 'sanemat/font'
-tap 'supermomonga/splhack'
 cask 'java'
 brew 'ack'
 brew 'xz'
@@ -196,9 +195,6 @@ brew 'osx-cross/avr/avr-gcc'
 brew 'osx-cross/avr/avr-libc'
 brew 'rogual/neovim-dot-app/neovim-dot-app', args: ['HEAD']
 brew 'sanemat/font/ricty'
-brew 'supermomonga/splhack/cmigemo-mk', args: ['HEAD']
-brew 'supermomonga/splhack/ctags-objc-ja', args: ['HEAD']
-brew 'supermomonga/splhack/gettext-mk'
 cask 'adobe-reader'
 cask 'alfred'
 cask 'anaconda'
