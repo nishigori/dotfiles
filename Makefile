@@ -10,7 +10,7 @@ os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
 vim_requires := Shougo/dein.vim
-dir_requires := ~/src ~/bin ~/.config ~/.config/nvim/
+dir_requires := ~/src ~/bin ~/.config ~/.config/nvim/ ~/.cache/vim/{undo,swap,backup,unite,view}
 bin_requires := ~/bin/diff-highlight
 
 
