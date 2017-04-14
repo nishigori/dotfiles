@@ -57,7 +57,7 @@ $(credentials):
 		echo "(maybe) U should edit $@ just putting"; \
 	fi
 
-links: $(links)
+links: $(dir_requires) $(links)
 
 $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
