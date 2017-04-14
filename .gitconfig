@@ -18,10 +18,10 @@
 
 [pager]
 	;; diff-highlight is {git-repo}/contrib/diff-highlight/diff-highlight
-	log = diff-highlight | less --no-init --quit-if-one-screen
-	show = diff-highlight | less --no-init --quit-if-one-screen
-	diff = diff-highlight | less --no-init --quit-if-one-screen
-	grep = less --no-init --quit-if-one-screen
+	log   = ~/bin/diff-highlight | less --no-init --quit-if-one-screen
+	show  = ~/bin/diff-highlight | less --no-init --quit-if-one-screen
+	diff  = ~/bin/diff-highlight | less --no-init --quit-if-one-screen
+	grep  = less --no-init --quit-if-one-screen
 	stash = false
 
 [pull]

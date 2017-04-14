@@ -11,6 +11,7 @@ credentials = .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
 links = $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
 vim_requires = Shougo/dein.vim
 dir_requires = ~/src ~/bin ~/.config ~/.config/nvim/
+bin_requires = ~/bin/diff-highlight
 
 .PHONY: me $(os)/*
 
@@ -31,7 +32,7 @@ VIM_FEATURE := TINY
   $(links) $(credentials) shell/* vim
 
 # Alias
-install: $(dir_requires) $(os)/install shell/install credentials vim bin/diff-highlight
+install: $(dir_requires) $(bin_requires) $(os)/install shell/install credentials vim
 
 $(dir_requires):
 	@mkdir -p $@
@@ -64,8 +65,8 @@ shell/install: ~/.zplug/zplug
 	curl -fLo ~/.zplug/zplug --create-dirs https://git.io/zplug
 
 
-bin/diff-highlight:
-	wget -O $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
+~/bin/diff-highlight: ~/bin
+	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
 	chmod +x $@
 
 vim: $(vim_requires)
