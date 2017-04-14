@@ -1,6 +1,6 @@
 # Makefile in nishigori/dotfiles
 #
-SHELL     = $(shell which zsh)
+SHELL    := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
 DOCKER_ENV:=default
