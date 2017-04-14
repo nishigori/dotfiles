@@ -49,7 +49,7 @@ clean: $(os)/clean
 
 update: links $(os)/update
 
-credentials: $(credentials)
+credentials: $(dir_requires) $(credentials)
 
 $(credentials):
 	@if ! [ -f ~/$@ ]; then \
