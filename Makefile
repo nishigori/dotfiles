@@ -18,8 +18,6 @@ bin_requires := ~/bin/diff-highlight
 .DEFAULT_GOAL: help
 
 help:
-	@cat ./asciiart.txt
-	@echo "These are public command list (\`・ω・´)"
 	@grep -E '^[a-zA-Z_%-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 
