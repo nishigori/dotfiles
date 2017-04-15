@@ -5,22 +5,23 @@
 VIM_FEATURE := HUGE
 
 BREW              := /usr/local/bin/brew
+BREW_MAS          := /usr/local/bin/mas
 BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/install
 
 
 .PHONY: Darwin/* brew/* firefox/*
 
-Darwin/install: brew/install brew/tap brew/bunle
+Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bunle
 
 Darwin/clean: brew/clean firefox/clean
 
 Darwin/update: brew/update brew/upgrade
 
-brew/install: $(BREW)
-	$(BREW) install mas
-
 $(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL $(BREW_DOWNLOAD_URL))"
+
+$(BREW_MAS):
+	$(BREW) install mas
 
 brew/tap:
 	brew tap Homebrew/bundle
