@@ -3,6 +3,8 @@
 # For Darwin
 #
 VIM_FEATURE := HUGE
+
+BREW              := /usr/local/bin/brew
 BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/install
 
 
@@ -14,7 +16,10 @@ Darwin/clean: brew/clean firefox/clean
 
 Darwin/update: brew/update brew/upgrade
 
-brew/install:
+brew/install: $(BREW)
+	$(BREW) install mas
+
+$(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL $(BREW_DOWNLOAD_URL))"
 
 brew/tap:
