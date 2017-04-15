@@ -11,7 +11,7 @@ BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/i
 
 .PHONY: Darwin/* brew/* firefox/*
 
-Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bunle
+Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle
 
 Darwin/clean: brew/clean firefox/clean
 
