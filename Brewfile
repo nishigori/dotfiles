@@ -161,9 +161,7 @@ brew 'watch'
 brew 'zlib'
 
 tap 'osx-cross/avr'
-brew 'osx-cross/avr/avr-binutils'
-brew 'osx-cross/avr/avr-gcc'
-brew 'osx-cross/avr/avr-libc'
+brew 'avr-libc'
 
 #tap 'neovim/neovim'
 #tap 'rogual/neovim-dot-app'
