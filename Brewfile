@@ -181,5 +181,5 @@ brew 'cmake'
 brew 'curl', args: ['with-libressl']
 brew 'wrk'
 
-tap 'osx-cross/avr'
-brew 'avr-libc'
+#tap 'osx-cross/avr'
+#brew 'avr-libc'
