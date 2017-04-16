@@ -12,6 +12,8 @@ BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/i
 .PHONY: Darwin/* brew/* firefox/*
 
 Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle
+	@echo "\nManually Installations:"
+	@echo "MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases"
 
 Darwin/clean: brew/clean firefox/clean
 

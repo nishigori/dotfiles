@@ -12,7 +12,6 @@ mas 'TweetDeck', id: 485812721
 
 tap 'caskroom/cask'
 tap 'caskroom/versions'
-tap 'caskroom/homebrew-versions'
 cask 'adobe-reader'
 cask 'apache-directory-studio'
 cask 'alfred'
@@ -24,7 +23,6 @@ cask 'google-japanese-ime'
 cask 'vagrant'
 cask 'virtualbox'
 cask 'skype'
-cask 'macvim-kaoriya'
 cask 'iterm2'
 cask 'dash'
 
