@@ -113,6 +113,7 @@ brew 'zsh'
 brew 'cscope'
 brew 'ctags'
 brew 'gotags'
+brew 'direnv'
 
 brew 'sqlite'
 brew 'wget'
