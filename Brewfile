@@ -108,15 +108,13 @@ brew 'php71-msgpack'
 brew 'php71-opcache'
 brew 'php71-tidy'
 
+brew 'zsh'
 brew 'cscope'
 brew 'ctags'
 brew 'gotags'
 
 brew 'sqlite'
 brew 'wget'
-
-brew 'zsh'
-brew 'zplug'
 
 brew 'packer'
 brew 'terraform'
