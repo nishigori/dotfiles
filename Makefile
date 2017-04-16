@@ -7,11 +7,11 @@ DOCKER_ENV:=default
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials  := .gitsecret .zshrc.local .vimrc.local .gvimrc.local .zplug/init.zsh
+credentials  := .gitsecret .zshrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
 vim_requires := Shougo/dein.vim
 dir_requires := ~/src ~/bin ~/.config ~/.config/nvim/ ~/.cache/vim/{undo,swap,backup,unite,view}
-bin_requires := ~/bin/diff-highlight
+bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
 
 .PHONY: help me $(os)/*
@@ -69,6 +69,8 @@ shell/install:
 	$(SHELL) --version
 	-time ( source ~/.$(notdir $(SHELL))rc )
 
+~/.zplug/init.zsh:
+	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
 
 ~/bin/diff-highlight: ~/bin
 	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight

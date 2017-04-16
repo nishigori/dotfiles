@@ -11,7 +11,6 @@ zstyle ':completion:*:default' menu select=1
 export TERM="xterm-256color"
 
 # zplug: https://github.com/b4b4r07/zplug
-which zplug || ( curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh )
 source ~/.zplug/init.zsh
 
 zplug "zsh-users/zsh-syntax-highlighting"
