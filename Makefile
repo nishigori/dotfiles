@@ -65,7 +65,7 @@ $(links):
 
 shell/install:
 	@echo Setup SHELL
-	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
+	echo $$SHELL | grep -q $(notdir $(SHELL)) || chsh -s $(SHELL)
 	$(SHELL) --version
 	-time ( source ~/.$(notdir $(SHELL))rc )
 

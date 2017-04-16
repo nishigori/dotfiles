@@ -46,7 +46,7 @@ case ${OSTYPE} in
         ;;
 esac
 
-source ~/.zplug_local.zsh
+source ~/.zplugrc.local
 
 # Checking not-installing list
 if ! zplug check --verbose; then
