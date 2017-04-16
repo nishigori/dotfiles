@@ -6,7 +6,6 @@ tap 'homebrew/versions'
 brew 'mas'
 mas 'Xcode', id: 497799835
 mas 'Slack', id: 803453959
-mas 'Alfred', id: 405843582
 mas '1Password', id: 443987910
 mas 'LastPass', id: 926036361
 mas 'TweetDeck', id: 485812721
@@ -15,6 +14,7 @@ tap 'caskroom/cask'
 tap 'caskroom/versions'
 cask 'adobe-reader'
 cask 'apache-directory-studio'
+cask 'alfred'
 cask 'dropbox'
 cask 'flash'
 cask 'gimp'
@@ -106,15 +106,12 @@ brew 'plenv'
 brew 'llvm', args: ['with-clang', 'with-lld', 'with-rtti']
 brew 'nodebrew'
 
-brew 'homebrew/php/php71'
-brew 'homebrew/php/php71-mcrypt'
-brew 'homebrew/php/php71-opcache'
-brew 'homebrew/php/php71-tidy'
-brew 'php70'
-brew 'php70-mcrypt'
-brew 'php70-msgpack'
-brew 'php70-opcache'
-brew 'php70-tidy'
+tap 'homebrew/homebrew-php'
+brew 'php71'
+brew 'php71-mcrypt'
+brew 'php71-msgpack'
+brew 'php71-opcache'
+brew 'php71-tidy'
 
 brew 'cscope'
 brew 'ctags'
@@ -160,7 +157,6 @@ brew 'sl'
 brew 'tbb'
 brew 'terminal-notifier'
 brew 'the_silver_searcher'
-brew 'tidy-html5'
 brew 'tig'
 brew 'tree'
 brew 'unixodbc'
