@@ -22,7 +22,7 @@ zplug "k4rthik/git-cal", as:command, frozen:1
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/python", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
-zplug "tcnksm/docker-alias", of:zshrc, as:plugin
+zplug "tcnksm/docker-alias", use:zshrc, as:plugin
 
 # NOTE: If you want apply theme, write on $ZPLUG_HOME/init.zsh
 zplug "plugins/themes", from:oh-my-zsh
