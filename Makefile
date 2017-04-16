@@ -7,7 +7,7 @@ DOCKER_ENV:=default
 
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
-credentials  := .gitsecret .zshrc.local .vimrc.local .gvimrc.local
+credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein
 vim_requires := Shougo/dein.vim
 dir_requires := ~/src ~/bin ~/.config ~/.config/nvim/ ~/.cache/vim/{undo,swap,backup,unite,view}

@@ -8,6 +8,7 @@
 # Local settings
 tmp/*
 bin/*
+.zplugrc.local
 .zshrc.local
 .vimrc.local
 .gvimrc.local

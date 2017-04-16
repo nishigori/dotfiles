@@ -46,6 +46,8 @@ case ${OSTYPE} in
         ;;
 esac
 
+source ~/.zplug_local.zsh
+
 # Checking not-installing list
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
