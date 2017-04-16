@@ -12,6 +12,7 @@ mas 'TweetDeck', id: 485812721
 
 tap 'caskroom/cask'
 tap 'caskroom/versions'
+tap 'caskroom/homebrew-versions'
 cask 'adobe-reader'
 cask 'apache-directory-studio'
 cask 'alfred'
@@ -160,9 +161,6 @@ brew 'unixodbc'
 brew 'watch'
 brew 'zlib'
 
-tap 'osx-cross/avr'
-brew 'avr-libc'
-
 #tap 'neovim/neovim'
 #tap 'rogual/neovim-dot-app'
 #brew 'neovim/neovim/neovim'
@@ -184,3 +182,6 @@ brew 'bsdmake'
 brew 'cmake'
 brew 'curl', args: ['with-libressl']
 brew 'wrk'
+
+tap 'osx-cross/avr'
+brew 'avr-libc'
