@@ -161,6 +161,7 @@ brew 'zlib'
 #tap 'neovim/neovim'
 #tap 'rogual/neovim-dot-app'
 #brew 'neovim/neovim/neovim'
+cask 'intellij-idea'
 
 tap 'sanemat/font'
 brew 'sanemat/font/ricty'
