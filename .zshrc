@@ -106,7 +106,7 @@ zle -N peco-src
 ########
 # direnv
 ########
-eval "$(direnv hook zsh)"
+test "$(which direnv)" = "" || eval "$(direnv hook zsh)"
 
 #######
 # Ctags
