@@ -61,6 +61,7 @@ zplug load --verbose
 
 alias ls="ls -G"
 alias l='ls -l'
+alias ll='ls -l'
 alias la='ls -al'
 alias cl='clear'
 alias tailf='tail -f'
@@ -76,6 +77,8 @@ alias di='git diff --ignore-space-change'
 alias dic='git diff --cached --ignore-space-change'
 alias dis='git diff --stat'
 alias gm='git master'
+
+setopt auto_cd
 
 ####
 # Go
