@@ -101,6 +101,17 @@ function peco-src () {
 }
 zle -N peco-src
 
+###########
+# WordChars
+###########
+tcsh-backward-delete-word() {
+  local WORDCHARS="${WORDCHARS:s#/#}"
+  zle backward-delete-word
+}
+zle -N tcsh-backward-delete-word
+
+bindkey "^W" tcsh-backward-delete-word
+
 #########
 # History
 #########
