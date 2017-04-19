@@ -1,38 +1,22 @@
 set editor=/bin/gvim
+set gui=tabs
 
-colorscheme default
+colorscheme solarized
 
 " plugin_loader.js
 js <<EOF
 liberator.globalVariables.plugin_loader_plugins = `
   _libly
-  _smooziee
   appendAnchor
   applauncher
-  auto-focus-frame
   auto_detect_link
-  bitly
-  direct_bookmark
-  erection
   escape-from-iframe
   ex_autocmd
-  goo.gl
-  google-results.js
   hints-for-embedded
-  hints-yank-paste
   lo
-  loginManager
+  _smooziee
   longcat
-  lookupDictionary
-  microsoft-translator
   pdf-js
-  personas
-  simg
-  slideshare
-  statusline-toolbar
-  stella
-  twittperator
-  firebug
 `.split(/\s+/).filter(function(n) !/^!/.test(n));
 EOF
 
@@ -51,9 +35,5 @@ cnoremap <C-e> <End>
 cnoremap <C-h> <BS>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
-
-" statusline-toolbar.js
-" INFO: Set statuslinetoolbars value is once.
-"set statuslinetoolbars=firebug-button,inspector-button,fullscreen-button
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:
