@@ -13,6 +13,7 @@ bin/*
 .vimrc.local
 .gvimrc.local
 .vimperatorrc.local
+.config/dein/plugins.local.toml
 
 # Vim
 .vim/bundle/*

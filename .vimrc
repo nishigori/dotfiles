@@ -148,7 +148,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   let &runtimepath = s:dein_repo_dir .",". &runtimepath
 
   let s:toml_file = '~/.config/dein/plugins.toml'
-  let s:toml_file_local = '~/.config/plugins.local.toml'
+  let s:toml_file_local = '~/.config/dein/plugins.local.toml'
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
     if filereadable(s:toml_file_local)
