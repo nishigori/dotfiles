@@ -40,7 +40,7 @@ VIM_FEATURE := TINY
   $(links) $(credentials) shell/* vim
 
 # Alias
-install: $(dir_requires) $(bin_requires) $(os)/install shell/install credentials
+install: $(dir_requires) $(bin_requires) $(os)/install zsh credentials
 
 $(dir_requires):
 	@mkdir -p $@
@@ -63,11 +63,18 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
 	@ls -dF ~/$@
 
-shell/install:
+
+zsh: ~/.zplug/init.zsh ~/.zsh_history chsh_zsh ## Configure ZSH
+
+chsh_zsh:
 	@echo Setup SHELL
-	echo $$SHELL | grep -q $(notdir $(SHELL)) || chsh -s $(SHELL)
+	grep -q $(SHELL) /etc/shells || sudo sh -c "echo '$(SHELL)' >> /etc/shells"
+	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
 	-time ( source ~/.$(notdir $(SHELL))rc )
+
+~/.zsh_history:
+	fc -p $(HOME)/.zsh_history
 
 ~/.zplug/init.zsh:
 	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh

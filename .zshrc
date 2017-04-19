@@ -14,7 +14,6 @@ export TERM="xterm-256color"
 source ~/.zplug/init.zsh
 
 zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
 
 zplug "mollifier/anyframe"
 
@@ -89,10 +88,6 @@ if which go > /dev/null; then
 fi
 export PATH=$GOPATH/bin:$PATH
 
-
-######
-# peco
-######
 bindkey '^O' peco-src
 
 function peco-src () {
@@ -106,6 +101,32 @@ function peco-src () {
 }
 zle -N peco-src
 
+#########
+# History
+#########
+HISTFILE=$HOME/.zsh-history
+HISTSIZE=100000
+SAVEHIST=100000
+HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
+setopt share_history 
+setopt share_history
+setopt inc_append_history
+setopt hist_reduce_blanks
+setopt hist_ignore_dups
+setopt hist_no_store
+setopt EXTENDED_HISTORY
+
+peco-select-history() {
+    BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
+    CURSOR=${#BUFFER}
+    zle reset-prompt
+}
+zle -N peco-select-history
+
+
+bindkey '^R' peco-select-history
+
+
 ########
 # direnv
 ########
@@ -118,17 +139,6 @@ test "$(which direnv)" = "" || eval "$(direnv hook zsh)"
 local ctags_default_opt='-R --exclude=".git*" --sort=yes'
 alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
 alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
-
-# History
-HISTFILE=~/.zsh_history
-SIZEHIST=100000
-HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
-setopt hist_ignore_dups
-setopt hist_no_store
-setopt EXTENDED_HISTORY
-setopt SHARE_HISTORY
-bindkey "^R" history-incremental-search-backward
-bindkey "^S" history-incremental-search-forward
 
 # Subversion
 export SVN_EDITOR=vim
