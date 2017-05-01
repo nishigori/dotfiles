@@ -47,7 +47,13 @@ $(dir_requires):
 
 clean: $(os)/clean
 
-update: links $(os)/update
+update: links $(os)/update goimports-update-ignore
+
+goimports-update-ignore:
+	go get -u golang.org/x/tools/cmd/goimports
+	go get -u github.com/pwaller/goimports-update-ignore
+	rm -f $$GOPATH/src/.goimportsignore
+	goimports-update-ignore
 
 credentials: $(dir_requires) $(credentials)
 
