@@ -1,4 +1,5 @@
 set editor=/bin/gvim
+set tabnumbers
 set gui=tabs
 
 colorscheme solarized
@@ -20,20 +21,20 @@ liberator.globalVariables.plugin_loader_plugins = `
 `.split(/\s+/).filter(function(n) !/^!/.test(n));
 EOF
 
-" For Windows
-set tabnumbers
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-h> <BS>
-inoremap <C-p> <Up>
-inoremap <C-n> <Down>
-inoremap <C-b> <Left>
-inoremap <C-f> <Right>
 
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-h> <BS>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
+" For Windows
+"inoremap <C-a> <Home>
+"inoremap <C-e> <End>
+"inoremap <C-h> <BS>
+"inoremap <C-p> <Up>
+"inoremap <C-n> <Down>
+"inoremap <C-b> <Left>
+"inoremap <C-f> <Right>
+
+"cnoremap <C-a> <Home>
+"cnoremap <C-e> <End>
+"cnoremap <C-h> <BS>
+"cnoremap <C-b> <Left>
+"cnoremap <C-f> <Right>
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab:

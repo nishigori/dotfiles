@@ -31,10 +31,7 @@
 ####################
 ## Directory aliases
 ####################
-#hash -d ws=~/workspace
-#hash -d gh=~/workspace/github
-#hash -d github=~/workspace/github
-#hash -d dotfiles=~/src/dotfiles
+#hash -d dotfiles=~/src/github.com/nishigori/dotfiles
 
 
 case ${OSTYPE} in
@@ -43,9 +40,9 @@ case ${OSTYPE} in
         export EDITOR=~/Applications/MacVim.app/Contents/MacOS/Vim
         export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
         alias ls="ls -G -w"
-        alias gvim='env LANG=ja_JP.UTF-8 ~/Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
-        alias vi='env LANG=ja_JP.UTF-8 ~/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-        alias vim='env LANG=ja_JP.UTF-8 ~/Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+        alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
+        alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+        alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
         # Around the sushi: http://getemoji.com/
         DEFAULT=$'\U0001f37b '
         ERROR=$'\u2757 '

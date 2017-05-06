@@ -3,7 +3,7 @@ set backup swapfile
 let g:myvim_feasures = MYVIM_FEATURES_NORMAL " See .vimrc > # Local Dependency
 
 let g:local_config = {
-  \ 'dotfiles_dir'        : $HOME . '/workspace/dotfiles',
+  \ 'dotfiles_dir'        : $HOME . '/src/github.com/nishigori/dotfiles',
   \ 'tmp_dir'             : $HOME . '/.vim/tmp',
   \ }
 

@@ -145,7 +145,7 @@ if has("gui_macvim")
   macmenu Edit.Find.Find\ Next			key=<Nop>
   macmenu Edit.Find.Find\ Previous			key=<Nop>
   macmenu Edit.Find.Use\ Selection\ for\ Find	key=<Nop>
-  macmenu Tools.Spelling.To\ Next\ error<Tab>]s	key=<Nop>
+  "macmenu Tools.Spelling.To\ Next\ error<Tab>]s	key=<Nop>
   macmenu Tools.Spelling.Suggest\ Corrections<Tab>z=   key=<Nop>
   macmenu Tools.Make<Tab>:make			key=<Nop>
   macmenu Tools.List\ Errors<Tab>:cl		key=<Nop>
