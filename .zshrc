@@ -5,9 +5,6 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:$PATH
 # Python
 export VIRTUALENVWRAPPER_PYTHON=$(which python)
 
-# Select complations list like emacs
-zstyle ':completion:*:default' menu select=1
-
 export TERM="xterm-256color"
 
 # zplug: https://github.com/b4b4r07/zplug
@@ -17,12 +14,15 @@ zplug "zsh-users/zsh-syntax-highlighting"
 
 zplug "mollifier/anyframe"
 
-zplug "k4rthik/git-cal", as:command, frozen:1
 zplug "plugins/git", from:oh-my-zsh
+# TODO: why warning?
+#zplug 'git/git', use:'contrib/completion'
 zplug "plugins/python", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "tcnksm/docker-alias", use:zshrc, as:plugin
-
+zplug 'zsh-users/zsh-completions'
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2
+zplug 'docker/compose', use:'contrib/completion/zsh'
+zplug 'moby/moby', use:'contrib/completion/zsh'
+zplug 'peterhurford/git-it-on.zsh'
 # NOTE: If you want apply theme, write on $ZPLUG_HOME/init.zsh
 zplug "plugins/themes", from:oh-my-zsh
 
@@ -66,6 +66,7 @@ alias cl='clear'
 alias tailf='tail -f'
 alias vimless='vim -R'
 alias vless='vim -R'
+alias -g g='git'
 alias st='git status'
 alias co='git checkout'
 alias cob='git checkout -b'
@@ -75,9 +76,49 @@ alias ci='git commit'
 alias di='git diff --ignore-space-change'
 alias dic='git diff --cached --ignore-space-change'
 alias dis='git diff --stat'
-alias gm='git master'
+
+alias -s py=python
+alias -s rb=ruby
+alias -s mk=make
 
 setopt auto_cd
+setopt auto_pushd
+setopt no_beep
+setopt interactive_comments
+
+
+#############
+# Completions
+#############
+setopt complete_in_word      # カーソル位置で補完する。
+#setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt glob_complete         # globを展開しないで候補の一覧から補完する。
+setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
+
+zstyle ':completion:*' completer _complete
+# Select complations list like emacs
+zstyle ':completion:*:default' menu select=1
+#zstyle ':completion:*:default' menu select=2
+# Coloring for completion candidates
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' keep-prefix
+zstyle ':completion:*' recent-dirs-insert both
+
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+# 補完関数の表示を過剰にする編
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
+#zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
+#zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
+#zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+
+autoload -Uz compinit
+compinit
+
 
 ####
 # Go
@@ -104,13 +145,12 @@ zle -N peco-src
 ###########
 # WordChars
 ###########
-tcsh-backward-delete-word() {
-  local WORDCHARS="${WORDCHARS:s#/#}"
-  zle backward-delete-word
-}
-zle -N tcsh-backward-delete-word
-
-bindkey "^W" tcsh-backward-delete-word
+autoload -Uz select-word-style
+select-word-style default
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
 
 #########
 # History
