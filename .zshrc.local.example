@@ -5,6 +5,14 @@
 # Environment Variable(s)
 #########################
 
+## => LibreSSL
+##
+## For compilers to find this software you may need to set:
+##     LDFLAGS:  -L/usr/local/opt/libressl/lib
+##     CPPFLAGS: -I/usr/local/opt/libressl/include
+## For pkg-config to find this software you may need to set:
+##     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
+#export PATH=/usr/local/opt/libressl/bin:$PATH
 ## => Go/golang
 #export GOROOT=/usr/local/opt/go/libexec
 #export GOPATH=$HOME/.go
