@@ -159,17 +159,33 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     call dein#add('godlygeek/tabular')
     call dein#add('plasticboy/vim-markdown', { 'lazy' : 1, 'on_ft': ['markdown', 'mkd'] })
 
+    " ColorScheme(s)
+    " script_type = 'colors'
+    "call dein#add('mhartington/oceanic-next', { 'merged': 0 })
+    call dein#add('jacoborus/tender.vim', { 'merged': 0 })
+    call dein#source('tender.vim')
+    "call dein#add('Diablo3',                  { 'merged': 0 })
+    "call dein#add('w0ng/vim-hybrid',          { 'merged': 0 })
+    "call dein#add('itchyny/landscape.vim',    { 'merged': 0 })
+    "call dein#add('ujihisa/mrkn256.vim',      { 'merged': 0 })
+    "call dein#add('wombat256.vim',            { 'merged': 0 }) # :colorscheme wombat256mod 
+    "call dein#add('xoria256.vim',             { 'merged': 0 })
+    "call dein#add('candycode.vim',            { 'merged': 0 })
+    "call dein#add('jonathanfilip/vim-lucius', { 'merged': 0 })
+    "call dein#add('vim-scripts/darkZ',        { 'merged': 0 })
+
     call dein#end()
     call dein#save_state()
   endif
 
   " Install if declared plugins is not installed
-  if has('vim_starting') && dein#check_install()
+  if dein#check_install()
     call dein#install()
   endif
 
   filetype plugin indent on
   syntax enable
+
 endif
 " }}}
 
@@ -193,15 +209,6 @@ if has('syntax')
   set list
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
   set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
-
-  augroup ZenSpace
-    autocmd!
-    autocmd ColorScheme * highlight ZenSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
-    autocmd FileType * match ZenSpace /　\|\s\+$/
-    autocmd FileType txt match ZenSpace /\s\+$/
-    autocmd FileType git,rst match ZenSpace //
-    autocmd FileType unite,vimshell,vimfiler,calendar,startify match ZenSpace //
-  augroup END
 
   if v:version >= 703
     set relativenumber
@@ -244,9 +251,11 @@ let g:sql_type_default = 'mysql' " SQL
 " }}}
 " # Color Scheme {{{
 set t_Co=256
-if !has('gui_runnig') || !exists('g:colors_name')
-  let g:colors_name = 'desert'
-  set background=dark
+if (has("termguicolors"))
+  set termguicolors
+  colorscheme tender
+else
+  "colorscheme desert
 endif
 
 let g:solarized_termcolors = 256  " CASE: g:colors_name is solarized
@@ -1171,7 +1180,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " }}}
   " Plugin: lightline.vim {{{
   let g:lightline = {
-    \ 'colorscheme': 'landscape',
+    \ 'colorscheme': 'tender',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ], ['venv'], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
     \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -1875,10 +1884,9 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<CR>
   nnoremap <silent> <Leader>ts :TweetVimSay<CR>
   " }}}
+endif
 
-  " Hook loaded vimrc
-  if exists("*LoadedHookVIMRC")
-    call LoadedHookVIMRC()
-  endif
-
+" Hook loaded vimrc
+if exists("*LoadedHookVIMRC")
+  call LoadedHookVIMRC()
 endif

@@ -166,3 +166,10 @@ if has("gui_macvim")
   macmenu Help.MacVim\ Help			key=<Nop>
 endif
 " }}}
+
+" Hook loaded gvimrc
+if exists("*LoadedHookGVIMRC")
+  call LoadedHookGVIMRC()
+endif
+
+colorscheme tender
