@@ -49,7 +49,7 @@ fonts/all: $(MYFONTS_DIR) fonts/ricty
 	-fc-cache -v --error-on-no-fonts --force $<
 
 $(MYFONTS_DIR):
-	mkdir $@
+	@mkdir $@
 
 fonts/ricty: $(MYFONTS_DIR)
 	/bin/cp -f $$(ls -td -- /usr/local/Cellar/ricty/* | head -n 1)/share/fonts/*.ttf $<
