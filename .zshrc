@@ -145,12 +145,10 @@ zle -N peco-src
 ###########
 # WordChars
 ###########
+export WORDCHARS='*?_.[]~&;!#$%^(){}<>'
+
 autoload -Uz select-word-style
 select-word-style default
-# ここで指定した文字は単語区切りとみなされる
-# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
-zstyle ':zle:*' word-chars " /=;@:{},|"
-zstyle ':zle:*' word-style unspecified
 
 #########
 # History
