@@ -1,13 +1,43 @@
 # My zshrc
 #
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:$PATH
-
-# Python
-export VIRTUALENVWRAPPER_PYTHON=$(which python)
-
 export TERM="xterm-256color"
+export XDG_CONFIG_HOME=$HOME/.config
 
-# zplug: https://github.com/b4b4r07/zplug
+
+alias ls="ls -G"
+alias l='ls -l'
+alias ll='ls -l'
+alias la='ls -al'
+alias cl='clear'
+alias tailf='tail -f'
+alias vimless='vim -R'
+alias vless='vim -R'
+alias -g g='git'
+alias st='git status'
+alias co='git checkout'
+alias cob='git checkout -b'
+alias fv='git fetch --verbose --prune'
+alias pv='git pull --verbose'
+alias ci='git commit'
+alias di='git diff --ignore-space-change'
+alias dic='git diff --cached --ignore-space-change'
+alias dis='git diff --stat'
+
+alias -s py=python
+alias -s rb=ruby
+alias -s mk=make
+
+setopt auto_cd
+setopt auto_pushd
+setopt no_beep
+setopt interactive_comments
+
+
+#######
+# zplug
+#######
+# Ref: https://github.com/b4b4r07/zplug
 source ~/.zplug/init.zsh
 
 zplug "zsh-users/zsh-syntax-highlighting"
@@ -58,35 +88,6 @@ fi
 zplug load --verbose
 
 
-alias ls="ls -G"
-alias l='ls -l'
-alias ll='ls -l'
-alias la='ls -al'
-alias cl='clear'
-alias tailf='tail -f'
-alias vimless='vim -R'
-alias vless='vim -R'
-alias -g g='git'
-alias st='git status'
-alias co='git checkout'
-alias cob='git checkout -b'
-alias fv='git fetch --verbose --prune'
-alias pv='git pull --verbose'
-alias ci='git commit'
-alias di='git diff --ignore-space-change'
-alias dic='git diff --cached --ignore-space-change'
-alias dis='git diff --stat'
-
-alias -s py=python
-alias -s rb=ruby
-alias -s mk=make
-
-setopt auto_cd
-setopt auto_pushd
-setopt no_beep
-setopt interactive_comments
-
-
 #############
 # Completions
 #############
@@ -120,32 +121,10 @@ autoload -Uz compinit
 compinit
 
 
-####
-# Go
-####
-export GOPATH=$HOME
-if which go > /dev/null; then
-    export GOROOT=$( go env GOROOT )
-fi
-export PATH=$GOPATH/bin:$PATH
-
-bindkey '^O' peco-src
-
-function peco-src () {
-    local selected_dir=$(ghq list | peco --query "$LBUFFER")
-    if [ -n "$selected_dir" ]; then
-        selected_dir="$HOME/src/$selected_dir"
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N peco-src
-
 ###########
 # WordChars
 ###########
-export WORDCHARS='*?_.[]~&;!#$%^(){}<>'
+WORDCHARS='*?_.[]~&;!#$%^(){}<>'
 
 autoload -Uz select-word-style
 select-word-style default
@@ -172,14 +151,43 @@ peco-select-history() {
 }
 zle -N peco-select-history
 
-
 bindkey '^R' peco-select-history
+
+
+####
+# Go
+####
+export GOPATH=$HOME
+if which go > /dev/null; then
+    export GOROOT=$( go env GOROOT )
+fi
+export PATH=$GOPATH/bin:$PATH
+
+bindkey '^O' peco-src
+
+function peco-src () {
+    local selected_dir=$(ghq list | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        selected_dir="$HOME/src/$selected_dir"
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-src
+
+
+########
+# Python
+########
+export VIRTUALENVWRAPPER_PYTHON=$(which python)
 
 
 ########
 # direnv
 ########
 test "$(which direnv)" = "" || eval "$(direnv hook zsh)"
+
 
 #######
 # Ctags
@@ -189,26 +197,39 @@ local ctags_default_opt='-R --exclude=".git*" --sort=yes'
 alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
 alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
 
+
+############
 # Subversion
+############
 export SVN_EDITOR=vim
 
-# xconfig
-export XDG_CONFIG_HOME=$HOME/.config
 
+############
 # Apache Ant
+############
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 
+
+###########
 # Travis CI
+###########
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
+
+############
+# gcloud SDK
+############
 # The next line updates PATH for the Google Cloud SDK.
 if [ -d ~/google-cloud-sdk ]; then
     source ~/google-cloud-sdk/path.zsh.inc
     source ~/google-cloud-sdk/completion.zsh.inc
 fi
 
+
+##########
 # Pygments
+##########
 if type "pygmentize" > /dev/null; then
     #export LESS='-R'
     #export LESSOPEN='|~/bin/lessfilter %s'
@@ -224,5 +245,8 @@ if type "pygmentize" > /dev/null; then
     alias cl=cl
 fi
 
+
+##################
 # Local dependency
+##################
 test -f ~/.zshrc.local && source ~/.zshrc.local
