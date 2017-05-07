@@ -11,16 +11,16 @@ BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/i
 MYFONTS_DIR := $(HOME)/.fonts
 
 
-.PHONY: Darwin/* brew/* firefox/* fonts/*
+.PHONY: Darwin/* brew/* firefox/* fonts/* neovim/*
 
-Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle fonts/all
+Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle fonts/all neovim/update
 	@echo "\nManually Installations:"
 	@echo "MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases"
 	@echo "F.lux: https://justgetflux.com/"
 
-Darwin/clean: brew/clean firefox/clean
+Darwin/update: brew/update brew/upgrade fonts/all neovim/update
 
-Darwin/update: brew/update brew/upgrade fonts/all
+Darwin/clean: brew/clean firefox/clean
 
 $(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL $(BREW_DOWNLOAD_URL))"
@@ -53,6 +53,10 @@ $(MYFONTS_DIR):
 
 fonts/ricty: $(MYFONTS_DIR)
 	/bin/cp -f $$(ls -td -- /usr/local/Cellar/ricty/* | head -n 1)/share/fonts/*.ttf $<
+
+neovim/update: ## Preinstall by Brewfile
+	pip2 install --user --upgrade neovim
+	pip3 install --user --upgrade neovim
 
 
 firefox/clean:

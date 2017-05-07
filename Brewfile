@@ -159,9 +159,9 @@ brew 'unixodbc'
 brew 'watch'
 brew 'zlib'
 
-#tap 'neovim/neovim'
+tap 'neovim/neovim'
 #tap 'rogual/neovim-dot-app'
-#brew 'neovim/neovim/neovim'
+brew 'neovim', args: ['HEAD']
 cask 'intellij-idea'
 
 tap 'sanemat/font'
