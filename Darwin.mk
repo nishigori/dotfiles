@@ -11,14 +11,14 @@ BREW_DOWNLOAD_URL := https://raw.githubusercontent.com/Homebrew/install/master/i
 MYFONTS_DIR := $(HOME)/.fonts
 
 
-.PHONY: Darwin/* brew/* firefox/* fonts/* neovim/*
+.PHONY: Darwin/* brew/* firefox/* fonts/* neovim/* nyaovim/*
 
-Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle fonts/all neovim/update
+Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle fonts/all neovim/update nyaovim/install
 	@echo "\nManually Installations:"
 	@echo "MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases"
 	@echo "F.lux: https://justgetflux.com/"
 
-Darwin/update: brew/update brew/upgrade fonts/all neovim/update
+Darwin/update: brew/update brew/upgrade fonts/all neovim/update nyaovim/update
 
 Darwin/clean: brew/clean firefox/clean
 
@@ -57,10 +57,15 @@ fonts/ricty: $(MYFONTS_DIR)
 neovim/update: ## Preinstall by Brewfile
 	pip2 install --user --upgrade neovim
 	pip3 install --user --upgrade neovim
+	-gem install neovim
+	-gem update neovim
+
+nyaovim/install:
+	npm ls -g $(@D) || npm $(@F) -g $(@D)
+
+nyaovim/update:
+	npm $(@F) -g $(@D)
 
 
 firefox/clean:
 	find ~/Library/Application\ Support/Firefox/Profiles/ -maxdepth 2 -type f -name "*.sqlite" | xargs -I {} sqlite3 {} "VACUUM; REINDEX;"
-
-Darwin/docker.start:
-	@echo "Darwin is other handle Docker for Mac as unused docker-toolbox"

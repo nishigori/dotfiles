@@ -163,6 +163,7 @@ tap 'neovim/neovim'
 #tap 'rogual/neovim-dot-app'
 brew 'neovim', args: ['HEAD']
 cask 'intellij-idea'
+cask 'vimr'
 
 tap 'sanemat/font'
 brew 'sanemat/font/ricty'

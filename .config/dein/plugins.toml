@@ -80,7 +80,7 @@ depends = 'vimshell.vim'
 repo = 'nishigori/increment-activator'
 
 [[plugins]]
-repo = 'smartchr'
+repo = 'vim-scripts/smartchr'
 
 [[plugins]]
 repo = 'h1mesuke/vim-alignta'
@@ -100,7 +100,7 @@ repo = 'itchyny/vim-cursorword'
 
 # Utility {{{
 [[plugins]]
-repo = 'sudo.vim'
+repo = 'vim-scripts/sudo.vim'
 
 [[plugins]]
 repo = 'nishigori/vim-multiple-switcher'
@@ -219,6 +219,20 @@ on_i = 1
 #on_ft = 'html'
 # }}}
 
+# NyaoVim {{{
+[[plugins]]
+repo = 'rhysd/nyaovim-popup-tooltip'
+if = 'exists("g:nyaovim_version")'
+
+[[plugins]]
+repo = 'rhysd/nyaovim-markdown-preview'
+if = 'exists("g:nyaovim_version")'
+
+[[plugins]]
+repo = 'rhysd/nyaovim-mini-browser'
+if = 'exists("g:nyaovim_version")'
+# }}}
+
 # Go {{{
 [[plugins]]
 repo = 'zchee/deoplete-go'
@@ -297,7 +311,7 @@ lazy = 1
 on_ft = 'ruby'
 
 [[plugins]]
-repo = 'ruby-matchit'
+repo = 'vim-scripts/ruby-matchit'
 lazy = 1
 on_ft = 'ruby'
 # }}}

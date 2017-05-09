@@ -130,7 +130,14 @@ endif
 " }}}
 
 " # dein {{{
-let s:dein_dir = s:cache_home . '/dein'
+if exists('g:nyaovim_version')
+  let s:dein_dir = s:cache_home . '/nyaovim/dein'
+elseif has('nvim')
+  let s:dein_dir = s:cache_home . '/nvim/dein'
+else
+  let s:dein_dir = s:cache_home . '/dein'
+endif
+
 if MYVIM_FEATURES_BIG >= g:myvim_features
   if &compatible
     set nocompatible
@@ -150,7 +157,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   let s:toml_file = '~/.config/dein/plugins.toml'
   let s:toml_file_local = '~/.config/dein/plugins.local.toml'
   if dein#load_state(s:dein_dir)
-    call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+    call dein#begin(s:dein_dir)
     if filereadable(s:toml_file_local)
       call dein#load_toml(s:toml_file_local)
     endif
