@@ -224,6 +224,7 @@ export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 if [ -d ~/google-cloud-sdk ]; then
     source ~/google-cloud-sdk/path.zsh.inc
     source ~/google-cloud-sdk/completion.zsh.inc
+    export PATH=$HOME/google-cloud-sdk/bin:$PATH
 fi
 
 
