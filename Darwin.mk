@@ -61,10 +61,10 @@ neovim/update: ## Preinstall by Brewfile
 	-gem update neovim
 
 nyaovim/install:
-	npm ls -g $(@D) || npm $(@F) -g $(@D)
+	@if [ -z "$$(which npm)" ]; then npm ls -g $(@D) || npm $(@F) -g $(@D); fi
 
 nyaovim/update:
-	npm $(@F) -g $(@D)
+	@if [ -z "$$(which npm)" ]; then npm $(@F) -g $(@D); fi
 
 
 firefox/clean:
