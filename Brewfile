@@ -104,7 +104,7 @@ brew 'llvm', args: ['with-clang', 'with-lld', 'with-rtti']
 brew 'nodebrew'
 
 tap 'homebrew/homebrew-php'
-brew 'php71'
+brew 'php71', args: ['--with-pear']
 brew 'php71-mcrypt'
 brew 'php71-msgpack'
 brew 'php71-opcache'
