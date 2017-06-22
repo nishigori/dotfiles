@@ -182,6 +182,7 @@ brew 'bsdmake'
 brew 'cmake'
 brew 'curl', args: ['with-libressl']
 brew 'wrk'
+brew 'swagger-codegen'
 
 #tap 'osx-cross/avr'
 #brew 'avr-libc'
