@@ -15,7 +15,7 @@ bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 .DEFAULT_GOAL: help
 
 help:
-	@grep -E '^[a-zA-Z_%-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@awk -F ':|##' '/^[^\t].+?:.*?##/ { printf "\033[36m%-25s\033[0m %s\n", $$1, $$NF }' $(MAKEFILE_LIST)
 
 
 all: me install
@@ -42,7 +42,7 @@ clean: $(os)/clean
 
 update: links $(os)/update goimports-update-ignore
 
-goimports-update-ignore:
+goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
 	go get -u golang.org/x/tools/cmd/goimports
 	go get -u github.com/pwaller/goimports-update-ignore
 	rm -f $$GOPATH/src/.goimportsignore
