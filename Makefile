@@ -33,14 +33,20 @@ $(os)/%:
 .PHONY: clean install update $(links) $(credentials) shell/*
 
 # Alias
-install: $(dir_requires) $(bin_requires) $(os)/install zsh credentials
+install: $(dir_requires) $(bin_requires) $(os)/install zsh credentials golang
 
 $(dir_requires):
 	@mkdir -p $@
 
 clean: $(os)/clean
 
-update: links $(os)/update goimports-update-ignore
+update: links $(os)/update
+
+golang: ## Setup Go language
+	go get -u github.com/motemen/gore
+	go get -u github.com/nsf/gocode
+	go get -u github.com/k0kubun/pp
+	go get -u golang.org/x/tools/cmd/godoc
 
 goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
 	go get -u golang.org/x/tools/cmd/goimports
