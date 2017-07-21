@@ -43,10 +43,10 @@ clean: $(os)/clean
 update: links $(os)/update
 
 golang: ## Setup Go language
-	go get -u github.com/motemen/gore
-	go get -u github.com/nsf/gocode
-	go get -u github.com/k0kubun/pp
 	go get -u golang.org/x/tools/cmd/godoc
+	go get -u github.com/nsf/gocode
+	go get -u github.com/d4l3k/go-pry
+	go install github.com/d4l3k/go-pry
 
 goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
 	go get -u golang.org/x/tools/cmd/goimports
