@@ -168,6 +168,11 @@ cask 'vimr'
 tap 'sanemat/font'
 brew 'sanemat/font/ricty'
 
+# qmk_firmware for ErgoDox
+tap osx-cross/avr
+teensy_loader_cli
+avr-libc
+dfu-programmer
 
 ####################
 # CommandLine Tools
@@ -183,6 +188,3 @@ brew 'cmake'
 brew 'curl', args: ['with-libressl']
 brew 'wrk'
 brew 'swagger-codegen'
-
-#tap 'osx-cross/avr'
-#brew 'avr-libc'
