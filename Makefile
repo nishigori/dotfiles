@@ -66,7 +66,9 @@ links: $(dir_requires) $(links) neovimrc
 
 $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
+ifneq ($(CI),true)
 	@ls -dF ~/$@
+endif
 
 neovimrc: ~/.config/nvim
 	@ln -snfv $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
