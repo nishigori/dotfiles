@@ -10,6 +10,13 @@ links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dei
 dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
 bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
+ifeq ($(TRAVIS),true)
+# NOTE: /Users/Travis/bin: Operation not permitted
+links        := $(subst bin,.bin,$(links))
+dir_requires := $(subst bin,.bin,$(dir_requires))
+bin_requires := $(subst bin,.bin,$(bin_requires))
+endif
+
 
 .PHONY: help me $(os)/*
 .DEFAULT_GOAL: help
@@ -66,9 +73,7 @@ links: $(dir_requires) $(links) neovimrc
 
 $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
-ifneq ($(CI),true)
 	@ls -dF ~/$@
-endif
 
 neovimrc: ~/.config/nvim
 	@ln -snfv $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
