@@ -4,17 +4,16 @@ SHELL    := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
-bindir := bin
 ifeq ($(TRAVIS),true)
-# NOTE: /Users/Travis/bin: Operation not permitted
-bindir := .bin
+# NOTE: /Users/Travis/xxx: Operation not permitted
+HOME := /var/tmp
 endif
 
 os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig $(bindir) tmp .zsh .vim .vimperator .config/dein .config/nyaovim
-dir_requires := ~/src ~/$(bindir) ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
-bin_requires := ~/$(bindir)/diff-highlight ~/.zplug/init.zsh
+links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim
+dir_requires := $(HOME)/src $(HOME)/bin $(HOME)/.config/nvim $(HOME)/.cache/vim/{undo,swap,backup,unite,view}
+bin_requires := $(HOME)/bin/diff-highlight $(HOME)/.zplug/init.zsh
 
 
 .PHONY: help me $(os)/*
@@ -63,36 +62,36 @@ goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimpo
 credentials: $(dir_requires) $(credentials)
 
 $(credentials):
-	@if ! [ -f ~/$@ ]; then \
-		/bin/cp -i ./$@.example ~/$@; \
+	@if ! [ -f $(HOME)/$@ ]; then \
+		/bin/cp -i ./$@.example $(HOME)/$@; \
 		echo "(maybe) U should edit $@ just putting"; \
 	fi
 
 links: $(dir_requires) $(links) neovimrc
 
 $(links):
-	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
-	@ls -dF ~/$@
+	@ln -sf $(CURDIR)/$@ $(HOME)/$(dir $@)
+	@ls -dF $(HOME)/$@
 
-neovimrc: ~/.config/nvim
+neovimrc: $(HOME)/.config/nvim
 	@ln -snfv $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
 
 
-zsh: ~/.zplug/init.zsh ~/.zsh_history chsh_zsh ## Configure ZSH
+zsh: $(HOME)/.zplug/init.zsh $(HOME)/.zsh_history chsh_zsh ## Configure ZSH
 
 chsh_zsh:
 	@echo Setup SHELL
 	grep -q $(SHELL) /etc/shells || sudo sh -c "echo '$(SHELL)' >> /etc/shells"
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
-	-time ( source ~/.$(notdir $(SHELL))rc )
+	-time ( source $(HOME)/.$(notdir $(SHELL))rc )
 
-~/.zsh_history:
+$(HOME)/.zsh_history:
 	fc -p $(HOME)/.zsh_history
 
-~/.zplug/init.zsh:
+$(HOME)/.zplug/init.zsh:
 	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
 
-~/$(bindir)/diff-highlight: $(bindir)
+$(HOME)/bin/diff-highlight: $(HOME)/bin
 	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
 	chmod +x $@
