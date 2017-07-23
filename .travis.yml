@@ -4,6 +4,8 @@ os:
   #- linux
 osx_image: xcode8.3
 
+language: generic
+
 before_install:
   - which make
   - make -n all
