@@ -93,6 +93,6 @@ chsh_zsh:
 ~/.zplug/init.zsh:
 	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
 
-~/$(bindir)/diff-highlight: ~/bin
+~/$(bindir)/diff-highlight: $(bindir)
 	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
 	chmod +x $@
