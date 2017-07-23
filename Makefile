@@ -4,18 +4,17 @@ SHELL    := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
-os := $(shell uname -s)
-credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim
-dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
-bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
-
+bindir := bin
 ifeq ($(TRAVIS),true)
 # NOTE: /Users/Travis/bin: Operation not permitted
-links        := $(subst bin,.bin,$(links))
-dir_requires := $(subst bin,.bin,$(dir_requires))
-bin_requires := $(subst bin,.bin,$(bin_requires))
+bindir := .bin
 endif
+
+os := $(shell uname -s)
+credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
+links        := $(RC_FILES) .gitconfig $(bindir) tmp .zsh .vim .vimperator .config/dein .config/nyaovim
+dir_requires := ~/src ~/$(bindir) ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
+bin_requires := ~/$(bindir)/diff-highlight ~/.zplug/init.zsh
 
 
 .PHONY: help me $(os)/*
@@ -94,6 +93,6 @@ chsh_zsh:
 ~/.zplug/init.zsh:
 	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
 
-~/bin/diff-highlight: ~/bin
+~/$(bindir)/diff-highlight: ~/bin
 	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
 	chmod +x $@
