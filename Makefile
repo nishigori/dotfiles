@@ -4,11 +4,6 @@ SHELL    := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
-ifeq ($(TRAVIS),true)
-# NOTE: /Users/Travis/xxx: Operation not permitted
-HOME := /var/tmp
-endif
-
 os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim
@@ -67,7 +62,11 @@ $(credentials):
 		echo "(maybe) U should edit $@ just putting"; \
 	fi
 
+ifeq($(TRAVIS),true)
+links:
+else
 links: $(dir_requires) $(links) neovimrc
+endif
 
 $(links):
 	@ln -sf $(CURDIR)/$@ $(HOME)/$(dir $@)
