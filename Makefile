@@ -62,7 +62,7 @@ $(credentials):
 		echo "(maybe) U should edit $@ just putting"; \
 	fi
 
-ifeq($(TRAVIS),true)
+ifeq ($(TRAVIS),true)
 links:
 else
 links: $(dir_requires) $(links) neovimrc
