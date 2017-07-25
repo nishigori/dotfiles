@@ -7,8 +7,8 @@ RC_FILES := $(wildcard .*rc)
 os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim
-dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
-bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
+dir_requires := $(HOME)/src $(HOME)/bin $(HOME)/.config/nvim $(HOME)/.cache/vim/{undo,swap,backup,unite,view}
+bin_requires := $(HOME)/bin/diff-highlight $(HOME)/.zplug/init.zsh
 
 
 .PHONY: help me $(os)/*
@@ -57,36 +57,40 @@ goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimpo
 credentials: $(dir_requires) $(credentials)
 
 $(credentials):
-	@if ! [ -f ~/$@ ]; then \
-		/bin/cp -i ./$@.example ~/$@; \
+	@if ! [ -f $(HOME)/$@ ]; then \
+		/bin/cp -i ./$@.example $(HOME)/$@; \
 		echo "(maybe) U should edit $@ just putting"; \
 	fi
 
+ifeq ($(TRAVIS),true)
+links:
+else
 links: $(dir_requires) $(links) neovimrc
+endif
 
 $(links):
-	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
-	@ls -dF ~/$@
+	@ln -sf $(CURDIR)/$@ $(HOME)/$(dir $@)
+	@ls -dF $(HOME)/$@
 
-neovimrc: ~/.config/nvim
+neovimrc: $(HOME)/.config/nvim
 	@ln -snfv $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
 
 
-zsh: ~/.zplug/init.zsh ~/.zsh_history chsh_zsh ## Configure ZSH
+zsh: $(HOME)/.zplug/init.zsh $(HOME)/.zsh_history chsh_zsh ## Configure ZSH
 
 chsh_zsh:
 	@echo Setup SHELL
 	grep -q $(SHELL) /etc/shells || sudo sh -c "echo '$(SHELL)' >> /etc/shells"
 	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
 	$(SHELL) --version
-	-time ( source ~/.$(notdir $(SHELL))rc )
+	-time ( source $(HOME)/.$(notdir $(SHELL))rc )
 
-~/.zsh_history:
+$(HOME)/.zsh_history:
 	fc -p $(HOME)/.zsh_history
 
-~/.zplug/init.zsh:
+$(HOME)/.zplug/init.zsh:
 	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
 
-~/bin/diff-highlight: ~/bin
+$(HOME)/bin/diff-highlight: $(HOME)/bin
 	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
 	chmod +x $@
