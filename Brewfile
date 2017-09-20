@@ -26,6 +26,7 @@ cask 'virtualbox'
 cask 'skype'
 cask 'iterm2'
 cask 'dash'
+cask 'google-cloud-sdk'
 
 
 brew 'ack'
@@ -169,10 +170,10 @@ tap 'sanemat/font'
 brew 'sanemat/font/ricty'
 
 # qmk_firmware for ErgoDox
-tap osx-cross/avr
-teensy_loader_cli
-avr-libc
-dfu-programmer
+#tap osx-cross/avr
+#teensy_loader_cli
+#avr-libc
+#dfu-programmer
 
 ####################
 # CommandLine Tools
