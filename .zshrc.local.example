@@ -5,7 +5,7 @@
 # Environment Variable(s)
 #########################
 
-## => LibreSSL
+## => LibreSSL & cURL
 ##
 ## For compilers to find this software you may need to set:
 ##     LDFLAGS:  -L/usr/local/opt/libressl/lib
@@ -13,6 +13,8 @@
 ## For pkg-config to find this software you may need to set:
 ##     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
 #export PATH=/usr/local/opt/libressl/bin:$PATH
+#export PATH=/usr/local/opt/curl/bin:$PATH
+
 ## => Go/golang
 #export GOROOT=/usr/local/opt/go/libexec
 #export GOPATH=$HOME/.go
