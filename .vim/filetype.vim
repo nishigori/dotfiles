@@ -28,4 +28,5 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *muttatorrc*,*.muttator setfiletype muttator
   au! BufRead,BufNewFile */bundle/*/doc/*        setfiletype help
   au! BufRead,BufNewFile Dockerfile.*     set filetype=Dockerfile
+  au! BufRead,BufNewFile *.dockerfile     set filetype=Dockerfile
 augroup END
