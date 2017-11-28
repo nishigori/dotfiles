@@ -175,6 +175,9 @@ brew 'sanemat/font/ricty'
 #avr-libc
 #dfu-programmer
 
+# around docker
+brew 'stern'
+
 ####################
 # CommandLine Tools
 ###################
