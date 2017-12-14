@@ -27,6 +27,8 @@
 #export PATH=$HOME/.nodebrew/current/bin:$PATH
 ## => Composer
 #export PATH=$HOME/.composer/vendor/bin:$PATH
+## => SQLite
+#export PATH=/usr/local/opt/sqlite/bin:$PATH
 ## => Docker
 #export DOCKER_TLS_VERIFY=1
 ## => Perl > plenv
