@@ -6,7 +6,7 @@ RC_FILES := $(wildcard .*rc)
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim
+links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .oni .config/dein .config/nyaovim
 dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
 bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
