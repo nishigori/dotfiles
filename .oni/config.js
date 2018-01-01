@@ -14,10 +14,44 @@ const activate = (oni) => {
 
 module.exports = {
     activate,
-    "oni.useDefaultConfig": true,
+    "environment.additionalPaths": [
+        "/usr/local/opt/curl/bin/curl",
+        "/usr/local/opt/libressl/bin",
+        "/usr/local/opt/pyenv/shims",
+        "/usr/local/opt/rbenv/shims",
+        "/usr/local/opt/rbenv/bin",
+        "/usr/local/opt/sqlite/bin",
+        "~/.zplug/bin",
+        //"~/.composer/vendor/bin",
+        "~/.nodebrew/current/bin",
+        //"~/.plenv/shims",
+        //"~/google-cloud-sdk/bin",
+        "~/bin",
+        "/usr/local/bin",
+        "/usr/bin",
+        "/bin",
+    ],
+
+    "oni.useDefaultConfig": false,
     "oni.loadInitVim": true,
+    "oni.hideMenu": true,
+
     "editor.fontSize": "14px",
     "editor.fontFamily": "Ricty Discord",
     "editor.backgroundOpacity": 0.7,
-    "editor.completions.enabled": true
+    "editor.completions.enabled": true,
+    "editor.cursorColumn": true,
+    "editor.cursorColumnOpacity": 0.5,
+
+    "tabs.mode": "tabs", // default: buffers
+    "tabs.height": "1.8em",
+    "tabs.width": "60em",
+    "tabs.wrap": false,
+
+    "autoClosingPairs.enabled": true,
+    "autoClosingPairs.default": [
+        { "open": "{", "close": "}" },
+        { "open": "[", "close": "]" },
+        { "open": "(", "close": ")" },
+    ],
 }
