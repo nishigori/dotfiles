@@ -27,7 +27,7 @@ cask 'skype'
 cask 'iterm2'
 cask 'dash'
 cask 'google-cloud-sdk'
-
+cask 'spectacle'
 
 brew 'ack'
 brew 'xz'
