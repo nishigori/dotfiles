@@ -105,11 +105,10 @@ brew 'llvm', args: ['with-clang', 'with-lld', 'with-rtti']
 brew 'nodebrew'
 
 tap 'homebrew/homebrew-php'
-brew 'php71', args: ['--with-pear']
-brew 'php71-mcrypt'
-brew 'php71-msgpack'
-brew 'php71-opcache'
-brew 'php71-tidy'
+brew 'php72', args: ['--with-pear']
+brew 'php72-msgpack'
+brew 'php72-opcache'
+brew 'php72-tidy'
 
 brew 'zsh'
 brew 'cscope'
