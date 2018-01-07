@@ -114,6 +114,7 @@ brew 'zsh'
 brew 'cscope'
 brew 'ctags'
 brew 'gotags'
+brew 'go-delve/delve/delve'
 brew 'direnv'
 
 brew 'sqlite'
