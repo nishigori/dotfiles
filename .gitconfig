@@ -34,6 +34,7 @@
 	co        = checkout
 	cob       = checkout -b
 	ci        = commit --verbose
+	cim       = commit --verbose -m
 	di        = diff --ignore-space-change
 	dic       = diff --cached --ignore-space-change
 	dis       = diff --stat
