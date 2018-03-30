@@ -16,7 +16,6 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *.gradle     set filetype=groovy
   au! BufRead,BufNewFile *.snip*      set filetype=snippet
   au! BufRead,BufNewFile *Test.php    set filetype=phpunit.php
-  au! BufRead,BufNewFile *.template   setfiletype json
   au! BufRead,BufNewFile Capfile      set filetype=ruby
   au! BufRead,BufNewFile Gemfile      set filetype=ruby
   au! BufRead,BufNewFile Guardfile    set filetype=ruby
@@ -27,6 +26,6 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile *vimperatorrc*,*.vimp   setfiletype vimperator
   au! BufRead,BufNewFile *muttatorrc*,*.muttator setfiletype muttator
   au! BufRead,BufNewFile */bundle/*/doc/*        setfiletype help
-  au! BufRead,BufNewFile Dockerfile.*     set filetype=Dockerfile
+  au! BufRead,BufNewFile Dockerfile.*     setfiletype Dockerfile
   au! BufRead,BufNewFile *.dockerfile     set filetype=Dockerfile
 augroup END

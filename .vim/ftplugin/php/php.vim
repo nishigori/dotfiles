@@ -39,7 +39,7 @@ inoremap <expr>;; IsEndSemicolon() ? "<C-O>$;<CR>" : "<C-O>$<CR>"
 " FEATURE: PHP5.4.x~ is enable using Array literal.
 let g:php_version = get(g:, 'php_version', 5.3)
 if g:php_version == 5.4
-  inoremap <expr> [ smartchr#one_of('[]', '[', 'array()', '[]')
+  inoremap <expr> [ smartchr#one_of('[]', '[', '[]')
 else
   inoremap <buffer><expr> [ <SID>php_smart_bracket(<SID>last_char())
 endif
@@ -48,13 +48,7 @@ function! s:last_char() "{{{
   return matchstr(getline('.'), '.', col('.')-2)
 endfunction "}}}
 function! s:php_smart_bracket(last_char) "{{{
-  if a:last_char == '['
-    return "\<BS>("
-  elseif a:last_char =~ '\w\|]'
-    return '[]'
-  else
-    return 'array()'
-  endif
+  return '[]'
 endfunction "}}}
 
 if !exists('g:my_config_use_plugin') || !g:my_config_use_plugin
