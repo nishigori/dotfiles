@@ -46,6 +46,7 @@ golang: ## Setup Go language
 	go get -u golang.org/x/tools/cmd/godoc
 	go get -u github.com/nsf/gocode
 	go get -u github.com/d4l3k/go-pry
+	go get -u github.com/mightyguava/ecsq
 	go install github.com/d4l3k/go-pry
 
 goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
