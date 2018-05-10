@@ -7,7 +7,7 @@ RC_FILES := $(wildcard .*rc)
 os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig .sqliterc bin tmp .zsh .vim .vimperator .oni .config/dein .config/nyaovim
-dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view}
+dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform
 bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
 
