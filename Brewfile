@@ -28,6 +28,7 @@ cask 'iterm2'
 cask 'dash'
 cask 'google-cloud-sdk'
 cask 'spectacle'
+cask 'kindle'
 
 brew 'ack'
 brew 'xz'
