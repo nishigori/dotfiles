@@ -107,7 +107,7 @@ brew 'llvm', args: ['with-clang', 'with-lld', 'with-rtti']
 brew 'nodebrew'
 
 tap 'homebrew/homebrew-php'
-brew 'php72', args: ['--with-pear']
+brew 'php@7.2', args: ['--with-pear']
 brew 'php72-msgpack'
 brew 'php72-opcache'
 brew 'php72-tidy'
