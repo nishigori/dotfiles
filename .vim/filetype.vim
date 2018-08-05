@@ -28,4 +28,5 @@ augroup FiletypeDetect
   au! BufRead,BufNewFile */bundle/*/doc/*        setfiletype help
   au! BufRead,BufNewFile Dockerfile.*     setfiletype Dockerfile
   au! BufRead,BufNewFile *.dockerfile     set filetype=Dockerfile
+  au! BufRead,BufNewFile rebar.config     set filetype=erlang
 augroup END

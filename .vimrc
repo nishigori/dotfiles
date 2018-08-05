@@ -1154,14 +1154,16 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:startify_files_number = 15
   "let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
   let g:startify_list_order = ['bookmarks', 'files', 'sessions']
-  let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
-    \ '~/.ssh/config',
-    \ '~/.vimrc',
-    \ '~/.vimrc.local',
-    \ '~/.gvimrc',
-    \ '~/.gvimrc.local',
-    \ '~/.vim/bundle.vim.local',
-    \ ])
+  if !exists("g:gui_oni")
+    let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
+      \ '~/.ssh/config',
+      \ '~/.vimrc',
+      \ '~/.vimrc.local',
+      \ '~/.gvimrc',
+      \ '~/.gvimrc.local',
+      \ '~/.vim/bundle.vim.local',
+      \ ])
+  endif
   " }}}
   " Plugin: PreserveNoEOL {{{
   "setlocal noeol | let b:PreserveNoEOL = 1

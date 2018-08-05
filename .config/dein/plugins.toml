@@ -66,12 +66,14 @@ depends = 'unite.vim'
 
 # Shell {{{
 [[plugins]]
-repo = 'Shougo/vimshell.vim'
-lazy = 1
+repo   = 'Shougo/vimshell.vim'
+if     = 'has("nvim") && !exists("g:gui_oni")'
+lazy   = 1
 on_map = [['n', '<Plug>(vimshell_switch)']]
 
 [[plugins]]
-repo = 'yomi322/vim-gitcomplete'
+repo    = 'yomi322/vim-gitcomplete'
+if      = 'has("nvim") && !exists("g:gui_oni")'
 depends = 'vimshell.vim'
 # }}}
 
@@ -186,14 +188,14 @@ on_path = '.*'
 
 [[plugins]]
 repo = 'Shougo/neocomplete'
-if = '!has("nvim") && !exists("g:gui_oni")'
+if = '!has("nvim")'
 lazy = 1
 if = 'has("lua")'
 on_i = 1
 
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-if = 'has("nvim") || exists("g:gui_oni")'
+if = 'has("nvim") && !exists("g:gui_oni")'
 on_i = 1
 hook_source = '''
   let g:deoplete#enable_at_startup = 1
