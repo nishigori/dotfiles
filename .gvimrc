@@ -46,15 +46,8 @@ if exists('g:local_config')
   let $MYGVIMRC = g:local_config['dotfiles_dir'] . '/.gvimrc'
   let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
 else
-  if has('win32')
-    let s:gvimrc = '_gvimrc'
-    let s:gvimrc_local = '_gvimrc.local'
-  else
-    let s:gvimrc = '.gvimrc'
-    let s:gvimrc_local = '.gvimrc.local'
-  endif
-  let $MYGVIMRC = $HOME . '/' . s:gvimrc
-  let $MYGVIMRC_LOCAL = $HOME . '/' . s:gvimrc_local
+  let $MYGVIMRC = $HOME . '/.gvimrc'
+  let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
 endif
 nnoremap e> :<C-u>edit $MYGVIMRC<CR>
 nnoremap eS :<C-u>source $MYGVIMRC<CR>
@@ -79,21 +72,9 @@ elseif has('gui_macvim')
   set guifont=Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
   set guifontwide=ゆたぽん（コーディング）,\ みかちゃん,\ あくあフォント,\ Monaco
   set antialias
-elseif has('win32')
-  " WARNING: encodingを一時的に変える必要があるかもしれない
-  "set encoding=cp932
-
-  " not checked guifont.
-  " http://magicant.txt-nifty.com/main/2009/03/gvim-on-windows.html
-  set guifont=Inconsolata:h10.5
-  set guifontwide=MS_Gothic
-  "set guifontwide=ゆたぽん（コーディング）:みかちゃん:めんまフォント:MS_Gothic
-
-  "set encoding=utf-8
 endif
 
 if has('kaoriya')
-  " TODO: need checking Windows
   set linespace=2
   " ?? ambiwidth=single
   "set ambiwidth=auto
@@ -104,10 +85,6 @@ endif
 if has('mac') && !has('nvim')
   set transparency=8
   set noimdisableactivate
-elseif has('win32')
-  "set guioptions+=C
-  gui
-  set transparency=222
 endif
 " }}}
 " # Local Dependency {{{

@@ -27,7 +27,7 @@
 " vim: set fletype=vim fdm=marker ts=2 sw=2 sts=0 expandtab:
 
 " # runtimepath {{{
-if has('vim_starting') && has('win32')
+if has('vim_starting')
   " INFO: .vimrc unifies vimrc
   "       .vim   unifies vimfiles
   set runtimepath^=$HOME/.vim
@@ -40,11 +40,6 @@ if !has('nvim') && (!has('gui_macvim') || !has('kaoriya'))
   " INFO: If encode is fixed, :e ++enc={encoding-name}
   set encoding=utf-8
   set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
-endif
-if has('win32')
-  let &termencoding=&encoding
-  set encoding=utf-8
-  set fileencodings=utf-8,cp932,shiftjis,euc-jp,iso-2022-jp
 endif
 " }}}
 " # Basic "{{{
@@ -546,9 +541,6 @@ set foldcolumn=4
 set fillchars+=fold:-
 " Don't save options.
 set viewoptions-=options
-if has('win32')
-  set viewoptions+=unix
-endif
 augroup MkviewAccessor " Save fold settings. Vim-user.jp Hack #84
   autocmd!
   autocmd BufWritePost *
@@ -868,11 +860,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     let g:vimfiler_tree_closed_icon = '▸'
     let g:vimfiler_file_icon = '-'
     let g:vimfiler_marked_file_icon = '*'
-
-    if has('win32')
-      let g:unite_kind_file_use_trashbox = s:cache_dir . '/vimfiler_trashbox'
-    endif
-
   endif
 
   nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
@@ -1013,24 +1000,11 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     "\ 'subst': '/',
     "\ 'priority': -30,
     "\ })
-  if has('win32') || has('win64')
-    call unite#custom#profile('files', 'substitute_patterns', {
-      \ 'pattern': '^;p',
-      \ 'subst': 'C:/Program Files/',
-      \ 'priority': 1,
-      \ })
-    call unite#custom#profile('files', 'substitute_patterns', {
-      \ 'pattern': '^;v',
-      \ 'subst': '~/vimfiles/',
-      \ 'priority': 1,
-      \ })
-  else
-    call unite#custom#profile('files', 'substitute_patterns', {
-      \ 'pattern': '^;v',
-      \ 'subst': '~/.vim/',
-      \ 'priority': 1,
-      \ })
-  endif
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^;v',
+    \ 'subst': '~/.vim/',
+    \ 'priority': 1,
+    \ })
   " >> unite-source: custom > aliases
   let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
   let g:unite_source_alias_aliases.workspace = {'source': 'file', 'args': "$HOME/workspace"}
@@ -1693,30 +1667,20 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     let g:my_host_prompt = stridx(hostname(), '.') > 0
       \ ? hostname()[ : stridx(hostname(), '.') - 1]
       \ : hostname()
-    if has('win32') || has('win64')
-      " Display user name on Windows.
-      "let g:vimshell_prompt = $USERNAME." % "
-      let g:vimshell_user_prompt = printf(
-        \ '"%s\n┌[" .$USERNAME."@".%s. "]" ." - ". "[" .%s. "]"'
-        \ , '"☁ ". fnamemodify(getcwd(), ":p:h")'
-        \ , 'g:my_host_prompt'
-        \ , 'fnamemodify(getcwd(), ":~")'
-        \ )
-    else
-      " Display user name on Linux.
-      " TODO: $USER . hostname() の省略系を表示できるようにする
-      let g:vimshell_user_prompt = printf(
-        \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
-        \ , 'g:my_host_prompt'
-        \ , 'fnamemodify(getcwd(), ":~")'
-        \ )
 
-      "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-      "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-      let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-      "call vimshell#set_execute_file('tgz,gz', 'gzcat')
-      "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
-    endif
+    " Display user name on Linux.
+    " TODO: $USER . hostname() の省略系を表示できるようにする
+    let g:vimshell_user_prompt = printf(
+      \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
+      \ , 'g:my_host_prompt'
+      \ , 'fnamemodify(getcwd(), ":~")'
+      \ )
+
+    "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
+    "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
+    let g:vimshell_execute_file_list['zip'] = 'zipinfo'
+    "call vimshell#set_execute_file('tgz,gz', 'gzcat')
+    "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
     let g:vimshell_prompt = '└[☁ ] '
     "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
 
