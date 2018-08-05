@@ -5,6 +5,8 @@
 const activate = (oni) => {
    // access the Oni plugin API here
 
+    oni.input.bind("<Space>s", "vcs.sidebar.toggle")
+
    // for example, unbind the default `<c-p>` action:
    //oni.input.unbind("<c-p>")
 
@@ -32,19 +34,19 @@ module.exports = {
         "/bin",
     ],
 
-    "oni.useDefaultConfig": false,
+    // change configuration values here:
+    "oni.useDefaultConfig": true,
     "oni.loadInitVim": true,
     "oni.hideMenu": true,
-
-    "editor.fontSize": "14px",
+    "editor.fontSize": "12px",
     "editor.fontFamily": "Ricty Discord",
     "editor.backgroundOpacity": 0.7,
     "editor.completions.enabled": true,
     "editor.cursorColumn": true,
     "editor.cursorColumnOpacity": 0.5,
-
-    "tabs.mode": "tabs", // default: buffers
-    "tabs.height": "1.8em",
+    "autoUpdate.enabled": true,
+    "sidebar.default.open": false,
+    "experimental.vcs.sidebar": true
     "tabs.width": "60em",
     "tabs.wrap": false,
 
