@@ -163,10 +163,12 @@ bindkey '^R' peco-select-history
 # Go
 ####
 export GOPATH=$HOME
-if which go > /dev/null; then
-    export GOROOT=$( go env GOROOT )
-fi
 export PATH=$GOPATH/bin:$PATH
+if which goenv >/dev/null; then
+    if which go > /dev/null; then
+        export GOROOT=$( go env GOROOT )
+    fi
+fi
 
 bindkey '^O' peco-src
 
