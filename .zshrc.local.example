@@ -53,13 +53,11 @@ case ${OSTYPE} in
     # Example of Darwin
     darwin*)
         export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
-        which gls >/dev/null && alias ls="gls -bG --color -h --group-directories-first" || alias ls="/bin/ls -G -w"
-        which gls >/dev/null && alias ll="gls -lbG --color -h --group-directories-first" || alias ll="/bin/ls -G -w -l"
         if [ -f "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
-            export EDITOR=~/Applications/MacVim.app/Contents/MacOS/Vim
+            export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+            alias   vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+            alias  vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
             alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
-            alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-            alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
         fi
         # Around the sushi: http://getemoji.com/
         DEFAULT=$'\U0001f37b '

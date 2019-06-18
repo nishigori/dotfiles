@@ -6,7 +6,7 @@ RC_FILES := $(wildcard .*rc)
 # Internal variables that it is (maybe) you do not need to set.
 os := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig .sqliterc bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
+links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
 dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform
 bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
@@ -73,7 +73,7 @@ neovimrc: ~/.config/nvim
 	@ln -snfv $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
 
 
-zsh: ~/.zplug/init.zsh ~/.zsh_history chsh_zsh ## Configure ZSH
+zsh: ~/.zplugin/bin ~/.zsh_history chsh_zsh ## Configure ZSH
 
 chsh_zsh:
 	@echo Setup SHELL
@@ -84,6 +84,9 @@ chsh_zsh:
 
 ~/.zsh_history:
 	fc -p $(HOME)/.zsh_history
+
+~/.zplugin/bin:
+	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 
 ~/.zplug/init.zsh:
 	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh

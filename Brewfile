@@ -12,6 +12,9 @@ mas 'TweetDeck', id: 485812721
 
 tap 'caskroom/cask'
 tap 'caskroom/versions'
+tap 'caskroom/fonts'
+tap 'caskroom/homebrew-fonts'
+cask 'font-hack-nerd-font'
 cask 'adobe-reader'
 cask 'apache-directory-studio'
 cask 'alfred'
@@ -194,3 +197,4 @@ brew 'cmake'
 brew 'curl', args: ['with-libressl']
 brew 'wrk'
 brew 'swagger-codegen'
+brew 'lsd'
