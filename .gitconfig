@@ -48,6 +48,7 @@
 	rb        = rebase --verbose
 	st        = status
 	wc        = whatchanged
+	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
 	souji     = !git branch --merged | grep -vE '(^[*] | master)' | xargs git branch -d
 	master    = !git checkout master && git fv && git rebase origin/master -v
 

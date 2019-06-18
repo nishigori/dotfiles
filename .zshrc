@@ -134,6 +134,7 @@ WORDCHARS='*?_.[]~&;!#$%^(){}<>'
 autoload -Uz select-word-style
 select-word-style default
 
+
 #########
 # History
 #########
@@ -157,6 +158,23 @@ peco-select-history() {
 zle -N peco-select-history
 
 bindkey '^R' peco-select-history
+
+
+#####
+# Git
+#####
+bindkey '^G' peco-select-git-branch
+
+peco-select-git-branch() {
+  git branch -a --sort=-authordate |
+    grep -v -e '->' -e '*' |
+    perl -pe 's/^\h+//g' |
+    perl -pe 's#^remotes/origin/###' |
+    perl -nle 'print if !$c{$_}++' |
+    peco |
+    xargs git checkout
+}
+zle -N peco-select-git-branch
 
 
 ####
