@@ -35,7 +35,7 @@ module.exports = {
     ],
 
     // change configuration values here:
-    "oni.useDefaultConfig": true,
+    //"oni.useDefaultConfig": true,
     "oni.loadInitVim": true,
     "oni.hideMenu": true,
     "editor.fontSize": "12px",
