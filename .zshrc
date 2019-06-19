@@ -316,6 +316,8 @@ case ${OSTYPE} in
 esac
 
 # [Theme]
+zplugin ice from"gh"
+zplugin load bhilburn/powerlevel9k
 # https://github.com/bhilburn/powerlevel9k#available-prompt-segments
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir)
