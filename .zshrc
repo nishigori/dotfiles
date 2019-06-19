@@ -320,8 +320,6 @@ zplugin ice from"gh"
 zplugin load bhilburn/powerlevel9k
 # https://github.com/bhilburn/powerlevel9k#available-prompt-segments
 POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 POWERLEVEL9K_DISABLE_RPROMPT=false
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RBENV_PROMPT_ALWAYS_SHOW=false
@@ -334,8 +332,12 @@ POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes)
 POWERLEVEL9K_VCS_HG_HOOKS=()
 POWERLEVEL9K_VCS_SVN_HOOKS=()
 
-POWERLEVEL9K_CUSTOM_GIT_BRANCH="git symbolic-ref --short @ 2>/dev/null"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL='echo @ $(git symbolic-ref --short HEAD 2>/dev/null)'
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
 
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 #if [ -z "$ZSH_THEME" ]; then
 #    zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
 #fi
