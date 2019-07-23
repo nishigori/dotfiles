@@ -165,6 +165,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     " script_type = 'colors'
     "call dein#add('mhartington/oceanic-next', { 'merged': 0 })
     call dein#add('jacoborus/tender.vim', { 'merged': 0 })
+    call dein#add('NLKNguyen/papercolor-theme', { 'merged': 0 })
     call dein#source('tender.vim')
     "call dein#add('Diablo3',                  { 'merged': 0 })
     "call dein#add('w0ng/vim-hybrid',          { 'merged': 0 })

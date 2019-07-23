@@ -149,4 +149,5 @@ if exists("*LoadedHookGVIMRC")
   call LoadedHookGVIMRC()
 endif
 
-colorscheme tender
+set background=light
+colorscheme PaperColor
