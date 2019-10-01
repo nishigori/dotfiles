@@ -67,7 +67,6 @@ depends = 'unite.vim'
 # Shell {{{
 [[plugins]]
 repo   = 'Shougo/vimshell.vim'
-if     = 'has("nvim") && !exists("g:gui_oni")'
 lazy   = 1
 on_map = [['n', '<Plug>(vimshell_switch)']]
 
