@@ -90,6 +90,7 @@ brew 'peco'
 brew 'jq'
 brew 'tmux'
 
+cask 'mysql-client'
 cask 'java'
 brew 'groovy'
 brew 'gauche'
