@@ -187,19 +187,16 @@ lazy = 1
 on_path = '.*'
 
 [[plugins]]
-repo = 'Shougo/neocomplete'
-if = '!has("nvim")'
-lazy = 1
-if = 'has("lua")'
-on_i = 1
+repo = 'Shougo/deoplete.nvim'
+depends = 'roxma/vim-hug-neovim-rpc'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-if = 'has("nvim") && !exists("g:gui_oni")'
-on_i = 1
-hook_source = '''
-  let g:deoplete#enable_at_startup = 1
-'''
+repo = 'roxma/vim-hug-neovim-rpc'
+depends = 'roxma/nvim-yarp'
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+depends = 'roxma/vim-hug-neovim-rpc'
 
 #[[plugins]]
 #repo = 'Shougo/neosnippet-snippets'
@@ -342,13 +339,6 @@ on_ft = 'php'
 #[[plugins]]
 #repo = 'arnaud-lb/vim-php-namespace'
 #lazy = 1
-#on_ft = 'php'
-
-# TODO: support to neocomplete
-#[[plugins]]
-#repo = 'nishigori/neocomplcache-phpunit-snippet'
-#lazy = 1
-#on_i = 1
 #on_ft = 'php'
 # }}}
 
