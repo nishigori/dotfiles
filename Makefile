@@ -4,10 +4,10 @@ SHELL    := $(shell which zsh)
 RC_FILES := $(wildcard .*rc)
 
 # Internal variables that it is (maybe) you do not need to set.
-os := $(shell uname -s)
+os           := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
-dir_requires := ~/src ~/bin ~/.config/nvim ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform
+dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform
 bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
 
@@ -43,11 +43,20 @@ clean: $(os)/clean
 update: links $(os)/update
 
 golang: ## Setup Go language
+	# Standard
+	go get -u golang.org/x/tools/cmd/...
 	go get -u golang.org/x/tools/cmd/godoc
-	go get -u github.com/nsf/gocode
-	go get -u github.com/d4l3k/go-pry
+	# REPL
+	go get -u github.com/mdempsky/gocode
+	go get -u github.com/k0kubun/pp
 	go get -u github.com/mightyguava/ecsq
 	go install github.com/d4l3k/go-pry
+	# LSP (Language Server Protocol)
+	go get -u golang.org/x/tools/cmd/gopls
+	go get -u github.com/sourcegraph/go-langserver
+	# Others
+	go get golang.org/x/lint/golint
+	go get github.com/monochromegane/dragon-imports/...
 
 goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
 	go get -u golang.org/x/tools/cmd/goimports

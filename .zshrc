@@ -192,10 +192,8 @@ zle -N peco-select-git-branch
 ####
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$PATH
-if which goenv >/dev/null; then
-    if which go > /dev/null; then
-        export GOROOT=$( go env GOROOT )
-    fi
+if which go > /dev/null 2>&1; then
+    export GOROOT=$( go env GOROOT )
 fi
 
 bindkey '^O' peco-src
