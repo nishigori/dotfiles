@@ -1,0 +1,27 @@
+# extensions candidates is on Marketplace
+# https://marketplace.visualstudio.com
+#
+# vim: set fletype=config expandtab:
+
+vscodevim.vim
+
+## Utility
+vscode-icons-team.vscode-icons
+
+## Text Color
+# TODO: FIXME: 等をhighlight
+aaron-bond.better-comments
+IBM.output-colorizer
+emilast.LogFileHighlighter
+shardulm94.trailing-spaces
+
+## Git
+donjayamanne.githistory
+GitHub.vscode-pull-request-github
+
+## Golang
+# インストール後にcommand-pallete (Ctrl+Shift+P) を開いて GO: Install/Update tools
+ms-vscode.Go
+
+## Protobuf
+zxh404.vscode-proto3

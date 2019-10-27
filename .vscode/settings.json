@@ -1,0 +1,20 @@
+{
+  "editor.fontSize":10,
+  "editor.minimap.enabled": false,
+
+  "terminal.integrated.fontSize": 10,
+
+  // wrap
+  "editor.wordWrap": "on",
+  "files.trimTrailingWhitespace": true,
+
+  // for vim
+  "vim.hlsearch": true,
+  "vim.easymotion": true,
+  "vim.visualstar": true,
+  "vim.useSystemClipboard": true,
+  "vim.ignorecase": true,
+  "vim.camelCaseMotion.enable": true,
+  "vim.useCtrlKeys": true,
+  //"vim.leader": "\\"
+}

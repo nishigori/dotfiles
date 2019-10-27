@@ -78,10 +78,6 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
 	@ls -dF ~/$@
 
-neovimrc: ~/.config/nvim
-	@ln -snfv $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
-
-
 zsh: ~/.zplugin/bin ~/.zsh_history chsh_zsh ## Configure ZSH
 
 chsh_zsh:

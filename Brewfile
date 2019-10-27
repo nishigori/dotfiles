@@ -32,6 +32,7 @@ cask 'dash'
 cask 'google-cloud-sdk'
 cask 'spectacle'
 cask 'kindle'
+cask 'visual-studio-code'
 
 brew 'ack'
 brew 'xz'
