@@ -8,7 +8,7 @@ BREW_MAS    := /usr/local/bin/mas
 MYFONTS_DIR := $(HOME)/.fonts
 
 VSCODE            := /usr/local/bin/code
-VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' vscode_plugins.txt)
+VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' .vscode/plugins.txt)
 
 .PHONY: Darwin/* brew/* firefox/* fonts/*
 
