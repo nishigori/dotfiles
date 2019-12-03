@@ -190,7 +190,7 @@ zle -N peco-select-git-branch
 ##################
 # Kubernates (k8s)
 ##################
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi"
+test -z "$(which kubectl 2>/dev/null)" || source <(kubectl completion zsh)
 alias kc=kubectl
 
 # https://qiita.com/sonots/items/f82912367693d717ff06
