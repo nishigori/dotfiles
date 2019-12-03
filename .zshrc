@@ -187,14 +187,46 @@ peco-select-git-branch() {
 zle -N peco-select-git-branch
 
 
+##################
+# Kubernates (k8s)
+##################
+echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi"
+alias kc=kubectl
+
+# https://qiita.com/sonots/items/f82912367693d717ff06
+function gke-activate() {
+  name="$1"
+  zone_or_region="$2"
+  if echo "${zone_or_region}" | grep '[^-]*-[^-]*-[^-]*' > /dev/null; then
+    echo "gcloud container clusters get-credentials \"${name}\" --zone=\"${zone_or_region}\""
+    gcloud container clusters get-credentials "${name}" --zone="${zone_or_region}"
+  else
+    echo "gcloud container clusters get-credentials \"${name}\" --region=\"${zone_or_region}\""
+    gcloud container clusters get-credentials "${name}" --region="${zone_or_region}"
+  fi
+}
+function kx-complete() {
+  _values $(gcloud container clusters list | awk '{print $1}')
+}
+function kx() {
+  name="$1"
+  if [ -z "$name" ]; then
+    line=$(gcloud container clusters list | peco)
+    name=$(echo $line | awk '{print $1}')
+  else
+    line=$(gcloud container clusters list | grep "$name")
+  fi
+  zone_or_region=$(echo $line | awk '{print $2}')
+  gke-activate "${name}" "${zone_or_region}"
+}
+compdef kx-complete kx
+
 ####
 # Go
 ####
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$PATH
-if which go > /dev/null 2>&1; then
-    export GOROOT=$( go env GOROOT )
-fi
+test "$(which go 2>/dev/null)" = "" || export GOROOT=$( go env GOROOT )
 
 bindkey '^O' peco-src
 
