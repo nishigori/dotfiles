@@ -56,12 +56,16 @@ brew 'libxslt'
 brew 'libyaml'
 brew 'libzip'
 
+brew 'binutils'
 brew 'coreutils'
+brew 'diffutils'
 brew 'findutils'
+brew 'gawk'
+brew 'gnutls'
 brew 'gnu-sed'
 brew 'gnu-tar'
 brew 'gnu-time'
-brew 'gnu-which'
+brew 'gnu-which', args: ['with-default-names']
 
 brew 'ack'
 brew 'xz'
@@ -96,7 +100,6 @@ brew 'graphviz'
 
 
 brew 'pstree'
-brew 'gawk'
 
 
 brew 'git'
