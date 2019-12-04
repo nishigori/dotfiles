@@ -48,6 +48,71 @@ setopt auto_pushd
 setopt no_beep
 setopt interactive_comments
 
+###############
+# OS dependency
+###############
+case ${OSTYPE} in
+    darwin*)
+        MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+        MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
+        MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+        MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:$MANPATH"
+        MANPATH="/usr/local/opt/gnu-time/libexec/gnuman:$MANPATH"
+        MANPATH="/usr/local/opt/gnu-which/libexec/gnuman:$MANPATH"
+        MANPATH="/usr/local/opt/grep/libexec/gnuman:$MANPATH"
+
+        PATH="/usr/local/opt/apr/bin:$PATH"
+        PATH="/usr/local/opt/bison/bin:$PATH"
+        PATH="/usr/local/opt/icu4c/bin:$PATH"
+        PATH="/usr/local/opt/icu4c/sbin:$PATH"
+        PATH="/usr/local/opt/gettext/bin:$PATH"
+        PATH="/usr/local/opt/libxslt/bin:$PATH"
+        PATH="/usr/local/opt/libpq/bin:$PATH"
+        PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/curl/bin:$PATH"
+        PATH="/usr/local/opt/curl-openssl/bin:$PATH"
+
+        PATH=/usr/local/opt/sqlite/bin:$PATH
+        PATH=$HOME/.nodebrew/current/bin:$PATH
+        PATH=$HOME/.composer/vendor/bin:$PATH
+        if which plenv > /dev/null; then eval "$(plenv init -)"; fi
+        PERL_MB_OPT="--install_base \"~/perl5\""; export PERL_MB_OPT;
+        PERL_MM_OPT="INSTALL_BASE=~/perl5"; export PERL_MM_OPT;
+        # LibreSSL
+        #
+        # For compilers to find this software you may need to set:
+        #     LDFLAGS:  -L/usr/local/opt/libressl/lib
+        #     CPPFLAGS: -I/usr/local/opt/libressl/include
+        # For pkg-config to find this software you may need to set:
+        #     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
+        PATH=/usr/local/opt/libressl/bin:$PATH
+
+        export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
+        export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
+        if [ -f "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
+            export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+            alias   vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+            alias  vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+            alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
+        fi
+
+        #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
+        zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
+        ;;
+    freebsd*)
+        ;;
+    linux*)
+        zplugin snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
+        ;;
+esac
+
 
 #######
 # zplug
@@ -101,7 +166,6 @@ setopt interactive_comments
 #fi
 #
 #zplug load --verbose
-
 
 #############
 # Completions
@@ -384,6 +448,8 @@ fi
 ##################
 # End of execution
 ##################
+export MANPATH=$MANPATH
+export PATH=$PATH
 autoload -U compinit
 compinit
 
