@@ -48,6 +48,67 @@ setopt auto_pushd
 setopt no_beep
 setopt interactive_comments
 
+
+#########
+# Zplugin
+#########
+source $HOME/.zplugin/bin/zplugin.zsh
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+### End of Zplugin's installer chunk
+zcompile $HOME/.zplugin/bin/zplugin.zsh 2>/dev/null
+
+zplugin light zsh-users/zsh-autosuggestions
+zplugin light zsh-users/zsh-syntax-highlighting
+# https://qiita.com/mollifier/items/81b18c012d7841ab33c3
+#zplugin light mollifier/anyframe
+
+# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
+zplugin snippet OMZ::lib/git.zsh
+zplugin snippet OMZ::plugins/git/git.plugin.zsh
+
+#zplugin snippet https://raw.githubusercontent.com/saltstack/salt/v2019.8/pkg/zsh_completion.zsh
+
+case ${OSTYPE} in
+    darwin*)
+        #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
+        zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
+        ;;
+    freebsd*)
+        ;;
+    linux*)
+        zplugin snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
+        ;;
+esac
+
+# [Theme]
+zplugin ice from"gh"
+zplugin load bhilburn/powerlevel9k
+# https://github.com/bhilburn/powerlevel9k#available-prompt-segments
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_DISABLE_RPROMPT=false
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_RBENV_PROMPT_ALWAYS_SHOW=false
+POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=false
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
+POWERLEVEL9K_VCS_SHOW_SUBMODULE_DIRTY=false
+POWERLEVEL9K_VCS_HIDE_TAGS=true
+POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes)
+#POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
+POWERLEVEL9K_VCS_HG_HOOKS=()
+POWERLEVEL9K_VCS_SVN_HOOKS=()
+
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL='echo @ $(git symbolic-ref --short HEAD 2>/dev/null)'
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
+#if [ -z "$ZSH_THEME" ]; then
+#    zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+#fi
+
+
 ###############
 # OS dependency
 ###############
@@ -113,59 +174,6 @@ case ${OSTYPE} in
         ;;
 esac
 
-
-#######
-# zplug
-#######
-## Ref: https://github.com/b4b4r07/zplug
-#source ~/.zplug/init.zsh
-#
-#zplug "zsh-users/zsh-syntax-highlighting"
-#
-#zplug "mollifier/anyframe"
-#
-#zplug "plugins/git", from:oh-my-zsh
-## TODO: why warning?
-##zplug 'git/git', use:'contrib/completion'
-#zplug "plugins/python", from:oh-my-zsh
-#zplug 'zsh-users/zsh-completions'
-#zplug 'zsh-users/zsh-syntax-highlighting', defer:2
-#zplug 'docker/compose', use:'contrib/completion/zsh'
-#zplug 'moby/moby', use:'contrib/completion/zsh'
-#zplug 'peterhurford/git-it-on.zsh'
-## NOTE: If you want apply theme, write on $ZPLUG_HOME/init.zsh
-#zplug "plugins/themes", from:oh-my-zsh
-#
-#case ${OSTYPE} in
-#    darwin*)
-#        zplug "plugins/osx", from:oh-my-zsh
-#        zplug "plugins/brew", from:oh-my-zsh
-#        zplug "plugins/brew-cask", from:oh-my-zsh
-#        zplug "plugins/tmux", from:oh-my-zsh
-#        ;;
-#    freebsd*)
-#        ;;
-#    linux*)
-#        zplug "plugins/gnu-utils", from:oh-my-zsh
-#        if [ -f /etc/redhat-release ]; then
-#            zplug "plugins/yum", from:oh-my-zsh
-#        elif [ -f /etc/debian_version ]; then
-#            zplug "plugins/debian", from:oh-my-zsh
-#        fi
-#        ;;
-#esac
-#
-#source ~/.zplugrc.local
-#
-## Checking not-installing list
-#if ! zplug check --verbose; then
-#    printf "Install? [y/N]: "
-#    if read -q; then
-#        echo; zplug install
-#    fi
-#fi
-#
-#zplug load --verbose
 
 #############
 # Completions
@@ -376,65 +384,6 @@ if type "pygmentize" > /dev/null; then
     }
     alias cl=cl
 fi
-
-#########
-# Zplugin
-#########
-source $HOME/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin's installer chunk
-zcompile $HOME/.zplugin/bin/zplugin.zsh 2>/dev/null
-
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light zsh-users/zsh-syntax-highlighting
-# https://qiita.com/mollifier/items/81b18c012d7841ab33c3
-#zplugin light mollifier/anyframe
-
-# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-zplugin snippet OMZ::lib/git.zsh
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
-
-#zplugin snippet https://raw.githubusercontent.com/saltstack/salt/v2019.8/pkg/zsh_completion.zsh
-
-case ${OSTYPE} in
-    darwin*)
-        #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
-        zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
-        ;;
-    freebsd*)
-        ;;
-    linux*)
-        zplugin snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
-        ;;
-esac
-
-# [Theme]
-zplugin ice from"gh"
-zplugin load bhilburn/powerlevel9k
-# https://github.com/bhilburn/powerlevel9k#available-prompt-segments
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_DISABLE_RPROMPT=false
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RBENV_PROMPT_ALWAYS_SHOW=false
-POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=false
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_VCS_SHOW_SUBMODULE_DIRTY=false
-POWERLEVEL9K_VCS_HIDE_TAGS=true
-POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes)
-#POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
-POWERLEVEL9K_VCS_HG_HOOKS=()
-POWERLEVEL9K_VCS_SVN_HOOKS=()
-
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL='echo @ $(git symbolic-ref --short HEAD 2>/dev/null)'
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
-#if [ -z "$ZSH_THEME" ]; then
-#    zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
-#fi
 
 
 ##################
