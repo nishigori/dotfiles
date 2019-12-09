@@ -1,3 +1,32 @@
-// Place your key bindings in this file to overwrite the defaults
+/*
+ * Docs:
+ * - https://code.visualstudio.com/docs/getstarted/keybindings
+ * - https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf
+ *
+ * when: https://code.visualstudio.com/docs/getstarted/keybindings#_contexts
+ */
 [
+    {
+        "when": "editorTextFocus && vim.mode == 'Insert'",
+        "key": "ctrl+]",
+        "command": "extension.vim_escape",
+    },
+    {
+        "when": "editorTextFocus && vim.mode == 'Insert'",
+        "key": "ctrl+[",
+        "command": "extension.vim_escape",
+    },
+    // https://code.visualstudio.com/docs/getstarted/keybindings#_editorwindow-management
+    {
+        "when": "editorFocus && vim.mode == 'Normal'",
+        "key": "ctrl+w ctrl+w",
+        "command": "workbench.action.navigateEditorGroups",
+    },
+    {
+        //{"before": ["ctrl+w"], "after": ["esc", "c", "i", "w"]},
+        "when": "editorTextFocus && vim.mode == 'Insert'",
+        "key": "ctrl+w",
+        "command": "type",
+        "args": { "text": "<esc>ciw" },
+    },
 ]

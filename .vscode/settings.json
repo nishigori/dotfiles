@@ -1,20 +1,74 @@
 {
   "editor.fontSize":10,
   "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "editor.wordWrap": "on",
+  "editor.renderLineHighlight": "line",
 
   "terminal.integrated.fontSize": 10,
 
-  // wrap
-  "editor.wordWrap": "on",
   "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true
+  },
+
+  "search.exclude": {
+    "**/*.tar.gz": true,
+  },
+
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry"    : false,
 
   // for vim
+  "vim.debug.silent": true,
+  "vim.autoindent" :true,
   "vim.hlsearch": true,
+  "vim.highlightedyank.enable": true,
   "vim.easymotion": true,
   "vim.visualstar": true,
   "vim.useSystemClipboard": true,
   "vim.ignorecase": true,
   "vim.camelCaseMotion.enable": true,
-  "vim.useCtrlKeys": true,
-  //"vim.leader": "\\"
+  "vim.useCtrlKeys": false,
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindings": [
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // TODO: adding nnoremap
+    // - :edit ~/TODO.rst
+    {"before": [";"], "after": [":"]},
+    {"before": [":"], "after": [";"]},
+    {"before": ["ctrl+a"], "after": ["ctrl+o", "0"]},
+    {"before": ["<tab>"], "commands": [":tabnext"]},
+    {"before": ["<shift+tab>"], "commands": [":tabprevious"]},
+    // "c", "i", "w" しても動かない https://github.com/VSCodeVim/Vim/issues/2975
+    //{"before": ["c", "w"], "after": ["i", "w"]},
+    {"before": ["c", "w"], "after": ["i", "w"]},
+    {"before": ["d", "w"], "after": ["i", "w"]},
+    {"before": ["j"], "after": ["g", "j"]},
+    {"before": ["k"], "after": ["g", "k"]},
+    {"before": ["Y"], "after": ["y", "$"]},
+    {"before": ["t", "n"], "commands": [":tabnew "]},
+  ],
+  "vim.insertModeKeyBindings":[
+  ],
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {"before": ["ctrl+a"], "after": ["ctrl+o", "0"]},
+    {"before": ["ctrl+e"], "after": ["ctrl+o", "$"]},
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {"before": [";"], "after": [":"]},
+    {"before": [":"], "after": [";"]},
+  ],
+
+  // Languages
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.quickSuggestions": true,
+    "editor.quickSuggestionsDelay": 0,
+  },
+  "vsicons.dontShowNewVersionMessage": true,
+  "restructuredtext.confPath": "",
+  "window.zoomLevel": 0,
 }
