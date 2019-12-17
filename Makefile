@@ -7,7 +7,7 @@ RC_FILES := $(wildcard .*rc)
 os           := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
-dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform
+dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform ~/Dropbox
 bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
 
 
@@ -72,7 +72,8 @@ $(credentials):
 		echo "(maybe) U should edit $@ just putting"; \
 	fi
 
-links: $(dir_requires) $(links) neovimrc
+links: $(dir_requires) $(links)
+	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
 $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
