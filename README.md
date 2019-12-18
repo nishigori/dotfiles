@@ -7,9 +7,14 @@ $ make
 $ make install
 ```
 
-## Manually Setup for MacOS
+## Manually Setup
+
+### MacOS
 
 ```sh
 xcode-select --install
 sudo xcodebuild -license accept
 ```
+
+* Switch Ctrl <-> Caps Lock: `システム環境設定 > キーボード > 装飾キー`
+* ⌘英かな: https://ei-kana.appspot.com/
