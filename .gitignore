@@ -7,7 +7,6 @@
 
 # Local settings
 tmp/*
-bin/*
 .zplugrc.local
 .zshrc.local
 .vimrc.local
@@ -27,3 +26,6 @@ bin/*
 # Vimperator
 .vimperator/info/*
 .vimperator/local-plugin/*
+
+# Homebrew
+Brewfile.lock.json

@@ -2,17 +2,19 @@
 #
 # For Darwin
 #
-EDITOR      := vscode
+EDITOR      := vscode /Applications/MacVim.app
 BREW        := /usr/local/bin/brew
 BREW_MAS    := /usr/local/bin/mas
 MYFONTS_DIR := $(HOME)/.fonts
 
 VSCODE            := /usr/local/bin/code
-VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' .vscode/plugins.txt)
+VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' .vscode/_plugins.txt)
+
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 .PHONY: Darwin/* brew/* firefox/* fonts/*
 
-Darwin/install: $(BREW) $(BREW_MAS) brew/tap brew/bundle fonts/all $(EDITOR)
+Darwin/install: $(BREW) brew/tap brew/bundle fonts/all $(EDITOR)
 	@echo "\nManually Installations:"
 	@echo "MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases"
 	@echo "F.lux: https://justgetflux.com/"
@@ -23,9 +25,7 @@ Darwin/clean: brew/clean firefox/clean
 
 $(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-$(BREW_MAS):
-	$(BREW) install mas
+	@test -f /usr/local/bin/mas || $(BREW) install mas
 
 brew/tap:
 	brew tap Homebrew/bundle
@@ -75,3 +75,8 @@ $(VSCODE): $(BREW)
 $(VSCODE_EXTENSIONS): installed_lists = $(shell code --list-extensions)
 $(VSCODE_EXTENSIONS): $(VSCODE)
 	$(if $(filter $@,$(installed_lists)),, $< --install-extension $@)
+
+/Applications/MacVim.app:
+	@[ -f "/usr/local/bin/pydoc2" ] || brew install python2
+	/usr/local/bin/python2 -m pip install pynvim
+	@echo "Please manually install to https://github.com/splhack/macvim-kaoriya/releases"; exit 1

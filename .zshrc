@@ -156,6 +156,7 @@ case ${OSTYPE} in
 
         export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
         export GROOVY_HOME=/usr/local/opt/groovy/libexec
+        export HOMEBREW_NO_AUTO_UPDATE=1
 
         if [ -f "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
             export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim

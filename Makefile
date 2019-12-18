@@ -6,9 +6,9 @@ RC_FILES := $(wildcard .*rc)
 # Internal variables that it is (maybe) you do not need to set.
 os           := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig bin tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
+links        := $(RC_FILES) .gitconfig tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
 dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform ~/Dropbox
-bin_requires := ~/bin/diff-highlight ~/.zplug/init.zsh
+bin_requires := bin/diff-highlight
 
 
 .PHONY: help me $(os)/*
@@ -50,7 +50,8 @@ golang: ## Setup Go language
 	go get -u github.com/mdempsky/gocode
 	go get -u github.com/k0kubun/pp
 	go get -u github.com/mightyguava/ecsq
-	go install github.com/d4l3k/go-pry
+	go get -u github.com/d4l3k/go-pry
+	go install -i github.com/d4l3k/go-pry
 	# LSP (Language Server Protocol)
 	go get -u golang.org/x/tools/cmd/gopls
 	go get -u github.com/sourcegraph/go-langserver
@@ -73,6 +74,7 @@ $(credentials):
 	fi
 
 links: $(dir_requires) $(links)
+	true $(foreach _script, $(wildcard bin/*), && ln -sf $(CURDIR)/$(_script) ~/$(_script))
 	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
 $(links):
@@ -94,9 +96,7 @@ chsh_zsh:
 ~/.zplugin/bin:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
 
-~/.zplug/init.zsh:
-	curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh
-
-~/bin/diff-highlight: ~/bin
-	curl -LSs -o $@ https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
-	chmod +x $@
+bin/diff-highlight:
+	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
+	make -C /tmp/git/contrib/diff-highlight/
+	mv /tmp/git/contrib/diff-highlight/diff-highlight $@

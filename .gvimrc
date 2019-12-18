@@ -41,6 +41,10 @@ if !has('nvim')
   set norestorescreen
 endif
 " }}}
+" # Default colorscheme {{{
+set background=light
+colorscheme PaperColor
+" }}}
 " # Quick Start $MYGVIMRC {{{
 if exists('g:local_config')
   let $MYGVIMRC = g:local_config['dotfiles_dir'] . '/.gvimrc'
@@ -135,8 +139,6 @@ if has("gui_macvim")
   macmenu Window.Minimize\ All	key=<Nop>
   macmenu Window.Zoom		key=<Nop>
   macmenu Window.Zoom\ All		key=<Nop>
-  macmenu Window.Select\ Next\ Window		key=<Nop>
-  macmenu Window.Select\ Previous\ Window	key=<Nop>
   macmenu Window.Select\ Next\ Tab			key=<Nop>
   macmenu Window.Select\ Previous\ Tab		key=<Nop>
 
@@ -148,6 +150,3 @@ endif
 if exists("*LoadedHookGVIMRC")
   call LoadedHookGVIMRC()
 endif
-
-set background=light
-colorscheme PaperColor
