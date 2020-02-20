@@ -13,7 +13,6 @@ mas 'TweetDeck', id: 485812721
 tap 'homebrew/cask-versions'
 tap 'homebrew/cask-fonts'
 tap 'sanemat/font'
-tap 'adoptopenjdk/openjdk'
 
 cask 'adobe-acrobat-reader'
 cask "adoptopenjdk8"
