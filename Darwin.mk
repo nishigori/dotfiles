@@ -77,6 +77,6 @@ $(VSCODE_EXTENSIONS): $(VSCODE)
 	$(if $(filter $@,$(installed_lists)),, $< --install-extension $@)
 
 /Applications/MacVim.app:
-	@[ -f "/usr/local/bin/pydoc2" ] || brew install python2
-	/usr/local/bin/python2 -m pip install pynvim
+	@[ -f "/usr/local/bin/pydoc3" ] || brew install python2
+	/usr/local/bin/python3 -m pip install pynvim
 	@echo "Please manually install to https://github.com/splhack/macvim-kaoriya/releases"; exit 1
