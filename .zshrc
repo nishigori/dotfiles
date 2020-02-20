@@ -49,41 +49,44 @@ setopt no_beep
 setopt interactive_comments
 
 
-#########
-# Zplugin
-#########
-source $HOME/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
-### End of Zplugin's installer chunk
-zcompile $HOME/.zplugin/bin/zplugin.zsh 2>/dev/null
+#######
+# zinit
+#######
+if [ -d "~/.zinit" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+fi
+source $HOME/.zinit/bin/zinit.zsh
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of zinit's installer chunk
+zcompile $HOME/.zinit/bin/zinit.zsh 2>/dev/null
 
-zplugin light zsh-users/zsh-autosuggestions
-zplugin light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
 # https://qiita.com/mollifier/items/81b18c012d7841ab33c3
-#zplugin light mollifier/anyframe
+#zinit light mollifier/anyframe
 
 # https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-zplugin snippet OMZ::lib/git.zsh
-zplugin snippet OMZ::plugins/git/git.plugin.zsh
+zinit snippet OMZ::lib/git.zsh
+zinit snippet OMZ::plugins/git/git.plugin.zsh
 
-#zplugin snippet https://raw.githubusercontent.com/saltstack/salt/v2019.8/pkg/zsh_completion.zsh
+#zinit snippet https://raw.githubusercontent.com/saltstack/salt/v2019.8/pkg/zsh_completion.zsh
 
 case ${OSTYPE} in
     darwin*)
-        #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
-        zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
+        #zinit snippet OMZ::plugins/osx/osx.plugin.zsh
+        zinit snippet OMZ::plugins/brew/brew.plugin.zsh
         ;;
     freebsd*)
         ;;
     linux*)
-        zplugin snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
+        zinit snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
         ;;
 esac
 
 # [Theme]
-zplugin ice from"gh"
-zplugin load bhilburn/powerlevel9k
+zinit ice from"gh"
+zinit load bhilburn/powerlevel9k
 # https://github.com/bhilburn/powerlevel9k#available-prompt-segments
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_DISABLE_RPROMPT=false
@@ -105,7 +108,7 @@ POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 #if [ -z "$ZSH_THEME" ]; then
-#    zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+#    zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 #fi
 
 
@@ -184,7 +187,7 @@ case ${OSTYPE} in
     freebsd*)
         ;;
     linux*)
-        zplugin snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
+        zinit snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
         ;;
 esac
 
