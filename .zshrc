@@ -131,6 +131,7 @@ case ${OSTYPE} in
         PATH="/usr/local/opt/libpq/bin:$PATH"
         PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
         PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+        PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
         PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
         PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
         PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
@@ -140,7 +141,6 @@ case ${OSTYPE} in
         PATH="/usr/local/opt/curl-openssl/bin:$PATH"
 
         PATH=/usr/local/opt/sqlite/bin:$PATH
-        PATH=$HOME/.nodebrew/current/bin:$PATH
         PATH=$HOME/.composer/vendor/bin:$PATH
         if which plenv > /dev/null; then eval "$(plenv init -)"; fi
         PERL_MB_OPT="--install_base \"~/perl5\""; export PERL_MB_OPT;
@@ -153,6 +153,8 @@ case ${OSTYPE} in
         # For pkg-config to find this software you may need to set:
         #     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
         PATH=/usr/local/opt/libressl/bin:$PATH
+        PATH="$HOME/.rbenv/bin:$PATH"
+        if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
         export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
         export GROOVY_HOME=/usr/local/opt/groovy/libexec
