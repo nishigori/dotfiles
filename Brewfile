@@ -120,6 +120,7 @@ brew 'pstree'
 
 brew 'git'
 brew 'mercurial'
+brew 'gh'
 brew 'ghq'
 brew 'peco'
 brew 'jq'

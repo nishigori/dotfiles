@@ -172,6 +172,14 @@ case ${OSTYPE} in
 
         #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
         zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
+
+        # Completions from brew
+        source /usr/local/share/zsh/site-functions/_aws
+        source /usr/local/share/zsh/site-functions/_fd
+        source /usr/local/share/zsh/site-functions/_gh
+        source /usr/local/share/zsh/site-functions/_ghq
+        source /usr/local/share/zsh/site-functions/_git
+        source /usr/local/share/zsh/site-functions/_rg
         ;;
     freebsd*)
         ;;
