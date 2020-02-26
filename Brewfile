@@ -73,6 +73,16 @@ brew 'gnu-tar'
 brew 'gnu-time'
 brew 'gnu-which'
 
+brew 'rust'
+# Powerful 'ps' https://github.com/dalance/procs
+brew 'procs'
+# Powerful 'cat' https://github.com/sharkdp/bat
+brew 'bat'
+# Powerful 'find' https://github.com/sharkdp/fd
+brew 'fd'
+# Powerful 'grep' https://github.com/BurntSushi/ripgrep
+brew 'ripgrep'
+
 brew 'ack'
 brew 'xz'
 brew 'pcre'

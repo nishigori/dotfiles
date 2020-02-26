@@ -167,6 +167,9 @@ case ${OSTYPE} in
             alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
         fi
 
+        # Powerful & Colorful command(s)
+        alias c='bat'
+
         #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
         zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
         ;;
