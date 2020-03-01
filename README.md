@@ -53,6 +53,7 @@ about:addons > Tre Style Tab > Preferences > Advanced:
 Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x
 
 ```css
+
 /* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#disable-all-animation */
 @keyframes throbber {}
 @keyframes tab-burst-animation {}
@@ -95,15 +96,6 @@ tab-item .extra-items-container::after {
   z-index: 1000;
 }
 
-/* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#tab-numbering-on-hovered-tabs */
-tab-item .extra-items-container::after {
-  opacity: 0;
-  transition: 0.2s;
-}
-tab-item:hover .extra-items-container::after {
-  opacity: 1;
-}
-
 /* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#put-closebox-left-side-even-if-i-choose-left-side-style */
 :root.left tab-item tab-twisty {
   order: 10000;
@@ -111,6 +103,7 @@ tab-item:hover .extra-items-container::after {
 :root.left tab-item tab-closebox {
   order: -1;
 }
+
 ```
 
 </details>
@@ -121,6 +114,7 @@ tab-item:hover .extra-items-container::after {
 <summary></summary>
 
 ```json
+
 {
   "keymaps": {
     "0": { "type": "scroll.home" },
@@ -195,7 +189,7 @@ tab-item:hover .extra-items-container::after {
     }
   },
   "properties": {
-    "hintchars": "abcdefghijklmnopqrstuvwxyz",
+    "hintchars": "jkldsa;",
     "smoothscroll": true,
     "complete": "sbh"
   },
@@ -204,6 +198,7 @@ tab-item:hover .extra-items-container::after {
     "mail.google.com"
   ]
 }
+
 ```
 
 </details>
