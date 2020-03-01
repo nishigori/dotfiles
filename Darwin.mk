@@ -15,9 +15,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 .PHONY: Darwin/* brew/* firefox/* fonts/*
 
 Darwin/install: $(BREW) brew/tap brew/bundle fonts/all $(EDITOR)
-	@echo "\nManually Installations:"
-	@echo "MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases"
-	@echo "F.lux: https://justgetflux.com/"
 
 Darwin/update: brew/update brew/upgrade fonts/all
 
