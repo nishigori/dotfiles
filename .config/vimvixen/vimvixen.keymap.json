@@ -13,8 +13,8 @@
     "T": { "type": "command.show.tabopen", "alter": true },
     "b": { "type": "command.show.buffer" },
     "a": { "type": "command.show.addbookmark", "alter": true },
-    "k": { "type": "scroll.vertically", "count": -3 },
-    "j": { "type": "scroll.vertically", "count": 3 },
+    "k": { "type": "scroll.vertically", "count": -4 },
+    "j": { "type": "scroll.vertically", "count": 4 },
     "h": { "type": "scroll.horizonally", "count": -2 },
     "l": { "type": "scroll.horizonally", "count": 2 },
     "<C-U>": { "type": "scroll.pages", "count": -0.5 },
@@ -73,9 +73,11 @@
   },
   "properties": {
     "hintchars": "abcdefghijklmnopqrstuvwxyz",
-    "smoothscroll": false,
+    "smoothscroll": true,
     "complete": "sbh"
   },
   "blacklist": [
+    "*.slack.com",
+    "mail.google.com"
   ]
 }
