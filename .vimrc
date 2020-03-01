@@ -1510,6 +1510,7 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
   " }}}
   " Plugin: deoplete {{{
+  set pyxversion=3
   let g:deoplete#enable_at_startup = 1
   " }}}
   " Plugin: neosnippet {{{
