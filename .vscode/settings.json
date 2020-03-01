@@ -71,4 +71,5 @@
   "vsicons.dontShowNewVersionMessage": true,
   "restructuredtext.confPath": "",
   "window.zoomLevel": 0,
+  "workbench.iconTheme": "vscode-icons",
 }
