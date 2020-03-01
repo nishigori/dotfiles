@@ -8,9 +8,22 @@ $ make install
 $ git remote set-url origin ssh://git@github.com:nishigori/dotfiles.git
 ```
 
-## Manually Setup
+----
+Following docs is for the manually setup
 
-### MacOS
+<!-- TOC -->
+
+- [MacOS](#macos)
+- [Firefox](#firefox)
+  - [`about:config`](#aboutconfig)
+  - [Add-on: Tree Style Tab > Preferences](#add-on-tree-style-tab--preferences)
+    - [Appearance:](#appearance)
+    - [Tree Behavior](#tree-behavior)
+  - [Add-on: Vim Vixen > Preferences](#add-on-vim-vixen--preferences)
+
+<!-- /TOC -->
+
+## MacOS
 
 ```sh
 xcode-select --install
@@ -22,9 +35,9 @@ sudo xcodebuild -license accept
 * MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases
 * F.lux: https://justgetflux.com/
 
-### Firefox
+## Firefox
 
-#### `about:config`
+### `about:config`
 
 * `browser.autofocus` to **false**
 * `toolkit.legacyUserProfileCustomizations.stylesheets` to **true**
@@ -48,7 +61,7 @@ sudo xcodebuild -license accept
 about:addons > Tre Style Tab > Preferences > Advanced:
 
 <details>
-<summary></summary>
+<summary>Written at the custom-style-rules</summary>
 
 Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x
 
@@ -108,10 +121,12 @@ tab-item .extra-items-container::after {
 
 </details>
 
-### Add-on: Vim Vixen
+### Add-on: Vim Vixen > Preferences
+
+Configure Vim-Vixen:
 
 <details>
-<summary></summary>
+<summary>Use plain JSON</summary>
 
 ```json
 
