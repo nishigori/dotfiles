@@ -163,6 +163,11 @@ case ${OSTYPE} in
         export GROOVY_HOME=/usr/local/opt/groovy/libexec
         export HOMEBREW_NO_AUTO_UPDATE=1
 
+        if [ -d "$HOME/.rbenv" ]; then
+            PATH="$HOME/.rbenv/bin:$PATH"
+            eval "$(rbenv init -)"
+        fi
+
         if [ -f "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
             export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
             alias   vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
