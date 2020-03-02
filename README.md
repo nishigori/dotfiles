@@ -204,7 +204,7 @@ Configure Vim-Vixen:
     }
   },
   "properties": {
-    "hintchars": "jkldsa;",
+    "hintchars": "fjdkslieow",
     "smoothscroll": true,
     "complete": "sbh"
   },
