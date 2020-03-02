@@ -177,6 +177,7 @@ case ${OSTYPE} in
 
         # Powerful & Colorful command(s)
         alias c='bat'
+        export BAT_THEME=GitHub
 
         #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
         zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
