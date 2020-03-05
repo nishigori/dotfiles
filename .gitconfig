@@ -46,7 +46,7 @@
 	logpretty = log --decorate --graph --name-status --oneline
 	pv        = pull --verbose
 	rb        = rebase --verbose
-	st        = status -sb
+	st        = status
 	stv       = status --verbose
 	wc        = whatchanged
 	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)

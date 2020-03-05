@@ -16,7 +16,7 @@ alias -g p='git add -p'
 alias mm='git master && git souji'
 alias master='git master && git souji'
 alias s='git status -sb'
-alias st='git status --verbose'
+alias st='git status'
 alias co='git checkout'
 alias cob='git checkout -b'
 alias fv='git fetch --verbose --prune'
@@ -26,6 +26,8 @@ alias cim='git commit -m'
 alias di='git diff --ignore-space-change'
 alias dic='git diff --cached --ignore-space-change'
 alias dis='git diff --stat'
+alias dis='git diff --stat'
+alias hist="log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'"
 
 # ls using https://github.com/Peltoche/lsd
 if which lsd >/dev/null 2>&1; then
