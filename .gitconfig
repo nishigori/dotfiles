@@ -46,7 +46,8 @@
 	logpretty = log --decorate --graph --name-status --oneline
 	pv        = pull --verbose
 	rb        = rebase --verbose
-	st        = status
+	st        = status -sb
+	stv       = status --verbose
 	wc        = whatchanged
 	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
 	souji     = !git branch --merged | grep -vE '(^[*] | master)' | xargs git branch -d
