@@ -163,6 +163,12 @@ case ${OSTYPE} in
         PATH="$HOME/.rbenv/bin:$PATH"
         if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
+        if which pyenv > /dev/null; then
+            export PYENV_ROOT="$HOME/.pyenv"
+            PATH="$PYENV_ROOT/bin:$PATH"
+            eval "$(pyenv init -)";
+        fi
+
         export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
         export GROOVY_HOME=/usr/local/opt/groovy/libexec
         export HOMEBREW_NO_AUTO_UPDATE=1
