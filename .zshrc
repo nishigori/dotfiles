@@ -178,27 +178,12 @@ case ${OSTYPE} in
             eval "$(rbenv init -)"
         fi
 
-        if [ -f "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
-            export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-            alias   vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-            alias  vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-            alias gvim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim -g "$@"'
-        fi
-
         # Powerful & Colorful command(s)
         alias c='bat'
         export BAT_THEME=GitHub
 
         #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
         zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
-
-        # Completions from brew
-        source /usr/local/share/zsh/site-functions/_aws
-        source /usr/local/share/zsh/site-functions/_fd
-        source /usr/local/share/zsh/site-functions/_gh
-        source /usr/local/share/zsh/site-functions/_ghq
-        source /usr/local/share/zsh/site-functions/_git
-        source /usr/local/share/zsh/site-functions/_rg
         ;;
     freebsd*)
         ;;
