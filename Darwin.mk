@@ -2,7 +2,7 @@
 #
 # For Darwin
 #
-EDITOR      := vscode /Applications/MacVim.app
+EDITOR      := vscode
 BREW        := /usr/local/bin/brew
 BREW_MAS    := /usr/local/bin/mas
 MYFONTS_DIR := $(HOME)/.fonts
@@ -72,8 +72,3 @@ $(VSCODE): $(BREW)
 $(VSCODE_EXTENSIONS): installed_lists = $(shell code --list-extensions)
 $(VSCODE_EXTENSIONS): $(VSCODE)
 	$(if $(filter $@,$(installed_lists)),, $< --install-extension $@)
-
-/Applications/MacVim.app:
-	@[ -f "/usr/local/bin/pydoc3" ] || brew install python2
-	/usr/local/bin/python3 -m pip install pynvim
-	@echo "Please manually install to https://github.com/splhack/macvim-kaoriya/releases"; exit 1

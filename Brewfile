@@ -73,6 +73,8 @@ brew 'gnu-tar'
 brew 'gnu-time'
 brew 'gnu-which'
 
+brew 'vim'
+
 brew 'rust'
 # Powerful 'ps' https://github.com/dalance/procs
 brew 'procs'

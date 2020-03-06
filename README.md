@@ -32,7 +32,6 @@ sudo xcodebuild -license accept
 
 * Switch Ctrl <-> Caps Lock: `システム環境設定 > キーボード > 装飾キー`
 * ⌘英かな: https://ei-kana.appspot.com/
-* MacVim Kaoriya: https://github.com/splhack/macvim-kaoriya/releases
 * F.lux: https://justgetflux.com/
 
 ## Firefox
