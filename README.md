@@ -39,6 +39,7 @@ sudo xcodebuild -license accept
 ### `about:config`
 
 * `browser.autofocus` to **false**
+* `browser.ctrlTab.recentlyUsedOrder` to **false**
 * `toolkit.legacyUserProfileCustomizations.stylesheets` to **true**
   * from [treetabstyle wiki](https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#on-firefox-69-and-later)
 
