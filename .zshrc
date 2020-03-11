@@ -56,7 +56,7 @@ setopt interactive_comments
 #######
 # zinit
 #######
-if [ -d "~/.zinit" ]; then
+if [ ! -d "~/.zinit" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 fi
 source $HOME/.zinit/bin/zinit.zsh
@@ -182,8 +182,8 @@ case ${OSTYPE} in
         alias c='bat'
         export BAT_THEME=GitHub
 
-        #zplugin snippet OMZ::plugins/osx/osx.plugin.zsh
-        zplugin snippet OMZ::plugins/brew/brew.plugin.zsh
+        #zinit snippet OMZ::plugins/osx/osx.plugin.zsh
+        zinit snippet OMZ::plugins/brew/brew.plugin.zsh
         ;;
     freebsd*)
         ;;
