@@ -56,7 +56,7 @@ setopt interactive_comments
 #######
 # zinit
 #######
-if [ ! -d "~/.zinit" ]; then
+if [ ! -d ~/.zinit ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 fi
 source $HOME/.zinit/bin/zinit.zsh
