@@ -51,6 +51,7 @@ set autoread                   " When a file has been detected to have been chan
 set history=511
 set viminfo='20,\"150           " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
+set nofixendofline
 set ambiwidth=double
 set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
@@ -864,7 +865,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   endif
 
   nnoremap : :<C-u>VimFilerExplorer -buffer-name=explorer
-    \ -split -direction=topleft -simple -winwidth=45 -project -auto-cd -no-quit -find<CR>
+    \ -split -direction=topleft -simple -winwidth=35 -project -auto-cd -no-quit -find<CR>
 
   call vimfiler#custom#profile('default', 'context', {
     \ 'safe' : 0,
@@ -872,7 +873,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \ 'sort_type': 'filename',
     \ })
 
-  nnoremap <Leader>vf :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=45 -toggle -no-quit<CR>
+  nnoremap <Leader>vf :<C-u>VimFiler -buffer-name=explorer -split -simple -winwidth=35 -toggle -no-quit<CR>
   " }}}
   " Plugin: neomru {{{
   let g:neomru#file_mru_limit = 1024
@@ -1781,6 +1782,17 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<CR>
   nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<CR>
   nnoremap <silent> <Leader>ts :TweetVimSay<CR>
+  " }}}
+
+  " # <cmd> (<D-) Mappings "{{{
+
+  nnoremap <D-1> :<C-u>VimFilerExplorer -buffer-name=explorer
+    \ -split -direction=topleft -simple -winwidth=35 -toggle -project -auto-cd -no-quit -find<CR>
+	autocmd FileType vimfiler nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
+	autocmd FileType vimfiler nmap <buffer> <D-1> <Plug>(vimfiler_close)
+	autocmd FileType vimfiler nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
+
+
   " }}}
 endif
 
