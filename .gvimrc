@@ -66,28 +66,21 @@ nnoremap <silent> ZZ :<C-u>close<CR>
 " INFO:
 "   If You has any probrem,
 "   Please reference HELP ('termencoding', 'macatsui').
+set linespace=2
 
 if has('gui_gtk2')
   set guifont=Ricty\ Discord\ 11
   set guifontwide=めんまフォント
 elseif has('gui_macvim')
-  " TODO: めんまフォントに漢字合成
-  "set guifont=Ricty:h14,\ Monaco:h14
-  set guifont=Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
-  set guifontwide=ゆたぽん（コーディング）,\ みかちゃん,\ あくあフォント,\ Monaco
+  set guifont=Hack\ Nerd\ Font\ Mono:h10,\ Ricty\ Discord\ for\ Powerline:h10,\ Monaco:h10
+  "set guifontwide=
   set antialias
-endif
-
-if has('kaoriya')
-  set linespace=2
-  " ?? ambiwidth=single
-  "set ambiwidth=auto
 endif
 " }}}
 " # Depends On OS {{{
 "if has('gui_macvim')
 if has('mac') && !has('nvim')
-  set transparency=8
+  set transparency=6
   set noimdisableactivate
 endif
 " }}}
