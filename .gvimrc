@@ -81,7 +81,6 @@ endif
 "if has('gui_macvim')
 if has('mac') && !has('nvim')
   set transparency=6
-  set noimdisableactivate
 endif
 " }}}
 " # Local Dependency {{{
