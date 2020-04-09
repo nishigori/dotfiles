@@ -1176,8 +1176,8 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:lightline = {
     \ 'colorscheme': 'tender',
     \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ], ['venv'], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-    \   'right': [ [ 'syntastic', 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+    \   'left': [ ['mode', 'paste'], ['fugitive', 'git_relative_dir'], ['ctrlpmark'] ],
+    \   'right': [ ['syntastic', 'lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ]
     \ },
     \ 'component_function': {
     \   'fugitive': 'MyFugitive',
@@ -1185,7 +1185,8 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     \   'fileformat': 'MyFileformat',
     \   'filetype': 'MyFiletype',
     \   'fileencoding': 'MyFileencoding',
-    \   'mode': 'MyMode',
+    \   'git_relative_dir': 'MyGitFileName',
+    \   'mode': 'LightlineMode',
     \   'ctrlpmark': 'CtrlPMark',
     \ },
     \ 'component_expand': {
@@ -1199,12 +1200,15 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
   let g:virtualenv_stl_format = 'venv@%n'
 
-  function! MyModified()
-    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-  endfunction
+  function! MyGitFileName()
+    " x/x/x/dotfiles
+    let git_worktree = finddir('.git/..', expand('%:p:h').';')
+    if empty(git_worktree) || winwidth(0) < 120
+      return MyFilename()
+    endif
 
-  function! MyReadonly()
-    return &ft !~? 'help' && &readonly ? '⭤' : ''
+    " Hidden parent dir of git-root
+    return substitute(expand('%:p'), fnamemodify(git_worktree, ':p:h:h') . '/', '', '')
   endfunction
 
   function! MyFilename()
@@ -1215,17 +1219,19 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
       \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
       \ &ft == 'unite' ? unite#get_status_string() :
       \ &ft == 'vimshell' ? vimshell#get_status_string() :
-      \ ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
       \ ('' != fname ? fname : '[No Name]') .
       \ ('' != MyModified() ? ' ' . MyModified() : '')
   endfunction
 
+  function! MyModified()
+    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+
   function! MyFugitive()
     try
-      if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-        let mark = '⭠ '  " edit here for cool mark
+      if exists('*fugitive#head') && expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler'
         let _ = fugitive#head()
-        return strlen(_) ? mark._ : ''
+        return strlen(_) ? '⭠ ' . _ : ''
       endif
     catch
     endtry
@@ -1244,16 +1250,12 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
   endfunction
 
-  function! MyMode()
-    let fname = expand('%:t')
-    return fname == '__Tagbar__' ? 'Tagbar' :
-      \ fname == 'ControlP' ? 'CtrlP' :
-      \ fname == '__Gundo__' ? 'Gundo' :
-      \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-      \ fname =~ 'NERD_tree' ? 'NERDTree' :
-      \ &ft == 'unite' ? 'Unite' :
-      \ &ft == 'vimfiler' ? 'VimFiler' :
-      \ &ft == 'vimshell' ? 'VimShell' :
+  function! LightlineMode()
+    return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
+      \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+      \ &filetype ==# 'unite' ? 'Unite' :
+      \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+      \ &filetype ==# 'vimshell' ? 'VimShell' :
       \ winwidth(0) > 60 ? lightline#mode() : ''
   endfunction
 
