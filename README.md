@@ -43,6 +43,29 @@ sudo xcodebuild -license accept
 * `accessibility.typeaheadfind.enablesound` to **false**
 * `toolkit.legacyUserProfileCustomizations.stylesheets` to **true**
   * from [treetabstyle wiki](https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#on-firefox-69-and-later)
+* `svg.context-properties.content.enabled` to **true**
+  * from [Simple Tab Groups](https://addons.mozilla.org/ja/firefox/addon/simple-tab-groups/)
+
+### Hide Top tab-bar(s)
+
+Reference of searching my-profile: https://support.mozilla.org/ja/kb/profiles-where-firefox-stores-user-data
+
+```sh
+# Example on Mac
+$ cd ~/Library/Application\ Support/Firefox/Profiles/${YOUR_PROFILE}
+$ mkdir -p chrome
+$ cat <<EOT >> chrome/userChrome.css
+/* Hidden tabbar */
+#tabbrowser-tabs {
+visibility: collapse !important;
+}
+
+/* Hidden sidebar header */
+#sidebar-header {
+visibility: collapse;
+}
+EOT
+```
 
 ### Add-on: Tree Style Tab > Preferences
 
@@ -73,6 +96,17 @@ Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-
 @keyframes tab-burst-animation {}
 @keyframes tab-burst-animation-light {}
 @keyframes blink {}
+
+/* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#container-colored-underline-for-tab-2346 */
+.contextual-identity-marker {
+  top: auto !important;
+  left: 0.5em !important;
+  right: 0.5em !important;
+  bottom: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  height: calc(var(--favicon-size) / 10) !important;
+}
 
 /* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#tab-numbering-and-counting */
 #tabbar {
