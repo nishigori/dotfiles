@@ -34,6 +34,7 @@ cask 'spectacle'
 cask 'kindle'
 cask 'visual-studio-code'
 cask 'intellij-idea'
+cask 'jetbrains-toolbox'
 
 cask 'font-hack-nerd-font'
 cask 'font-hack-nerd-font-mono'
