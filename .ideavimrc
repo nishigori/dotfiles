@@ -41,6 +41,8 @@ nnoremap <silent> cy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
 nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
 " }}}
 
+nnoremap <Space>= :<C-u>action ReformatCode<CR>
+vnoremap = :<C-u>action ReformatCode<CR><ESC>
 
 " for snippet complete
 nnoremap j gj
