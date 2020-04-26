@@ -97,6 +97,21 @@ Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-
 @keyframes tab-burst-animation-light {}
 @keyframes blink {}
 
+/* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#highlight-active-tab*/
+tab-item.active {
+  height: 29px !important;
+  background-color: #195599;
+}
+tab-item.active .label-content {
+  font-weight: bold;
+  font-size: 12px;
+}
+tab-item.active tab-twisty,
+tab-item.active .label-content,
+tab-item.active tab-counter {
+  color: #fff;
+}
+
 /* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#container-colored-underline-for-tab-2346 */
 .contextual-identity-marker {
   top: auto !important;
