@@ -1144,7 +1144,10 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   endif
   " }}}
   " Plugin: vim-markdown {{{
-  let g:vim_markdown_folding_level = 2
+  "let g:vim_markdown_folding_level = 2
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_conceal = 0
+  let g:vim_markdown_no_extensions_in_markdown = 1
   " }}}
   " Plugin: tagvar {{{
   nnoremap <silent> tl :TagbarToggle<CR>
