@@ -45,6 +45,8 @@ sudo xcodebuild -license accept
   * from [treetabstyle wiki](https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#on-firefox-69-and-later)
 * `svg.context-properties.content.enabled` to **true**
   * from [Simple Tab Groups](https://addons.mozilla.org/ja/firefox/addon/simple-tab-groups/)
+* `privacy.resistFingerprinting.block_mozAddonManager` to **true**
+  * from trydactyl work on addons.mozilla.org
 
 ### Hide Top tab-bar(s)
 

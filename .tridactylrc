@@ -1,0 +1,29 @@
+" 
+colorscheme dark
+
+set allowautofocus false
+set hintfiltermode vimperator-reflow
+
+" Container
+set autocontainmode relaxed
+set tabopencontaineraware true
+
+set smoothscroll true
+set scrollduration 350
+bind --normal j scrollline 16
+bind --normal k scrollline -16
+
+bind --normal <C-p> tabprev
+bind --normal <C-n> tabnext
+bind --normal ; fillcmdline_notrail
+
+" Search engine
+set searchurls.amazon https://www.amazon.co.jp/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=
+
+" yank is simple
+unbind yy
+unbind ys
+unbind yc
+unbind ym
+unbind yt
+bind y clipboard yank
