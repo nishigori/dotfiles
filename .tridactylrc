@@ -1,4 +1,3 @@
-" 
 colorscheme dark
 
 set allowautofocus false
@@ -19,7 +18,7 @@ set blacklistkeys ["<M-t>", "<D-t>"]
 set leavegithubalone false
 
 " Tab
-"set newtab
+set newtab about:blank<CR>
 "nativeopen open about:blank
 bind <D-t> nativeopen open about:blank
 bind <M-t> tabopen www.yahoo.co.jp
