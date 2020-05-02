@@ -3,22 +3,40 @@ colorscheme dark
 
 set allowautofocus false
 set hintfiltermode vimperator-reflow
+bind --normal ; fillcmdline_notrail
+
+" Scroll
+set smoothscroll true
+set scrollduration 300
+bind --normal j scrollline 15
+bind --normal k scrollline -15
 
 " Container
-set autocontainmode relaxed
+set autocontainmode strict
 set tabopencontaineraware true
+set blacklistkeys ["<M-t>", "<D-t>"]
+" depends by blacklistkeys
+set leavegithubalone false
 
-set smoothscroll true
-set scrollduration 350
-bind --normal j scrollline 16
-bind --normal k scrollline -16
-
+" Tab
+"set newtab
+"nativeopen open about:blank
+bind <D-t> nativeopen open about:blank
+bind <M-t> tabopen www.yahoo.co.jp
 bind --normal <C-p> tabprev
 bind --normal <C-n> tabnext
-bind --normal ; fillcmdline_notrail
 
 " Search engine
 set searchurls.amazon https://www.amazon.co.jp/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=
+set searchurls.g https://www.google.com/search?q=
+
+" Search
+bind <D-f> fillcmdline find
+bind <M-f> fillcmdline find
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
 
 " yank is simple
 unbind yy
@@ -27,3 +45,8 @@ unbind yc
 unbind ym
 unbind yt
 bind y clipboard yank
+
+" command mode
+bind --mode=ex <C-[> ex.hide_and_clear
+bind --mode=ex <C-p> ex.prev_completion
+bind --mode=ex <C-n> ex.next_completion
