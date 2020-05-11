@@ -7,8 +7,8 @@ bind --normal ; fillcmdline_notrail
 " Scroll
 set smoothscroll true
 set scrollduration 300
-bind --normal j scrollline 15
-bind --normal k scrollline -15
+bind --normal j scrollline 12
+bind --normal k scrollline -12
 
 " Container
 set autocontainmode strict
@@ -47,5 +47,7 @@ bind y clipboard yank
 
 " command mode
 bind --mode=ex <C-[> ex.hide_and_clear
-bind --mode=ex <C-p> ex.prev_completion
-bind --mode=ex <C-n> ex.next_completion
+"bind --mode=ex <C-p> ex.prev_completion
+"bind --mode=ex <C-n> ex.next_completion
+bind --mode=ex <C-p> ex.prev_history
+bind --mode=ex <C-n> ex.next_history
