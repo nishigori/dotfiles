@@ -32,7 +32,7 @@
 
 [alias]
 	co        = checkout
-	cob       = checkout -b
+	cob       = switch -c
 	ci        = commit --verbose
 	cim       = commit --verbose -m
 	di        = diff --ignore-space-change
