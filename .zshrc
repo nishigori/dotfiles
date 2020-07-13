@@ -164,10 +164,17 @@ case ${OSTYPE} in
         PATH="$HOME/.rbenv/bin:$PATH"
         if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-        if which pyenv > /dev/null; then
-            export PYENV_ROOT="$HOME/.pyenv"
-            PATH="$PYENV_ROOT/bin:$PATH"
-            eval "$(pyenv init -)";
+        #if which pyenv > /dev/null; then
+        #    export PYENV_ROOT="$HOME/.pyenv"
+        #    PATH="$PYENV_ROOT/bin:$PATH"
+        #    eval "$(pyenv init -)";
+        #fi
+
+        if which nodebrew > /dev/null; then
+            export NODEBREW_ROOT=/usr/local/var/nodebrew
+            PATH=$HOME/.nodebrew/current/bin:$PATH
+            PATH=/usr/local/var/nodebrew/current/bin:$PATH
+            /usr/local/opt/nodebrew/bin/nodebrew setup_dirs
         fi
 
         export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
