@@ -17,6 +17,7 @@ tap 'sanemat/font'
 tap 'universal-ctags/universal-ctags'
 tap 'k1low/tap'
 tap 'knqyf263/utern'
+tap 'aws/tap'
 
 cask 'adobe-acrobat-reader'
 cask "adoptopenjdk8"
