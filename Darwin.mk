@@ -18,28 +18,15 @@ Darwin/install: $(BREW) brew/tap brew/bundle fonts/all $(EDITOR)
 
 Darwin/update: brew/update brew/upgrade fonts/all
 
-Darwin/clean: brew/clean firefox/clean
+Darwin/clean: brew/cleanup firefox/clean
 
 $(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	@test -f /usr/local/bin/mas || $(BREW) install mas
-
-brew/tap:
 	brew tap Homebrew/bundle
 
-brew/bundle:
-	brew bundle
-
-brew/clean:
-	brew bundle cleanup
-	brew cask cleanup
-
-brew/update:
-	brew update
-	brew -v
-
-brew/upgrade:
-	brew upgrade
+brew/%:
+	brew $(@F)
 
 fonts/all: $(MYFONTS_DIR) fonts/ricty
 	-fc-cache -v --error-on-no-fonts --force $<

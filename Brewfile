@@ -2,6 +2,7 @@
 cask_args appdir: '/Applications'
 
 tap 'homebrew/bundle'
+tap 'homebrew/cask'
 
 brew 'mas'
 mas 'Xcode', id: 497799835
@@ -13,17 +14,22 @@ mas 'TweetDeck', id: 485812721
 tap 'homebrew/cask-versions'
 tap 'homebrew/cask-fonts'
 tap 'sanemat/font'
+tap 'universal-ctags/universal-ctags'
+tap 'k1low/tap'
+tap 'knqyf263/utern'
 
 cask 'adobe-acrobat-reader'
 cask "adoptopenjdk8"
 cask 'apache-directory-studio'
 cask 'alfred'
-cask 'docker'
+cask 'biscuit'
+cask 'franz'
 cask 'dropbox'
 cask 'firefox'
 cask 'gimp'
 cask 'google-chrome'
 cask 'google-japanese-ime'
+cask 'vivaldi'
 cask 'vagrant'
 #cask 'virtualbox'
 cask 'skype'
@@ -35,8 +41,11 @@ cask 'kindle'
 cask 'visual-studio-code'
 cask 'intellij-idea'
 cask 'jetbrains-toolbox'
+cask 'gifcapture'
+cask 'krisp'
+cask 'zoom'
 
-cask 'font-hack-nerd-font'
+#cask 'font-hack-nerd-font'
 cask 'font-hack-nerd-font-mono'
 brew 'sanemat/font/ricty'
 
@@ -65,6 +74,7 @@ brew 'libzip'
 brew 'binutils'
 brew 'coreutils'
 brew 'diffutils'
+brew 'docutils'
 brew 'findutils'
 brew 'make'
 brew 'gawk'
@@ -74,8 +84,10 @@ brew 'gnu-sed'
 brew 'gnu-tar'
 brew 'gnu-time'
 brew 'gnu-which'
+brew 'telnet'
 
 brew 'vim'
+brew 'macvim'
 
 brew 'rust'
 # Powerful 'ps' https://github.com/dalance/procs
@@ -124,18 +136,20 @@ brew 'pstree'
 
 brew 'git'
 brew 'mercurial'
+brew 'github/gh/gh'
 brew 'ghq'
 brew 'hub'
-brew 'lab'
+#brew 'lab'
 brew 'peco'
 brew 'jq'
+brew 'yq'
 brew 'tmux'
 
 brew 'mysql-client'
 brew 'gauche'
 brew 'go'
-brew 'lua'
-brew 'luajit'
+#brew 'lua'
+#brew 'luajit'
 brew 'php'
 brew 'python'
 brew 'pypy'
@@ -143,15 +157,20 @@ brew 'pyenv'
 brew 'ruby'
 brew 'ruby-build'
 brew 'rbenv'
-brew 'perl-build'
+# self-installed
+# git clone git://github.com/tokuhirom/Perl-Build.git ~/.plenv/plugins/perl-build/
+#brew 'perl-build'
 brew 'plenv'
 brew 'cpanminus'
 brew 'llvm'
 brew 'nodebrew'
+brew 'deno'
+brew 'erlang@21'
 
 brew 'zsh'
 brew 'cscope'
-brew 'ctags'
+#brew 'ctags'
+brew 'universal-ctags'
 brew 'gotags'
 brew 'direnv'
 
@@ -190,17 +209,30 @@ brew 'zlib'
 #tap osx-cross/avr
 #teensy_loader_cli
 #avr-libc
+cask 'homebrew/cask-drivers/zsa-wally'
 #dfu-programmer
 
 # around docker
+###########
+# Container
+###########
+cask 'docker'
+brew 'docker-compose'
 brew 'stern'
+
+#####
+# AWS
+#####
+brew 'awscli'
+brew 'aws/tap/copilot-cli'
+brew 'knqyf263/utern/utern'
+cask 'session-manager-plugin'
+brew 'amazon-ecs-cli'
 
 ####################
 # CommandLine Tools
 ###################
 brew 'automake'
-brew 'awscli'
-brew 'amazon-ecs-cli'
 brew 'bash'
 brew 'bsdmake'
 #brew 'ghc'

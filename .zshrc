@@ -3,6 +3,7 @@
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:$PATH
 export TERM="xterm-256color"
 export XDG_CONFIG_HOME=$HOME/.config
+export EDITOR=vi
 
 
 alias cl='clear'
@@ -186,6 +187,10 @@ case ${OSTYPE} in
             eval "$(rbenv init -)"
         fi
 
+        if which gh > /dev/null; then
+            eval "$(gh completion -s zsh)"
+        fi
+
         # Powerful & Colorful command(s)
         alias c='bat'
         export BAT_THEME=GitHub
@@ -230,6 +235,8 @@ zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 #zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
 
+if which copilot > /dev/null; then source <(copilot completion zsh); fi
+
 autoload -Uz compinit
 compinit
 
@@ -272,6 +279,7 @@ bindkey '^R' peco-select-history
 # Git
 #####
 bindkey '^G' peco-select-git-branch
+bindkey "^X^P" peco-checkout-pull-request
 
 peco-select-git-branch() {
   git branch -a --sort=-authordate |
@@ -283,6 +291,16 @@ peco-select-git-branch() {
     xargs git checkout
 }
 zle -N peco-select-git-branch
+
+function peco-checkout-pull-request () {
+    local selected_pr_id=$(gh pr list | peco | awk '{ print $1 }')
+    if [ -n "$selected_pr_id" ]; then
+        BUFFER="gh pr checkout ${selected_pr_id}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-checkout-pull-request
 
 
 ##################
@@ -359,12 +377,6 @@ test "$(which direnv)" = "" || eval "$(direnv hook zsh)"
 local ctags_default_opt='-R --exclude=".git*" --sort=yes'
 alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
 alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
-
-
-############
-# Subversion
-############
-export SVN_EDITOR=vim
 
 
 ############
