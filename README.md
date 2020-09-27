@@ -1,6 +1,8 @@
 Dotfiles
 ========
 
+<!-- vim: set fdm=marker sts=0 expandtab: -->
+
 ```sh
 $ git clone --recursive https://github.com/nishigori/dotfiles.git && cd dotfiles
 $ make
@@ -14,6 +16,7 @@ Following docs is for the manually setup
 <!-- TOC -->
 
 - [MacOS](#macos)
+  - [Alfread](#alfread)
 - [Firefox](#firefox)
   - [`about:config`](#aboutconfig)
   - [Add-on: Tree Style Tab > Preferences](#add-on-tree-style-tab--preferences)
@@ -33,6 +36,10 @@ sudo xcodebuild -license accept
 * Switch Ctrl <-> Caps Lock: `システム環境設定 > キーボード > 装飾キー`
 * ⌘英かな: https://ei-kana.appspot.com/
 * F.lux: https://justgetflux.com/
+
+## Alfread
+
+always keyboard en: `Preferences > Advanced > Force Keyboard` to **ABC**
 
 ## Firefox
 
@@ -89,7 +96,7 @@ about:addons > Tre Style Tab > Preferences > Advanced:
 
 <details>
 <summary>Written at the custom-style-rules</summary>
-
+<!-- {{{ -->
 Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x
 
 ```css
@@ -172,6 +179,7 @@ tab-item .extra-items-container::after {
 
 ```
 
+<!-- }}} -->
 </details>
 
 ### Add-on: Vim Vixen > Preferences
@@ -180,6 +188,7 @@ Configure Vim-Vixen:
 
 <details>
 <summary>Use plain JSON</summary>
+<!-- {{{ -->
 
 ```json
 
@@ -269,4 +278,5 @@ Configure Vim-Vixen:
 
 ```
 
+<!-- }}} -->
 </details>
