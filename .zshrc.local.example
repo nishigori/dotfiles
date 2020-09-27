@@ -5,6 +5,7 @@
 ####################
 ## Directory aliases
 ####################
+hash -d gh=~/src/github.com
 hash -d dotfiles=~/src/github.com/nishigori/dotfiles
 
 
@@ -19,6 +20,10 @@ case ${OSTYPE} in
         # => Erlang/OTP version specify
         export PATH="/usr/local/opt/erlang@22/bin:$PATH"
         export LDFLAGS="-L/usr/local/opt/erlang@22/lib"
+
+        # => Go
+        export PATH="/usr/local/opt/go@1.15/bin:$PATH"
+        export GOROOT=/usr/local/opt/go@1.15/libexec
 
         # => PHP version specify
         #export PATH="/usr/local/Cellar/php@7.4/bin:$PATH"
