@@ -42,7 +42,7 @@ if !has('nvim')
 endif
 " }}}
 " # Default colorscheme {{{
-set background=dark
+set background=light
 colorscheme PaperColor
 " }}}
 " # Quick Start $MYGVIMRC {{{
