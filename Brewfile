@@ -20,7 +20,8 @@ tap 'knqyf263/utern'
 tap 'aws/tap'
 
 cask 'adobe-acrobat-reader'
-cask "adoptopenjdk8"
+# needs root
+#cask "adoptopenjdk8"
 cask 'apache-directory-studio'
 cask 'alfred'
 cask 'biscuit'
@@ -47,7 +48,7 @@ cask 'krisp'
 cask 'zoom'
 
 #cask 'font-hack-nerd-font'
-cask 'font-hack-nerd-font-mono'
+#cask 'font-hack-nerd-font-mono'
 brew 'sanemat/font/ricty'
 
 brew 'libarchive'
@@ -87,7 +88,7 @@ brew 'gnu-time'
 brew 'gnu-which'
 brew 'telnet'
 
-brew 'vim'
+#brew 'vim'
 brew 'macvim'
 
 brew 'rust'
@@ -190,7 +191,6 @@ brew 'lzo'
 brew 'lzop'
 #brew 'md5sha1sum'
 brew 'sleuthkit'
-brew 'osquery'
 brew 'ossp-uuid'
 brew 'popt'
 brew 'rlwrap'

@@ -2,13 +2,13 @@ colorscheme dark
 
 set allowautofocus false
 set hintfiltermode vimperator-reflow
-bind --normal ; fillcmdline_notrail
+bind --mode=normal ; fillcmdline_notrail
 
 " Scroll
 set smoothscroll true
 set scrollduration 300
-bind --normal j scrollline 12
-bind --normal k scrollline -12
+bind --mode=normal j scrollline 12
+bind --mode=normal k scrollline -12
 
 " Container
 set autocontainmode strict
@@ -18,20 +18,18 @@ set blacklistkeys ["<M-t>", "<D-t>"]
 set leavegithubalone false
 
 " Tab
-set newtab about:blank<CR>
+"set newtab about:blank<CR>
 "nativeopen open about:blank
 bind <D-t> nativeopen open about:blank
 bind <M-t> tabopen www.yahoo.co.jp
-bind --normal <C-p> tabprev
-bind --normal <C-n> tabnext
+bind --mode=normal <C-p> tabprev
+bind --mode=normal <C-n> tabnext
 
 " Search engine
 set searchurls.amazon https://www.amazon.co.jp/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=
 set searchurls.g https://www.google.com/search?q=
 
 " Search
-bind <D-f> fillcmdline find
-bind <M-f> fillcmdline find
 bind / fillcmdline find
 bind ? fillcmdline find -?
 bind n findnext 1
