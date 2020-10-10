@@ -180,7 +180,7 @@ brew 'sqlite'
 brew 'wget'
 
 brew 'packer'
-brew 'terraform'
+brew 'tfenv'
 brew 'terraform_landscape'
 
 brew 'imagemagick'
