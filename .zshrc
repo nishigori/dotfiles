@@ -432,12 +432,11 @@ if [ -f ~/.zshrc.local ]; then
 fi
 
 # local version specify even if
-Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.6}
-
-export PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
-export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
-export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
+#Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
+#export PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin:$PATH"
+#export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
+#export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
+#export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
 
 
 ##################

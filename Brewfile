@@ -141,6 +141,8 @@ brew 'mercurial'
 brew 'github/gh/gh'
 brew 'ghq'
 brew 'hub'
+# github actions runner on local
+brew 'act'
 #brew 'lab'
 brew 'peco'
 brew 'jq'
