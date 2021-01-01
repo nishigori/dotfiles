@@ -5,20 +5,19 @@
 EDITOR      := vscode
 BREW        := /usr/local/bin/brew
 BREW_MAS    := /usr/local/bin/mas
-MYFONTS_DIR := $(HOME)/.fonts
 
 VSCODE            := /usr/local/bin/code
 VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' .vscode/_plugins.txt)
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-.PHONY: Darwin/* brew/* firefox/* fonts/*
+.PHONY: Darwin/* brew/*
 
-Darwin/install: $(BREW) brew/tap brew/bundle fonts/all $(EDITOR)
+Darwin/install: $(BREW) brew/tap brew/bundle $(EDITOR)
 
-Darwin/update: brew/update brew/upgrade fonts/all
+Darwin/update: brew/update brew/upgrade
 
-Darwin/clean: brew/cleanup firefox/clean
+Darwin/clean: brew/cleanup
 
 $(BREW):
 	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -27,18 +26,6 @@ $(BREW):
 
 brew/%:
 	brew $(@F)
-
-fonts/all: $(MYFONTS_DIR) fonts/ricty
-	-fc-cache -v --error-on-no-fonts --force $<
-
-$(MYFONTS_DIR):
-	@mkdir $@
-
-fonts/ricty: $(MYFONTS_DIR)
-	/bin/cp -f $$(ls -td -- /usr/local/Cellar/ricty/* | head -n 1)/share/fonts/*.ttf $<
-
-firefox/clean:
-	find ~/Library/Application\ Support/Firefox/Profiles/ -maxdepth 2 -type f -name "*.sqlite" | xargs -I {} sqlite3 {} "VACUUM; REINDEX;"
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
 vscode: $(VSCODE) $(VSCODE_EXTENSIONS)

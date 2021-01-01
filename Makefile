@@ -42,6 +42,35 @@ clean: $(os)/clean
 
 update: links $(os)/update
 
+credentials: $(dir_requires) $(credentials)
+
+$(credentials):
+	@if ! [ -f ~/$@ ]; then \
+		/bin/cp -i ./$@.example ~/$@; \
+		echo "(maybe) U should edit $@ just putting"; \
+	fi
+
+links: $(dir_requires) $(links)
+	true $(foreach _script, $(wildcard bin/*), && ln -sf $(CURDIR)/$(_script) ~/$(_script))
+	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
+
+$(links):
+	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
+	@ls -dF ~/$@
+
+zsh: ~/.zplugin/bin ~/.zsh_history ## Configure ZSH
+
+~/.zsh_history:
+	fc -p $(HOME)/.zsh_history
+
+~/.zplugin/bin:
+	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+
+bin/diff-highlight:
+	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
+	make -C /tmp/git/contrib/diff-highlight/
+	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
+
 golang: ## Setup Go language
 	# Standard
 	go get -u golang.org/x/tools/cmd/...
@@ -65,38 +94,3 @@ goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimpo
 	rm -f $$GOPATH/src/.goimportsignore
 	goimports-update-ignore
 
-credentials: $(dir_requires) $(credentials)
-
-$(credentials):
-	@if ! [ -f ~/$@ ]; then \
-		/bin/cp -i ./$@.example ~/$@; \
-		echo "(maybe) U should edit $@ just putting"; \
-	fi
-
-links: $(dir_requires) $(links)
-	true $(foreach _script, $(wildcard bin/*), && ln -sf $(CURDIR)/$(_script) ~/$(_script))
-	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
-
-$(links):
-	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
-	@ls -dF ~/$@
-
-zsh: ~/.zplugin/bin ~/.zsh_history chsh_zsh ## Configure ZSH
-
-chsh_zsh:
-	@echo Setup SHELL
-	grep -q $(SHELL) /etc/shells || sudo sh -c "echo '$(SHELL)' >> /etc/shells"
-	echo $$SHELL | grep -q $(SHELL) || chsh -s $(SHELL)
-	$(SHELL) --version
-	-time ( source ~/.$(notdir $(SHELL))rc )
-
-~/.zsh_history:
-	fc -p $(HOME)/.zsh_history
-
-~/.zplugin/bin:
-	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
-
-bin/diff-highlight:
-	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
-	make -C /tmp/git/contrib/diff-highlight/
-	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
