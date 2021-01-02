@@ -9,6 +9,8 @@ BREW_MAS    := /usr/local/bin/mas
 VSCODE            := /usr/local/bin/code
 VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' .vscode/_plugins.txt)
 
+DEFAULT_ARCH := $(shell uname -m)
+
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 .PHONY: Darwin/* brew/*
@@ -20,9 +22,12 @@ Darwin/update: brew/update brew/upgrade
 Darwin/clean: brew/cleanup
 
 $(BREW):
-	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	@test -f /usr/local/bin/mas || $(BREW) install mas
-	brew tap Homebrew/bundle
+ifeq (arm64,$(DEFAULT_ARCH))
+	arch -arch x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+endif
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	#which mas 2>/dev/null || $(BREW) install mas
+	=brew tap Homebrew/bundle
 
 brew/%:
 	brew $(@F)

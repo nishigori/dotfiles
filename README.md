@@ -31,6 +31,8 @@ Following docs is for the manually setup
 ```sh
 xcode-select --install
 sudo xcodebuild -license accept
+# for M1 Mac, needed rosetta
+softwareupdate --install-rosetta
 ```
 
 * Switch Ctrl <-> Caps Lock: `システム環境設定 > キーボード > 装飾キー`
