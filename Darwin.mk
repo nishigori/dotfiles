@@ -23,9 +23,9 @@ Darwin/clean: brew/cleanup
 
 $(BREW):
 ifeq (arm64,$(DEFAULT_ARCH))
-	arch -arch x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	arch -arch x86_64 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 endif
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	#which mas 2>/dev/null || $(BREW) install mas
 	=brew tap Homebrew/bundle
 
