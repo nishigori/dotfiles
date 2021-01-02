@@ -1,17 +1,24 @@
 # My zshrc
 #
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:$PATH
 export TERM="xterm-256color"
 export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR=vi
 
+path=(
+    $HOME/bin(N-/)
+    $HOME/.rbenv/bin(N-/)
+    $HOME/.pyenv/bin(N-/)
+    $HOME/.nodebrew/current/bin(N-/)
+    $HOME/.composer/vendor/bin(N-/)
 
-alias cl='clear'
+    /usr/local/bin(N-/)
+    /usr/local/sbin(N-/)
+
+    $path
+)
+
 alias k='kubectl'
-alias mk='minikube'
 alias tailf='tail -f'
-alias vimless='vim -R'
-alias vless='vim -R'
 alias -g g='git'
 alias -g p='git add -p'
 alias mm='git master && git souji'
@@ -31,7 +38,7 @@ alias dis='git diff --stat'
 alias hist="log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'"
 
 # ls using https://github.com/Peltoche/lsd
-if which lsd >/dev/null 2>&1; then
+if (( $+commands[lsd] )); then
     alias ls='lsd --group-dirs=first'
     alias  l='lsd --group-dirs=first -l'
     alias ll='lsd --group-dirs=first -l'
@@ -43,10 +50,6 @@ else
     alias ll='ls -l'
     alias la='ls -al'
 fi
-
-alias -s py=python
-alias -s rb=ruby
-alias -s mk=make
 
 setopt auto_cd
 setopt auto_pushd
@@ -122,78 +125,60 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 ###############
 case ${OSTYPE} in
     darwin*)
-        MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-        MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
-        MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
-        MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:$MANPATH"
-        MANPATH="/usr/local/opt/gnu-time/libexec/gnuman:$MANPATH"
-        MANPATH="/usr/local/opt/gnu-which/libexec/gnuman:$MANPATH"
-        MANPATH="/usr/local/opt/grep/libexec/gnuman:$MANPATH"
+        manpath=(
+            /usr/local/opt/coreutils/libexec/gnuman(N-/)
+            /usr/local/opt/findutils/libexec/gnuman(N-/)
+            /usr/local/opt/gnu-sed/libexec/gnuman(N-/)
+            /usr/local/opt/gnu-tar/libexec/gnuman(N-/)
+            /usr/local/opt/gnu-time/libexec/gnuman(N-/)
+            /usr/local/opt/gnu-which/libexec/gnuman(N-/)
+            /usr/local/opt/grep/libexec/gnuman(N-/)
+            $manpath
+        )
 
-        PATH="/usr/local/opt/apr/bin:$PATH"
-        PATH="/usr/local/opt/bison/bin:$PATH"
-        PATH="/usr/local/opt/icu4c/bin:$PATH"
-        PATH="/usr/local/opt/icu4c/sbin:$PATH"
-        PATH="/usr/local/opt/gettext/bin:$PATH"
-        PATH="/usr/local/opt/libxslt/bin:$PATH"
-        PATH="/usr/local/opt/libpq/bin:$PATH"
-        PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/gcc/bin:$PATH"
-        PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
-        PATH="/usr/local/opt/curl/bin:$PATH"
-        PATH="/usr/local/opt/curl-openssl/bin:$PATH"
+        path=(
+            /usr/local/opt/coreutils/libexec/gnubin(N-/)
+            /usr/local/opt/findutils/libexec/gnubin(N-/)
+            /usr/local/opt/make/libexec/gnubin(N-/)
+            /usr/local/opt/gcc/bin(N-/)
+            /usr/local/opt/gnu-sed/libexec/gnubin(N-/)
+            /usr/local/opt/gnu-tar/libexec/gnubin(N-/)
+            /usr/local/opt/gnu-time/libexec/gnubin(N-/)
+            /usr/local/opt/gnu-which/libexec/gnubin(N-/)
+            /usr/local/opt/grep/libexec/gnubin(N-/)
+            /usr/local/opt/curl/bin(N-/)
+            /usr/local/opt/curl-openssl/bin(N-/)
+            /usr/local/opt/sqlite/bin(N-/)
+            /usr/local/opt/apr/bin(N-/)
+            /usr/local/opt/bison/bin(N-/)
+            /usr/local/opt/icu4c/bin(N-/)
+            /usr/local/opt/icu4c/sbin(N-/)
+            /usr/local/opt/gettext/bin(N-/)
+            /usr/local/opt/libxslt/bin(N-/)
+            /usr/local/opt/libpq/bin(N-/)
+            # LibreSSL
+            #
+            # For compilers to find this software you may need to set:
+            #     LDFLAGS:  -L/usr/local/opt/libressl/lib
+            #     CPPFLAGS: -I/usr/local/opt/libressl/include
+            # For pkg-config to find this software you may need to set:
+            #     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
+            /usr/local/opt/libressl/bin(N-/)
+            /usr/local/var/nodebrew/current/bin(N-/)
 
-        PATH=/usr/local/opt/sqlite/bin:$PATH
-        PATH=$HOME/.composer/vendor/bin:$PATH
-        if which plenv > /dev/null; then eval "$(plenv init -)"; fi
-        PERL_MB_OPT="--install_base \"~/perl5\""; export PERL_MB_OPT;
-        PERL_MM_OPT="INSTALL_BASE=~/perl5"; export PERL_MM_OPT;
-        # LibreSSL
-        #
-        # For compilers to find this software you may need to set:
-        #     LDFLAGS:  -L/usr/local/opt/libressl/lib
-        #     CPPFLAGS: -I/usr/local/opt/libressl/include
-        # For pkg-config to find this software you may need to set:
-        #     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
-        PATH=/usr/local/opt/libressl/bin:$PATH
-        PATH="$HOME/.rbenv/bin:$PATH"
-        if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+            $path
+        )
 
-        #if which pyenv > /dev/null; then
-        #    export PYENV_ROOT="$HOME/.pyenv"
-        #    PATH="$PYENV_ROOT/bin:$PATH"
-        #    eval "$(pyenv init -)";
-        #fi
+        # local version specify even if
+        #Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
+        #path=( /usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin $path )
+        #export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
+        #export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
+        #export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
 
-        if which nodebrew > /dev/null; then
-            export NODEBREW_ROOT=/usr/local/var/nodebrew
-            PATH=$HOME/.nodebrew/current/bin:$PATH
-            PATH=/usr/local/var/nodebrew/current/bin:$PATH
-            /usr/local/opt/nodebrew/bin/nodebrew setup_dirs
-        fi
-
-        export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config
-        export GROOVY_HOME=/usr/local/opt/groovy/libexec
         export HOMEBREW_NO_AUTO_UPDATE=1
-
-        if [ -d "$HOME/.rbenv" ]; then
-            PATH="$HOME/.rbenv/bin:$PATH"
-            eval "$(rbenv init -)"
-        fi
-
-        if which gh > /dev/null; then
-            eval "$(gh completion -s zsh)"
-        fi
-
-        # Powerful & Colorful command(s)
-        alias c='bat'
-        export BAT_THEME=GitHub
+        export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config(N-/)
+        export GROOVY_HOME=/usr/local/opt/groovy/libexec(N-/)
 
         #zinit snippet OMZ::plugins/osx/osx.plugin.zsh
         zinit snippet OMZ::plugins/brew/brew.plugin.zsh
@@ -234,8 +219,6 @@ zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 #zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
 #zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
-
-if which copilot > /dev/null; then source <(copilot completion zsh); fi
 
 autoload -Uz compinit
 compinit
@@ -306,8 +289,10 @@ zle -N peco-checkout-pull-request
 ##################
 # Kubernates (k8s)
 ##################
-test -z "$(which kubectl 2>/dev/null)" || source <(kubectl completion zsh)
-alias kc=kubectl
+if (( $+commands[kubectl] )); then
+    source <(kubectl completion zsh)
+    alias kc=kubectl
+fi
 
 # https://qiita.com/sonots/items/f82912367693d717ff06
 function gke-activate() {
@@ -337,15 +322,44 @@ function kx() {
 }
 compdef kx-complete kx
 
-####
-# Go
-####
+
+###########
+# Languages
+###########
 export GOPATH=$HOME
-export PATH=$GOPATH/bin:$PATH
-test "$(which go 2>/dev/null)" = "" || export GOROOT=$( go env GOROOT )
+path=( $GOPATH/bin(N-/) $path)
+if (( $+commands[go] )); then export GOROOT=$( go env GOROOT ); fi
+
+if (( $+commands[plenv] )); then
+    eval "$(plenv init -)"
+    export PERL_MB_OPT="--install_base \"~/perl5\""
+    export PERL_MM_OPT="INSTALL_BASE=~/perl5"
+fi
+
+if (( $+commands[rbenv] )); then eval "$(rbenv init -)"; fi
+
+
+#####################
+# CommandLine Tool(s)
+#####################
+export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
+export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
+
+# Powerful & Colorful command(s)
+if (( $+commands[bat] )); then
+    alias c='bat'
+    export BAT_THEME=GitHub
+fi
+
+# like vimrc alpaca_tags settings
+local ctags_default_opt='-R --exclude=".git*" --sort=yes'
+alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
+alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
+
+if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
+if (( $+commands[gh] ));     then eval "$(gh completion -s zsh)"; fi
 
 bindkey '^O' peco-src
-
 function peco-src () {
     local selected_dir=$(ghq list | peco --query "$LBUFFER")
     if [ -n "$selected_dir" ]; then
@@ -358,69 +372,20 @@ function peco-src () {
 zle -N peco-src
 
 
-########
-# Python
-########
-export VIRTUALENVWRAPPER_PYTHON=$(which python)
-
-
-########
-# direnv
-########
-test "$(which direnv)" = "" || eval "$(direnv hook zsh)"
-
-
-#######
-# Ctags
-#######
-# like vimrc alpaca_tags settings
-local ctags_default_opt='-R --exclude=".git*" --sort=yes'
-alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
-alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
-
-
-############
-# Apache Ant
-############
-export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
-export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
-
-
-###########
-# Travis CI
-###########
-if [ -f ~/.travis/travis.sh ]; then
-    source ~/.travis/travis.sh
-fi
+#####
+# AWS
+#####
+if (( $+commands[copilot] )); then source <(copilot completion zsh); fi
 
 
 ############
 # gcloud SDK
 ############
-# The next line updates PATH for the Google Cloud SDK.
+# The next line updates path for the Google Cloud SDK.
 if [ -d ~/google-cloud-sdk ]; then
     source ~/google-cloud-sdk/path.zsh.inc
     source ~/google-cloud-sdk/completion.zsh.inc
-    export PATH=$HOME/google-cloud-sdk/bin:$PATH
-fi
-
-
-##########
-# Pygments
-##########
-if type "pygmentize" > /dev/null; then
-    #export LESS='-R'
-    #export LESSOPEN='|~/bin/lessfilter %s'
-
-    # unaliases 3rd-parties aliases
-    type "c" > /dev/null && unalias c
-    type "cl" > /dev/null && unalias cl
-
-    alias c="pygmentize -O style=tango -f console256 -g"
-    function cl() {
-        pygmentize -O style=tango -f console256 -g $1 | nl -n ln -b a
-    }
-    alias cl=cl
+    path=( $HOME/google-cloud-sdk/bin(N-/) $path )
 fi
 
 
@@ -431,25 +396,19 @@ if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 
-# local version specify even if
-#Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
-#export PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin:$PATH"
-#export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
-#export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
-#export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
-
 
 ##################
 # End of execution
 ##################
-export MANPATH=$MANPATH
-export PATH=$PATH
-autoload -U compinit
-compinit
-
 if [ "$DOTFILES/.zshrc.local" -nt "~/.zshrc.local.zwc" ]; then
     zcompile ~/.zshrc.local
 fi
 if [ "$DOTFILES/.zshrc" -nt "~/.zshrc.zwc" ]; then
     zcompile ~/.zshrc
 fi
+
+typeset -T LD_LIBRARY_PATH ld_library_path
+typeset -U ld_library_path
+typeset -T LIBRARY_PATH library_path
+typeset -U library_path
+typeset -U path PATH

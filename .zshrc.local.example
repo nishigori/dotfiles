@@ -15,32 +15,43 @@ hash -d dotfiles=~/src/github.com/nishigori/dotfiles
 case ${OSTYPE} in
     darwin*)
         export HOMEBREW_GITHUB_API_TOKEN="xxxxxxx_YOU_HAVE_TO_INPUT_xxxxxxxxx"
-        export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
         # => Erlang/OTP version specify
-        export PATH="/usr/local/opt/erlang@22/bin:$PATH"
-        export LDFLAGS="-L/usr/local/opt/erlang@22/lib"
+        path=( /usr/local/opt/erlang@22/bin(N-/) $path )
+        #export LDFLAGS="-L/usr/local/opt/erlang@22/lib"
 
         # => Go
-        export PATH="/usr/local/opt/go@1.15/bin:$PATH"
-        export GOROOT=/usr/local/opt/go@1.15/libexec
+        #path=( /usr/local/opt/go@1.15/bin(N-/) $path )
+        #export GOROOT=/usr/local/opt/go@1.15/libexec
 
-        # => PHP version specify
-        #export PATH="/usr/local/Cellar/php@7.4/bin:$PATH"
+        # => Java
+        #export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
-        # => Python > pyenv
-        export PATH=$HOME/Library/Python/2.7/bin:$PATH
-        export PYENV_ROOT=/usr/local/opt/pyenv
-        if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+        # => Node(JS)
+        if [ -f /usr/local/opt/nodebrew/bin/nodebrew ]; then
+            export NODEBREW_ROOT=/usr/local/var/nodebrew
+            /usr/local/opt/nodebrew/bin/nodebrew setup_dirs
+        fi
 
-        # => Ruby version specify
-        export PATH="/usr/local/opt/ruby/bin:$PATH"
-        # For compilers to find ruby you may need to set:
+        # => PHP
+        #path=( /usr/local/opt/php@7.4/bin(N-/) /usr/local/opt/php@7.4/sbin(N-/) $path )
+
+        # => Python
+        if (( $+commands[pyenv] )); then
+            export PYENV_ROOT=/usr/local/opt/pyenv
+            eval "$(pyenv init -)"
+        fi
+
+        # => Ruby
         #export LDFLAGS="-L/usr/local/opt/ruby/lib"
         #export CPPFLAGS="-I/usr/local/opt/ruby/include"
-
-        # For pkg-config to find ruby you may need to set:
         #export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+        # ==> MySQL
+        path=( /usr/local/opt/mysql@5.8/bin(N-/) $path )
+        #export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
+        #export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
+
         # => Docker
         #export DOCKER_TLS_VERIFY=1
         ;;
