@@ -45,10 +45,7 @@ update: links $(os)/update
 credentials: $(dir_requires) $(credentials)
 
 $(credentials):
-	@if ! [ -f ~/$@ ]; then \
-		/bin/cp -i ./$@.example ~/$@; \
-		echo "(maybe) U should edit $@ just putting"; \
-	fi
+	$(if $(wildcard ~/$@),, /bin/cp -i ./$@.example ~/$@ && echo "(maybe) U should edit ~/$@ just putting")
 
 links: $(dir_requires) $(links)
 	true $(foreach _script, $(wildcard bin/*), && ln -sf $(CURDIR)/$(_script) ~/$(_script))
