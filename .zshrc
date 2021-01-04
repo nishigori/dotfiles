@@ -325,21 +325,21 @@ function gke-activate() {
     gcloud container clusters get-credentials "${name}" --region="${zone_or_region}"
   fi
 }
-function kx-complete() {
-  _values $(gcloud container clusters list | awk '{print $1}')
-}
-function kx() {
-  name="$1"
-  if [ -z "$name" ]; then
-    line=$(gcloud container clusters list | peco)
-    name=$(echo $line | awk '{print $1}')
-  else
-    line=$(gcloud container clusters list | grep "$name")
-  fi
-  zone_or_region=$(echo $line | awk '{print $2}')
-  gke-activate "${name}" "${zone_or_region}"
-}
-compdef kx-complete kx
+#function kx-complete() {
+#  _values $(gcloud container clusters list | awk '{print $1}')
+#}
+#function kx() {
+#  name="$1"
+#  if [ -z "$name" ]; then
+#    line=$(gcloud container clusters list | peco)
+#    name=$(echo $line | awk '{print $1}')
+#  else
+#    line=$(gcloud container clusters list | grep "$name")
+#  fi
+#  zone_or_region=$(echo $line | awk '{print $2}')
+#  gke-activate "${name}" "${zone_or_region}"
+#}
+#compdef kx-complete kx
 
 
 ###########
