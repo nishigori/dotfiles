@@ -6,7 +6,7 @@ RC_FILES := $(wildcard .*rc)
 # Internal variables that it is (maybe) you do not need to set.
 os           := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
+links        := $(RC_FILES) .gitconfig tmp .zsh .zshenv .vim .vimperator .config/dein .config/nyaovim .config/oni
 dir_requires := ~/src ~/bin ~/.cache/terraform ~/.config ~/Dropbox $(foreach _v,undo swap backup unite view,~/.cache/vim/$(_v))
 bin_requires := bin/diff-highlight
 
