@@ -7,7 +7,7 @@ RC_FILES := $(wildcard .*rc)
 os           := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
-dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform ~/.config ~/Dropbox
+dir_requires := ~/src ~/bin ~/.cache/terraform ~/.config ~/Dropbox $(foreach _v,undo swap backup unite view,~/.cache/vim/$(_v))
 bin_requires := bin/diff-highlight
 
 
@@ -35,24 +35,24 @@ $(os)/%:
 # Alias
 install: $(dir_requires) $(bin_requires) $(os)/install zsh credentials golang
 
-$(dir_requires):
-	@mkdir -p $@
-
 clean: $(os)/clean
 
 update: links $(os)/update
 
 credentials: $(dir_requires) $(credentials)
 
-$(credentials):
-	$(if $(wildcard ~/$@),, /bin/cp -i ./$@.example ~/$@ && echo "(maybe) U should edit ~/$@ just putting")
-
 links: $(dir_requires) $(links)
 	true $(foreach _script, $(wildcard bin/*), && ln -sf $(CURDIR)/$(_script) ~/$(_script))
 	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
+$(credentials):
+	$(if $(wildcard ~/$@),, /bin/cp -i ./$@.example ~/$@ && echo "U should edit ~/$@ just putting")
+
+$(dir_requires):
+	@mkdir -p $@
+
 $(links):
-	@ln -sf $(CURDIR)/$@ ~/$(dir $@)
+	@ln -sf $(CURDIR)/$@ ~/$(@D)
 	@ls -dF ~/$@
 
 zsh: ~/.zplugin/bin ~/.zsh_history ## Configure ZSH
