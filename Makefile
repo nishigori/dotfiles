@@ -7,7 +7,7 @@ RC_FILES := $(wildcard .*rc)
 os           := $(shell uname -s)
 credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
 links        := $(RC_FILES) .gitconfig tmp .zsh .vim .vimperator .config/dein .config/nyaovim .config/oni
-dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform ~/Dropbox
+dir_requires := ~/src ~/bin ~/.cache/vim/{undo,swap,backup,unite,view} ~/.cache/terraform ~/.config ~/Dropbox
 bin_requires := bin/diff-highlight
 
 
