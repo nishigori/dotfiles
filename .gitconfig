@@ -49,9 +49,11 @@
 	st        = status
 	stv       = status --verbose
 	wc        = whatchanged
+	# shown default branch
+	default   = !git show-ref --verify --quiet refs/heads/master && echo master || git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
 	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
-	souji     = !git branch --merged | grep -vE '(^[*] | master)' | xargs git branch -d
-	master    = !git switch master && git fv && git rebase origin/master -v
+	souji     = !git branch --merged | grep -v -e '^[*]' -e "$(git default)" | xargs -r git branch -d
+	master    = !git switch $(git default) && git fv && git rebase origin/$(git default) -v
 
 [include]
 	path = ~/.gitsecret
