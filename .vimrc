@@ -556,7 +556,6 @@ augroup MkviewAccessor " Save fold settings. Vim-user.jp Hack #84
 augroup END
 " }}}
 " # Directory {{{
-" disabled autochdir depends to Vimshell
 "set autochdir
 augroup AutoChDir
   autocmd!
@@ -630,10 +629,6 @@ endif
 "if empty('&spellfile')
   "set spellfile="$HOME/.vim/spell/en.utf-8.add"
 "endif
-" }}}
-" # Omni complete {{{
-" omni_complete, completed each ftplugin
-inoremap <silent> <C-o> <C-x><C-o>
 " }}}
 " # Undo persistence {{{
 if has('persistent_undo')
@@ -1125,7 +1120,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <silent> [unite]w :<C-u>Unite workspace -buffer-name=bookmark<CR>
   nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
 
-  nnoremap <silent> [unite]B :<C-u>Unite bookmark -default-action=vimshell<CR>
+  nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
   nnoremap <silent> [unite]C :<C-u>Unite colorscheme -auto-preview -split -winheight=10 -start-insert<CR>
   nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
   "nnoremap <silent> [unite]N :<C-u>Unite
@@ -1221,7 +1216,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
       \ fname =~ '__Gundo\|NERD_tree' ? '' :
       \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
       \ &ft == 'unite' ? unite#get_status_string() :
-      \ &ft == 'vimshell' ? vimshell#get_status_string() :
       \ ('' != fname ? fname : '[No Name]') .
       \ ('' != MyModified() ? ' ' . MyModified() : '')
   endfunction
@@ -1258,7 +1252,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
       \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
       \ &filetype ==# 'unite' ? 'Unite' :
       \ &filetype ==# 'vimfiler' ? 'VimFiler' :
-      \ &filetype ==# 'vimshell' ? 'VimShell' :
       \ winwidth(0) > 60 ? lightline#mode() : ''
   endfunction
 
@@ -1307,7 +1300,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
   let g:unite_force_overwrite_statusline = 0
   let g:vimfiler_force_overwrite_statusline = 0
-  let g:vimshell_force_overwrite_statusline = 0
   " }}}
   " Plugin: vim-anzu {{{
   " TODO: 通常検索と同じくfoldも自動で開かれるようになったら有効にする
@@ -1453,15 +1445,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
   " }}}
-  " Plugin: TweetVim {{{
-  let g:tweetvim_tweet_per_page = 30
-  let g:tweetvim_config_dir  = s:cache_dir . '/tweetvim'
-  let g:tweetvim_include_rts = 1
-  let g:tweetvim_open_buffer_cmd = 'split -winheight=12 edit!'
-  nnoremap <silent> ts :<C-u>TweetVimSay<Cr>
-  " unite mapping
-  nnoremap <silent> tt :<C-u>Unite tweetvim<Cr>
-  " }}}
   " Plugin: dbext.vim {{{
   let g:dbext_default_history_file = s:cache_dir . '/dbext_sql_history.sql'
   " }}}
@@ -1515,9 +1498,31 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
 
   " }}}
-  " Plugin: deoplete {{{
-  set pyxversion=3
-  let g:deoplete#enable_at_startup = 1
+  " Plugin: vim-lsp around {{{
+  if empty(globpath(&rtp, 'autoload/lsp.vim'))
+    finish
+  endif
+
+  function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> <f2> <plug>(lsp-rename)
+    inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
+  endfunction
+
+  augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  augroup END
+  command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
+
+  let g:lsp_diagnostics_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
+  let g:asyncomplete_auto_popup = 1
+  let g:asyncomplete_auto_completeopt = 0
+  let g:asyncomplete_popup_delay = 200
+  let g:lsp_text_edit_enabled = 1
   " }}}
   " Plugin: neosnippet {{{
   " TODO: clear snippets_directory
@@ -1562,69 +1567,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   nnoremap <Leader>gA :<C-u>Gwrite <cfile><CR>
   nnoremap <Leader>gc :<C-u>Gcommit<CR>
   "}}}
-  " Plugin: vimshell {{{
-  "function! s:bundle.hooks.on_source(bundle)
-    let g:vimshell_temporary_directory = s:cache_dir . '/.vimshell'
-    "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
-    let g:vimshell_enable_smart_case = 1
-    let g:vimshell_enable_auto_slash = 1
-    let g:vimshell_max_command_history = 200
-    let g:vimshell_max_list = 15
-    let g:vimshell_split_height = 22
-    let g:vimshell_split_command = 'split'
-
-    " almost paste from vimshll-examples
-    " Initialize execute file list.
-    let g:vimshell_execute_file_list = {}
-    "call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
-    let g:vimshell_execute_file_list['rb'] = 'ruby'
-    let g:vimshell_execute_file_list['pl'] = 'perl'
-    let g:vimshell_execute_file_list['py'] = 'python'
-    let g:vimshell_execute_file_list['php'] = 'php'
-    let g:vimshell_execute_file_list['git'] = 'git'
-    "call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
-
-    "let g:vimshell_user_prompt = 'fnamemodify(getcwd(), \\":~")'
-    "let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", \\"(%s)-[%b|%a]")'
-    let g:my_host_prompt = stridx(hostname(), '.') > 0
-      \ ? hostname()[ : stridx(hostname(), '.') - 1]
-      \ : hostname()
-
-    " Display user name on Linux.
-    " TODO: $USER . hostname() の省略系を表示できるようにする
-    let g:vimshell_user_prompt = printf(
-      \ '"┌[" .$USER."@".%s. "]" ." - ". "[" .%s. "]"'
-      \ , 'g:my_host_prompt'
-      \ , 'fnamemodify(getcwd(), ":~")'
-      \ )
-
-    "call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-    "call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-    let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-    "call vimshell#set_execute_file('tgz,gz', 'gzcat')
-    "call vimshell#set_execute_file('tbz,bz2', 'bzcat')
-    let g:vimshell_prompt = '└[☁ ] '
-    "let g:vimshell_right_prompt = 'fnamemodify(getcwd(), ":p:h")'
-
-    augroup VimshellFileTypeDetect
-      autocmd!
-      autocmd FileType vimshell
-        \  call vimshell#altercmd#define('g', 'git')
-        \| call vimshell#altercmd#define('h', 'hg')
-        \| call vimshell#altercmd#define('i', 'iexe')
-        \| call vimshell#altercmd#define('l', 'll')
-        \| call vimshell#altercmd#define('a', 'ls -al')
-        \| call vimshell#altercmd#define('ll', 'ls -l')
-        \| call vimshell#altercmd#define('la', 'ls -al')
-        \| call vimshell#altercmd#define('cl', 'clear')
-        \| call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpWd')
-    augroup END
-
-    function! MyChpWd(args, context)
-      call vimshell#execute('ls')
-    endfunction
-  "endfunction
-  " }}}
   " Plugin: alpaca_tags {{{
   let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {})
   let g:alpaca_tags#config['js'] = '-R --languages=+js'
@@ -1714,12 +1656,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     \   ['edit zshrc', 'edit $HOME/.zshrc'],
     \   ['edit zshrc.local', 'edit $HOME/.zshrc.local'],
     \ ]}
-  let g:unite_source_menu_menus.interactive_mode = {
-    \ 'description': 'Mode of interactive programming languages',
-    \ 'command_candidates': [
-    \   ['ruby', 'VimShellInteractive ruby'],
-    \   ['python', 'VimShellInteractive python'],
-    \ ]}
   let g:unite_source_menu_menus.git = {
     \ 'description': 'Gestionar repositorios git  ⌘ [espacio]g',
     \ 'command_candidates': [
@@ -1767,26 +1703,18 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
   " # <Leader> Mappings "{{{
   nnoremap <silent><Leader><Leader> f<Space>
+  nnoremap <silent> <Leader>s :<C-u>terminal<CR>
   " change just before buffer
   nnoremap <silent> <Leader>a :<C-u>b#<CR>
   nnoremap <silent> ,b :<C-u>b#<CR>
   " open-browser.vim
   nmap <Leader>o <Plug>(openbrowser-smart-search)
-  " vimshell
-  nnoremap <silent> <Leader>s :<C-u>VimShell<CR>
-  nnoremap <silent> <Leader>vs :<C-u>VimShell<CR>
-  nnoremap <silent> <Leader>vS :<C-u>VimShellPop<CR>
   " Quickhl
   nmap <silent> <Leader>m <Plug>(quickhl-toggle)
   xmap <silent> <Leader>m <Plug>(quickhl-toggle)
   nmap <silent> <Leader>M <Plug>(quickhl-reset)
   xmap <silent> <Leader>M <Plug>(quickhl-reset)
   nmap <silent> <Leader>j <Plug>(quickhl-match)
-
-  " TweetVim
-  nnoremap <silent> <Leader>t  :TweetVimHomeTimeline<CR>
-  nnoremap <silent> <Leader>tl :TweetVimHomeTimeline<CR>
-  nnoremap <silent> <Leader>ts :TweetVimSay<CR>
   " }}}
 
   " # <cmd> (<D-) Mappings "{{{

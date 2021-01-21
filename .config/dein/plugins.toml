@@ -64,18 +64,6 @@ repo = 'osyo-manga/unite-quickrun_config'
 depends = 'unite.vim'
 # }}}
 
-# Shell {{{
-[[plugins]]
-repo   = 'Shougo/vimshell.vim'
-lazy   = 1
-on_map = [['n', '<Plug>(vimshell_switch)']]
-
-[[plugins]]
-repo    = 'yomi322/vim-gitcomplete'
-if      = 'has("nvim") && !exists("g:gui_oni")'
-depends = 'vimshell.vim'
-# }}}
-
 # Text Operation {{{
 [[plugins]]
 repo = 'nishigori/increment-activator'
@@ -122,9 +110,6 @@ repo = 'tyru/urilib.vim'
 repo = 'mattn/webapi-vim'
 
 [[plugins]]
-repo = 'basyura/twibill.vim'
-
-[[plugins]]
 repo = 'mhinz/vim-startify'
 
 [[plugins]]
@@ -135,18 +120,6 @@ repo = 'itchyny/vim-parenmatch'
 
 [[plugins]]
 repo = 'thinca/vim-visualstar'
-
-#[[plugins]]
-#repo = 'mattn/unite-nyancat'
-
-#[[plugins]]
-#repo = 'junegunn/vim-emoji'
-
-#[[plugin]]
-#repo = 'vim-scripts/copypath.vim'
-
-#[[plugin]]
-#repo = 'thinca/vim-openbuf'
 # }}}
 
 # Filer, Tags {{{
@@ -181,6 +154,24 @@ repo = 'scrooloose/syntastic'
 
 # Completion {{{
 [[plugins]]
+repo = 'prabirshrestha/async.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
+
+[[plugins]]
 repo = 'Shougo/context_filetype.vim'
 lazy = 1
 on_path = '.*'
@@ -196,15 +187,6 @@ depends = 'roxma/nvim-yarp'
 [[plugins]]
 repo = 'roxma/nvim-yarp'
 depends = 'roxma/vim-hug-neovim-rpc'
-
-#[[plugins]]
-#repo = 'Shougo/neosnippet-snippets'
-#
-#[[plugins]]
-#repo = 'Shougo/neosnippet'
-#lazy = 1
-#on_i = 1
-#on_ft = 'snippet'
 
 [[plugins]]
 repo = 'alpaca-tc/vim-endwise.git'
@@ -240,10 +222,11 @@ lazy = 1
 on_i = 1
 on_ft = 'go'
 
-[[plugins]]
-repo = 'fatih/vim-go'
-lazy = 1
-on_ft = 'go'
+# moved gopls via vim-lsp
+#[[plugins]]
+#repo = 'fatih/vim-go'
+#lazy = 1
+#on_ft = 'go'
 
 [[plugins]]
 repo = 'vim-jp/vim-go-extra'
@@ -264,21 +247,6 @@ on_ft = 'go'
 # }}}
 
 # Python {{{
-[[plugins]]
-repo = 'zchee/deoplete-jedi'
-if = '!exists("g:gui_oni")'
-lazy = 1
-on_i = 1
-on_ft = 'python'
-
-[[plugins]]
-# require ``pip install -U jedi`` but jedi configure is out of permission
-repo = 'davidhalter/jedi-vim'
-if = '!exists("g:gui_oni")'
-lazy = 1
-on_i = 1
-on_ft = 'python'
-
 [[plugins]]
 repo = 'jmcantrell/vim-virtualenv'
 lazy = 1
@@ -319,11 +287,6 @@ on_ft = 'ruby'
 # }}}
 
 # PHP {{{
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-lazy = 1
-on_ft = [['twig', 'html.twig', 'twig.html']]
-
 [[plugins]]
 repo = 'nishigori/vim-php-dictionary'
 lazy = 1
