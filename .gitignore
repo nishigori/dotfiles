@@ -28,4 +28,5 @@ tmp/*
 .vimperator/local-plugin/*
 
 # Homebrew
+Brewfile
 Brewfile.lock.json

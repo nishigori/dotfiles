@@ -7,7 +7,6 @@ export EDITOR=vi
 path=(
     $HOME/bin(N-/)
     $HOME/.anyenv/bin(N-/)
-    $HOME/.nodebrew/current/bin(N-/)
     $HOME/.composer/vendor/bin(N-/)
 
     # homebrew for m1 mac
@@ -144,17 +143,55 @@ case ${OSTYPE} in
         fi
 
         manpath=(
+            /opt/homebrew/opt/coreutils/libexec/gnuman(N-/)
             /usr/local/opt/coreutils/libexec/gnuman(N-/)
+            /opt/homebrew/opt/findutils/libexec/gnuman(N-/)
             /usr/local/opt/findutils/libexec/gnuman(N-/)
+            /opt/homebrew/opt/gnu-sed/libexec/gnuman(N-/)
             /usr/local/opt/gnu-sed/libexec/gnuman(N-/)
+            /opt/homebrew/opt/gnu-tar/libexec/gnuman(N-/)
             /usr/local/opt/gnu-tar/libexec/gnuman(N-/)
+            /opt/homebrew/opt/gnu-time/libexec/gnuman(N-/)
             /usr/local/opt/gnu-time/libexec/gnuman(N-/)
+            /opt/homebrew/opt/gnu-which/libexec/gnuman(N-/)
             /usr/local/opt/gnu-which/libexec/gnuman(N-/)
+            /opt/homebrew/opt/grep/libexec/gnuman(N-/)
             /usr/local/opt/grep/libexec/gnuman(N-/)
             $manpath
         )
 
+        if  [[ "$(uname -m)" == arm64 ]]; then
+            path=(
+                /opt/homebrew/opt/binutils/bin(N-/)
+                /opt/homebrew/opt/coreutils/libexec/gnubin(N-/)
+                /opt/homebrew/opt/findutils/libexec/gnubin(N-/)
+                /opt/homebrew/opt/bison/bin(N-/)
+                /opt/homebrew/opt/bzip2/bin(N-/)
+                /opt/homebrew/opt/gcc/bin(N-/)
+                /opt/homebrew/opt/gettext/bin(N-/)
+                /opt/homebrew/opt/libxslt/bin(N-/)
+                /opt/homebrew/opt/libpq/bin(N-/)
+                /opt/homebrew/opt/icu4c/bin(N-/)
+                /opt/homebrew/opt/icu4c/sbin(N-/)
+                /opt/homebrew/opt/ncurses/bin(N-/)
+                /opt/homebrew/opt/gnu-sed/libexec/gnubin(N-/)
+                /opt/homebrew/opt/gnu-tar/libexec/gnubin(N-/)
+                /opt/homebrew/opt/gnu-time/libexec/gnubin(N-/)
+                /opt/homebrew/opt/gnu-which/libexec/gnubin(N-/)
+                /opt/homebrew/opt/make/libexec/gnubin(N-/)
+                /opt/homebrew/opt/libressl/bin(N-/)
+                /opt/homebrew/opt/curl/bin(N-/)
+                /opt/homebrew/opt/mysql-client/bin(N-/)
+                /opt/homebrew/opt/sqlite/bin(N-/)
+                /opt/homebrew/opt/openldap/bin(N-/)
+                /opt/homebrew/opt/openldap/sbin(N-/)
+
+                $path
+            )
+        fi
+
         path=(
+            /usr/local/opt/binutils/libexec/gnubin(N-/)
             /usr/local/opt/coreutils/libexec/gnubin(N-/)
             /usr/local/opt/findutils/libexec/gnubin(N-/)
             /usr/local/opt/make/libexec/gnubin(N-/)
@@ -167,6 +204,7 @@ case ${OSTYPE} in
             /usr/local/opt/curl/bin(N-/)
             /usr/local/opt/curl-openssl/bin(N-/)
             /usr/local/opt/sqlite/bin(N-/)
+            /opt/homebrew/opt/llvm/bin
             /usr/local/opt/apr/bin(N-/)
             /usr/local/opt/bison/bin(N-/)
             /usr/local/opt/icu4c/bin(N-/)
@@ -182,7 +220,6 @@ case ${OSTYPE} in
             # For pkg-config to find this software you may need to set:
             #     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
             /usr/local/opt/libressl/bin(N-/)
-            /usr/local/var/nodebrew/current/bin(N-/)
 
             $path
         )
@@ -362,8 +399,6 @@ if (( $+commands[plenv] )); then
     export PERL_MB_OPT="--install_base \"~/perl5\""
     export PERL_MM_OPT="INSTALL_BASE=~/perl5"
 fi
-
-if (( $+commands[rbenv] )); then eval "$(rbenv init -)"; fi
 
 
 #####################
