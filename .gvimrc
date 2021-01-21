@@ -104,17 +104,17 @@ if has("gui_macvim")
   " @see h: macmenuenu, :e $VIMRUNTIME/menu.vim
   macmenu File.New\ Window				key=<Nop>
   macmenu File.New\ Tab				key=<Nop>
-  macmenu File.Open\.\.\.				key=<Nop>
+  "macmenu File.Open\.\.\.				key=<Nop>
   macmenu File.Open\ Tab\.\.\.<Tab>:tabnew		key=<Nop>
   macmenu File.Close\ Window<Tab>:qa		key=<D-W>
   macmenu File.Close				key=<D-w>
   macmenu File.Save<Tab>:w				key=<D-s>
   macmenu File.Save\ All				key=<Nop>
-  macmenu File.Save\ As\.\.\.<Tab>:sav		key=<Nop>
+  "macmenu File.Save\ As\.\.\.<Tab>:sav		key=<Nop>
   macmenu File.Print				key=<Nop>
   macmenu Edit.Undo<Tab>u				key=<Nop>
   macmenu Edit.Redo<Tab>^R				key=<Nop>
-  macmenu Edit.Find.Find\.\.\.			key=<Nop>
+  "macmenu Edit.Find.Find\.\.\.			key=<Nop>
   macmenu Edit.Find.Find\ Next			key=<Nop>
   macmenu Edit.Find.Find\ Previous			key=<Nop>
   macmenu Edit.Find.Use\ Selection\ for\ Find	key=<Nop>
@@ -131,8 +131,8 @@ if has("gui_macvim")
   macmenu Window.Minimize\ All	key=<Nop>
   macmenu Window.Zoom		key=<Nop>
   macmenu Window.Zoom\ All		key=<Nop>
-  macmenu Window.Select\ Next\ Tab			key=<Nop>
-  macmenu Window.Select\ Previous\ Tab		key=<Nop>
+  "macmenu Window.Select\ Next\ Tab			key=<Nop>
+  "macmenu Window.Select\ Previous\ Tab		key=<Nop>
 
   macmenu Help.MacVim\ Help			key=<Nop>
 endif
