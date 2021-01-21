@@ -6,8 +6,7 @@ export EDITOR=vi
 
 path=(
     $HOME/bin(N-/)
-    $HOME/.rbenv/bin(N-/)
-    $HOME/.pyenv/bin(N-/)
+    $HOME/.anyenv/bin(N-/)
     $HOME/.nodebrew/current/bin(N-/)
     $HOME/.composer/vendor/bin(N-/)
 
@@ -345,8 +344,17 @@ function gke-activate() {
 ###########
 # Languages
 ###########
+if (( $+commands[anyenv] )); then
+    test -d .config/anyenv/anyenv-install || anyenv install --init
+    eval "$(anyenv init -)"
+
+    mkdir -p ~/.anyenv/plugins
+    test -d ~/.anyenv/plugins/anyenv-update || git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
+fi
+
 export GOPATH=$HOME
 path=( $GOPATH/bin(N-/) $path)
+
 if (( $+commands[go] )); then export GOROOT=$( go env GOROOT ); fi
 
 if (( $+commands[plenv] )); then
@@ -400,8 +408,10 @@ if (( $+commands[copilot] )); then source <(copilot completion zsh); fi
 ############
 # gcloud SDK
 ############
-# The next line updates path for the Google Cloud SDK.
-if [ -d ~/google-cloud-sdk ]; then
+if [ -d /usr/local/Caskroom/google-cloud-sdk ]; then
+    source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+    source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+elif [ -d ~/google-cloud-sdk ]; then
     source ~/google-cloud-sdk/path.zsh.inc
     source ~/google-cloud-sdk/completion.zsh.inc
     path=( $HOME/google-cloud-sdk/bin(N-/) $path )
