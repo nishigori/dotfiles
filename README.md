@@ -67,14 +67,15 @@ Reference of searching my-profile: https://support.mozilla.org/ja/kb/profiles-wh
 $ cd ~/Library/Application\ Support/Firefox/Profiles/${YOUR_PROFILE}
 $ mkdir -p chrome
 $ cat <<EOT >> chrome/userChrome.css
-/* Hidden tabbar */
-#tabbrowser-tabs {
-visibility: collapse !important;
+/* https://github.com/doublejim/tree-style-tab-compact-dark-style */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#TabsToolbar {
+  visibility: collapse;
 }
 
-/* Hidden sidebar header */
-#sidebar-header {
-visibility: collapse;
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+  visibility: collapse;
 }
 EOT
 ```
