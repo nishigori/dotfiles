@@ -36,7 +36,7 @@ brew/bundle:
 	cp -af Brewfile.$(shell uname -m) Brewfile
 	=brew bundle
 ifeq (x86_64,$(shell uname -m))
-	cat Brewfile.arm64 > $@
+	cat Brewfile.arm64 > Brewfile
 	brew bundle
 endif
 
