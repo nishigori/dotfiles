@@ -6,16 +6,106 @@ export EDITOR=vi
 
 path=(
     $HOME/bin(N-/)
-    $HOME/.anyenv/bin(N-/)
     $HOME/.composer/vendor/bin(N-/)
-
-    # homebrew for m1 mac
-    /opt/homebrew/bin(N-/)
-    /usr/local/bin(N-/)
-    /usr/local/sbin(N-/)
-
     $path
 )
+
+case ${OSTYPE} in
+    darwin*)
+        if [[ "x86_64" == "$(uname -m)" ]]; then
+        fi
+
+        if [[ "arm64" == "$(uname -m)" ]]; then
+            # $ brew  ... <- used rosetta
+            # $ =brew ... <- used ARM
+            alias brew="arch -arch x86_64 /usr/local/bin/brew"
+            alias x64='exec arch -arch x86_64 "$SHELL"'
+            alias a64='exec arch -arch arm64e "$SHELL"'
+            switch-arch() {
+                if  [[ "$(uname -m)" == arm64 ]]; then
+                    arch=x86_64
+                elif [[ "$(uname -m)" == x86_64 ]]; then
+                    arch=arm64e
+                fi
+                exec arch -arch $arch "$SHELL"
+            }
+
+            brew_root=/opt/homebrew
+            path=(
+                $HOME/.anyenv/bin(N-/)
+                /opt/homebrew/bin(N-/)
+                /opt/homebrew/sbin(N-/)
+                /usr/local/bin(N-/)
+                /usr/local/sbin(N-/)
+                $path
+            )
+        else
+            brew_root=/usr/local
+            path=(
+                /usr/local/bin(N-/)
+                /usr/local/sbin(N-/)
+                $path
+            )
+        fi
+
+        manpath=(
+            $brew_root/opt/coreutils/libexec/gnuman(N-/)
+            $brew_root/opt/findutils/libexec/gnuman(N-/)
+            $brew_root/opt/gnu-sed/libexec/gnuman(N-/)
+            $brew_root/opt/gnu-tar/libexec/gnuman(N-/)
+            $brew_root/opt/gnu-time/libexec/gnuman(N-/)
+            $brew_root/opt/gnu-which/libexec/gnuman(N-/)
+            $brew_root/opt/grep/libexec/gnuman(N-/)
+            $manpath
+        )
+
+        path=(
+            $brew_root/opt/apr/bin(N-/)
+            $brew_root/opt/binutils/bin(N-/)
+            $brew_root/opt/bison/bin(N-/)
+            $brew_root/opt/bzip2/bin(N-/)
+            $brew_root/opt/coreutils/libexec/gnubin(N-/)
+            $brew_root/opt/curl/bin(N-/)
+            $brew_root/opt/curl-openssl/bin(N-/)
+            $brew_root/opt/findutils/libexec/gnubin(N-/)
+            $brew_root/opt/gcc/bin(N-/)
+            $brew_root/opt/gettext/bin(N-/)
+            $brew_root/opt/gnu-sed/libexec/gnubin(N-/)
+            $brew_root/opt/gnu-tar/libexec/gnubin(N-/)
+            $brew_root/opt/gnu-time/libexec/gnubin(N-/)
+            $brew_root/opt/gnu-which/libexec/gnubin(N-/)
+            $brew_root/opt/grep/libexec/gnubin(N-/)
+            $brew_root/opt/icu4c/bin(N-/)
+            $brew_root/opt/icu4c/sbin(N-/)
+            $brew_root/opt/libarchive/bin(N-/)
+            $brew_root/opt/libpq/bin(N-/)
+            $brew_root/opt/libressl/bin(N-/)
+            $brew_root/opt/libxml2/bin(N-/)
+            $brew_root/opt/libxslt/bin(N-/)
+            $brew_root/opt/llvm/bin(N-/)
+            $brew_root/opt/ncurses/bin(N-/)
+            $brew_root/opt/make/libexec/gnubin(N-/)
+            $brew_root/opt/mysql-client/bin(N-/)
+            $brew_root/opt/openjdk/bin(N-/)
+            $brew_root/opt/openldap/bin(N-/)
+            $brew_root/opt/openldap/sbin(N-/)
+            $brew_root/opt/sqlite/bin(N-/)
+
+            $path
+        )
+
+        # local version specify even if
+        #Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
+        #path=( /usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin $path )
+        #export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
+        #export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
+        #export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
+
+        export HOMEBREW_NO_AUTO_UPDATE=1
+        export CURL_CONFIG=$brew_root/opt/curl/bin/curl-config(N-/)
+        export GROOVY_HOME=$brew_root/opt/groovy/libexec(N-/)
+        ;;
+esac
 
 alias k='kubectl'
 alias tailf='tail -f'
@@ -83,7 +173,6 @@ zinit snippet OMZ::plugins/git/git.plugin.zsh
 case ${OSTYPE} in
     darwin*)
         #zinit snippet OMZ::plugins/osx/osx.plugin.zsh
-        zinit snippet OMZ::plugins/brew/brew.plugin.zsh
         ;;
     freebsd*)
         ;;
@@ -118,132 +207,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 #if [ -z "$ZSH_THEME" ]; then
 #    zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 #fi
-
-
-###############
-# OS dependency
-###############
-case ${OSTYPE} in
-    darwin*)
-        # for M1 Mac, switch arch
-        if [[ "arm64" == "$(uname -m)" ]]; then
-            # $ brew  ... <- used rosetta
-            # $ =brew ... <- used ARM
-            alias brew="arch -arch x86_64 /usr/local/bin/brew"
-            alias x64='exec arch -arch x86_64 "$SHELL"'
-            alias a64='exec arch -arch arm64e "$SHELL"'
-            switch-arch() {
-                if  [[ "$(uname -m)" == arm64 ]]; then
-                    arch=x86_64
-                elif [[ "$(uname -m)" == x86_64 ]]; then
-                    arch=arm64e
-                fi
-                exec arch -arch $arch "$SHELL"
-            }
-        fi
-
-        manpath=(
-            /opt/homebrew/opt/coreutils/libexec/gnuman(N-/)
-            /usr/local/opt/coreutils/libexec/gnuman(N-/)
-            /opt/homebrew/opt/findutils/libexec/gnuman(N-/)
-            /usr/local/opt/findutils/libexec/gnuman(N-/)
-            /opt/homebrew/opt/gnu-sed/libexec/gnuman(N-/)
-            /usr/local/opt/gnu-sed/libexec/gnuman(N-/)
-            /opt/homebrew/opt/gnu-tar/libexec/gnuman(N-/)
-            /usr/local/opt/gnu-tar/libexec/gnuman(N-/)
-            /opt/homebrew/opt/gnu-time/libexec/gnuman(N-/)
-            /usr/local/opt/gnu-time/libexec/gnuman(N-/)
-            /opt/homebrew/opt/gnu-which/libexec/gnuman(N-/)
-            /usr/local/opt/gnu-which/libexec/gnuman(N-/)
-            /opt/homebrew/opt/grep/libexec/gnuman(N-/)
-            /usr/local/opt/grep/libexec/gnuman(N-/)
-            $manpath
-        )
-
-        if  [[ "$(uname -m)" == arm64 ]]; then
-            path=(
-                /opt/homebrew/opt/binutils/bin(N-/)
-                /opt/homebrew/opt/coreutils/libexec/gnubin(N-/)
-                /opt/homebrew/opt/findutils/libexec/gnubin(N-/)
-                /opt/homebrew/opt/bison/bin(N-/)
-                /opt/homebrew/opt/bzip2/bin(N-/)
-                /opt/homebrew/opt/gcc/bin(N-/)
-                /opt/homebrew/opt/gettext/bin(N-/)
-                /opt/homebrew/opt/libxslt/bin(N-/)
-                /opt/homebrew/opt/libpq/bin(N-/)
-                /opt/homebrew/opt/icu4c/bin(N-/)
-                /opt/homebrew/opt/icu4c/sbin(N-/)
-                /opt/homebrew/opt/ncurses/bin(N-/)
-                /opt/homebrew/opt/gnu-sed/libexec/gnubin(N-/)
-                /opt/homebrew/opt/gnu-tar/libexec/gnubin(N-/)
-                /opt/homebrew/opt/gnu-time/libexec/gnubin(N-/)
-                /opt/homebrew/opt/gnu-which/libexec/gnubin(N-/)
-                /opt/homebrew/opt/make/libexec/gnubin(N-/)
-                /opt/homebrew/opt/libressl/bin(N-/)
-                /opt/homebrew/opt/curl/bin(N-/)
-                /opt/homebrew/opt/mysql-client/bin(N-/)
-                /opt/homebrew/opt/sqlite/bin(N-/)
-                /opt/homebrew/opt/openldap/bin(N-/)
-                /opt/homebrew/opt/openldap/sbin(N-/)
-
-                $path
-            )
-        fi
-
-        path=(
-            /usr/local/opt/binutils/libexec/gnubin(N-/)
-            /usr/local/opt/coreutils/libexec/gnubin(N-/)
-            /usr/local/opt/findutils/libexec/gnubin(N-/)
-            /usr/local/opt/make/libexec/gnubin(N-/)
-            /usr/local/opt/gcc/bin(N-/)
-            /usr/local/opt/gnu-sed/libexec/gnubin(N-/)
-            /usr/local/opt/gnu-tar/libexec/gnubin(N-/)
-            /usr/local/opt/gnu-time/libexec/gnubin(N-/)
-            /usr/local/opt/gnu-which/libexec/gnubin(N-/)
-            /usr/local/opt/grep/libexec/gnubin(N-/)
-            /usr/local/opt/curl/bin(N-/)
-            /usr/local/opt/curl-openssl/bin(N-/)
-            /usr/local/opt/sqlite/bin(N-/)
-            /opt/homebrew/opt/llvm/bin
-            /usr/local/opt/apr/bin(N-/)
-            /usr/local/opt/bison/bin(N-/)
-            /usr/local/opt/icu4c/bin(N-/)
-            /usr/local/opt/icu4c/sbin(N-/)
-            /usr/local/opt/gettext/bin(N-/)
-            /usr/local/opt/libxslt/bin(N-/)
-            /usr/local/opt/libpq/bin(N-/)
-            # LibreSSL
-            #
-            # For compilers to find this software you may need to set:
-            #     LDFLAGS:  -L/usr/local/opt/libressl/lib
-            #     CPPFLAGS: -I/usr/local/opt/libressl/include
-            # For pkg-config to find this software you may need to set:
-            #     PKG_CONFIG_PATH: /usr/local/opt/libressl/lib/pkgconfig
-            /usr/local/opt/libressl/bin(N-/)
-
-            $path
-        )
-
-        # local version specify even if
-        #Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
-        #path=( /usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin $path )
-        #export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
-        #export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
-        #export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
-
-        export HOMEBREW_NO_AUTO_UPDATE=1
-        export CURL_CONFIG=/usr/local/opt/curl/bin/curl-config(N-/)
-        export GROOVY_HOME=/usr/local/opt/groovy/libexec(N-/)
-
-        #zinit snippet OMZ::plugins/osx/osx.plugin.zsh
-        zinit snippet OMZ::plugins/brew/brew.plugin.zsh
-        ;;
-    freebsd*)
-        ;;
-    linux*)
-        zinit snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
-        ;;
-esac
 
 
 #############
@@ -313,6 +276,32 @@ zle -N peco-select-history
 bindkey '^R' peco-select-history
 
 
+###########
+# Languages
+###########
+if (( $+commands[anyenv] )); then
+    test -d .config/anyenv/anyenv-install || anyenv install --init
+    eval "$(anyenv init - zsh)"
+
+    mkdir -p ~/.anyenv/plugins
+    test -d ~/.anyenv/plugins/anyenv-update || git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
+fi
+
+export GOPATH=$HOME
+path=( $GOPATH/bin(N-/) $path)
+
+if (( $+commands[go] )); then export GOROOT=$( go env GOROOT ); fi
+
+# phpenv loading is very slow. use brew php@x.x and declare PATH via direnv
+#if (( $+commands[phpenv] )); then ...; fi
+
+if (( $+commands[plenv] )); then
+    eval "$(plenv init - zsh)"
+    export PERL_MB_OPT="--install_base \"~/perl5\""
+    export PERL_MM_OPT="INSTALL_BASE=~/perl5"
+fi
+
+
 #####
 # Git
 #####
@@ -376,29 +365,6 @@ function gke-activate() {
 #  gke-activate "${name}" "${zone_or_region}"
 #}
 #compdef kx-complete kx
-
-
-###########
-# Languages
-###########
-if (( $+commands[anyenv] )); then
-    test -d .config/anyenv/anyenv-install || anyenv install --init
-    eval "$(anyenv init -)"
-
-    mkdir -p ~/.anyenv/plugins
-    test -d ~/.anyenv/plugins/anyenv-update || git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
-fi
-
-export GOPATH=$HOME
-path=( $GOPATH/bin(N-/) $path)
-
-if (( $+commands[go] )); then export GOROOT=$( go env GOROOT ); fi
-
-if (( $+commands[plenv] )); then
-    eval "$(plenv init -)"
-    export PERL_MB_OPT="--install_base \"~/perl5\""
-    export PERL_MM_OPT="INSTALL_BASE=~/perl5"
-fi
 
 
 #####################
