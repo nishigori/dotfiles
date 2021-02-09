@@ -6,6 +6,7 @@ repo = 'Shougo/dein.vim'
 # Require ``brew install rmtrash``
 repo = 'Shougo/vimproc.vim'
 build = 'make'
+if = '!exists("g:vscode")'
 
 # Unite {{{
 [[plugins]]
@@ -89,9 +90,6 @@ repo = 'itchyny/vim-cursorword'
 
 # Utility {{{
 [[plugins]]
-repo = 'vim-scripts/sudo.vim'
-
-[[plugins]]
 repo = 'nishigori/vim-multiple-switcher'
 
 [[plugins]]
@@ -125,14 +123,17 @@ repo = 'thinca/vim-visualstar'
 # Filer, Tags {{{
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
+if = '!exists("g:vscode")'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
+if = '!exists("g:vscode")'
 # }}}
 
 # Buffer, Status {{{
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+if = '!exists("g:vscode")'
 
 # TODO: たしか新しいvimでは不要になった記憶
 #[[plugins]]
@@ -141,6 +142,7 @@ repo = 'itchyny/lightline.vim'
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
 depends = 'lightline.vim'
+if = '!exists("g:vscode")'
 
 [[plugins]]
 repo = 'tyru/current-func-info.vim'
@@ -248,11 +250,6 @@ on_ft = 'go'
 
 # Python {{{
 [[plugins]]
-repo = 'jmcantrell/vim-virtualenv'
-lazy = 1
-on_ft = 'python'
-
-[[plugins]]
 repo = 'mitsuhiko/vim-jinja'
 on_ft = [['python', 'jinja']]
 
@@ -292,17 +289,6 @@ repo = 'nishigori/vim-php-dictionary'
 lazy = 1
 on_i = 1
 on_ft = 'php'
-
-#[[plugins]]
-#repo = 'nishigori/phpfolding.vim'
-#lazy = 1
-#on_ft = 'php'
-
-#[[plugins]]
-#repo = 'arnaud-lb/vim-php-namespace'
-#lazy = 1
-#on_ft = 'php'
-# }}}
 
 # Lua {{{
 [[plugins]]

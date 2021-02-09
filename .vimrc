@@ -52,7 +52,6 @@ set history=511
 set viminfo='20,\"150           " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set nofixendofline
-set ambiwidth=double
 set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
 set title
@@ -60,6 +59,9 @@ set completeopt=menuone        " A comma separated list of options
 set scrolloff=10               " Typewriter mode = keep current line in the center
 set formatoptions+=mM          " This is a sequence of letters
 set visualbell t_vb=           " no bell
+if !exists('g:vscode')
+  set ambiwidth=double
+endif
 
 set helplang=ja,en
 set keywordprg=:help
@@ -212,15 +214,11 @@ if has('syntax')
 
   set list
   " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
-  if !exists('g:gui_oni')
+  "if !exists('g:vscode')
     set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
-  else
-    set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,nbsp:>
-  endif
+  "endif
 
-  if v:version >= 703
-    set relativenumber
-  endif
+  set relativenumber
   set number
   set numberwidth=4
 endif
@@ -380,11 +378,9 @@ inoremap \|\| \|
 inoremap "" "
 inoremap '' '
 inoremap `` `
-if !exists("g:gui_oni")
-  inoremap { {}<LEFT>
-  inoremap [ []<LEFT>
-  inoremap ( ()<LEFT>
-endif
+inoremap { {}<LEFT>
+inoremap [ []<LEFT>
+inoremap ( ()<LEFT>
 
 inoremap <C-r> <CR>
 
@@ -599,22 +595,6 @@ if has('path_extra') && &filetype !~ 'zsh\|conf'
   set showfulltag
   set notagbsearch
 endif
-" }}}
-" # Cscope {{{
-"if has("cscope") && filereadable("/usr/bin/cscope")
-" set csprg=/usr/bin/cscope
-" set csto=0
-" set cst
-" set nocsverb
-" " add any database in current directory
-" if filereadable("cscope.out")
-" cs add cscope.out
-" " else add database pointed to by environment
-" elseif $CSCOPE_DB != ""
-" cs add $CSCOPE_DB
-" endif
-" set csverb
-"endif
 " }}}
 " # Migemo {{{
 " Howto: g/, g?
@@ -1154,16 +1134,13 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:startify_files_number = 15
   "let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
   let g:startify_list_order = ['bookmarks', 'files', 'sessions']
-  if !exists("g:gui_oni")
-    let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
-      \ '~/.ssh/config',
-      \ '~/.vimrc',
-      \ '~/.vimrc.local',
-      \ '~/.gvimrc',
-      \ '~/.gvimrc.local',
-      \ '~/.vim/bundle.vim.local',
-      \ ])
-  endif
+  let g:startify_bookmarks = get(g:, 'startify_bookmarks', [
+    \ '~/.ssh/config',
+    \ '~/.vimrc',
+    \ '~/.vimrc.local',
+    \ '~/.gvimrc',
+    \ '~/.gvimrc.local',
+    \ ])
   " }}}
   " Plugin: PreserveNoEOL {{{
   "setlocal noeol | let b:PreserveNoEOL = 1
@@ -1171,135 +1148,137 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:PreserveNoEOL = 1
   " }}}
   " Plugin: lightline.vim {{{
-  let g:lightline = {
-    \ 'colorscheme': 'tender',
-    \ 'active': {
-    \   'left': [ ['mode', 'paste'], ['fugitive', 'git_relative_dir'], ['ctrlpmark'] ],
-    \   'right': [ ['syntastic', 'lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ]
-    \ },
-    \ 'component_function': {
-    \   'fugitive': 'MyFugitive',
-    \   'filename': 'MyFilename',
-    \   'fileformat': 'MyFileformat',
-    \   'filetype': 'MyFiletype',
-    \   'fileencoding': 'MyFileencoding',
-    \   'git_relative_dir': 'MyGitFileName',
-    \   'mode': 'LightlineMode',
-    \   'ctrlpmark': 'CtrlPMark',
-    \ },
-    \ 'component_expand': {
-    \   'syntastic': 'SyntasticStatuslineFlag',
-    \ },
-    \ 'component_type': {
-    \   'syntastic': 'error',
-    \ },
-    \ }
+  if !exists('g:vscode')
+    let g:lightline = {
+      \ 'colorscheme': 'tender',
+      \ 'active': {
+      \   'left': [ ['mode', 'paste'], ['fugitive', 'git_relative_dir'], ['ctrlpmark'] ],
+      \   'right': [ ['syntastic', 'lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'filename': 'MyFilename',
+      \   'fileformat': 'MyFileformat',
+      \   'filetype': 'MyFiletype',
+      \   'fileencoding': 'MyFileencoding',
+      \   'git_relative_dir': 'MyGitFileName',
+      \   'mode': 'LightlineMode',
+      \   'ctrlpmark': 'CtrlPMark',
+      \ },
+      \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ },
+      \ 'component_type': {
+      \   'syntastic': 'error',
+      \ },
+      \ }
 
 
-  let g:virtualenv_stl_format = 'venv@%n'
+    let g:virtualenv_stl_format = 'venv@%n'
 
-  function! MyGitFileName()
-    " x/x/x/dotfiles
-    let git_worktree = finddir('.git/..', expand('%:p:h').';')
-    if empty(git_worktree) || winwidth(0) < 120
-      return MyFilename()
-    endif
-
-    " Hidden parent dir of git-root
-    return substitute(expand('%:p'), fnamemodify(git_worktree, ':p:h:h') . '/', '', '')
-  endfunction
-
-  function! MyFilename()
-    let fname = expand('%:t')
-    return fname == 'ControlP' ? g:lightline.ctrlp_item :
-      \ fname == '__Tagbar__' ? g:lightline.fname :
-      \ fname =~ '__Gundo\|NERD_tree' ? '' :
-      \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-      \ &ft == 'unite' ? unite#get_status_string() :
-      \ ('' != fname ? fname : '[No Name]') .
-      \ ('' != MyModified() ? ' ' . MyModified() : '')
-  endfunction
-
-  function! MyModified()
-    return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-  endfunction
-
-  function! MyFugitive()
-    try
-      if exists('*fugitive#head') && expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler'
-        let _ = fugitive#head()
-        return strlen(_) ? '⭠ ' . _ : ''
+    function! MyGitFileName()
+      " x/x/x/dotfiles
+      let git_worktree = finddir('.git/..', expand('%:p:h').';')
+      if empty(git_worktree) || winwidth(0) < 120
+        return MyFilename()
       endif
-    catch
-    endtry
-    return ''
-  endfunction
 
-  function! MyFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
-  endfunction
+      " Hidden parent dir of git-root
+      return substitute(expand('%:p'), fnamemodify(git_worktree, ':p:h:h') . '/', '', '')
+    endfunction
 
-  function! MyFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-  endfunction
+    function! MyFilename()
+      let fname = expand('%:t')
+      return fname == 'ControlP' ? g:lightline.ctrlp_item :
+        \ fname == '__Tagbar__' ? g:lightline.fname :
+        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ &ft == 'unite' ? unite#get_status_string() :
+        \ ('' != fname ? fname : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+    endfunction
 
-  function! MyFileencoding()
-    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-  endfunction
+    function! MyModified()
+      return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    endfunction
 
-  function! LightlineMode()
-    return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
-      \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
-      \ &filetype ==# 'unite' ? 'Unite' :
-      \ &filetype ==# 'vimfiler' ? 'VimFiler' :
-      \ winwidth(0) > 60 ? lightline#mode() : ''
-  endfunction
-
-  function! CtrlPMark()
-    if expand('%:t') =~ 'ControlP'
-      call lightline#link('iR'[g:lightline.ctrlp_regex])
-      return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-        \ , g:lightline.ctrlp_next], 0)
-    else
+    function! MyFugitive()
+      try
+        if exists('*fugitive#head') && expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler'
+          let _ = fugitive#head()
+          return strlen(_) ? '⭠ ' . _ : ''
+        endif
+      catch
+      endtry
       return ''
-    endif
-  endfunction
+    endfunction
 
-  let g:ctrlp_status_func = {
-    \ 'main': 'CtrlPStatusFunc_1',
-    \ 'prog': 'CtrlPStatusFunc_2',
-    \ }
+    function! MyFileformat()
+      return winwidth(0) > 70 ? &fileformat : ''
+    endfunction
 
-  function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-    let g:lightline.ctrlp_regex = a:regex
-    let g:lightline.ctrlp_prev = a:prev
-    let g:lightline.ctrlp_item = a:item
-    let g:lightline.ctrlp_next = a:next
-    return lightline#statusline(0)
-  endfunction
+    function! MyFiletype()
+      return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    endfunction
 
-  function! CtrlPStatusFunc_2(str)
-    return lightline#statusline(0)
-  endfunction
+    function! MyFileencoding()
+      return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    endfunction
 
-  let g:tagbar_status_func = 'TagbarStatusFunc'
+    function! LightlineMode()
+      return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
+        \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+        \ &filetype ==# 'unite' ? 'Unite' :
+        \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+    endfunction
 
-  function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-    return lightline#statusline(0)
-  endfunction
+    function! CtrlPMark()
+      if expand('%:t') =~ 'ControlP'
+        call lightline#link('iR'[g:lightline.ctrlp_regex])
+        return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+          \ , g:lightline.ctrlp_next], 0)
+      else
+        return ''
+      endif
+    endfunction
 
-  augroup AutoSyntastic
-    autocmd!
-    autocmd BufWritePost *.c,*.cpp call s:syntastic()
-  augroup END
-  function! s:syntastic()
-    SyntasticCheck
-    call lightline#update()
-  endfunction
+    let g:ctrlp_status_func = {
+      \ 'main': 'CtrlPStatusFunc_1',
+      \ 'prog': 'CtrlPStatusFunc_2',
+      \ }
 
-  let g:unite_force_overwrite_statusline = 0
-  let g:vimfiler_force_overwrite_statusline = 0
+    function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+      let g:lightline.ctrlp_regex = a:regex
+      let g:lightline.ctrlp_prev = a:prev
+      let g:lightline.ctrlp_item = a:item
+      let g:lightline.ctrlp_next = a:next
+      return lightline#statusline(0)
+    endfunction
+
+    function! CtrlPStatusFunc_2(str)
+      return lightline#statusline(0)
+    endfunction
+
+    let g:tagbar_status_func = 'TagbarStatusFunc'
+
+    function! TagbarStatusFunc(current, sort, fname, ...) abort
+      let g:lightline.fname = a:fname
+      return lightline#statusline(0)
+    endfunction
+
+    augroup AutoSyntastic
+      autocmd!
+      autocmd BufWritePost *.c,*.cpp call s:syntastic()
+    augroup END
+    function! s:syntastic()
+      SyntasticCheck
+      call lightline#update()
+    endfunction
+
+    let g:unite_force_overwrite_statusline = 0
+    let g:vimfiler_force_overwrite_statusline = 0
+  endif
   " }}}
   " Plugin: vim-anzu {{{
   " TODO: 通常検索と同じくfoldも自動で開かれるようになったら有効にする
@@ -1313,17 +1292,13 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   "let g:anzu_status_format = "(%i/%l)"
   " }}}
   " Plugin: alpaca_powertabline {{{
-  let g:alpaca_powertabline_enable = 1
+  if !exists('g:vscode')
+    let g:alpaca_powertabline_enable = 1
+  endif
   " }}}
   " Plugin: accelerated-smooth-scroll {{{
   let g:ac_smooth_scroll_du_sleep_time_msec = 1
   let g:ac_smooth_scroll_fb_sleep_time_msec = 1
-  " }}}
-  " Plugin: calendar.vim {{{
-  let g:calendar_google_calendar = 1
-  let g:calendar_google_task = 1
-
-  let g:calendar_diary = '~/.cache/vim/calendar_vim_diary'
   " }}}
   " Plugin: context_filetype.vim {{{
   let g:context_filetype#filetypes = {
@@ -1405,24 +1380,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:go_highlight_operators = 1
   let g:go_highlight_build_constraints = 1
   " }}}
-  " Plugin: jedi-vim {{{
-  let g:jedi#auto_vim_configuration = 0
-
-  autocmd FileType python setlocal omnifunc=jedi#completions
-  let g:jedi#completions_enabled = 0
-  let g:jedi#auto_vim_configuration = 0
-  if dein#tap('jedi-vim')
-    " jediにvimの設定を任せると'completeopt+=preview'するので
-    " 自動設定機能をOFFにし手動で設定を行う
-    let g:jedi#auto_vim_configuration = 0
-    " 補完の最初の項目が選択された状態だと使いにくいためオフにする
-    let g:jedi#popup_select_first = 0
-    " quickrunと被るため大文字に変更
-    let g:jedi#rename_command = '<Leader>R'
-    " gundoと被るため大文字に変更 (2013-06-24 10:00 追記）
-    "let g:jedi#goto_assignments_command = '<Leader>G'
-  endif
-  " }}}
   " Plugin: vim-textmanip {{{
   let g:textmanip_enable_mappings = get(g:, 'textmanip_enable_mappings', 0)
   xmap <C-j> <Plug>(Textmanip.move_selection_down)
@@ -1444,9 +1401,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " search extended plugin.
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
-  " }}}
-  " Plugin: dbext.vim {{{
-  let g:dbext_default_history_file = s:cache_dir . '/dbext_sql_history.sql'
   " }}}
   " Plugin: surround.vim {{{
   nmap ,( csw(
