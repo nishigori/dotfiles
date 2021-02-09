@@ -8,7 +8,6 @@ tap 'homebrew/cask-versions'
 tap 'homebrew/cask-fonts'
 tap 'sanemat/font'
 tap 'universal-ctags/universal-ctags'
-tap 'k1low/tap'
 tap 'aws/tap'
 
 ######
