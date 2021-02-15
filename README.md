@@ -36,8 +36,9 @@ softwareupdate --install-rosetta
 ```
 
 * Switch Ctrl <-> Caps Lock: `システム環境設定 > キーボード > 装飾キー`
+* Disable Search man Page Index in Terminal `System Preferences > Keyboard > Shortcuts > Services`
+  * Fix conflict for Intellij IDEA action of Find Action
 * ⌘英かな: https://ei-kana.appspot.com/
-* F.lux: https://justgetflux.com/
 
 ## Alfread
 
