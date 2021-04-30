@@ -15,23 +15,19 @@ tap 'aws/tap'
 ######
 cask 'google-cloud-sdk'
 brew 'gotags'
-brew 'packer'
 brew 'tfenv'
 brew 'terraform_landscape'
 
 
 # awaiting go 1.16 for supported m1 mac
 brew 'go'
-brew 'direnv'
 brew 'ghq'
 brew 'hub'
 # github actions runner on local
 brew 'act'
 #brew 'lab'
-brew 'peco'
 brew 'jq'
 brew 'yq'
-brew 'tmux'
 # stern for container
 brew 'stern'
 

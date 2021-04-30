@@ -132,6 +132,8 @@ brew 'awscli'
 #brew 'aws/tap/copilot-cli'
 cask 'session-manager-plugin'
 
+brew 'packer'
+
 ####################
 # CommandLine Tools
 ###################
@@ -143,3 +145,6 @@ brew 'cmake'
 brew 'curl'
 brew 'lsd'
 brew 'wget'
+brew 'peco', args: ['HEAD']
+brew 'direnv'
+brew 'tmux'

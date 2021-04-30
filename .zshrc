@@ -12,9 +12,6 @@ path=(
 
 case ${OSTYPE} in
     darwin*)
-        if [[ "x86_64" == "$(uname -m)" ]]; then
-        fi
-
         if [[ "arm64" == "$(uname -m)" ]]; then
             # $ brew  ... <- used rosetta
             # $ =brew ... <- used ARM
@@ -44,6 +41,8 @@ case ${OSTYPE} in
             path=(
                 /usr/local/bin(N-/)
                 /usr/local/sbin(N-/)
+                /opt/homebrew/bin(N-/)
+                /opt/homebrew/sbin(N-/)
                 $path
             )
         fi
