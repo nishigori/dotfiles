@@ -698,7 +698,7 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \ ]
   " For AWS
   call add(g:increment_activator_filetype_candidates['_'], ['dedicated', 'default'])
-  call add(g:increment_activator_filetype_candidates['_'], ['standard', 'io1', 'gp2'])
+  call add(g:increment_activator_filetype_candidates['_'], ['standard', 'io1', 'io2', 'gp2', 'gp3'])
   let g:increment_activator_filetype_candidates['php'] = [
     \   ['private', 'protected', 'public'],
     \   ['extends', 'implements'],
@@ -1675,9 +1675,9 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
 
   nnoremap <D-1> :<C-u>VimFilerExplorer -buffer-name=explorer
     \ -split -direction=topleft -simple -winwidth=35 -toggle -project -auto-cd -no-quit -find<CR>
-	autocmd FileType vimfiler nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
-	autocmd FileType vimfiler nmap <buffer> <D-1> <Plug>(vimfiler_close)
-	autocmd FileType vimfiler nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
+  autocmd FileType vimfiler nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
+  autocmd FileType vimfiler nmap <buffer> <D-1> <Plug>(vimfiler_close)
+  autocmd FileType vimfiler nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
 
 
   " }}}

@@ -375,7 +375,7 @@ export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 # Powerful & Colorful command(s)
 if (( $+commands[bat] )); then
     alias c='bat'
-    export BAT_THEME=GitHub
+    export BAT_THEME=Dracula
 fi
 
 # like vimrc alpaca_tags settings
