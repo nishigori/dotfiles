@@ -1,6 +1,5 @@
 # Makefile in nishigori/dotfiles
 #
-SHELL    := $(shell which zsh)
 RC_FILES := $(wildcard .*rc) .tmux.conf
 
 # Internal variables that it is (maybe) you do not need to set.
@@ -11,17 +10,13 @@ dir_requires := ~/src ~/bin ~/.cache/terraform ~/.config ~/Dropbox $(foreach _v,
 bin_requires := bin/diff-highlight
 
 
-.PHONY: help me $(os)/*
-.DEFAULT_GOAL: help
+.PHONY: me $(os)/*
+.DEFAULT_GOAL: m3
 
-help:
-	@awk -F ':|##' '/^[^\t].+?:.*?##/ { printf "\033[36m%-25s\033[0m %s\n", $$1, $$NF }' $(MAKEFILE_LIST)
-
-
-all: me install
-
-me: links credentials
+me: $(dir_requires) $(bin_requires) links credentials
 	@echo Make me happy :D
+
+all: install golang
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -33,7 +28,7 @@ $(os)/%:
 .PHONY: clean install update $(links) $(credentials) shell/*
 
 # Alias
-install: $(dir_requires) $(bin_requires) $(os)/install zsh credentials golang
+install: me $(os)/install
 
 clean: $(os)/clean
 

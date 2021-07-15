@@ -15,7 +15,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 .PHONY: Darwin/* brew/*
 
-Darwin/install: $(BREW) brew/tap brew/bundle $(EDITOR)
+Darwin/install: $(BREW) brew/tap brew/bundle
 
 Darwin/update: brew/update brew/upgrade
 
