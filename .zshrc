@@ -408,7 +408,10 @@ if (( $+commands[copilot] )); then source <(copilot completion zsh); fi
 ############
 # gcloud SDK
 ############
-if [ -d /usr/local/Caskroom/google-cloud-sdk ]; then
+if [ -d /opt/homebrew/Caskroom/google-cloud-sdk ]; then
+    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+elif [ -d /usr/local/Caskroom/google-cloud-sdk ]; then
     source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
     source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 elif [ -d ~/google-cloud-sdk ]; then

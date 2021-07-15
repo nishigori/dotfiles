@@ -42,9 +42,11 @@ cask 'font-hack-nerd-font'
 cask 'iterm2'
 cask 'notion'
 cask 'visual-studio-code'
-# now, migrating to jetbrains-toolbox
+# now, migrated to jetbrains-toolbox
 #cask 'intellij-idea'
-#cask 'jetbrains-toolbox'
+cask 'jetbrains-toolbox'
+# ZSA Kayboard the EZ way
+cask 'homebrew/cask-drivers/zsa-wally'
 
 # TODO:
 #cask 'gifcapture'
@@ -80,7 +82,9 @@ brew 'libyaml'
 brew 'nghttp2'
 brew 'python'
 brew 'tmux'
-brew 'binutils'
+# perl build で ldflagsコケするので外してある
+# https://anatofuz.hatenablog.com/entry/2019/02/12/160854
+#brew 'binutils'
 brew 'findutils'
 brew 'tree'
 brew 'fontconfig'
@@ -97,8 +101,10 @@ brew 'llvm'
 
 # languages
 brew 'anyenv'
+#brew 'tfenv'
+#brew 'plenv'
 brew 'php'
-
+brew 'go'
 
 brew 'rust'
 # Powerful 'ps' https://github.com/dalance/procs
@@ -117,6 +123,11 @@ brew 'cpanminus'
 brew 'zsh'
 brew 'cscope'
 
+########
+# Editor
+########
+brew 'tree-sitter'
+brew 'neovim'
 
 ###########
 # Container
@@ -134,17 +145,32 @@ cask 'session-manager-plugin'
 
 brew 'packer'
 
+#####
+# GCP
+#####
+cask 'google-cloud-sdk'
+
 ####################
 # CommandLine Tools
 ###################
+# github actions runner on local
+brew 'act'
 brew 'automake'
 brew 'bash'
 brew 'bsdmake'
 #brew 'ghc'
 brew 'cmake'
 brew 'curl'
+brew 'direnv'
+brew 'ghq'
+brew 'hub'
+#brew 'lab'
 brew 'lsd'
 brew 'wget'
-brew 'peco', args: ['HEAD']
-brew 'direnv'
+# Tail multiple Kubernetes pods & their containers
+brew 'stern'
+brew 'terraform_landscape'
+brew 'peco'
 brew 'tmux'
+brew 'jq'
+brew 'yq'

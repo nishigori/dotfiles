@@ -33,12 +33,7 @@ brew/%:
 	=brew $(@F)
 
 brew/bundle:
-	cp -af Brewfile.$(shell uname -m) Brewfile
 	=brew bundle
-ifeq (x86_64,$(shell uname -m))
-	cat Brewfile.arm64 > Brewfile
-	brew bundle
-endif
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
 vscode: $(VSCODE) $(VSCODE_EXTENSIONS)
