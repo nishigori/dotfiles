@@ -6,6 +6,7 @@ export EDITOR=vi
 
 path=(
     $HOME/bin(N-/)
+    $HOME/.anyenv/bin(N-/)
     $HOME/.composer/vendor/bin(N-/)
     $path
 )
@@ -13,38 +14,9 @@ path=(
 case ${OSTYPE} in
     darwin*)
         if [[ "arm64" == "$(uname -m)" ]]; then
-            # $ brew  ... <- used rosetta
-            # $ =brew ... <- used ARM
-            alias brew="arch -arch x86_64 /usr/local/bin/brew"
-            alias x64='exec arch -arch x86_64 "$SHELL"'
-            alias a64='exec arch -arch arm64e "$SHELL"'
-            switch-arch() {
-                if  [[ "$(uname -m)" == arm64 ]]; then
-                    arch=x86_64
-                elif [[ "$(uname -m)" == x86_64 ]]; then
-                    arch=arm64e
-                fi
-                exec arch -arch $arch "$SHELL"
-            }
-
             brew_root=/opt/homebrew
-            path=(
-                $HOME/.anyenv/bin(N-/)
-                /opt/homebrew/bin(N-/)
-                /opt/homebrew/sbin(N-/)
-                /usr/local/bin(N-/)
-                /usr/local/sbin(N-/)
-                $path
-            )
         else
             brew_root=/usr/local
-            path=(
-                /usr/local/bin(N-/)
-                /usr/local/sbin(N-/)
-                /opt/homebrew/bin(N-/)
-                /opt/homebrew/sbin(N-/)
-                $path
-            )
         fi
 
         manpath=(
@@ -59,6 +31,8 @@ case ${OSTYPE} in
         )
 
         path=(
+            $brew_root/bin(N-/)
+            $brew_root/sbin(N-/)
             $brew_root/opt/apr/bin(N-/)
             $brew_root/opt/binutils/bin(N-/)
             $brew_root/opt/bison/bin(N-/)
