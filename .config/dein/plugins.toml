@@ -35,10 +35,6 @@ on_i = 1
 repo = 'tsukkee/unite-tag'
 depends = 'unite.vim'
 
-[[plugins]]
-repo = 'basyura/unite-converter-file-directory'
-depends = 'unite.vim'
-
 #[[plugins]]
 #repo = 'ujihisa/unite-colorscheme'
 #depends = 'unite.vim'
@@ -54,15 +50,6 @@ depends = 'unite.vim'
 [[plugins]]
 repo = 'Kocha/vim-unite-tig'
 depends = 'unite.vim'
-
-#[[plugins]]
-#repo = 'Shougo/unite-help'
-#depends = 'unite.vim'
-
-
-[[plugins]]
-repo = 'osyo-manga/unite-quickrun_config'
-depends = 'unite.vim'
 # }}}
 
 # Text Operation {{{
@@ -73,19 +60,10 @@ repo = 'nishigori/increment-activator'
 repo = 'vim-scripts/smartchr'
 
 [[plugins]]
-repo = 'h1mesuke/vim-alignta'
-
-[[plugins]]
 repo = 'scrooloose/nerdcommenter'
 
 [[plugins]]
 repo = 'itchyny/vim-cursorword'
-
-#[[plugins]]
-#repo = 'tpope/vim-surround'
-
-#[[plugins]]
-#repo = 't9md/vim-textmanip'
 # }}}
 
 # Utility {{{
@@ -124,10 +102,6 @@ repo = 'thinca/vim-visualstar'
 [[plugins]]
 repo = 'Shougo/vimfiler.vim'
 if = '!exists("g:vscode")'
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-if = '!exists("g:vscode")'
 # }}}
 
 # Buffer, Status {{{
@@ -146,9 +120,6 @@ if = '!exists("g:vscode")'
 
 [[plugins]]
 repo = 'tyru/current-func-info.vim'
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'scrooloose/syntastic'
@@ -174,11 +145,6 @@ repo = 'hrsh7th/vim-vsnip'
 repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
-lazy = 1
-on_path = '.*'
-
-[[plugins]]
 repo = 'Shougo/deoplete.nvim'
 depends = 'roxma/vim-hug-neovim-rpc'
 
@@ -194,26 +160,6 @@ depends = 'roxma/vim-hug-neovim-rpc'
 repo = 'alpaca-tc/vim-endwise.git'
 lazy = 1
 on_i = 1
-
-#[[plugins]]
-#repo = 'mattn/emmet-vim'
-#lazy = 1
-#on_i = 1
-#on_ft = 'html'
-# }}}
-
-# NyaoVim {{{
-[[plugins]]
-repo = 'rhysd/nyaovim-popup-tooltip'
-if = 'exists("g:nyaovim_version")'
-
-[[plugins]]
-repo = 'rhysd/nyaovim-markdown-preview'
-if = 'exists("g:nyaovim_version")'
-
-[[plugins]]
-repo = 'rhysd/nyaovim-mini-browser'
-if = 'exists("g:nyaovim_version")'
 # }}}
 
 # Go {{{
@@ -345,21 +291,6 @@ on_ft = [['haml, scss']]
 repo = 'rdolgushin/groovy.vim'
 lazy = 1
 on_ft = 'groovy'
-
-#[[plugins]]
-#repo = 'jimenezrick/vimerl'
-#lazy = 1
-#on_ft = 'erlang'
-
-#[[plugins]]
-#repo = 'ujihisa/ref-hoogle'
-#lazy = 1
-#on_ft = 'haskell'
-
-#[[plugins]]
-#repo = 'ujihisa/unite-haskellimport'
-#lazy = 1
-#on_ft = 'haskell'
 # }}}
 
 # Provisioning Tools {{{

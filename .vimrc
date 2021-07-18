@@ -63,14 +63,14 @@ if !exists('g:vscode')
   set ambiwidth=double
 endif
 
-set helplang=ja,en
-set keywordprg=:help
-nnoremap <silent> <C-h> :<C-u>help<Space><C-r><C-w><CR>
-
 let mapleader = " "
 
+" Like nmap 'D' and 'C'
+nnoremap Y y$
+
+" TODO: いる？
 if has('nvim')
-    let g:python_host_prog='/usr/local/bin/python3'
+  let g:python_host_prog='/opt/homebrew/bin/python3'
 endif
 " }}}
 " # Directory Settings {{{
@@ -94,53 +94,27 @@ endif
 set nobackup noswapfile
 
 " Like vim ./configure --with-features
-let MYVIM_FEATURES_TINY   = 0 | lockvar MYVIM_FEATURES_TINY
-let MYVIM_FEATURES_SMALL  = 1 | lockvar MYVIM_FEATURES_SMALL
-let MYVIM_FEATURES_NORMAL = 3 | lockvar MYVIM_FEATURES_NORMAL
-let MYVIM_FEATURES_BIG    = 3 | lockvar MYVIM_FEATURES_BIG
-let MYVIM_FEATURES_HUGE   = 4 | lockvar MYVIM_FEATURES_HUGE
+let MYVIM_FEATURES_TINY = 0 | lockvar MYVIM_FEATURES_TINY
+let MYVIM_FEATURES_HUGE = 1 | lockvar MYVIM_FEATURES_HUGE
+let g:myvim_features = get(g:, 'myvim_features', 0)
 
-let g:myvim_features = get(g:, 'myvim_features', MYVIM_FEATURES_TINY)
-
-let $MYVIMRC_LOCAL = $HOME . '/.vimrc.local'
+" Quick start my vimrc
+nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> eS :<C-u>source $MYVIMRC<CR>
+let $MYVIMRC_LOCAL = $HOME . (has('nvim') ? '/.config/nvim/init.local.vim' : '/.vimrc.local')
 if filereadable(expand($MYVIMRC_LOCAL))
   " INFO: Read more .vimrc.local.dist
   source $MYVIMRC_LOCAL
-
-  let $MYVIMRC = g:local_config['dotfiles_dir'] . '/.vimrc'
-  " Quick start my vimrc
-  nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
-  nnoremap <silent> eS :<C-u>source $MYVIMRC<CR>
-
-  " Load settings for each location {{{
-  augroup load_local_config
-    autocmd!
-    autocmd BufNewFile,BufReadPost * call s:load_rc_local(expand('<afile>:p:h'))
-  augroup END
-  function! s:load_rc_local(loc)
-    let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-    for i in reverse(filter(files, 'filereadable(v:val)'))
-      source `=i`
-    endfor
-  endfunction " }}}
 endif
-
 " }}}
 
 " # dein {{{
-if exists('g:nyaovim_version')
-  let s:dein_dir = s:cache_home . '/nyaovim/dein'
-elseif has('nvim')
-  let s:dein_dir = s:cache_home . '/nvim/dein'
-else
-  let s:dein_dir = s:cache_home . '/dein'
-endif
+let s:dein_dir = s:cache_home . (has('nvim') ? '/nvim/dein' : '/dein')
 
-if MYVIM_FEATURES_BIG >= g:myvim_features
+if MYVIM_FEATURES_HUGE >= g:myvim_features
   if &compatible
     set nocompatible
   endif
-
   " reset augroup
   augroup MyAutoCmd
     autocmd!
@@ -206,40 +180,19 @@ nnoremap q; q:
 vnoremap q; q:
 " }}}
 " # Syntax {{{
-if has('syntax')
-  syntax enable
-  set synmaxcol=1500
-  set nospell
-  "scriptencoding utf-8
-
-  set list
-  " - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
-  "if !exists('g:vscode')
-    set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
-  "endif
-
-  set relativenumber
-  set number
-  set numberwidth=4
+set synmaxcol=2000
+set nospell
+set list
+" - tab: タブ文字, trail: 行末スペース, eol: 改行文字, extends: 行末短縮, precedes: 行頭短縮, nbsp: 空白文字
+if !exists('g:vscode')
+  set listchars=tab:»-,extends:>,precedes:<,eol:↲,nbsp:%,trail:-,nbsp:>
 endif
-
+set relativenumber
+set number
+set numberwidth=4
 set showmatch
 set matchtime=3
 set matchpairs& matchpairs+=<:>
-
-" highlight each language in markdown
-" http://mattn.kaoriya.net/software/vim/20140523124903.htm
-let g:markdown_fenced_languages = [
-\  'css',
-\  'go',
-\  'javascript',
-\  'js=javascript',
-\  'json=javascript',
-\  'ruby',
-\  'sass',
-\  'xml',
-\  'erlang',
-\]
 " }}}
 " # Indent {{{
 set autoindent
@@ -247,27 +200,16 @@ set expandtab " replaced Tab with Indent
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
-
-let g:vim_indent_cont = 2
-
-" }}}
-" # Filetype Detect {{{
-" Moved ~/.vim/filetype.vim
-let g:sql_type_default = 'mysql' " SQL
 " }}}
 " # Color Scheme {{{
 set t_Co=256
-if (has("termguicolors"))
+if has("termguicolors")
   set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
   colorscheme tender
-else
-  "colorscheme desert
 endif
-
-let g:solarized_termcolors = 256  " CASE: g:colors_name is solarized
 
 " Add cursorline at the current window.
 augroup cch
@@ -276,8 +218,6 @@ augroup cch
   autocmd WinEnter,BufRead * set cursorline
 augroup END
 
-let g:apache_version = '2.0' " apache highliting
-
 " highlighting target of long line.
 if exists('&colorcolumn')
   set colorcolumn=+1
@@ -285,39 +225,28 @@ if exists('&colorcolumn')
   nnoremap <silent> <Leader>l :<C-u>set<Space>list!<Space>colorcolumn=-1<CR>
 endif
 
-"# HIGHLIGHT_CURRENT_LINE
-nnoremap <silent> <Leader>hs :<C-u>HighlightCurrentLine Search<CR>
-nnoremap <silent> <Leader>hd :<C-u>HighlightCurrentLine DiffAdd<CR>
-nnoremap <silent> <Leader>he :<C-u>HighlightCurrentLine Error<CR>
-nnoremap <silent> <Leader>H  :<C-u>UnHighlightCurrentLine<CR>
-command! -nargs=1 HighlightCurrentLine execute 'match <args> /<bslash>%'.line('.').'l/'
-command! -nargs=0 UnHighlightCurrentLine match
 " }}}
-" # Console {{{
+" # Alt Key {{{
 " By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
 if has('unix') && !has('gui_running')
+  " TODO: もう必要ない？
   " Use meta keys in console.
-  function! s:use_meta_keys()  " {{{2
-    for i in map(
-      \   range(char2nr('a'), char2nr('z'))
-      \ + range(char2nr('A'), char2nr('Z'))
-      \ + range(char2nr('0'), char2nr('9'))
-      \ , 'nr2char(v:val)')
-      " <ESC>O do not map because used by arrow keys.
-      if i != 'O'
-        execute 'nmap <ESC>' . i '<M-' . i . '>'
-      endif
-    endfor
-  endfunction  " }}}2
+  "function! s:use_meta_keys()  " {{{2
+  "  for i in map(
+  "    \   range(char2nr('a'), char2nr('z'))
+  "    \ + range(char2nr('A'), char2nr('Z'))
+  "    \ + range(char2nr('0'), char2nr('9'))
+  "    \ , 'nr2char(v:val)')
+  "    " <ESC>O do not map because used by arrow keys.
+  "    if i != 'O'
+  "      execute 'nmap <ESC>' . i '<M-' . i . '>'
+  "    endif
+  "  endfor
+  "endfunction  " }}}2
 
-  call s:use_meta_keys()
-  map <NUL> <C-Space>
-  map! <NUL> <C-Space>
-
-  " stopped job
-  nnoremap <silent> gZZ :set t_te = t_ti = <CR>:quit<CR>:set t_te& t_ti&<CR>
-  nnoremap <silent> gsh :set t_te = t_ti = <CR>:st<CR>:set t_te& t_ti&<CR>
-  nnoremap <silent> gst :set t_te = t_ti = <CR>:st<CR>:set t_te& t_ti&<CR>
+  "call s:use_meta_keys()
+  "map <NUL> <C-Space>
+  "map! <NUL> <C-Space>
 endif
 " }}}
 " # Status Bar {{{
@@ -329,7 +258,6 @@ set wildmenu
 set wildmode=list:longest,full
 set laststatus=2
 set statusline=%<%f\ #%n%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%y%=%l,%c%V%8P
-"set statusline=[%{winnr('$')>1?.winnr().'/'.winnr('$'):}]\ %<\ %f\ %m%r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).'\|'.&ff.']'}%=%l/%L\ (%P)
 " }}}
 " # <Tab> {{{
 set showtabline=2 " :h tabline
@@ -344,21 +272,13 @@ set ignorecase  " Ignoring case in a pattern
 set smartcase   " Override ignorecase option (search contains upper case).
 set nowrapscan  " Searches nowrap around.
 
-let g:loaded_matchparen = 1
-
 nnoremap * *N
 nnoremap # #N
-" regex pattern
-nnoremap \ /^
 " }}}
 " # Copy & Paste {{{
 "set paste " When you're setting paste, can't use inoremap extend ;-<
 if has('clipboard')
-  if !has('nvim')
-    " https://github.com/neovim/neovim/wiki/FAQ#something-broke-after-updating-to-a-newer-version
-    set clipboard=unnamed,autoselect
-  endif
-
+  set clipboard=unnamed,autoselect
   " Copy
   " For Ubuntu "+y not * (;h clipboard)
   vnoremap <C-c> "+y
@@ -366,7 +286,6 @@ if has('clipboard')
   vnoremap <C-v> d"+P
   cnoremap <C-v> <C-R>+
   inoremap <C-v> <ESC>"+pa
-  " source $VIMRUNTIME/mswin.vim
 endif
 " }}}
 " # Insert {{{
@@ -397,24 +316,6 @@ cnoremap `` ``<LEFT>
 inoremap <expr> ,df strftime('%Y-%m-%d %H:%M')
 inoremap <expr> ,dd strftime('%Y-%m-%d')
 inoremap <expr> ,dt strftime('%H:%M:%S')
-
-" Input vertical serial number
-nnoremap <silent> co :ContinuousNumber <C-a><CR>
-vnoremap <silent> co :ContinuousNumber <C-a><CR>
-command! -count -nargs=1 ContinuousNumber
-  \ let c = col('.')
-  \ | for n in range(1, <count>?<count>-line('.'):1)
-  \ |   exec 'normal! j' . n . <q-args>
-  \ |   call cursor('.', c)
-  \ | endfor
-" }}}
-" # Yank {{{
-" Like nmap 'D' and 'C'
-nnoremap Y y$
-
-" カーソル位置の単語をヤンクした単語に置換
-nnoremap <silent> cy ciw<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
-nnoremap <silent> ciy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR><ESC>
 " }}}
 " # IME Control {{{
 " <ESC> insert mode, IME off
@@ -424,13 +325,6 @@ set noimcmdline
 inoremap <silent> <C-@> <ESC>:set iminsert=0<CR>
 inoremap <silent> <C-]> <ESC>:set iminsert=0<CR>
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-if has('multi_byte_ime')
-  augroup MutibyteIMEStrategy
-    autocmd!
-    autocmd ColorScheme * highlight Cursor guifg=#000d18 guibg=#8faf9f gui=bold
-    autocmd ColorScheme * highlight CursorIM guifg=NONE guibg=#ecbcbc
-  augroup END
-endif
 augroup InsModeAu
   autocmd!
   autocmd InsertEnter,CmdwinEnter * set noimdisable
@@ -440,7 +334,7 @@ augroup END
 " # Moving Cursole {{{
 augroup MovementPreviousSaveLine
   autocmd BufReadPost *
-    \ if  line("'\"") > 0 && line("'\"") <= line("$")
+    \ if line("'\"") > 0 && line("'\"") <= line("$")
     \   | exe "normal g`\"" |
     \ endif
 augroup END
@@ -455,15 +349,10 @@ xnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
-nnoremap <C-j> <C-f>
-nnoremap <C-k> <C-b>
-
 " .bash like
 " but up-down mapped j-k
 inoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
-"inoremap <C-k> <Up>
-"inoremap <C-j> <Down>
 inoremap <C-n> <Down>
 inoremap <C-p> <Up>
 inoremap <C-b> <Left>
@@ -480,29 +369,6 @@ cnoremap <C-d> <Delete>
 nnoremap cw ciw
 nnoremap dw diw
 inoremap <C-w> <ESC>ciw
-
-" selected at last editting text.
-"" ちなみにVisualModeで最後に選択したテキストのに戻るはgv
-nnoremap gc '[v']
-vnoremap <silent>gc :<C-u>normal gc<CR>
-onoremap <silent>gc :<C-u>normal gc<CR>
-
-" vim-users.jp Hack #214
-nnoremap ) f)
-nnoremap ( f(
-onoremap ) f)
-onoremap ( f(
-vnoremap ) f)
-vnoremap ( f(
-
-" Only do this part, when compiled with support for autocommands
-augroup RedHatEnterpriseNantoka  "{{{2
-  " When editing a file, always jump to the last cursor position
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$")
-    \   | exe "normal! g'\"" |
-    \ endif
-augroup END "}}}
 " }}}
 " # Window {{{
 " FIXME: When setted winmin(height|width), errored unite-outline
@@ -510,20 +376,8 @@ augroup END "}}}
 "set winminwidth=20
 "set winfixheight
 "set winfixwidth
-set splitright  " Default vsplit, left
-set splitbelow  " Default split, top
-
-" vim-users.jp Hack #42
-"nnoremap <silent> <C-w>h <C-w>h:call <SID>good_width()<CR>
-"nnoremap <silent> <C-w>l <C-w>l:call <SID>good_width()<CR>
-"nnoremap <silent> <C-w>H <C-w>H:call <SID>good_width()<CR>
-"nnoremap <silent> <C-w>L <C-w>L:call <SID>good_width()<CR>
-function! s:good_width()  "{{{2
-  if winwidth(0) < 84 && &ft != 'taglist' && &ft != 'quickrun'
-    vertical resize 84
-  endif
-endfunction "}}}2
-
+set splitright    " Default vsplit, left
+set splitbelow    " Default split, top
 set noequalalways " Minimize Window Size
 " }}}
 " # Buffer {{{
@@ -539,32 +393,16 @@ set foldcolumn=4
 set fillchars+=fold:-
 " Don't save options.
 set viewoptions-=options
-augroup MkviewAccessor " Save fold settings. Vim-user.jp Hack #84
-  autocmd!
-  autocmd BufWritePost *
-    \ if &filetype !~ 'vim\|php\|ruby\|git'
-    \   | exe "mkview" |
-    \ endif
-  autocmd BufRead *
-    \ if &filetype !~ 'vim\|php\|ruby\|git'
-    \   | exe "silent loadview" |
-    \ endif
-augroup END
 " }}}
 " # Directory {{{
-"set autochdir
+set autochdir
 augroup AutoChDir
   autocmd!
   au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
 augroup END
 " Change directory. vim-users.jp Hack #69
 nnoremap <silent> cd :<C-u>CD<CR>
-nnoremap <silent> gu :<C-u>GU<CR>
-" nmap `gh` is using vim-rooter
-nnoremap <silent> gH :<C-u>GH<CR>
 command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
-command! -nargs=? -complete=dir -bang GU  call s:ChangeCurrentDir('../', '<bang>')
-command! -nargs=? -complete=dir -bang GH  call s:ChangeCurrentDir('$HOME', '<bang>')
 function! s:ChangeCurrentDir(directory, bang) "{{{2
   if a:directory == ''
     lcd %:p:h
@@ -579,7 +417,6 @@ endfunction "}}}
 " }}}
 " # Dictionary {{{
 set dictionary=$HOME/.vim/dict/default.dict
-"inoremap <silent> <C-k> <C-x><C-k> " FIXME: duplicate mapping <Up>
 " }}}
 " # Ctags {{{
 if has('path_extra') && &filetype !~ 'zsh\|conf'
@@ -594,12 +431,6 @@ if has('path_extra') && &filetype !~ 'zsh\|conf'
 
   set showfulltag
   set notagbsearch
-endif
-" }}}
-" # Migemo {{{
-" Howto: g/, g?
-if has('migemo')
-  set migemo
 endif
 " }}}
 " # Spell {{{
@@ -633,50 +464,6 @@ if has('persistent_undo')
   endfunction "}}}
 endif
 " }}}
-" # Alt key {{{
-" By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
-if has('unix') && !has('gui_running')
-  " Use meta keys in console.
-  function! s:use_meta_keys()  " {{{2
-    for i in map(
-    \   range(char2nr('a'), char2nr('z'))
-    \ + range(char2nr('A'), char2nr('Z'))
-    \ + range(char2nr('0'), char2nr('9'))
-    \ , 'nr2char(v:val)')
-      " <ESC>O do not map because used by arrow keys.
-      if i != 'O'
-        execute 'nmap <ESC>' . i '<M-' . i . '>'
-      endif
-    endfor
-  endfunction  " }}}2
-
-  call s:use_meta_keys()
-  map <NUL> <C-Space>
-  map! <NUL> <C-Space>
-endif
-" }}}
-" Under the $VIMRUNTIME {{{
-" plugin/matchparen.vim
-let g:loaded_matchparen = 1
-" ftplugin/gitrebase.vim
-autocmd FileType gitrebase nnoremap <buffer>p :<C-u>Pick<CR>
-autocmd FileType gitrebase nnoremap <buffer>s :<C-u>Squash<CR>
-autocmd FileType gitrebase nnoremap <buffer>e :<C-u>Edit<CR>
-autocmd FileType gitrebase nnoremap <buffer>r :<C-u>Reword<CR>
-autocmd FileType gitrebase nnoremap <buffer>f :<C-u>Fixup<CR>
-" }}}
-" Under the $VIMRUNTIME {{{
-function! s:StartMyVimMode()
-  set nocompatible           " be iMproved
-  filetype plugin indent off " required!!
-
-  NeoBundle 'vim-jp/vital.vim'
-  NeoBundle 'h1mesuke/vim-benchmark'
-
-  filetype plugin indent on " required!
-endfunction
-command! -nargs=0 MyVimHackMode call s:StartMyVimMode()
-" }}}
 " # NeoVim loading key {{{
 if has('nvim')
   source ~/.gvimrc
@@ -684,7 +471,7 @@ endif
 " }}}
 
 " Plugins
-if MYVIM_FEATURES_BIG >= g:myvim_features
+if MYVIM_FEATURES_HUGE >= g:myvim_features
   " My Plugin: IncrementActivator {{{
   let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {})
   let g:increment_activator_filetype_candidates['_'] = [
@@ -707,7 +494,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   let g:increment_activator_filetype_candidates['vim'] = [
     \   ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
     \   ['nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap'],
-    \   ['NeoBundle', 'NeoBundleLazy'],
     \   ['Home', 'End', 'Left', 'Right', 'Delete'],
     \   ['has', 'has_key', 'exists'],
     \ ]
@@ -720,9 +506,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \   ['float32', 'float64'],
     \   ['interface', 'struct'],
     \ ]
-  let g:increment_activator_filetype_candidates['cucumber'] = [
-    \   ['Given', 'And', 'When', 'Then'],
-    \ ]
   " }}}
   " My Plugin: Project TODO {{{
   nnoremap <silent> <S-t><S-t> :call OpenMyToDo()<CR>
@@ -733,72 +516,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   endfunction
   nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
   nnoremap <silent> <M-t><M-t> :<C-u>edit $HOME/TODO.rst<CR>
-  " }}}
-  " Plugin: QuickRun, Quicklaunch & xUnit {{{
-  let g:quickrun_config = get(g:, 'quickrun_config', {})
-  nnoremap <silent> <Leader>r :<C-u>QuickRun<CR>
-
-  " Stop quickrun
-  nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-
-  " Close quickrun buffer
-  nnoremap <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
-
-  let b:quickrun_config = {
-    \   'runner' : 'vimproc',
-    \   'runner/vimproc/updatetime' : 60,
-    \ }
-  let g:quickrun_config = {
-    \   '_' : {
-    \     'runner' : 'vimproc',
-    \     'runner/vimproc/updatetime' : 60,
-    \     'outputter/error/success' : 'buffer',
-    \     'outputter/error/error' : 'quickfix',
-    \     'outputter/buffer/close_on_empty' : 1,
-    \     'hook/time/enable': 1,
-    \     'outputter/buffer/split': 'rightbelow 50vsp',
-    \     'outputter/buffer/running_mark': 'just running quickrun ...',
-    \   },
-    \   'run/vimproc' : {
-    \     'exec' : '%s:p:r %a',
-    \     'runner' : 'vimproc',
-    \     'outputter' : 'buffer',
-    \   },
-    \ }
-  let g:quickrun_config['ruby'] = {
-    \   'command' : 'irb',
-    \   'cmdopt' : '--simple-prompt',
-    \   'runner' : 'process_manager',
-    \   'runner/process_manager/load' : "load '%s'",
-    \   'runner/process_manager/prompt' : '>> ',
-    \ }
-  let g:quickrun_config['ruby.rspec'] = {
-    \   'command' : "rspec",
-    \   'cmdopt': 'bundle exec',
-    \   'exec': '%o %c %s',
-    \ }
-  let g:quickrun_config['javascript'] = {
-    \   'command' : 'phantomjs',
-    \ }
-  let g:quickrun_config['scheme/gauche'] = {
-    \   'command': 'gosh',
-    \   'exec': '%c %o %s:p %a',
-    \   'hook/eval/template': '(display (begin %s))',
-    \ }
-  let g:quickrun_config['scheme/mzscheme'] = {
-    \   'command': 'mzscheme',
-    \   'exec': '%c %o -f %s %a',
-    \ }
-  let g:quickrun_config['scheme'] = {
-    \   'type': executable('gosh')     ? 'scheme/gauche':
-    \           executable('mzscheme') ? 'scheme/mzscheme': '',
-    \ }
-  let g:quickrun_config['php.phpunit'] = { 'command': 'phpunit' }
-  let g:quickrun_config['phpunit.php'] = { 'command': 'phpunit' }
-  let g:quickrun_config['lua'] = { 'command': 'luajit' }
-
-  " TODO: Add QuickRun's syntax for xUnit family
-  "autocmd BufAdd,BufNew,BufNewFile,BufRead [quickrun output] set syntax=xUnit
   " }}}
   " Plugin: vim-rooter {{{
   silent! nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
@@ -854,41 +571,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   let g:neomru#file_mru_limit = 1024
   let g:neomru#filename_format = ':p:~'
   " }}}
-  " Plugin: alignta {{{
-  vnoremap <silent> > :Alignta =><CR>
-
-  " @todo add json type
-  " ex.) 'hoge':     jojo
-  "      'jojolion': jojo
-  let g:unite_source_alignta_preset_arguments = [
-    \ ["Align at '='",  '=>\='],
-    \ ["Align at ':'",  '01 :'],
-    \ ["Align at '|'",  '|'   ],
-    \ ["Align at ')'",  '0 )' ],
-    \ ["Align at ']'",  '0 ]' ],
-    \ ["Align at '}'",  '}'   ],
-    \]
-
-  let s:comment_leadings = '^\s*\("\|#\|/\*\|//\|<!--\)'
-  let g:unite_source_alignta_preset_options = [
-    \ ["Justify Left",      '<<' ],
-    \ ["Justify Center",    '||' ],
-    \ ["Justify Right",     '>>' ],
-    \ ["Justify None",      '==' ],
-    \ ["Shift Left",        '<-' ],
-    \ ["Shift Right",       '->' ],
-    \ ["Shift Left  [Tab]", '<--'],
-    \ ["Shift Right [Tab]", '-->'],
-    \ ["Margin 0:0",        '0'  ],
-    \ ["Margin 0:1",        '01' ],
-    \ ["Margin 1:0",        '10' ],
-    \ ["Margin 1:1",        '1'  ],
-    \
-    \ 'v/' . s:comment_leadings,
-    \ 'g/' . s:comment_leadings,
-    \]
-  unlet s:comment_leadings
-  " }}}
   " Plugin: unite.vim {{{
   let g:unite_data_directory =
     \ get(g:, 'local_unite_data_directory', s:cache_dir . '/unite')
@@ -912,8 +594,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--follow --nocolor --nogroup --hidden -g ""'
     let g:unite_source_grep_recursive_opt = ''
-
-    "let g:unite_source_rec_async_command = 'ack -f --nofilter'
     let g:unite_source_rec_async_command =
       \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""']
   elseif executable('ack')
@@ -949,11 +629,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \ 'subst': '\=getcwd()."/*"',
     \ 'priority': 1,
     \ })
-  "call unite#custom#profile('files', 'substitute_patterns', {
-    "\ 'pattern': '^;r',
-    "\ 'subst': '\=$VIMRUNTIME."/"',
-    "\ 'priority': 1,
-    "\ })
   call unite#custom#profile('files', 'substitute_patterns', {
     \ 'pattern' : '^\~',
     \ 'subst' : substitute(
@@ -966,17 +641,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \ 'subst' : "\\=repeat('../', len(submatch(0))-1)",
     \ 'priority' : 10000,
     \ })
-  " INFO: Not using cause I hope to match rule like flie_mru
-  "call unite#custom#profile('files', 'substitute_patterns', {
-    "\ 'pattern': '\\\@<! ',
-    "\ 'subst': '\\ ',
-    "\ 'priority': -20,
-    "\ })
-  "call unite#custom#profile('files', 'substitute_patterns', {
-    "\ 'pattern': '\\ \@!',
-    "\ 'subst': '/',
-    "\ 'priority': -30,
-    "\ })
   call unite#custom#profile('files', 'substitute_patterns', {
     \ 'pattern': '^;v',
     \ 'subst': '~/.vim/',
@@ -1018,7 +682,6 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
     \ 'converters',
     \ ['converter_file_directory']
     \ )
-
 
   " keymaps
   nnoremap [unite] <Nop>
@@ -1109,27 +772,12 @@ if MYVIM_FEATURES_BIG >= g:myvim_features
   nnoremap <silent> [unite]W :<C-u>Unite workspace_rec -buffer-name=bookmark file -input=!vendor <CR>
 
   " }}}
-  " ReStructedText / Sphinx {{{
-  if exists('g:sphinx_build_bin')
-    let g:quickrun_config['rst'] = {
-      \     'command': g:sphinx_build_bin,
-      \     'hook/sphinx/enable' : 1,
-      \     'cmdopt': '-b html',
-      \ }
-  endif
-  " }}}
   " Plugin: vim-markdown {{{
   "let g:vim_markdown_folding_level = 2
   let g:vim_markdown_folding_disabled = 1
   let g:vim_markdown_conceal = 0
   let g:vim_markdown_no_extensions_in_markdown = 1
   " }}}
-  " Plugin: tagvar {{{
-  nnoremap <silent> tl :TagbarToggle<CR>
-  " }}}
-endif
-
-if MYVIM_FEATURES_HUGE >= g:myvim_features
   " Plugin: vim-startify {{{
   let g:startify_files_number = 15
   "let g:startify_list_order = ['files', 'dir', 'bookmarks', 'sessions']
@@ -1280,17 +928,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     let g:vimfiler_force_overwrite_statusline = 0
   endif
   " }}}
-  " Plugin: vim-anzu {{{
-  " TODO: 通常検索と同じくfoldも自動で開かれるようになったら有効にする
-  "nmap n nzz<Plug>(anzu-update-search-status)
-  "nmap N Nzz<Plug>(anzu-update-search-status)
-  "nmap * <Plug>(anzu-star)
-  "nmap # <Plug>(anzu-sharp)
-  "" ESC2回押しで検索ハイライトを消去
-  "nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
-  "" format = (該当数/全体数)
-  "let g:anzu_status_format = "(%i/%l)"
-  " }}}
   " Plugin: alpaca_powertabline {{{
   if !exists('g:vscode')
     let g:alpaca_powertabline_enable = 1
@@ -1299,25 +936,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " Plugin: accelerated-smooth-scroll {{{
   let g:ac_smooth_scroll_du_sleep_time_msec = 1
   let g:ac_smooth_scroll_fb_sleep_time_msec = 1
-  " }}}
-  " Plugin: context_filetype.vim {{{
-  let g:context_filetype#filetypes = {
-    \ 'perl6' : [{
-    \   'start' : 'Q:PIR\s*{',
-    \   'end' : '}',
-    \   'filetype' : 'pir',
-    \ }],
-    \ 'vim' : [{
-    \   'start' : '^\s*python <<\s*\(\h\w*\)',
-    \   'end' : '^\1',
-    \   'filetype' : 'python',
-    \ }],
-    \ 'markdown': [{
-    \   'start' : '^\s*```\s*\(\h\w*\)',
-    \   'end' : '^\s*```$',
-    \   'filetype' : '\1',
-    \ }],
-    \}
   " }}}
   " Plugin: indent-guides {{{
   " INFO: auto highlight indent-space.
@@ -1389,68 +1007,10 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " copy selected text-object.
   vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
   "}}}
-  " Plugin: vim-emoji {{{
-  silent! if emoji#available()
-    let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
-    let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
-    let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
-    let g:gitgutter_sign_modified_removed = emoji#for('collision')
-  endif
-  " }}}
   " Plugin: visualstar.vim {{{
   " search extended plugin.
   map * <Plug>(visualstar-*)N
   map # <Plug>(visualstar-#)N
-  " }}}
-  " Plugin: surround.vim {{{
-  nmap ,( csw(
-  nmap ,) csw)
-  nmap ,{ csw{
-  nmap ,} csw}
-  nmap ,[ csw[
-  nmap ,] csw]
-  nmap ,' csw'
-  nmap ," csw"
-  " }}}
-  " Plugin: Emmet.vim (Replaced from zenconding.vim) {{{
-  let g:user_emmet_mode = 'a'
-  let g:user_emmet_leader_key = '<c-y>'
-  let g:use_emmet_complete_tag = 1
-  let g:user_emmet_settings = get(g:, 'user_emmet_settings', {'lang' : 'ja'})
-  let g:user_emmet_settings['html'] = {
-    \   'filters' : 'html',
-    \   'indentation' : ' '
-    \ }
-  let g:user_emmet_settings['haml'] = {
-    \   'extends': 'html',
-    \ }
-  let g:user_emmet_settings['css'] = {
-    \  'filters': 'fc',
-    \ }
-  let g:user_emmet_settings['javascript'] = {
-    \   'snippets' : {
-    \     'jq': "$(function() {\n\t${cursor}${child}\n});",
-    \     'jq:each': "$.each(arr, function(index, item)\n\t${child}\n});",
-    \     'fn': "(function() {\n\t${cursor}\n})();",
-    \     'tm': "setTimeout(function() {\n\t${cursor}\n}, 100);",
-    \   },
-    \ }
-  let g:user_emmet_settings['perl'] = {
-    \  'extends': 'html',
-    \  'filters': 'html,c',
-    \ }
-  let g:user_emmet_settings['perl'] = {
-    \   'indentation': '  ',
-    \   'aliases': {
-    \     'req': "require '|'"
-    \   },
-    \   'snippets' : {
-    \     'use': "use strict\nuse warnings\n\n",
-    \     'w': "warn \"${cursor}\";",
-    \   },
-    \ }
-
-
   " }}}
   " Plugin: vim-lsp around {{{
   if empty(globpath(&rtp, 'autoload/lsp.vim'))
@@ -1478,105 +1038,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   let g:asyncomplete_popup_delay = 200
   let g:lsp_text_edit_enabled = 1
   " }}}
-  " Plugin: neosnippet {{{
-  " TODO: clear snippets_directory
-  "let g:neosnippet#snippets_directory =
-  "  \ s:dein_dir . 'neocomplcache-snippets-complete/autoload/neocomplcache/sources/snippets_complete'
-  "  \ .','. $HOME . '/.vim/snippets'
-
-  nmap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
-  imap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
-  smap <silent> <C-l> <Plug>(neosnippet_expand_or_jump)
-  "imap <silent> <C-s> <Plug>(neocomplcache_start_unite_complete)
-  imap <silent> <C-s> <Plug>(neosnippet_start_unite_snippet)
-
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=i
-  endif
-  " }}}
-  " Plugin: vim-multiple-cursors {{{
-  let g:multi_cursor_start_key = 'm'
-  " }}}
-  " Plugin: jscomplatete.vim {{{
-  let g:jscomplete_use = ['dom']
-  " }}}
-  " Plugin: vim-vcs {{{
-  let g:vcs#config_log_file = s:cache_dir . '/vcs'
-  " }}}
-  " Plugin: vim-fugitive {{{
-  " Gstatus
-  "    * Gstatus上の変更のあったファイルにカーソルを合わせた状態で
-  "        Dで:Gdiff起動(差分表示)
-  "        -でstageとunstageの切り替え
-  "        pでパッチを表示
-  "        Enterでファイル表示
-  "        Cでcommit
-  "    * :help Gstatus
-  nnoremap <Leader>gb :<C-u>Gblame<CR>
-  nnoremap <Leader>gd :<C-u>Gdiff<CR>
-  nnoremap <Leader>gD :<C-u>Gdiff --cached<CR>
-  nnoremap <Leader>gs :<C-u>Gstatus<CR>
-  nnoremap <Leader>ga :<C-u>Gwrite<CR>
-  nnoremap <Leader>gA :<C-u>Gwrite <cfile><CR>
-  nnoremap <Leader>gc :<C-u>Gcommit<CR>
-  "}}}
-  " Plugin: alpaca_tags {{{
-  let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {})
-  let g:alpaca_tags#config['js'] = '-R --languages=+js'
-  let g:alpaca_tags#config['ruby'] = '--langmap=RUBY:.rb --exclude="*.js" --exclude=".git*'
-  augroup AlpacaTagsRubyBundler
-    autocmd!
-    if exists(':Tags')
-      autocmd BufWritePost Gemfile AlpacaTagsBundle
-      "autocmd BufEnter * TagsSet
-      " 毎回保存と同時更新する場合はコメントを外す
-      " autocmd BufWritePost * TagsUpdate
-    endif
-  augroup END
-  "let g:alpaca_tags#config = get(g:, 'alpaca_tags#config', {
-    "\   '_': '-R --exclude=".git*" --sort=yes',
-    "\ 'default' : '--languages=-css,scss,html,js,JavaScript',
-    "\ 'js' : '--languages=+js',
-    "\ '-js' : '--languages=-js,JavaScript',
-    "\ 'vim' : '--languages=+Vim,vim',
-    "\ 'php' : '--languages=+php --php-types=c+f+d',
-    "\ '-vim' : '--languages=-Vim,vim',
-    "\ '-style': '--languages=-css,scss,js,JavaScript,html',
-    "\ 'scss' : '--languages=+scss --languages=-css',
-    "\ 'css' : '--languages=+css',
-    "\ 'java' : '--languages=+java $JAVA_HOME/src',
-    "\ 'ruby': '--languages=+Ruby',
-    "\ 'coffee': '--languages=+coffee',
-    "\ '-coffee': '--languages=-coffee',
-    "\ 'bundle': '--languages=+Ruby',
-    "\ 'go': '--langdef=Go --langmap=Go:.go'
-    "\   . ' --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/'
-    "\   . ' --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/',
-    "\ 'python': '--python-kinds=-iv --exclude="build" --exclude=".venv" --exclude="dist"',
-    "\ 'erlang': '--languages=erlang --file-scope=no',
-    "\ })
-
-  "" This variable is options for debug.
-  "let g:alpaca_tags#console = {'report' : 1}
-
-  "augroup AlpacaTags
-    "autocmd!
-    "if exists(':AlpacaTags')
-      ""autocmd BufWritePost Gemfile AlpacaTagsBundle
-      "autocmd BufWritePost * AlpacaTagsUpdate
-    "endif
-  "augroup END
-
-  "autocmd BufEnter * AlpacaTagsSet
-  augroup MyAutoSetCtagPath
-    autocmd!
-    au BufEnter * execute ":set tags="
-      \ . unite#util#path2project_directory(unite#util#substitute_path_separator(getcwd()))
-      \ . '/tags'
-      "\ . escape(unite#util#path2project_directory(unite#util#substitute_path_separator(getcwd())), ' ')
-  augroup END
-  " }}}
   " Plugin: unite-tag {{{
   let g:unite_source_tag_max_name_length = 25
   let g:unite_source_tag_max_fname_length = 80
@@ -1597,55 +1058,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " Plugin: unite-grep {{{
   let g:unite_source_grep_default_opts = '-Hn'  " By the default
   let g:unite_source_grep_recursive_opt = '-R'  " By the default
-  " }}}
-  " Plugin: unite.vim >> source menus {{{
-  let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
-  let g:unite_source_menu_menus.shortcut = {
-    \ 'description' : 'My shortcut',
-    \ 'command_candidates' : [
-    \   ['edit vimrc', 'edit $MYVIMRC'],
-    \   ['edit vimrc.local', 'edit $MYVIMRC_LOCAL'],
-    \   ['edit gvimrc', 'edit $MYGVIMRC'],
-    \   ['edit gvimrc.local', 'edit $MYGVIMRC_LOCAL'],
-    \   ['edit zshrc', 'edit $HOME/.zshrc'],
-    \   ['edit zshrc.local', 'edit $HOME/.zshrc.local'],
-    \ ]}
-  let g:unite_source_menu_menus.git = {
-    \ 'description': 'Gestionar repositorios git  ⌘ [espacio]g',
-    \ 'command_candidates': [
-    \   ['▷ tig                                              [unite]t',   'Unite tig -no-start-insert -winheight=20'],
-    \   ['▷ git status        (Fugitive)                     <Leader>gs', 'Gstatus'],
-    \   ['▷ git diff (vertical) (Fugitive)                   <Leader>gd', 'Gvdiff'],
-    \   ['▷ git diff          (Fugitive)                     <Leader>gd', 'Gsdiff'],
-    \   ['▷ git diff --cached (vertical) (Fugitive)          <Leader>gD', 'Gsdiff --cached'],
-    \   ['▷ git diff --cached (Fugitive)                     <Leader>gD', 'Gsdiff --cached'],
-    \   ['▷ git commit        (Fugitive)                     <Leader>gc', 'Gcommit --verbose'],
-    \   ['▷ git blame         (Fugitive)',                                'Gblame'],
-    \   ['▷ git push          (Fugitive, salida por buffer)',             'Git! push'],
-    \   ['▷ git pull          (Fugitive, salida por buffer)',             'Git! pull'],
-    \   ['▷ git stage         (Fugitive)',                                'Gwrite'],
-    \   ['▷ git checkout      (Fugitive)',                                'Gread'],
-    \   ['▷ git rm            (Fugitive)',                                'Gremove'],
-    \   ['▷ git mv            (Fugitive)',                                'exe "Gmove " input("destino: ")'],
-    \   ['▷ git prompt        (Fugitive, salida por buffer)',             'exe "Git! " input("comando git: ")'],
-    \   ['▷ git cd            (Fugitive)',                                'Gcd'],
-    \   ['▷ help git status   (Fugitive)',                                'help Gstatus'],
-    \ ]}
-
-  nnoremap <silent><M-l> :Unite menu<Cr>
-  nnoremap <silent><M-g> :Unite -silent -start-insert menu:git<Cr>
-  nnoremap <silent><M-s> :Unite -silent -start-insert menu:shortcut<Cr>
-  nnoremap <silent><M-i> :Unite -silent -start-insert menu:interactive_mode<Cr>
-  nnoremap <silent><D-l> :Unite menu<Cr>
-  nnoremap <silent><D-g> :Unite -silent -start-insert menu:git<Cr>
-  nnoremap <silent><D-s> :Unite -silent -start-insert menu:shortcut<Cr>
-  nnoremap <silent><D-i> :Unite -silent -start-insert menu:interactive_mode<Cr>
-  if !has('gui_running')
-    nmap <ESC>l <M-l>
-    nmap <ESC>g <M-g>
-    nmap <ESC>s <M-s>
-    nmap <ESC>i <M-i>
-  endif
   " }}}
   " My Plugin: vim-multiple-switcher {{{
   "let g:multiple_switcher_no_default_key_maps = 1
