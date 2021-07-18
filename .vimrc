@@ -599,6 +599,55 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     let g:unite_source_rec_async_command =
       \ ['ag', '--color never']
   endif
+  " >> unite-source: custom > profile
+  call unite#custom#profile('default', 'context', {
+    \ 'prompt_direction': 'top',
+    \ 'start_insert': 1,
+    \ 'short_source_names': 1,
+    \ 'wrap': 1,
+    \ 'split': 0,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern' : '[[:alnum:]]',
+    \ 'subst' : '\0',
+    \ 'priority' : 100,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '\$\w\+',
+    \ 'subst': '\=eval(submatch(0))',
+    \ 'priority': 200,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^@@',
+    \ 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"',
+    \ 'priority': 2,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^@',
+    \ 'subst': '\=getcwd()."/*"',
+    \ 'priority': 1,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern' : '^\~',
+    \ 'subst' : substitute(
+    \     unite#util#substitute_path_separator($HOME),
+    \           ' ', '\\\\ ', 'g'),
+    \ 'priority' : -100,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern' : '\.\{2,}\ze[^/]',
+    \ 'subst' : "\\=repeat('../', len(submatch(0))-1)",
+    \ 'priority' : 10000,
+    \ })
+  call unite#custom#profile('files', 'substitute_patterns', {
+    \ 'pattern': '^;v',
+    \ 'subst': '~/.vim/',
+    \ 'priority': 1,
+    \ })
+  " >> unite-source: custom > aliases
+  let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
+  let g:unite_source_alias_aliases.workspace = {'source': 'file', 'args': "$HOME/workspace"}
+  let g:unite_source_alias_aliases.workspace_rec = {'source': 'file_rec', 'args': "$HOME/workspace"}
   let s:unite_ignore_file_extention_regex = '\.\%(' . join([
     \   'o',
     \   'exe', 'dll', 'app',
@@ -609,6 +658,28 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     \   'svn', 'git', 'bzr', 'hg',
     \   '__pycache__', 'pyc', 'egg', 'egg-info',
     \ ]) . '\)$'
+  call unite#custom#source(
+    \   'file,neomu/file',
+    \   'ignore_pattern',
+    \   join([
+    \     '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$',
+    \     s:unite_ignore_file_extention_regex,
+    \   ], '\|')
+    \ )
+  call unite#custom#source(
+    \   'file,file_rec,file_rec/async',
+    \   'ignore_pattern',
+    \   join([
+    \     '\%(^\|/\)\.$\|\~$',
+    \     '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|idea\)\%($\|/\)',
+    \     s:unite_ignore_file_extention_regex,
+    \   ], '\|')
+    \ )
+  call unite#custom#source(
+    \ 'buffer,file_rec,file_mru,file_rec,file_rec/async',
+    \ 'converters',
+    \ ['converter_file_directory']
+    \ )
 
   " keymaps
   nnoremap [unite] <Nop>
