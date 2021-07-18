@@ -145,53 +145,9 @@ repo = 'hrsh7th/vim-vsnip'
 repo = 'hrsh7th/vim-vsnip-integ'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-depends = 'roxma/vim-hug-neovim-rpc'
-
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-depends = 'roxma/nvim-yarp'
-
-[[plugins]]
-repo = 'roxma/nvim-yarp'
-depends = 'roxma/vim-hug-neovim-rpc'
-
-[[plugins]]
 repo = 'alpaca-tc/vim-endwise.git'
 lazy = 1
 on_i = 1
-# }}}
-
-# Go {{{
-[[plugins]]
-repo = 'zchee/deoplete-go'
-if = 'has("nvim") || exists("g:gui_oni")'
-lazy = 1
-on_i = 1
-on_ft = 'go'
-
-# moved gopls via vim-lsp
-#[[plugins]]
-#repo = 'fatih/vim-go'
-#lazy = 1
-#on_ft = 'go'
-
-[[plugins]]
-repo = 'vim-jp/vim-go-extra'
-lazy = 1
-on_ft = 'go'
-# }}}
-
-# Lisp {{{
-#[[plugins]]
-#repo = 'aharisu/vim_goshrepl'
-#lazy = 1
-#on_ft = ''
-
-#[[plugins]]
-#repo = 'aharisu/vim-gdev'
-#lazy = 1
-#on_ft = ''
 # }}}
 
 # Python {{{
@@ -228,13 +184,6 @@ repo = 'vim-scripts/ruby-matchit'
 lazy = 1
 on_ft = 'ruby'
 # }}}
-
-# PHP {{{
-[[plugins]]
-repo = 'nishigori/vim-php-dictionary'
-lazy = 1
-on_i = 1
-on_ft = 'php'
 
 # Lua {{{
 [[plugins]]

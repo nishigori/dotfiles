@@ -277,9 +277,10 @@ nnoremap # #N
 " }}}
 " # Copy & Paste {{{
 "set paste " When you're setting paste, can't use inoremap extend ;-<
-if has('clipboard')
+if !has('nvim')
   set clipboard=unnamed,autoselect
-  " Copy
+endif
+if has('clipboard')
   " For Ubuntu "+y not * (;h clipboard)
   vnoremap <C-c> "+y
   " Paste
@@ -387,10 +388,12 @@ nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
 " }}}
 " # Fold, View {{{
 nnoremap <Leader>f za
-set foldcolumn=4
-" INFO: foldlevel moved to each fplugin
-"set foldlevel=0
-set fillchars+=fold:-
+if !has('nvim')
+  set foldcolumn=4
+  " INFO: foldlevel moved to each fplugin
+  "set foldlevel=0
+  set fillchars+=fold:-
+endif
 " Don't save options.
 set viewoptions-=options
 " }}}
@@ -590,66 +593,12 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   " >> unite-source: find
   let g:unite_source_find_default_opts = '-L' " Follow symlinks
   " >> unite-source: grep & async
-  if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--follow --nocolor --nogroup --hidden -g ""'
-    let g:unite_source_grep_recursive_opt = ''
+  if executable('rg')
+    let g:unite_source_grep_command = '5g'
+    let g:unite_source_grep_default_opts = '--color never'
     let g:unite_source_rec_async_command =
-      \ ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '""']
-  elseif executable('ack')
-    let g:unite_source_grep_command = 'ack'
-    let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
-    let g:unite_source_grep_recursive_opt = ''
+      \ ['ag', '--color never']
   endif
-  " >> unite-source: custom > profile
-  call unite#custom#profile('default', 'context', {
-    \ 'prompt_direction': 'top',
-    \ 'start_insert': 1,
-    \ 'short_source_names': 1,
-    \ 'wrap': 1,
-    \ 'split': 0,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern' : '[[:alnum:]]',
-    \ 'subst' : '\0',
-    \ 'priority' : 100,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern': '\$\w\+',
-    \ 'subst': '\=eval(submatch(0))',
-    \ 'priority': 200,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern': '^@@',
-    \ 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"',
-    \ 'priority': 2,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern': '^@',
-    \ 'subst': '\=getcwd()."/*"',
-    \ 'priority': 1,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern' : '^\~',
-    \ 'subst' : substitute(
-    \     unite#util#substitute_path_separator($HOME),
-    \           ' ', '\\\\ ', 'g'),
-    \ 'priority' : -100,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern' : '\.\{2,}\ze[^/]',
-    \ 'subst' : "\\=repeat('../', len(submatch(0))-1)",
-    \ 'priority' : 10000,
-    \ })
-  call unite#custom#profile('files', 'substitute_patterns', {
-    \ 'pattern': '^;v',
-    \ 'subst': '~/.vim/',
-    \ 'priority': 1,
-    \ })
-  " >> unite-source: custom > aliases
-  let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
-  let g:unite_source_alias_aliases.workspace = {'source': 'file', 'args': "$HOME/workspace"}
-  let g:unite_source_alias_aliases.workspace_rec = {'source': 'file_rec', 'args': "$HOME/workspace"}
   let s:unite_ignore_file_extention_regex = '\.\%(' . join([
     \   'o',
     \   'exe', 'dll', 'app',
@@ -660,28 +609,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
     \   'svn', 'git', 'bzr', 'hg',
     \   '__pycache__', 'pyc', 'egg', 'egg-info',
     \ ]) . '\)$'
-  call unite#custom#source(
-    \   'file,neomu/file',
-    \   'ignore_pattern',
-    \   join([
-    \     '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$',
-    \     s:unite_ignore_file_extention_regex,
-    \   ], '\|')
-    \ )
-  call unite#custom#source(
-    \   'file,file_rec,file_rec/async',
-    \   'ignore_pattern',
-    \   join([
-    \     '\%(^\|/\)\.$\|\~$',
-    \     '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|idea\)\%($\|/\)',
-    \     s:unite_ignore_file_extention_regex,
-    \   ], '\|')
-    \ )
-  call unite#custom#source(
-    \ 'buffer,file_rec,file_mru,file_rec,file_rec/async',
-    \ 'converters',
-    \ ['converter_file_directory']
-    \ )
 
   " keymaps
   nnoremap [unite] <Nop>
@@ -1090,7 +1017,6 @@ if MYVIM_FEATURES_HUGE >= g:myvim_features
   autocmd FileType vimfiler nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
   autocmd FileType vimfiler nmap <buffer> <D-1> <Plug>(vimfiler_close)
   autocmd FileType vimfiler nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
-
 
   " }}}
 endif

@@ -16,7 +16,7 @@ bin_requires := bin/diff-highlight
 me: $(dir_requires) $(bin_requires) links credentials
 	@echo Make me happy :D
 
-all: install golang
+all: install lsp golang
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -63,6 +63,15 @@ bin/diff-highlight:
 	make -C /tmp/git/contrib/diff-highlight/
 	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
 
+lsp: # language-server
+ifneq (,$(shell which go 2>/dev/null))
+	go install golang.org/x/tools/gopls@latest
+	go install github.com/sourcegraph/go-langserver@latest
+endif
+#ifneq (,$(shell which pip3 2>/dev/null))
+#	pip3 install python-language-server
+#endif
+
 golang: ## Setup Go language
 	# Standard
 	go get -u golang.org/x/tools/cmd/...
@@ -73,12 +82,9 @@ golang: ## Setup Go language
 	go get -u github.com/mightyguava/ecsq
 	go get -u github.com/d4l3k/go-pry
 	go install -i github.com/d4l3k/go-pry
-	# LSP (Language Server Protocol)
-	go get -u golang.org/x/tools/cmd/gopls
-	go get -u github.com/sourcegraph/go-langserver
 	# Others
-	go get golang.org/x/lint/golint
-	go get github.com/monochromegane/dragon-imports/...
+	go install golang.org/x/lint/golint@latest
+	go install github.com/monochromegane/dragon-imports/...@latest
 
 goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
 	go get -u golang.org/x/tools/cmd/goimports

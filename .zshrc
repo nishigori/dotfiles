@@ -263,7 +263,10 @@ fi
 export GOPATH=$HOME
 path=( $GOPATH/bin(N-/) $path)
 
-if (( $+commands[go] )); then export GOROOT=$( go env GOROOT ); fi
+if (( $+commands[go] )); then
+    export GOROOT=$(go env GOROOT);
+    path=($(go env GOPATH)/bin(N-/) $path)
+fi
 
 # phpenv loading is very slow. use brew php@x.x and declare PATH via direnv
 #if (( $+commands[phpenv] )); then ...; fi
