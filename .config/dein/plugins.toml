@@ -10,22 +10,6 @@ if = '!exists("g:vscode")'
 
 # Unite {{{
 [[plugins]]
-repo = 'Shougo/unite.vim'
-depends = 'neomru.vim'
-
-[[plugins]]
-repo = 'Shougo/unite-outline'
-depends = 'unite.vim'
-
-[[plugins]]
-repo = 'tacroe/unite-mark'
-depends = 'unite.vim'
-
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-#on_path = '.*'
-
-[[plugins]]
 repo = 'Shougo/neoyank.vim'
 lazy = 1
 #on_path = '.*'
@@ -98,33 +82,6 @@ repo = 'itchyny/vim-parenmatch'
 repo = 'thinca/vim-visualstar'
 # }}}
 
-# Filer, Tags {{{
-[[plugins]]
-repo = 'Shougo/vimfiler.vim'
-if = '!exists("g:vscode")'
-# }}}
-
-# Buffer, Status {{{
-[[plugins]]
-repo = 'itchyny/lightline.vim'
-if = '!exists("g:vscode")'
-
-# TODO: たしか新しいvimでは不要になった記憶
-#[[plugins]]
-#repo = 'vim-scripts/PreserveNoEOL'
-
-[[plugins]]
-repo = 'osyo-manga/vim-anzu'
-depends = 'lightline.vim'
-if = '!exists("g:vscode")'
-
-[[plugins]]
-repo = 'tyru/current-func-info.vim'
-
-[[plugins]]
-repo = 'scrooloose/syntastic'
-# }}}
-
 # Completion {{{
 [[plugins]]
 repo = 'prabirshrestha/async.vim'
@@ -143,11 +100,6 @@ repo = 'mattn/vim-lsp-icons'
 repo = 'hrsh7th/vim-vsnip'
 [[plugins]]
 repo = 'hrsh7th/vim-vsnip-integ'
-
-[[plugins]]
-repo = 'alpaca-tc/vim-endwise.git'
-lazy = 1
-on_i = 1
 # }}}
 
 # Python {{{
@@ -196,65 +148,4 @@ lazy = 1
 on_i = 1
 on_ft = 'lua'
 depends = 'vim-misc'
-# }}}
-
-# Makeup Languages {{{
-[[plugins]]
-repo = 'cespare/vim-toml'
-lazy = 1
-on_ft = 'toml'
-
-[[plugins]]
-repo = 'elzr/vim-json'
-lazy = 1
-on_ft = 'json'
-
-[[plugin]]
-repo = 'godlygeek/tabular'
-lazy = 1
-
-[[plugin]]
-repo = 'plasticboy/vim-markdown'
-lazy = 1
-depends = 'tabular'
-on_ft = [['markdown', 'mkd']]
-
-[[plugins]]
-repo = 'jtriley/vim-rst-headings'
-lazy = 1
-on_ft = [['python', 'rst', 'rest']]
-
-[[plugins]]
-repo = 'vim-scripts/css3'
-lazy = 1
-on_ft = 'css'
-
-[[plugins]]
-repo = 'tpope/vim-haml'
-lazy = 1
-on_ft = [['haml, scss']]
-# }}}
-
-# Other Programming Languages {{{
-[[plugins]]
-repo = 'rdolgushin/groovy.vim'
-lazy = 1
-on_ft = 'groovy'
-# }}}
-
-# Provisioning Tools {{{
-[[plugins]]
-repo = 'rodjek/vim-puppet'
-lazy = 1
-on_ft = 'puppet'
-
-[[plugins]]
-repo = 'puppetlabs/puppet-syntax-vim'
-lazy = 1
-on_ft = 'puppet'
-
-[[plugins]]
-repo = 'ekalinin/Dockerfile.vim'
-lazy = 1
-on_ft = [['docker', 'dockerfile']]
 # }}}

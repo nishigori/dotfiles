@@ -19,7 +19,7 @@
 "=============================================================================
 " vim: set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:
 
-" # Basic {{{
+" Basic: {{{
 set guioptions=
 set t_ti=
 set t_te=
@@ -41,11 +41,7 @@ if !has('nvim')
   set norestorescreen
 endif
 " }}}
-" # Default colorscheme {{{
-set background=dark
-colorscheme PaperColor
-" }}}
-" # Quick Start $MYGVIMRC {{{
+" QuickStartMyGvimRC: {{{
 if exists('g:local_config')
   let $MYGVIMRC = g:local_config['dotfiles_dir'] . '/.gvimrc'
   let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
@@ -56,13 +52,13 @@ endif
 nnoremap e> :<C-u>edit $MYGVIMRC<CR>
 nnoremap eS :<C-u>source $MYGVIMRC<CR>
 " }}}
-" # Window {{{
+" Window: {{{
 set lines=85
 set columns=150
 
 nnoremap <silent> ZZ :<C-u>close<CR>
 " }}}
-" # Font {{{
+" Font: {{{
 " INFO:
 "   If You has any probrem,
 "   Please reference HELP ('termencoding', 'macatsui').
@@ -77,19 +73,10 @@ elseif has('gui_macvim')
   set antialias
 endif
 " }}}
-" # Depends On OS {{{
-"if has('gui_macvim')
+" DependsOS: {{{
 if has('mac') && !has('nvim')
   set transparency=6
 endif
-" }}}
-" # Local Dependency {{{
-if filereadable(expand($MYGVIMRC_LOCAL))
-  " Override GVIM settings
-  source $MYGVIMRC_LOCAL
-endif
-" }}}
-" # OS Dependency {{{
 if has("gui_macvim")
   " List of Enabled <D- keymap
   macmenu Edit.Cut<Tab>"+x				key=<D-x>
@@ -135,6 +122,12 @@ if has("gui_macvim")
   "macmenu Window.Select\ Previous\ Tab		key=<Nop>
 
   macmenu Help.MacVim\ Help			key=<Nop>
+endif
+" }}}
+" LocalDependency: {{{
+if filereadable(expand($MYGVIMRC_LOCAL))
+  " Override GVIM settings
+  source $MYGVIMRC_LOCAL
 endif
 " }}}
 

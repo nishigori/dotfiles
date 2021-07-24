@@ -105,6 +105,7 @@ brew 'anyenv'
 #brew 'plenv'
 brew 'php'
 brew 'go'
+brew 'rebar3'
 
 brew 'rust'
 # Powerful 'ps' https://github.com/dalance/procs
@@ -170,6 +171,7 @@ brew 'wget'
 # Tail multiple Kubernetes pods & their containers
 brew 'stern'
 brew 'terraform_landscape'
+brew 'hashicorp/tap/terraform-ls'
 brew 'peco'
 brew 'tmux'
 brew 'jq'

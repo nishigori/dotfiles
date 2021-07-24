@@ -72,6 +72,10 @@ endif
 #	pip3 install python-language-server
 #endif
 
+vim:
+	# Requirements for https://github.com/Shougo/denite.nvim
+	pip3 install --user pynvim
+
 golang: ## Setup Go language
 	# Standard
 	go get -u golang.org/x/tools/cmd/...
