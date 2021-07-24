@@ -34,6 +34,7 @@ if has('vim_starting')
   set runtimepath+=$HOME/.vim/after
 endif
 if has('gui_macvim')
+  set shell=/opt/homebrew/bin/zsh
   let $PATH = join([
         \ '/opt/homebrew/bin',
         \ '/opt/homebrew/sbin',
@@ -73,15 +74,21 @@ set visualbell t_vb=           " no bell
 if !exists('g:vscode')
   set ambiwidth=double
 endif
+set splitright                 " Default vsplit, left
+set splitbelow                 " Default split, top
+set noequalalways              " Minimize Window Size
 
 let mapleader = " "
 
 " Like nmap 'D' and 'C'
 nnoremap Y y$
-
-" TODO: いる？
+" }}}
+" # Font "{{{
 if has('nvim')
-  let g:python_host_prog='/opt/homebrew/bin/python3'
+  set guifont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
+  set printfont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
+else
+  set printfont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
 endif
 " }}}
 " # Directory Settings {{{
@@ -105,6 +112,7 @@ endif
 set nobackup noswapfile
 
 " Quick start my vimrc
+let $MYVIMRC = resolve(expand($MYVIMRC))
 nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> eS :<C-u>source $MYVIMRC<CR>
 let $MYVIMRC_LOCAL = $HOME . (has('nvim') ? '/.config/nvim/init.local.vim' : '/.vimrc.local')
@@ -129,7 +137,6 @@ let &runtimepath = s:dein_repo_dir .",". &runtimepath
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  " TODO: 本当に必要か？
   " TextOperation:
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('vim-scripts/smartchr')
@@ -137,8 +144,6 @@ if dein#load_state(s:dein_dir)
   call dein#add('thinca/vim-zenspace')
   call dein#add('vim-scripts/matchit.zip')
   call dein#add('mattn/webapi-vim')
-
-  " TextOperation:
   call dein#add('nishigori/increment-activator')
   call dein#add('haya14busa/incsearch.vim')
 
@@ -147,25 +152,8 @@ if dein#load_state(s:dein_dir)
   call dein#add('tyru/open-browser.vim')
   call dein#add('tyru/urilib.vim')
   call dein#add('itchyny/vim-parenmatch')
-
-  " Unite:
-  call dein#add('Shougo/neomru.vim')
-  call dein#add('Shougo/unite.vim', {'depends': 'neomru.vim'})
-  call dein#add('Shougo/unite-outline', {'depends': 'unite.vim'})
-  call dein#add('sgur/unite-git_grep', {'depends': 'unite.vim'})
-  call dein#add('Shougo/neoyank.vim', {
-        \ 'depends': 'unite.vim',
-        \ 'lazy': 1,
-        \ 'on_i': 1,
-        \ })
-
-  " DarkPoweredPlugins: But awaiting https://github.com/Shougo/ddu.vim
-  "call dein#add('Shougo/denite.nvim')
-  "call dein#add('Shougo/deol.nvim')
-  "if !has('nvim')
-  "  call dein#add('roxma/nvim-yarp')
-  "  call dein#add('roxma/vim-hug-neovim-rpc')
-  "endif
+  call dein#add('ryanoasis/vim-devicons')
+  call dein#add('LeafCage/yankround.vim')
 
   " FileType:
   call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
@@ -185,12 +173,28 @@ if dein#load_state(s:dein_dir)
   call dein#add('cocopon/iceberg.vim', { 'merged': 0 })
   call dein#source('iceberg.vim')
   call dein#add('lifepillar/vim-solarized8')
+  colorscheme solarized8_high
   autocmd vimenter * ++nested colorscheme solarized8_high
+
+  " Treesitter:
+  if has('nvim')
+    call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
+  endif
+
+  " Fzf:
+  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+  "call dein#add('junegunn/fzf.vim')
+  call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
+  " TODO: いつかnvim onlyになったら入れ替える https://github.com/nvim-telescope/telescope.nvim
+  "call dein#add('nvim-lua/popup.nvim')
+  "call dein#add('nvim-lua/plenary.nvim')
+  "call dein#add('nvim-telescope/telescope.nvim')
 
   " Coc:
   " Ref: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim#using-deinvim
-  " Install: vim -c 'CocInstall -sync coc-lists coc-explorer coc-git coc-go coc-json coc-tsserver |q'
+  " Install: vim -c 'CocInstall -sync coc-lists coc-explorer coc-fzf-preview coc-git coc-go coc-json coc-tsserver |q'
   call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
+  call dein#add('antoinemadec/coc-fzf', { 'depends': 'fzf.vim', 'merged': 0, 'rev': 'release' })
 
   if !exists('g:vscode')
     call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
@@ -418,16 +422,6 @@ nnoremap cw ciw
 nnoremap dw diw
 inoremap <C-w> <ESC>ciw
 " }}}
-" # Window {{{
-" FIXME: When setted winmin(height|width), errored unite-outline
-"set winminheight=8
-"set winminwidth=20
-"set winfixheight
-"set winfixwidth
-set splitright    " Default vsplit, left
-set splitbelow    " Default split, top
-set noequalalways " Minimize Window Size
-" }}}
 " # Buffer {{{
 " Inspaired @taku-o's Kwdb.vim
 com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
@@ -514,14 +508,9 @@ if has('persistent_undo')
   endfunction "}}}
 endif
 " }}}
-" # NeoVim loading key {{{
-if has('nvim')
-  source ~/.gvimrc
-endif
-" }}}
 
 " Plugin: coc.nvim {{{
-let g:coc_global_extensions = ['coc-json', 'coc-lists', 'coc-explorer', 'coc-git']
+let g:coc_global_extensions = ['coc-json', 'coc-lists', 'coc-fzf-preview', 'coc-explorer', 'coc-git']
 " }}}
 " Plugin: coc.nvim > coc-explorer {{{
 nnoremap <silent> : :<C-u>CocCommand explorer --toggle<CR>
@@ -530,6 +519,34 @@ nnoremap <silent> <D-1> :<C-u>CocCommand explorer --toggle<CR>
 " TODO: Intellij likeにしたい
 "autocmd FileType explorer nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
 "autocmd FileType explorer nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
+" }}}
+" Plugin: Fzf > https://github.com/yuki-yano/fzf-preview.vim {{{
+" The theme used in the bat preview
+let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'ansi'
+
+let g:fzf_preview_floating_window_rate = 0.8
+" let g:fzf_preview_fzf_preview_window_option = 'up:30%'
+let g:fzf_preview_use_dev_icons = 1
+nnoremap <silent> <C-p> :<C-u>CocCommand fzf-preview.MruFiles<CR>
+nnoremap <silent> <C-n> :<C-u>CocCommand fzf-preview.FromResources buffer project_mrw<CR>
+nnoremap <silent> el :<C-u>CocCommand fzf-preview.Lines<CR>
+nnoremap <silent> ey :<C-u>CocCommand fzf-preview.Yankround<CR>
+nnoremap <silent> ef :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+nnoremap <silent> <D-S-n> :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+
+" TODO: どういうものか調べる
+"nnoremap <silent> <fzf-p><C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+
+let g:fzf_preview_command = 'bat --color=always --plain {-1}'
+"let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path'
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --hidden'
+let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
+let g:fzf_preview_default_fzf_options = {
+      \ '--reverse': v:true,
+      \ '--preview-window': 'wrap',
+      \ '--exact': v:true,
+      \ '--no-sort': v:true,
+      \ }
 " }}}
 " My Plugin: IncrementActivator {{{
 let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {})
@@ -567,12 +584,6 @@ let g:increment_activator_filetype_candidates.go = [
   \ ]
 " }}}
 " My Plugin: Project TODO {{{
-nnoremap <silent> <S-t><S-t> :call OpenMyToDo()<CR>
-function! OpenMyToDo()
-  execute 'e ' . unite#util#path2project_directory(
-    \ unite#util#substitute_path_separator(getcwd())
-    \ ) . '/TODO.rst'
-endfunction
 nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
 nnoremap <silent> <M-t><M-t> :<C-u>edit $HOME/TODO.rst<CR>
 " }}}
@@ -595,202 +606,6 @@ let g:rooter_change_directory_for_non_project_files = 0
 " Plugin: neomru {{{
 let g:neomru#file_mru_limit = 1024
 let g:neomru#filename_format = ':p:~'
-" }}}
-" Plugin: unite.vim {{{
-let g:unite_data_directory =
-  \ get(g:, 'local_unite_data_directory', s:cache_dir . '/unite')
-
-let g:unite_prompt = '☁  '
-
-" history options
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_history_yank_limit  = 50
-
-" color options
-let g:unite_cursor_line_highlight = 'PmenuSel'
-"let g:unite_abbr_highlight       = 'TabLine'
-" }}}
-" Plugin: unite.vim >> key mappings {{{
-
-" >> unite-source: find
-let g:unite_source_find_default_opts = '-L' " Follow symlinks
-" >> unite-source: grep & async
-if executable('rg')
-  let g:unite_source_grep_command = '5g'
-  let g:unite_source_grep_default_opts = '--color never'
-  let g:unite_source_rec_async_command =
-    \ ['ag', '--color never']
-endif
-" >> unite-source: custom > profile
-call unite#custom#profile('default', 'context', {
-  \ 'prompt_direction': 'top',
-  \ 'start_insert': 1,
-  \ 'short_source_names': 1,
-  \ 'wrap': 1,
-  \ 'split': 0,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern' : '[[:alnum:]]',
-  \ 'subst' : '\0',
-  \ 'priority' : 100,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '\$\w\+',
-  \ 'subst': '\=eval(submatch(0))',
-  \ 'priority': 200,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '^@@',
-  \ 'subst': '\=fnamemodify(expand("#"), ":p:h")."/"',
-  \ 'priority': 2,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '^@',
-  \ 'subst': '\=getcwd()."/*"',
-  \ 'priority': 1,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern' : '^\~',
-  \ 'subst' : substitute(
-  \     unite#util#substitute_path_separator($HOME),
-  \           ' ', '\\\\ ', 'g'),
-  \ 'priority' : -100,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern' : '\.\{2,}\ze[^/]',
-  \ 'subst' : "\\=repeat('../', len(submatch(0))-1)",
-  \ 'priority' : 10000,
-  \ })
-call unite#custom#profile('files', 'substitute_patterns', {
-  \ 'pattern': '^;v',
-  \ 'subst': '~/.vim/',
-  \ 'priority': 1,
-  \ })
-" >> unite-source: custom > aliases
-let g:unite_source_alias_aliases = get(g:, 'unite_source_alias_aliases', {})
-let g:unite_source_alias_aliases.workspace = {'source': 'file', 'args': "$HOME/workspace"}
-let g:unite_source_alias_aliases.workspace_rec = {'source': 'file_rec', 'args': "$HOME/workspace"}
-let s:unite_ignore_file_extention_regex = '\.\%(' . join([
-  \   'o',
-  \   'exe', 'dll', 'app',
-  \   'zip', 'tar\.gz',
-  \   'sw[po]', 'vimundo',
-  \   'iml', 'idea',
-  \   'gif', 'jpg', 'jpeg', 'png',
-  \   'svn', 'git', 'bzr', 'hg',
-  \   '__pycache__', 'pyc', 'egg', 'egg-info',
-  \ ]) . '\)$'
-call unite#custom#source(
-  \   'file,neomu/file',
-  \   'ignore_pattern',
-  \   join([
-  \     '^\%(/\|\a\+:/\)$\|\%(^\|/\)\.\.\?$\|\~$',
-  \     s:unite_ignore_file_extention_regex,
-  \   ], '\|')
-  \ )
-call unite#custom#source(
-  \   'file,file_rec,file_rec/async',
-  \   'ignore_pattern',
-  \   join([
-  \     '\%(^\|/\)\.$\|\~$',
-  \     '\%(^\|/\)\.\%(hg\|git\|bzr\|svn\|idea\)\%($\|/\)',
-  \     s:unite_ignore_file_extention_regex,
-  \   ], '\|')
-  \ )
-call unite#custom#source(
-  \ 'buffer,file_rec,file_mru,file_rec,file_rec/async',
-  \ 'converters',
-  \ ['converter_file_directory']
-  \ )
-
-" keymaps
-nnoremap [unite] <Nop>
-xnoremap [unite] <Nop>
-nmap e [unite]
-xmap e [unite]
-
-function! s:define_unite_keymaps() " {{{
-  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
-  imap <buffer> <C-q> <Plug>(unite_exit)
-
-  nmap <buffer> <C-p> k
-  nmap <buffer> <C-n> j
-
-  nmap <silent><buffer> <C-w> <Plug>(unite_delete_backward_word)
-  imap <silent><buffer> <C-w> <Plug>(unite_delete_backward_word)
-  inoremap <silent><buffer> <C-d> <Delete>
-  inoremap <silent><buffer> <C-b> <Left>
-  inoremap <silent><buffer> <C-f> <Right>
-
-  nnoremap <silent><buffer><expr> <C-j> unite#do_action('split')
-  inoremap <silent><buffer><expr> <C-j> unite#do_action('split')
-  nnoremap <silent><buffer><expr> <C-l> unite#do_action('vsplit')
-  inoremap <silent><buffer><expr> <C-l> unite#do_action('vsplit')
-endfunction " }}}
-augroup UniteBufferKeyMappings
-  autocmd!
-  autocmd FileType unite call s:define_unite_keymaps()
-augroup END
-function! s:unite_my_settings() "{{{
-  " Overwrite settings.
-  imap <buffer> <S-z>     <Plug>(unite_exit)
-  nmap <buffer> <S-z>     <Plug>(unite_exit)
-  imap <buffer> <D-z>     <Plug>(unite_exit)
-  nmap <buffer> <D-z>     <Plug>(unite_exit)
-  imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-  imap <buffer> '         <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '         <Plug>(unite_quick_match_default_action)
-  imap <buffer><expr> j   unite#smart_map('j', '')
-  imap <buffer><expr> x   unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-  nmap <buffer> x         <Plug>(unite_quick_match_choose_action)
-  nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-  imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-  nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-  nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-  imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-
-  let s:unite_map_r_action = unite#get_current_unite().profile_name ==# 'search' ? 'replace' : 'rename'
-  nnoremap <silent><buffer><expr> l   unite#smart_map('l', unite#do_action('default'))
-  nnoremap <silent><buffer><expr> cd  unite#do_action('lcd')
-  nnoremap <silent><buffer><expr> r   unite#do_action(s:unite_map_r_action)
-endfunction "}}}
-autocmd FileType unite call s:unite_my_settings()
-nnoremap <C-p> :<C-u>Unite file_mru<CR>
-nnoremap <C-n> :<C-u>Unite buffer bookmark<CR>
-nnoremap <D-b> :<C-u>Unite bookmark<CR>
-"nnoremap <C-b> :<C-u>UniteBookmarkAdd<Space>
-
-nnoremap <silent> [unite]u :<C-u>Unite resume source<CR>
-nnoremap <silent> ?  :<C-u>Unite -buffer-name=search line -winheight=10 -no-quit<CR>
-
-xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
-nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir file -buffer-name=files buffer bookmark file<CR>
-nnoremap <silent> [unite]c :<C-u>UniteWithCurrentDir -buffer-name=files buffer bookmark file<CR>
-nnoremap <silent> [unite]f :<C-u>Unite file_rec/async -buffer-name=files file<CR>
-" for current buffer
-nnoremap <silent> [unite]g :<C-u>Unite grep:%:-iR:<CR>
-nnoremap <silent> [unite]h :<C-u>Unite history/command<CR>
-nnoremap <silent> [unite]l :<C-u>Unite line -no-split -winheight=20<CR>
-nnoremap <silent> [unite]m :<C-u>Unite menu<CR>
-nnoremap <silent> [unite]M :<C-u>Unite mark<CR>
-"nnoremap <silent> [unite]n :<C-u>Unite
-nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]p :<C-u>UniteWithProjectDir file_rec/async -buffer-name=files buffer bookmark file<CR>
-nnoremap <silent> [unite]s :<C-u>Unite snippet<CR>
-nnoremap <silent> [unite]t :<C-u>Unite tig -no-start-insert -no-quit -no-split<CR>
-nnoremap <silent> [unite]w :<C-u>Unite workspace -buffer-name=bookmark<CR>
-nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
-
-nnoremap <silent> [unite]B :<C-u>Unite bookmark<CR>
-nnoremap <silent> [unite]C :<C-u>Unite colorscheme -auto-preview -split -winheight=10 -start-insert<CR>
-nnoremap <silent> [unite]G :<C-u>Unite grep:$:-iR:<CR>
-"nnoremap <silent> [unite]N :<C-u>Unite
-nnoremap <silent> [unite]T :<C-u>Unite -buffer-name=search line
-  \ -wrap -winheight=10 -no-quit<CR>todo\\|fixme\\|warn\\|hackme<ESC>
-nnoremap <silent> [unite]W :<C-u>Unite workspace_rec -buffer-name=bookmark file -input=!vendor <CR>
-
 " }}}
 " Plugin: vim-markdown {{{
 "let g:vim_markdown_folding_level = 2
@@ -843,7 +658,6 @@ if !exists('g:vscode')
       \ fname == '__Tagbar__' ? g:lightline.fname :
       \ fname =~ '__Gundo\|NERD_tree' ? '' :
       \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-      \ &ft == 'unite' ? unite#get_status_string() :
       \ ('' != fname ? fname : '[No Name]') .
       \ ('' != MyModified() ? ' ' . MyModified() : '')
   endfunction
@@ -878,7 +692,6 @@ if !exists('g:vscode')
   function! LightlineMode()
     return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
       \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
-      \ &filetype ==# 'unite' ? 'Unite' :
       \ &filetype ==# 'vimfiler' ? 'VimFiler' :
       \ winwidth(0) > 60 ? lightline#mode() : ''
   endfunction
@@ -916,9 +729,6 @@ if !exists('g:vscode')
     let g:lightline.fname = a:fname
     return lightline#statusline(0)
   endfunction
-
-  let g:unite_force_overwrite_statusline = 0
-  let g:vimfiler_force_overwrite_statusline = 0
 endif
 " }}}
 " Plugin: alpaca_powertabline {{{
@@ -972,27 +782,6 @@ xmap <C-l> <Plug>(Textmanip.move_selection_right)
 " copy selected text-object.
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 "}}}
-" Plugin: unite-tag {{{
-let g:unite_source_tag_max_name_length = 25
-let g:unite_source_tag_max_fname_length = 80
-let g:unite_source_tag_strict_truncate_string = 1
-let g:unite_source_tag_show_location = 1
-let g:unite_source_tag_show_fname = 1
-
-augroup MyUniteTag
-  autocmd!
-  autocmd BufEnter * if empty(&buftype) | nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR> | endif
-  " http://qiita.com/kazu0620/items/d7da3047daed04fc5eba
-  autocmd BufEnter * if empty(&buftype) |  nnoremap <buffer> <C-t> :<C-u>Unite jump<CR> | endif
-augroup END
-" }}}
-" Plugin: unite-tig {{{
-let g:unite_tig_default_line_count = 80
-" }}}
-" Plugin: unite-grep {{{
-let g:unite_source_grep_default_opts = '-Hn'  " By the default
-let g:unite_source_grep_recursive_opt = '-R'  " By the default
-" }}}
 " My Plugin: vim-multiple-switcher {{{
 "let g:multiple_switcher_no_default_key_maps = 1
 nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
@@ -1000,6 +789,14 @@ nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
 nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
 vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
 " }}}
+" Plugin: github.com/ryanoasis/vim-devicons {{{
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+  call webdevicons#refresh()
+endif
+"}}}
 " DarkPoweredPlugins: deol (terminal) {{{
 if has('nvim')
   nnoremap <silent> <Leader>s :<C-u>Deol -split=floating<CR>
@@ -1010,7 +807,6 @@ tnoremap <ESC> <C-\><C-n>
 " }}}
 
 " # <Leader> Mappings "{{{
-nnoremap <silent><Leader><Leader> f<Space>
 " change just before buffer
 nnoremap <silent> <Leader>a :<C-u>b#<CR>
 nnoremap <silent> ,b :<C-u>b#<CR>
