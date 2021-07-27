@@ -1,115 +1,11 @@
 set backup swapfile
 
-let g:myvim_feasures = MYVIM_FEATURES_NORMAL " See .vimrc > # Local Dependency
-
-let g:local_config = {
-  \ 'dotfiles_dir'        : $HOME . '/src/github.com/nishigori/dotfiles',
-  \ 'tmp_dir'             : $HOME . '/.vim/tmp',
-  \ }
-
-"" Not use white space into the statement (Suck!!)
-"set directory=~/.vim/tmp/swap
-"set backupdir=~/.vim/tmp/backup
-"set viewdir=~/.vim/tmp/view
-"if has('persistent_undo')
-"  set undodir=~/.vim/tmp/undo
-"endif
-
-" colorscheme
-if !has('gui_running')
-  let g:colors_name = 'diablo3'
-  set background=dark
-endif
-
-" Sphinx bin path
-"let g:sphinx_build_bin = '/usr/share/python/sphinx-build'
-
-" lint
-"let g:ruby_bin = '/usr/local/bin/ruby'
-
-" neobundle {{{
-let g:neobundle_default_git_protocol = 'https'
-" }}}
-" unite.vim >> source menu {{{
-let g:unite_source_menu_menus = get(g:, 'unite_source_menu_menus', {})
-"let g:unite_source_menu_menus.project =
-"  \ {
-"  \   'description': 'Project resouces',
-"  \   'command_candidates': [
-"  \     ['project/company', 'Unite project/company -no-start-insert -default-action=vimshell'],
-"  \   ],
-"  \ }
-"
-"nnoremap <silent><M-p> :Unite -silent -start-insert menu:project<Cr>
-"nmap <ESC>p <M-p>
-" }}}
 " TweetVim {{{
 let g:tweetvim_display_icon = 1 " Require imagemagick
 " }}}
 " github {{{
 let g:github_user  = ''
 let g:github_token = ''
-" }}}
-" Calendar.vim {{{
-let g:calendar_diary = $HOME.'/tmp/diary'
-" }}}
-
-" vim-startify {{{
-let g:startify_custom_header = [
-  \ '____/\\\________/\\\___/\\\\\\\\\\\___/\\\\____________/\\\\__________',
-  \ '____\/\\\_______\/\\\__\/////\\\///___\/\\\\\\________/\\\\\\__________',
-  \ '_____\//\\\______/\\\_______\/\\\______\/\\\//\\\____/\\\//\\\__________',
-  \ '_______\//\\\____/\\\________\/\\\______\/\\\\///\\\/\\\/_\/\\\__________',
-  \ '_________\//\\\__/\\\_________\/\\\______\/\\\__\///\\\/___\/\\\__________',
-  \ '___________\//\\\/\\\__________\/\\\______\/\\\____\///_____\/\\\__________',
-  \ '_____________\//\\\\\___________\/\\\______\/\\\_____________\/\\\__________',
-  \ '_______________\//\\\_________/\\\\\\\\\\\__\/\\\_____________\/\\\__________',
-  \ '_________________\///_________\///////////___\///______________\///___________',
-  \ '',
-  \ ]
-let g:startify_custom_footer = [
-  \ ' ',
-  \ ' ',
-  \ '                             ﾒ __-─-,-- _',
-  \ '                           ,ｲ >:::::::::::< ヽ〟',
-  \ '                     ヽ─イ /,::::,::::::::＼  ＞─r',
-  \ '                       ヾ〟//:!:::ﾊ::::::|:!:ヽ ,丿',
-  \ '                         ソ r:ﾘﾔ ハ::::::ﾊ:ﾊ::|rﾍ〟',
-  \ '                         Ⅲ:|:| V―ﾍ::::/-ﾙﾞ|/ ﾊﾘ＼     Happy',
-  \ '                         !|:ﾊ:|,-=〟ヽ／,-=.ｿﾊﾘ H        Vimming♡',
-  \ '                         !ヽriｿﾞUｿｿﾞ   "ﾊUｿﾉﾞhNﾉｿ',
-  \ '                         |!ﾊヾヾ｀      ｀´ﾉlﾘ´',
-  \ '                         ﾉ:ﾉﾊ ﾊ      丶     ｸﾊ        ____',
-  \ '          _＿_______(ヽ/(ヾ/ﾊ,:ヽ    冖   ∠||ヽ _-==|リリ!)',
-  \ '      ,-´￢￢─-─／＼＼ ＼ﾉ:ﾊ＼ゝ =- ハvﾉリ:ヾ丿::(⊃´ ｲ==-──´',
-  \ '     ((-====Ξ二二::-´＼ヾ ＼-ヾ::``丶^ )／|:!)!:::<(___/卜-`ヾ=-―´',
-  \ '    ／ｿ  ／ﾊ／ ∠/ --===(  ) ⊂)ヽへ:::)==Η!ηv 》:!>====|≡≡)',
-  \ '    ! ｀ !/ﾘ  ﾘ/:-=="ヽ:ヽ`"   |,   -ﾘﾘﾉ  |!＼乂  ヾ:ﾙ | ﾙ=-"ヾヽ',
-  \ '         | | ハヽ-=/:ﾘヽ::(>___|) -==`" =-v-"===ヽ》|| ﾊ ||ヾ)ﾊ',
-  \ '         ﾊ ! !!ヾ !:/ﾘ/ヽ:ヽ   |/    ‖   /＼ Vim ヽ》 ! ||   ﾘ',
-  \ '    _＿／ｿ    V   //／`|ヽ:ﾊ) |Ｙ   ‖   /:::＼ !  }‖  !||   /',
-  \ '                 ‖  | |/ヽ!ﾘ | |   |   / |:::|＼ヽＶ   |||  (',
-  \ '                     ＼＼ハ|| | |   |   ! |:::| ＼(!＼   ﾘ|   `',
-  \ '                       ＼＼!| | | | |   / |:::|  ＼＼＼__!ﾉ',
-  \ '                           )! | ヾ! /  /  ^::::^   ﾍ ヾ',
-  \ '                          <,/ |  " /  / __!--==-!__ ﾊ ヽ=-- __',
-  \ '                      __====>ヾ／／ ／三二＝＝＝二三!＼＼--    =-- __',
-  \ '                   (-== イ    ／    ‖/ / /   | | ＼＼ ＼   ＼ ＼_=-|',
-  \ '                   ＼    ＼,∠     ‖/ / /    | |   ＼＼＼＼  ｀/  /',
-  \ '                     ＼ ／ ＼      ﾙ ／      仝    !  ＼＼＼,／ ＼/',
-  \ '                     (       >   ////    i   ||  |  i|  ＼＼＼    )',
-  \ '                      ヽ ／_      //     |   ||  |   |   ヽヽ ゞ"',
-  \ '                        ヽヽ/￢/- <" - _ |   Ｙ  |   ||   ヽヽ＜',
-  \ '                          ^"  /"  `  ||  》 /  __|  _||    >  >',
-  \ '                           > > |     || <_____=--_=--->_=->_=ﾞ',
-  \ '                            ヾ_|    /::ヽ_   /    //   !   > >',
-  \ '                                |／":::::ヽ=/,   //    /<=-´',
-  \ '                                |:::::|:::| |===//-===/´',
-  \ '                                ヽ::::|:::|/:::::::::/',
-  \ '                                 |::::|:::ﾘ:::::/:::/',
-  \ '                                 |::::|::::ﾘ:::/:::/',
-  \ ' ',
-  \ ]
 " }}}
 
 " Hooks

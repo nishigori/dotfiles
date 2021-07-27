@@ -75,7 +75,7 @@ endif
 " }}}
 " DependsOS: {{{
 if has('mac') && !has('nvim')
-  set transparency=6
+  set transparency=5
 endif
 if has("gui_macvim")
   " List of Enabled <D- keymap

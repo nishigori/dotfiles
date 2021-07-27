@@ -35,13 +35,15 @@ if has('vim_starting')
 endif
 if has('gui_macvim')
   set shell=/opt/homebrew/bin/zsh
+  let $GOPATH = '/Users/tak/go/1.16.6'
   let $PATH = join([
         \ '/opt/homebrew/bin',
         \ '/opt/homebrew/sbin',
-        \ '~/.anyenv/envs/goenv/shims',
-        \ '~/.anyenv/envs/pyenv/shims',
-        \ '~/.anyenv/envs/nodenv/shims',
-        \ '~/.anyenv/envs/tfenv/bin',
+        \ $GOPATH . '/bin',
+        \ $HOME . '/.anyenv/envs/goenv/shims',
+        \ $HOME . '/.anyenv/envs/pyenv/shims',
+        \ $HOME . '/.anyenv/envs/nodenv/shims',
+        \ $HOME . '/.anyenv/envs/tfenv/bin',
         \ $PATH,
         \ ], ':')
 endif
@@ -61,12 +63,13 @@ set showcmd                    " Highliting bracket set.
 set hidden                     " Enable open new file, when while editing other file.
 set autoread                   " When a file has been detected to have been changed outside
 set history=511
-set viminfo='20,\"150           " Read/write a .viminfo file, don't store more than 50 lines of registers
+set viminfo='20,\"150          " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
-set nofixendofline
+set fixendofline               " Written <EOL> when saved
 set virtualedit+=block         " Block-select to the end of the line for blockwise Visual mode.
 set shortmess+=filmnrxoOtT     " Avoid all the hit-enter prompts
 set title
+set emoji
 set completeopt=menuone        " A comma separated list of options
 set scrolloff=10               " Typewriter mode = keep current line in the center
 set formatoptions+=mM          " This is a sequence of letters
@@ -154,8 +157,10 @@ if dein#load_state(s:dein_dir)
   call dein#add('itchyny/vim-parenmatch')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('LeafCage/yankround.vim')
+  call dein#add('airblade/vim-rooter')
 
   " FileType:
+  call dein#add('editorconfig/editorconfig-vim')
   call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
   call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
   call dein#add('godlygeek/tabular', { 'lazy': 1, 'on_ft': 'markdown' })
@@ -192,7 +197,7 @@ if dein#load_state(s:dein_dir)
 
   " Coc:
   " Ref: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim#using-deinvim
-  " Install: vim -c 'CocInstall -sync coc-lists coc-explorer coc-fzf-preview coc-git coc-go coc-json coc-tsserver |q'
+  " Install: vim -c 'CocInstall -sync coc-explorer coc-fzf-preview coc-git coc-go coc-json coc-tsserver |q'
   call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
   call dein#add('antoinemadec/coc-fzf', { 'depends': 'fzf.vim', 'merged': 0, 'rev': 'release' })
 
@@ -323,6 +328,11 @@ set smartcase   " Override ignorecase option (search contains upper case).
 set nowrapscan  " Searches nowrap around.
 " Search current word
 nnoremap * *N
+
+if executable("rg")
+  let &grepprg = 'rg --vimgrep --hidden > /dev/null'
+  set grepformat=%f:%l:%c:%m
+endif
 " }}}
 " # Copy & Paste {{{
 "set paste " When you're setting paste, can't use inoremap extend ;-<
@@ -385,10 +395,7 @@ augroup END
 " }}}
 " # Moving Cursole {{{
 augroup MovementPreviousSaveLine
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$")
-    \   | exe "normal g`\"" |
-    \ endif
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 augroup END
 
 " for snippet complete
@@ -400,17 +407,15 @@ onoremap k gk
 xnoremap k gk
 nnoremap gj j
 nnoremap gk k
-
 " .bash like
 " but up-down mapped j-k
-inoremap <C-a> <C-o>0
+vnoremap <C-a> <C-o>0
 inoremap <C-e> <C-o>$
-inoremap <C-n> <Down>
+vnoremap <C-n> <Down>
 inoremap <C-p> <Up>
 inoremap <C-b> <Left>
 inoremap <C-f> <Right>
 inoremap <C-d> <Delete>
-
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-b> <Left>
@@ -510,7 +515,66 @@ endif
 " }}}
 
 " Plugin: coc.nvim {{{
-let g:coc_global_extensions = ['coc-json', 'coc-lists', 'coc-fzf-preview', 'coc-explorer', 'coc-git']
+let g:coc_global_extensions = ['coc-json', 'coc-fzf-preview', 'coc-explorer', 'coc-git']
+
+nnoremap <silent> <C-h> :<C-u>call CocAction('doHover')<CR>
+nmap <silent> <D-r> <Plug>(coc-rename)
+
+" coc-go
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+" }}}
+" Plugin: Fzf > https://github.com/junegunn/fzf {{{
+if has('mac')
+  set rtp+=/opt/homebrew/opt/fzf
+endif
+let g:fzf_layout = { 'down': '30%' }
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+"}}}
+" Plugin: Fzf > https://github.com/yuki-yano/fzf-preview.vim {{{
+" The theme used in the bat preview
+let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'ansi'
+
+let g:fzf_preview_git_files_command   = 'git ls-files --exclude-standard | while read line; do if [[ ! -L $line ]] && [[ -f $line ]]; then echo $line; fi; done'
+let g:fzf_preview_floating_window_rate = 0.85
+let g:fzf_preview_fzf_preview_window_option = 'up:30%'
+let g:fzf_preview_use_dev_icons = 1
+let g:fzf_preview_command = 'bat --color=always --plain {-1}'
+" No specify ripgrep for fzf-preview, It's already '&grepprg' changed to ripgrep
+" https://www.reddit.com/r/vim/comments/j87z9u/fzf_ripgrep_is_it_possible_to_omit_file_paths/
+"let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path'
+let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
+let g:fzf_preview_default_fzf_options = {
+      \ '--reverse': v:true,
+      \ '--preview-window': 'wrap',
+      \ '--exact': v:true,
+      \ '--no-sort': v:true,
+      \ }
+
+nnoremap <silent> <C-p> :<C-u>CocCommand fzf-preview.MruFiles<CR>
+nnoremap <silent> <C-n> :<C-u>CocCommand fzf-preview.FromResources buffer project_mrw<CR>
+nnoremap <silent> <C-e> :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<CR>
+nnoremap <silent> el :<C-u>CocCommand fzf-preview.Lines --resume --add-fzf-arg=--no-sort<CR>
+nnoremap <silent> eG :<C-u>CocCommand fzf-preview.ProjectGrep .<CR>
+nnoremap          eg :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
+nnoremap <silent> ey :<C-u>CocCommand fzf-preview.Yankround<CR>
+nnoremap <silent> ef :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+nnoremap <silent> ep :<C-u>execute 'CocCommand fzf-preview.DirectoryFiles '.FindRootDirectory()<CR>
+nnoremap <silent> <D-S-n> :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+
+" TODO: どういうものか調べる
+"nnoremap <silent> <fzf-p><C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
+" Select references from coc.nvim (only coc extensions)
+":CocCommand fzf-preview.CocReferences
+" Open the PR corresponding to the selected line (Required [GitHub cli](https://github.com/cli/cli))
+":CocCommand fzf-preview.BlamePR
+" Definitions: => 定義元にジャンプっぽい
+" Select type definitions from coc.nvim (only coc extensions)
+":CocCommand fzf-preview.CocTypeDefinitions
+" Select implementations from coc.nvim (only coc extensions)
+":CocCommand fzf-preview.CocImplementations
 " }}}
 " Plugin: coc.nvim > coc-explorer {{{
 nnoremap <silent> : :<C-u>CocCommand explorer --toggle<CR>
@@ -519,34 +583,6 @@ nnoremap <silent> <D-1> :<C-u>CocCommand explorer --toggle<CR>
 " TODO: Intellij likeにしたい
 "autocmd FileType explorer nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
 "autocmd FileType explorer nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
-" }}}
-" Plugin: Fzf > https://github.com/yuki-yano/fzf-preview.vim {{{
-" The theme used in the bat preview
-let $FZF_PREVIEW_PREVIEW_BAT_THEME = 'ansi'
-
-let g:fzf_preview_floating_window_rate = 0.8
-" let g:fzf_preview_fzf_preview_window_option = 'up:30%'
-let g:fzf_preview_use_dev_icons = 1
-nnoremap <silent> <C-p> :<C-u>CocCommand fzf-preview.MruFiles<CR>
-nnoremap <silent> <C-n> :<C-u>CocCommand fzf-preview.FromResources buffer project_mrw<CR>
-nnoremap <silent> el :<C-u>CocCommand fzf-preview.Lines<CR>
-nnoremap <silent> ey :<C-u>CocCommand fzf-preview.Yankround<CR>
-nnoremap <silent> ef :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
-nnoremap <silent> <D-S-n> :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
-
-" TODO: どういうものか調べる
-"nnoremap <silent> <fzf-p><C-o> :<C-u>CocCommand fzf-preview.Jumps<CR>
-
-let g:fzf_preview_command = 'bat --color=always --plain {-1}'
-"let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --sort=path'
-let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=never --hidden'
-let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
-let g:fzf_preview_default_fzf_options = {
-      \ '--reverse': v:true,
-      \ '--preview-window': 'wrap',
-      \ '--exact': v:true,
-      \ '--no-sort': v:true,
-      \ }
 " }}}
 " My Plugin: IncrementActivator {{{
 let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {})
@@ -588,24 +624,14 @@ nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
 nnoremap <silent> <M-t><M-t> :<C-u>edit $HOME/TODO.rst<CR>
 " }}}
 " Plugin: vim-rooter {{{
-silent! nmap <silent> <unique> gh <Plug>RooterChangeToRootDirectory
+let g:rooter_manual_only = 1
+let g:rooter_resolve_links = 1
+let g:rooter_cd_cmd = 'lcd'
+let g:rooter_change_directory_for_non_project_files = ''
+let g:rooter_patterns = ['.git/', '.hg/']
 
-let g:rooter_manual_only = 0
-
-let g:rooter_use_lcd = 1
-let g:rooter_patterns = [
-  \   '.git/', '.hg/',
-  \   'Makefile', 'setup.py', 'Rakefile', 'build.xml', 'build.gradle',
-  \   'requirements.txt', 'Gemfile', 'composer.json',
-  \   'README', 'README.txt', 'README.rst', 'README.md', 'README.mkd', 'README.markdown',
-  \   'Guardfile',
-  \   'Vagrantfile',
-  \ ]
-let g:rooter_change_directory_for_non_project_files = 0
-" }}}
-" Plugin: neomru {{{
-let g:neomru#file_mru_limit = 1024
-let g:neomru#filename_format = ':p:~'
+command! GH execute ":lcd " . FindRootDirectory()
+nnoremap <silent> gh :<C-u>GH<CR> :<C-u>pwd<CR>
 " }}}
 " Plugin: vim-markdown {{{
 "let g:vim_markdown_folding_level = 2
@@ -613,21 +639,16 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_no_extensions_in_markdown = 1
 " }}}
-" Plugin: PreserveNoEOL {{{
-"setlocal noeol | let b:PreserveNoEOL = 1
-let b:PreserveNoEOL = 1
-let g:PreserveNoEOL = 1
-" }}}
 " Plugin: lightline.vim {{{
 if !exists('g:vscode')
   let g:lightline = {
     \ 'colorscheme': 'iceberg',
     \ 'active': {
-    \   'left': [ ['mode', 'paste'], ['fugitive', 'git_relative_dir'], ['ctrlpmark'] ],
-    \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ]
+    \   'left': [ ['mode', 'paste'], ['git_relative_dir'], ['ctrlpmark'] ],
+    \   'right': [ ['lineinfo'], ['fileformat', 'fileencoding', 'filetype'], ['coc'] ]
     \ },
     \ 'component_function': {
-    \   'fugitive': 'MyFugitive',
+    \   'coc': 'coc#status',
     \   'filename': 'MyFilename',
     \   'fileformat': 'MyFileformat',
     \   'filetype': 'MyFiletype',
@@ -762,6 +783,10 @@ let g:terraform_fold_sections = 0
 let g:hcl_align = 1
 let g:hcl_fold_sections = 0
 " }}}
+" Plugin: https://github.com/editorconfig/editorconfig-vim {{{
+au FileType gitcommit let b:EditorConfig_disable = 1
+au FileType gitrebase let b:EditorConfig_disable = 1
+"}}}
 " Plugin: vim-go {{{
 let g:go_get_update = 0
 
@@ -773,15 +798,6 @@ let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 " }}}
-" Plugin: vim-textmanip {{{
-let g:textmanip_enable_mappings = get(g:, 'textmanip_enable_mappings', 0)
-xmap <C-j> <Plug>(Textmanip.move_selection_down)
-xmap <C-k> <Plug>(Textmanip.move_selection_up)
-xmap <C-h> <Plug>(Textmanip.move_selection_left)
-xmap <C-l> <Plug>(Textmanip.move_selection_right)
-" copy selected text-object.
-vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-"}}}
 " My Plugin: vim-multiple-switcher {{{
 "let g:multiple_switcher_no_default_key_maps = 1
 nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>

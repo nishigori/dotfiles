@@ -2,8 +2,10 @@
 set lines=80
 set columns=140
 
+set guifont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
+
 " colorscheme
-let g:colors_name = 'OceanicNext'
 set background=dark
+let g:colors_name = 'solarized8_high'
 
 " vim:set fdm=marker ts=2 sw=2 sts=0 expandtab filetype=vim:

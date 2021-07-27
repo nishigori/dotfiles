@@ -25,7 +25,7 @@ $(os)/%:
 -include $(os).mk
 
 
-.PHONY: clean install update $(links) $(credentials) shell/*
+.PHONY: clean install update $(links) shell/*
 
 # Alias
 install: me $(os)/install
@@ -41,7 +41,9 @@ links: $(dir_requires) $(links)
 	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
 $(credentials):
-	$(if $(wildcard ~/$@),, /bin/cp -i ./$@.example ~/$@ && echo "U should edit ~/$@ just putting")
+	cp -i ./$@.example ./$@
+	ln -s $(CURDIR)/$@ ~/$@
+	@echo "U should edit $@ just putting now"
 
 $(dir_requires):
 	@mkdir -p $@
