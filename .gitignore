@@ -23,10 +23,5 @@ tmp/*
 .vim/bundle.vim.local
 .*sw[op]
 
-# Vimperator
-.vimperator/info/*
-.vimperator/local-plugin/*
-
 # Homebrew
-Brewfile
 Brewfile.lock.json

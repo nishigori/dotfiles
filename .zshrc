@@ -34,6 +34,9 @@ case ${OSTYPE} in
             $brew_root/bin(N-/)
             $brew_root/sbin(N-/)
             $brew_root/opt/apr/bin(N-/)
+            $brew_root/opt/avr-gcc@11/bin(N-/)
+            $brew_root/opt/avr-gcc@9/bin(N-/)
+            $brew_root/opt/avr-gcc@8/bin(N-/)
             $brew_root/opt/binutils/bin(N-/)
             $brew_root/opt/bison/bin(N-/)
             $brew_root/opt/bzip2/bin(N-/)
@@ -62,6 +65,7 @@ case ${OSTYPE} in
             $brew_root/opt/openjdk/bin(N-/)
             $brew_root/opt/openldap/bin(N-/)
             $brew_root/opt/openldap/sbin(N-/)
+            $brew_root/opt/qmk/bin/(N-/)
             $brew_root/opt/sqlite/bin(N-/)
 
             $path
@@ -421,3 +425,5 @@ typeset -U ld_library_path
 typeset -T LIBRARY_PATH library_path
 typeset -U library_path
 typeset -U path PATH
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

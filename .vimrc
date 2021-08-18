@@ -88,10 +88,10 @@ nnoremap Y y$
 " }}}
 " # Font "{{{
 if has('nvim')
-  set guifont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
-  set printfont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
+  set guifont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
+  set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
 else
-  set printfont=Hack\ Nerd\ Font:h14,\ Ricty\ Discord\ for\ Powerline:h14,\ Ricty:h14,\ Monaco:h14
+  set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
 endif
 " }}}
 " # Directory Settings {{{
@@ -149,6 +149,7 @@ if dein#load_state(s:dein_dir)
   call dein#add('mattn/webapi-vim')
   call dein#add('nishigori/increment-activator')
   call dein#add('haya14busa/incsearch.vim')
+  call dein#add('bronson/vim-visual-star-search')
 
   " Utility:
   call dein#add('nishigori/vim-multiple-switcher')
@@ -326,8 +327,10 @@ set incsearch   " Typed so far, matches
 set ignorecase  " Ignoring case in a pattern
 set smartcase   " Override ignorecase option (search contains upper case).
 set nowrapscan  " Searches nowrap around.
-" Search current word
+
+" Search cursor words
 nnoremap * *N
+vmap * <Plug>(visualstar-*)N
 
 if executable("rg")
   let &grepprg = 'rg --vimgrep --hidden > /dev/null'

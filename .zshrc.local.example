@@ -16,41 +16,35 @@ case ${OSTYPE} in
     darwin*)
         export HOMEBREW_GITHUB_API_TOKEN="xxxxxxx_YOU_HAVE_TO_INPUT_xxxxxxxxx"
 
+        if [[ "arm64" == "$(uname -m)" ]]; then
+            brew_root=/opt/homebrew
+        else
+            brew_root=$brew_root
+        fi
+
         # => Erlang/OTP version specify
-        path=( /usr/local/opt/erlang@22/bin(N-/) $path )
-        #export LDFLAGS="-L/usr/local/opt/erlang@22/lib"
+        path=( $brew_root/opt/erlang@22/bin(N-/) $path )
+        #export LDFLAGS="-L$brew_root/opt/erlang@22/lib"
 
         # => Go
-        #path=( /usr/local/opt/go@1.15/bin(N-/) $path )
-        #export GOROOT=/usr/local/opt/go@1.15/libexec
+        #path=( $brew_root/opt/go@1.15/bin(N-/) $path )
+        #export GOROOT=$brew_root/opt/go@1.15/libexec
 
         # => Java
         #export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
-        # => Node(JS)
-        if [ -f /usr/local/opt/nodebrew/bin/nodebrew ]; then
-            export NODEBREW_ROOT=/usr/local/var/nodebrew
-            /usr/local/opt/nodebrew/bin/nodebrew setup_dirs
-        fi
-
         # => PHP
-        #path=( /usr/local/opt/php@7.4/bin(N-/) /usr/local/opt/php@7.4/sbin(N-/) $path )
-
-        # => Python
-        if (( $+commands[pyenv] )); then
-            export PYENV_ROOT=/usr/local/opt/pyenv
-            eval "$(pyenv init -)"
-        fi
+        #path=( $brew_root/opt/php@7.4/bin(N-/) $brew_root/opt/php@7.4/sbin(N-/) $path )
 
         # => Ruby
-        #export LDFLAGS="-L/usr/local/opt/ruby/lib"
-        #export CPPFLAGS="-I/usr/local/opt/ruby/include"
-        #export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+        #export LDFLAGS="-L$brew_root/opt/ruby/lib"
+        #export CPPFLAGS="-I$brew_root/opt/ruby/include"
+        #export PKG_CONFIG_PATH="$brew_root/opt/ruby/lib/pkgconfig"
 
         # ==> MySQL
-        path=( /usr/local/opt/mysql@5.8/bin(N-/) $path )
-        #export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
-        #export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
+        #path=( $brew_root/opt/mysql@5.8/bin(N-/) $path )
+        #export LDFLAGS="-L$brew_root/opt/mysql@5.7/lib"
+        #export CPPFLAGS="-I$brew_root/opt/mysql@5.7/include"
 
         # => Docker
         #export DOCKER_TLS_VERIFY=1
