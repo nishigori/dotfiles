@@ -37,6 +37,7 @@
   "go.goplsOptions": {
     "staticcheck": true
   },
+  "explorer.file.showHiddenFiles": true,
   "explorer.autoExpandOptions": [
     "recursiveSingle"
   ]

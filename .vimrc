@@ -563,7 +563,7 @@ nnoremap <silent> el :<C-u>CocCommand fzf-preview.Lines --resume --add-fzf-arg=-
 nnoremap <silent> eG :<C-u>CocCommand fzf-preview.ProjectGrep .<CR>
 nnoremap          eg :<C-u>CocCommand fzf-preview.ProjectGrep<Space>
 nnoremap <silent> ey :<C-u>CocCommand fzf-preview.Yankround<CR>
-nnoremap <silent> ef :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
+nnoremap <silent> ef :<C-u>CocCommand fzf-preview.FromResources git<CR>
 nnoremap <silent> ep :<C-u>execute 'CocCommand fzf-preview.DirectoryFiles '.FindRootDirectory()<CR>
 nnoremap <silent> <D-S-n> :<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>
 
