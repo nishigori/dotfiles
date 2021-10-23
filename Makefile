@@ -3,19 +3,21 @@
 RC_FILES := $(wildcard .*rc) .tmux.conf
 
 # Internal variables that it is (maybe) you do not need to set.
-os           := $(shell uname -s)
-credentials  := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links        := $(RC_FILES) .gitconfig tmp .zsh .zshenv .vim .vimperator .config/dein .config/nvim
-dir_requires := ~/src ~/bin ~/.cache/terraform ~/.config ~/Dropbox $(foreach _v,undo swap backup unite view,~/.cache/vim/$(_v))
-bin_requires := bin/diff-highlight
+os              := $(shell uname -s)
+credentials     := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
+links           := $(RC_FILES) .gitconfig tmp .zsh .zshenv .vim .vimperator .config/dein .config/nvim .config/gh
+dir_requires    := $(HOME)/src $(HOME)/bin $(HOME)/.cache/terraform $(HOME)/.config $(HOME)/Dropbox \
+	$(foreach _v, undo swap backup unite view, $(HOME)/.cache/vim/$(_v))
+bin_requires    := $(if $(shell which diff-highlight),, bin/diff-highlight)
+gh_extensions   := mislav/gh-branch
 
 
-.PHONY: me $(os)/*
-.DEFAULT_GOAL: m3
-
+.DEFAULT_GOAL: me
+.PHONY: me
 me: $(dir_requires) $(bin_requires) links credentials
 	@echo Make me happy :D
 
+.PHONY: all
 all: install lsp golang
 
 # Declared on $(os).mk, It's template
@@ -37,7 +39,7 @@ update: links $(os)/update
 credentials: $(dir_requires) $(credentials)
 
 links: $(dir_requires) $(links)
-	true $(foreach _script, $(wildcard bin/*), && ln -sf $(CURDIR)/$(_script) ~/$(_script))
+	@set -ex; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script);)
 	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
 $(credentials):
@@ -52,13 +54,18 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(@D)
 	@ls -dF ~/$@
 
-zsh: ~/.zplugin/bin ~/.zsh_history ## Configure ZSH
+zsh: $(HOME)/.zinit $(HOME)/.zsh_history ## Configure ZSH
 
-~/.zsh_history:
-	fc -p $(HOME)/.zsh_history
+$(HOME)/.zsh_history:
+	fc -p $@
 
-~/.zplugin/bin:
+$(HOME)/.zinit:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+
+github: $(gh_extensions)
+
+$(gh_extensions):
+	$(if $(filter $@, $(shell gh extension list)),, gh extension install $@)
 
 bin/diff-highlight:
 	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git

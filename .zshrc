@@ -1,5 +1,9 @@
 # My zshrc
 #
+
+# DEBUG: https://stevenvanbael.com/profiling-zsh-startup
+#zmodload zsh/zprof
+
 export TERM="xterm-256color"
 export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR=vi
@@ -46,10 +50,12 @@ case ${OSTYPE} in
             $brew_root/opt/findutils/libexec/gnubin(N-/)
             $brew_root/opt/gcc/bin(N-/)
             $brew_root/opt/gettext/bin(N-/)
+            $brew_root/opt/git/share/git-core/contrib/diff-highlight(N-/)
             $brew_root/opt/gnu-sed/libexec/gnubin(N-/)
             $brew_root/opt/gnu-tar/libexec/gnubin(N-/)
             $brew_root/opt/gnu-time/libexec/gnubin(N-/)
             $brew_root/opt/gnu-which/libexec/gnubin(N-/)
+            $brew_root/opt/go/bin(N-/)
             $brew_root/opt/grep/libexec/gnubin(N-/)
             $brew_root/opt/icu4c/bin(N-/)
             $brew_root/opt/icu4c/sbin(N-/)
@@ -69,6 +75,11 @@ case ${OSTYPE} in
             $brew_root/opt/sqlite/bin(N-/)
 
             $path
+        )
+
+        fpath=(
+            $brew_root/opt/git/share/zsh/site-functions(N-/)
+            $fpath
         )
 
         # local version specify even if
@@ -138,16 +149,14 @@ autoload -Uz _zinit
 ### End of zinit's installer chunk
 zcompile $HOME/.zinit/bin/zinit.zsh 2>/dev/null
 
+zinit ice wait'0'
 zinit light zsh-users/zsh-autosuggestions
+zinit ice wait'0'
 zinit light zsh-users/zsh-syntax-highlighting
 # https://qiita.com/mollifier/items/81b18c012d7841ab33c3
 #zinit light mollifier/anyframe
-
-# https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins
-zinit snippet OMZ::lib/git.zsh
-zinit snippet OMZ::plugins/git/git.plugin.zsh
-
-#zinit snippet https://raw.githubusercontent.com/saltstack/salt/v2019.8/pkg/zsh_completion.zsh
+zinit ice wait'0' as'program' pick'bin/git-dsf'
+zinit light zdharma/zsh-diff-so-fancy
 
 case ${OSTYPE} in
     darwin*)
@@ -200,7 +209,6 @@ setopt globdots              # 明確なドットの指定なしで.から始ま
 zstyle ':completion:*' completer _complete
 # Select complations list like emacs
 zstyle ':completion:*:default' menu select=1
-#zstyle ':completion:*:default' menu select=2
 # Coloring for completion candidates
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -245,14 +253,14 @@ setopt hist_ignore_dups
 setopt hist_no_store
 setopt EXTENDED_HISTORY
 
-peco-select-history() {
-    BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\*?\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
-    CURSOR=${#BUFFER}
-    zle reset-prompt
+incremental_search_history() {
+  selected=`history -E 1 | fzf | cut -b 26-`
+  BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
+  CURSOR=${#BUFFER}
+  zle redisplay
 }
-zle -N peco-select-history
-
-bindkey '^R' peco-select-history
+zle -N incremental_search_history
+bindkey "^R" incremental_search_history
 
 
 ###########
@@ -287,66 +295,43 @@ fi
 #####
 # Git
 #####
-bindkey '^G' peco-select-git-branch
-bindkey "^X^P" peco-checkout-pull-request
+if (( $+commands[gh] )); then eval "$(gh completion -s zsh)"; fi
 
-peco-select-git-branch() {
+bindkey '^O' move_ghq_directories
+bindkey '^G' select-git-branch
+
+move_ghq_directories() {
+    selected=`ghq list | fzf --query "$LBUFFER"`
+    if [ -n "${#selected}" ]; then
+        target_dir="`ghq root`/$selected"
+        echo "cd $target_dir"
+        BUFFER="cd $target_dir"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N move_ghq_directories
+
+select-git-branch() {
   git branch -a --sort=-authordate |
     grep -v -e '->' -e '*' |
     perl -pe 's/^\h+//g' |
     perl -pe 's#^remotes/origin/###' |
     perl -nle 'print if !$c{$_}++' |
-    peco |
+    fzf |
     xargs git checkout
 }
-zle -N peco-select-git-branch
-
-function peco-checkout-pull-request () {
-    local selected_pr_id=$(gh pr list | peco | awk '{ print $1 }')
-    if [ -n "$selected_pr_id" ]; then
-        BUFFER="gh pr checkout ${selected_pr_id}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N peco-checkout-pull-request
+zle -N select-git-branch
 
 
 ##################
 # Kubernates (k8s)
 ##################
-if (( $+commands[kubectl] )); then
-    source <(kubectl completion zsh)
-    alias kc=kubectl
-fi
-
-# https://qiita.com/sonots/items/f82912367693d717ff06
-function gke-activate() {
-  name="$1"
-  zone_or_region="$2"
-  if echo "${zone_or_region}" | grep '[^-]*-[^-]*-[^-]*' > /dev/null; then
-    echo "gcloud container clusters get-credentials \"${name}\" --zone=\"${zone_or_region}\""
-    gcloud container clusters get-credentials "${name}" --zone="${zone_or_region}"
-  else
-    echo "gcloud container clusters get-credentials \"${name}\" --region=\"${zone_or_region}\""
-    gcloud container clusters get-credentials "${name}" --region="${zone_or_region}"
-  fi
-}
-#function kx-complete() {
-#  _values $(gcloud container clusters list | awk '{print $1}')
-#}
-#function kx() {
-#  name="$1"
-#  if [ -z "$name" ]; then
-#    line=$(gcloud container clusters list | peco)
-#    name=$(echo $line | awk '{print $1}')
-#  else
-#    line=$(gcloud container clusters list | grep "$name")
-#  fi
-#  zone_or_region=$(echo $line | awk '{print $2}')
-#  gke-activate "${name}" "${zone_or_region}"
-#}
-#compdef kx-complete kx
+# Currently I'm not using k8s
+#if (( $+commands[kubectl] )); then
+#    source <(kubectl completion zsh)
+#    alias kc=kubectl
+#fi
 
 
 #####################
@@ -354,6 +339,10 @@ function gke-activate() {
 #####################
 export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
+# https://github.com/junegunn/fzf#environment-variables
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+
+if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 
 # Powerful & Colorful command(s)
 if (( $+commands[bat] )); then
@@ -365,21 +354,6 @@ fi
 local ctags_default_opt='-R --exclude=".git*" --sort=yes'
 alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
 alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
-
-if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
-if (( $+commands[gh] ));     then eval "$(gh completion -s zsh)"; fi
-
-bindkey '^O' peco-src
-function peco-src () {
-    local selected_dir=$(ghq list | peco --query "$LBUFFER")
-    if [ -n "$selected_dir" ]; then
-        selected_dir="$HOME/src/$selected_dir"
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
-    zle clear-screen
-}
-zle -N peco-src
 
 
 #####
@@ -429,3 +403,6 @@ typeset -U library_path
 typeset -U path PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# DEBUG: https://stevenvanbael.com/profiling-zsh-startup
+#zprof
