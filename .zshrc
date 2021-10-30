@@ -156,7 +156,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 # https://qiita.com/mollifier/items/81b18c012d7841ab33c3
 #zinit light mollifier/anyframe
 zinit ice wait'0' as'program' pick'bin/git-dsf'
-zinit light zdharma/zsh-diff-so-fancy
+zinit light aenda/zsh-diff-so-fancy
 
 case ${OSTYPE} in
     darwin*)
