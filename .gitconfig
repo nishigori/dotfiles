@@ -19,8 +19,8 @@
 
 [pager]
 	;; diff-highlight is {git-repo}/contrib/diff-highlight/diff-highlight
-	log   = ~/bin/diff-highlight | less --no-init --quit-if-one-screen
-	#diff  = ~/bin/diff-highlight | less --no-init --quit-if-one-screen
+	log   = diff-highlight | less --no-init --quit-if-one-screen
+	#diff  = diff-highlight | less --no-init --quit-if-one-screen
 	diff  = diff-so-fancy | less --no-init --quit-if-one-screen --tabs=4 -RFXS --pattern '^(Date|added|deleted|modified): '
 	grep  = less --no-init --quit-if-one-screen
 	stash = false
