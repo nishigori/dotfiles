@@ -105,17 +105,17 @@ alias pu='git push -u origin $(git symbolic-ref --short HEAD)'
 alias pushu='git push -u origin $(git symbolic-ref --short HEAD)'
 alias s='git status -sb'
 alias st='git status'
-alias co='git checkout'
-alias cob='git checkout -b'
-alias fv='git fetch --verbose --prune'
-alias pv='git pull --verbose'
+alias co='git switch'
+alias cob='git cob'
+alias fv='git fv'
+alias pv='git pv'
 alias ci='git commit'
 alias cim='git commit -m'
-alias di='git diff --ignore-space-change'
-alias dic='git diff --cached --ignore-space-change'
+alias di='git --no-pager di'
+alias dic='git --no-pager dic'
 alias dis='git diff --stat'
 alias dis='git diff --stat'
-alias hist="log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'"
+alias hist="git hist"
 
 # ls using https://github.com/Peltoche/lsd
 if (( $+commands[lsd] )); then
