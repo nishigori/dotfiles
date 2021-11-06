@@ -10,6 +10,11 @@ set refs-view-date-format = "%Y-%m-%d %H:%M"
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 
+# See: .config/gh/config.yml
+bind generic P @gh openpr %(commit)
+# TODO: awaiting "gh browse" command supports page of commit
+bind generic O @sh -c "open `gh browse -n`/commit/%(commit)"
+
 bind diff ; view-next
 bind diff l scroll-right
 bind diff h scroll-left

@@ -9,5 +9,16 @@ pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
     co: pr checkout
+    openpr: '!gh searchpr $1 | xargs -I ISSUE_NUMBER gh pr view ISSUE_NUMBER --web'
+    searchpr: |-
+        !gh api graphql -F owner=:owner -F repo=:repo -F hash=$1 -f query='
+          query($repo:String!, $owner:String!, $hash:String!) {
+            repository(name: $repo, owner: $owner) {
+              object(expression: $hash) {
+                ... on Commit { associatedPullRequests(first: 1) { edges { node { number } } } }
+              }
+            }
+          }
+        ' | jq -r ".data.repository.object.associatedPullRequests.edges[0].node.number"
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
