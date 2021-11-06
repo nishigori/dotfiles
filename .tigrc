@@ -15,6 +15,10 @@ bind generic P @gh openpr %(commit)
 # TODO: awaiting "gh browse" command supports page of commit
 bind generic O @sh -c "open `gh browse -n`/commit/%(commit)"
 
+bind generic y @sh -c "printf %(commit) | pbcopy"
+# TODO: tig開いたままghコマンド結果に移れればヤンクする必要なくなる
+bind generic Y @sh -c "printf `gh searchpr %(commit)` | pbcopy"
+
 bind diff ; view-next
 bind diff l scroll-right
 bind diff h scroll-left
