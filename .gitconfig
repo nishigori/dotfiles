@@ -3,6 +3,7 @@
 	editor       = vim
 	excludesfile = ~/.gitignore
 	quotepath    = false
+	pager        = delta
 	#pager        = diff-so-fancy | less --no-init --quit-if-one-screen --tabs=4 -RFX
 
 [color]
@@ -16,12 +17,25 @@
 
 [grep]
 	lineNumber = true
+;
+;; brew install git-delta
+;; delta is https://github.com/dandavison/delta
+[delta]
+	plus-style = "syntax #012800"
+	minus-style = "syntax #340001"
+	;; $ delta --list-syntax-themes
+	syntax-theme = Solarized (dark)
+	line-numbers = true
+	navigate = true
+
+[interactive]
+	diffFilter = delta --color-only
 
 [pager]
-	;; diff-highlight is {git-repo}/contrib/diff-highlight/diff-highlight
-	log   = diff-highlight | less -RFXS
-	#diff  = diff-highlight | less -RFXS
-	diff  = diff-so-fancy | less -RFX -x4 --pattern '^(Date|added|deleted|modified): '
+	log   = delta | less -RFXS
+	reflog = delta
+	diff  = delta
+	show = delta
 	grep  = less --no-init --quit-if-one-screen
 	stash = false
 
@@ -58,12 +72,6 @@
 
 [ghq]
 	root = ~/src
-
-#[interactive]
-#	diffFilter = diff-so-fancy --patch
-
-[diff-so-fancy]
-	stripLeadingSymbols = false
 
 [color "diff-highlight"]
 	oldNormal = magenta bold
