@@ -112,6 +112,15 @@ brew 'rust'
 brew 'procs'
 # Powerful 'cat' https://github.com/sharkdp/bat
 brew 'bat'
+# bat-extras: https://github.com/eth-p/bat-extras
+#brew 'eth-p/software/bat-extras'
+brew 'bat-extras'
+brew 'bat-extras-batdiff'
+brew 'bat-extras-batgrep'
+brew 'bat-extras-batman'
+brew 'bat-extras-batpipe'
+brew 'bat-extras-batwatch'
+brew 'bat-extras-prettybat'
 # Powerful 'find' https://github.com/sharkdp/fd
 brew 'fd'
 # Powerful 'grep' https://github.com/BurntSushi/ripgrep
