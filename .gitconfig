@@ -3,7 +3,7 @@
 	editor       = vim
 	excludesfile = ~/.gitignore
 	quotepath    = false
-	pager        = delta
+	#pager        = delta
 	#pager        = diff-so-fancy | less --no-init --quit-if-one-screen --tabs=4 -RFX
 
 [color]
@@ -32,10 +32,10 @@
 	diffFilter = delta --color-only
 
 [pager]
-	log   = delta | less -RFXS
-	reflog = delta
-	diff  = delta
-	show = delta
+	#log   = delta | less -RFXS
+	#reflog = delta
+	#diff  = delta
+	#show = delta
 	grep  = less --no-init --quit-if-one-screen
 	stash = false
 
@@ -69,6 +69,28 @@
 	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
 	souji     = !git branch --merged | grep -v -e '^[*]' -e "$(git default)" | xargs -r git branch -d
 	master    = !git switch $(git default) && git fv && git rebase origin/$(git default) -v
+	today-numstat = !"f(){ \
+	  git log \
+	  --numstat \
+	  --branches \
+	  --no-merges \
+	  --since=midnight \
+	  --author=\"$(git config user.name)\" \
+	  | awk 'NF==3 {a+=$1; d+=$2} END { \
+	    printf(\"%d (\\x1b[32m+%d\\033[m, \\x1b[31m-%d\\033[m)\\n\", a+d, a, d)\
+	  }'; \
+	};f"
+	q-numstat = !"f(){ \
+	  git log \
+	  --numstat \
+	  --branches \
+	  --no-merges \
+	  --since=\"3 months ago\" \
+	  --author=\"$(git config user.name)\" \
+	  | awk 'NF==3 {a+=$1; d+=$2} END { \
+	    printf(\"%d (\\x1b[32m+%d\\033[m, \\x1b[31m-%d\\033[m)\\n\", a+d, a, d)\
+	  }'; \
+	};f"
 
 [ghq]
 	root = ~/src

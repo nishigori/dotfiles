@@ -1,28 +1,49 @@
 {
-  "editor.fontSize":10,
+  "workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
+  "files.autoSave": "afterDelay",
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.wordWrap": "on",
+  "editor.bracketPairColorization.enabled": true,
   "editor.renderLineHighlight": "line",
-
-  "terminal.integrated.fontSize": 10,
-
+  "editor.fontFamily": "'Hack Nerd Font Mono', 'Hack Nerd Font', Menlo, monospace",
+  "editor.fontSize": 16,
+  "editor.scrollBeyondLastLine": false,
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.env.osx": {
+    "PATH": "$HOME/bin:/opt/homebrew/bin:$PATH"
+  },
+  "terminal.integrated.profiles.osx": {
+    "zsh": {
+      "path": "zsh",
+      "args": [
+        "-l"
+      ]
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "bash": null,
+    "fish": null,
+    "pwsh": null
+  },
+  "markdown.preview.fontSize": 14,
   "files.trimTrailingWhitespace": true,
   "files.exclude": {
     "**/.git": true,
-    "**/.DS_Store": true
+    "**/.DS_Store": true,
+    "**/.terraform": true,
   },
-
   "search.exclude": {
     "**/*.tar.gz": true,
+    "**/*.zip": true,
+    "**/.terraform": true,
   },
-
-  "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry"    : false,
-
   // for vim
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
   "vim.debug.silent": true,
-  "vim.autoindent" :true,
+  "vim.autoindent": true,
   "vim.hlsearch": true,
   "vim.highlightedyank.enable": true,
   "vim.easymotion": true,
@@ -30,39 +51,187 @@
   "vim.useSystemClipboard": true,
   "vim.ignorecase": true,
   "vim.camelCaseMotion.enable": true,
-  "vim.useCtrlKeys": false,
+  "vim.useCtrlKeys": true,
   "vim.leader": "<space>",
-  "vim.normalModeKeyBindings": [
-  ],
+  "vim.normalModeKeyBindings": [],
   "vim.normalModeKeyBindingsNonRecursive": [
-    // TODO: adding nnoremap
-    // - :edit ~/TODO.rst
-    {"before": [";"], "after": [":"]},
-    {"before": [":"], "after": [";"]},
-    {"before": ["ctrl+a"], "after": ["ctrl+o", "0"]},
-    {"before": ["<tab>"], "commands": [":tabnext"]},
-    {"before": ["<shift+tab>"], "commands": [":tabprevious"]},
+    {
+      "before": [
+        ";"
+      ],
+      "after": [
+        ":"
+      ]
+    },
+    {
+      "before": [
+        ":"
+      ],
+      "after": [
+        ";"
+      ]
+    },
+    {
+      "before": [
+        "ctrl+a"
+      ],
+      "after": [
+        "ctrl+o",
+        "0"
+      ]
+    },
+    {
+      "before": [
+        "<tab>"
+      ],
+      "commands": [
+        ":tabnext"
+      ]
+    },
+    {
+      "before": [
+        "<shift+tab>"
+      ],
+      "commands": [
+        ":tabprevious"
+      ]
+    },
     // "c", "i", "w" しても動かない https://github.com/VSCodeVim/Vim/issues/2975
-    //{"before": ["c", "w"], "after": ["i", "w"]},
-    {"before": ["c", "w"], "after": ["i", "w"]},
-    {"before": ["d", "w"], "after": ["i", "w"]},
-    {"before": ["j"], "after": ["g", "j"]},
-    {"before": ["k"], "after": ["g", "k"]},
-    {"before": ["Y"], "after": ["y", "$"]},
-    {"before": ["t", "n"], "commands": [":tabnew "]},
+    {
+      "before": [
+        "c",
+        "w"
+      ],
+      "after": [
+        "i",
+        "w"
+      ]
+    },
+    {
+      "before": [
+        "c",
+        "w"
+      ],
+      "after": [
+        "i",
+        "w"
+      ]
+    },
+    {
+      "before": [
+        "d",
+        "w"
+      ],
+      "after": [
+        "i",
+        "w"
+      ]
+    },
+    {
+      "before": [
+        "j"
+      ],
+      "after": [
+        "g",
+        "j"
+      ]
+    },
+    {
+      "before": [
+        "k"
+      ],
+      "after": [
+        "g",
+        "k"
+      ]
+    },
+    {
+      "before": [
+        "Y"
+      ],
+      "after": [
+        "y",
+        "$"
+      ]
+    },
+    {
+      "before": [
+        "t",
+        "n"
+      ],
+      "commands": [
+        ":tabnew "
+      ]
+    },
+    {
+      "before": [
+        "<Tab>"
+      ],
+      "commands": [
+        ":tabnext<CR>"
+      ]
+    },
+    // increment-activator
+    {
+      "before": [
+        "ctrl+a"
+      ],
+      "commands": [
+        ":call increment_activator#increment()"
+      ],
+    },
+    {
+      "before": [
+        "ctrl+x"
+      ],
+      "commands": [
+        ":call increment_activator#decrement()"
+      ],
+    },
   ],
-  "vim.insertModeKeyBindings":[
-  ],
+  "vim.insertModeKeyBindings": [],
   "vim.insertModeKeyBindingsNonRecursive": [
-    {"before": ["ctrl+a"], "after": ["ctrl+o", "0"]},
-    {"before": ["ctrl+e"], "after": ["ctrl+o", "$"]},
+    {
+      "before": [
+        "ctrl+a"
+      ],
+      "after": [
+        "ctrl+o",
+        "0"
+      ]
+    },
+    {
+      "before": [
+        "ctrl+e"
+      ],
+      "after": [
+        "ctrl+o",
+        "$"
+      ]
+    },
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
-    {"before": [";"], "after": [":"]},
-    {"before": [":"], "after": [";"]},
+    {
+      "before": [
+        ";"
+      ],
+      "after": [
+        ":"
+      ]
+    },
+    {
+      "before": [
+        ":"
+      ],
+      "after": [
+        ";"
+      ]
+    },
   ],
-
   // Languages
+  "go.alternateTools": {
+    "go": "/opt/homebrew/bin/go"
+  },
   "[markdown]": {
     "editor.tabSize": 2,
     "editor.quickSuggestions": true,
@@ -70,6 +239,8 @@
   },
   "vsicons.dontShowNewVersionMessage": true,
   "restructuredtext.confPath": "",
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 2,
   "workbench.iconTheme": "vscode-icons",
+  "explorer.confirmDragAndDrop": false,
+  "terminal.integrated.defaultProfile.osx": "zsh",
 }

@@ -1833,6 +1833,8 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>43AAC00A-E965-4B75-8E15-8F028292660C</string>
+	<key>EnableAPIServer</key>
+	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>

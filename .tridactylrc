@@ -29,6 +29,11 @@ bind --mode=normal <C-n> tabnext
 set searchurls.amazon https://www.amazon.co.jp/s/ref=nb_sb_noss?url=search-alias=aps&field-keywords=
 set searchurls.g https://www.google.com/search?q=
 
+" Ignore tridactyl site(s)
+set superignore
+seturl https://www.netbk.co.jp noiframe true
+blacklistadd www.netbk.co.jp
+
 " Search
 bind / fillcmdline find
 bind ? fillcmdline find -?
