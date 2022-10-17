@@ -2,12 +2,14 @@
 #
 # For Darwin
 #
-EDITOR      := vscode
-BREW        := /usr/local/bin/brew
-BREW_MAS    := /usr/local/bin/mas
-
-VSCODE            := /usr/local/bin/code
-VSCODE_EXTENSIONS := $(shell grep -v -e '^\#' -e '^$$' .vscode/_plugins.txt)
+EDITOR := vscode
+ifeq (arm64,$(arch))
+BREW   := /opt/homebrew/bin/brew
+VSCODE := /opt/homebrew/bin/code
+else
+BREW   := /usr/local/bin/brew
+VSCODE := /usr/local/bin/code
+endif
 
 DEFAULT_ARCH := $(shell uname -m)
 
@@ -33,21 +35,17 @@ brew/bundle:
 	brew bundle
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
-vscode: $(VSCODE) $(VSCODE_EXTENSIONS)
+vscode: $(VSCODE)
 	@find $(json_dir) -maxdepth 1 -type f -name 'settings.json' -o -name 'keybindings.json' | xargs rm -f
-	@ln -sf $(CURDIR)/.vscode/settings.json $(json_dir)/settings.json
-	@ln -sf $(CURDIR)/.vscode/keybindings.json $(json_dir)/keybindings.json
+	ln -sf $(CURDIR)/.vscode/settings.json $(json_dir)/settings.json
+	ln -sf $(CURDIR)/.vscode/keybindings.json $(json_dir)/keybindings.json
 	# for vscodevim.vim extension: https://github.com/VSCodeVim/Vim#-installation
 	-defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 	-defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
+	-defaults write com.visualstudio.code.oss ApplePressAndHoldEnabled -bool false
+	-defaults write com.microsoft.VSCodeExploration ApplePressAndHoldEnabled -bool false
 	-defaults delete -g ApplePressAndHoldEnabled
 
 $(VSCODE): $(BREW)
-	which $@ 2>/dev/null || brew cask install visual-studio-code
+	$(if $(wildcard $@),, brew cask install visual-studio-code)
 	@mkdir -p ~/.vscode/extensions
-
-# Extensions name is defined by itemName of URI
-# e.g.)  (hoge.hoge) https://marketplace.visualstudio.com/items?itemName=hoge.hoge
-$(VSCODE_EXTENSIONS): installed_lists = $(shell code --list-extensions)
-$(VSCODE_EXTENSIONS): $(VSCODE)
-	$(if $(filter $@,$(installed_lists)),, $< --install-extension $@)
