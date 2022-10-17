@@ -33,9 +33,7 @@ if has('vim_starting')
   set runtimepath^=$HOME/.vim
   set runtimepath+=$HOME/.vim/after
 endif
-if has('gui_macvim')
-  set shell=/opt/homebrew/bin/zsh
-  let $GOPATH = '/Users/tak/go/1.16.6'
+if has('gui_macvim') || exists('g:vscode')
   let $PATH = join([
         \ '/opt/homebrew/bin',
         \ '/opt/homebrew/sbin',
@@ -48,21 +46,12 @@ if has('gui_macvim')
         \ ], ':')
 endif
 " }}}
-" # encoding {{{
-" Note: Kaoriya MacVim is needless encoding.
-if !has('nvim') && (!has('gui_macvim') || !has('kaoriya'))
-  " INFO: If encode is fixed, :e ++enc={encoding-name}
-  set encoding=utf-8
-  set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
-endif
-" }}}
 " # Basic "{{{
 "filetype plugin indent on
 set nocompatible               " Use Vim defaults (much better!)
 set showcmd                    " Highliting bracket set.
 set hidden                     " Enable open new file, when while editing other file.
 set autoread                   " When a file has been detected to have been changed outside
-set history=511
 set viminfo='20,\"150          " Read/write a .viminfo file, don't store more than 50 lines of registers
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set fixendofline               " Written <EOL> when saved
@@ -75,6 +64,7 @@ set scrolloff=10               " Typewriter mode = keep current line in the cent
 set formatoptions+=mM          " This is a sequence of letters
 set visualbell t_vb=           " no bell
 if !exists('g:vscode')
+  set history=511
   set ambiwidth=double
 endif
 set splitright                 " Default vsplit, left
@@ -85,14 +75,6 @@ let mapleader = " "
 
 " Like nmap 'D' and 'C'
 nnoremap Y y$
-" }}}
-" # Font "{{{
-if has('nvim')
-  set guifont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
-  set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
-else
-  set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
-endif
 " }}}
 " # Directory Settings {{{
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
@@ -141,69 +123,74 @@ if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
   " TextOperation:
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('vim-scripts/smartchr')
-  call dein#add('itchyny/vim-cursorword')
-  call dein#add('thinca/vim-zenspace')
-  call dein#add('vim-scripts/matchit.zip')
-  call dein#add('mattn/webapi-vim')
   call dein#add('nishigori/increment-activator')
-  call dein#add('haya14busa/incsearch.vim')
-  call dein#add('bronson/vim-visual-star-search')
 
   " Utility:
-  call dein#add('nishigori/vim-multiple-switcher')
   call dein#add('tyru/open-browser.vim')
   call dein#add('tyru/urilib.vim')
-  call dein#add('itchyny/vim-parenmatch')
-  call dein#add('ryanoasis/vim-devicons')
   call dein#add('LeafCage/yankround.vim')
-  call dein#add('airblade/vim-rooter')
-
-  " FileType:
-  call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
-  call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
-  call dein#add('godlygeek/tabular', { 'lazy': 1, 'on_ft': 'markdown' })
-  call dein#add('plasticboy/vim-markdown', { 'depends': 'tabular', 'lazy': 1, 'on_ft': 'markdown' })
-  call dein#add('jtriley/vim-rst-headings', { 'lazy': 1, 'on_ft': [['python', 'rst', 'rest']] })
-  call dein#add('ekalinin/Dockerfile.vim', { 'lazy': 1, 'on_ft': [['docker', 'Dockerfile']] })
-  call dein#add('puppetlabs/puppet-syntax-vim', { 'lazy': 1, 'on_ft': 'puppet' })
-  call dein#add('rdolgushin/groovy.vim', { 'lazy': 1, 'on_ft': 'groovy' })
-  call dein#add('hashivim/vim-terraform', { 'lazy': 1, 'on_ft': [['tf', 'tfvars', 'terraform']] })
-  call dein#add('rust-lang/rust.vim', { 'lazy': 1, 'on_ft': [['rs', 'rlib']] })
-
-  " ColorSchemes:
-  "call dein#add('jacoborus/tender.vim', { 'merged': 0 })
-  "call dein#source('tender.vim')
-  call dein#add('cocopon/iceberg.vim', { 'merged': 0 })
-  call dein#source('iceberg.vim')
-  call dein#add('lifepillar/vim-solarized8')
-  colorscheme solarized8_high
-  autocmd vimenter * ++nested colorscheme solarized8_high
 
   " Treesitter:
   if has('nvim')
     call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
   endif
 
-  " Fzf:
-  call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-  "call dein#add('junegunn/fzf.vim')
-  call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
-  " TODO: いつかnvim onlyになったら入れ替える https://github.com/nvim-telescope/telescope.nvim
-  "call dein#add('nvim-lua/popup.nvim')
-  "call dein#add('nvim-lua/plenary.nvim')
-  "call dein#add('nvim-telescope/telescope.nvim')
-
-  " Coc:
-  " Ref: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim#using-deinvim
-  " Install: vim -c 'CocInstall -sync coc-explorer coc-fzf-preview coc-git coc-go coc-json coc-tsserver |q'
-  call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
-  call dein#add('antoinemadec/coc-fzf', { 'depends': 'fzf.vim', 'merged': 0, 'rev': 'release' })
-
   if !exists('g:vscode')
-    call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
+    " ColorSchemes:
+    "call dein#add('jacoborus/tender.vim', { 'merged': 0 })
+    "call dein#source('tender.vim')
+    call dein#add('cocopon/iceberg.vim', { 'merged': 0 })
+    call dein#source('iceberg.vim')
+    call dein#add('lifepillar/vim-solarized8')
+    colorscheme solarized8_high
+    autocmd vimenter * ++nested colorscheme solarized8_high
+
+    " TextOperation:
+    call dein#add('vim-scripts/smartchr')
+    call dein#add('itchyny/vim-cursorword')
+    call dein#add('scrooloose/nerdcommenter')
+    call dein#add('thinca/vim-zenspace')
+    call dein#add('vim-scripts/matchit.zip')
+    call dein#add('mattn/webapi-vim')
+    call dein#add('haya14busa/incsearch.vim')
+    call dein#add('bronson/vim-visual-star-search')
+
+    " Utility:
+    call dein#add('nishigori/vim-multiple-switcher')
+    call dein#add('itchyny/vim-parenmatch')
+    call dein#add('ryanoasis/vim-devicons')
+    call dein#add('airblade/vim-rooter')
+
+    " FileType:
+    call dein#add('editorconfig/editorconfig-vim')
+    call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
+    call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
+    call dein#add('godlygeek/tabular', { 'lazy': 1, 'on_ft': 'markdown' })
+    call dein#add('plasticboy/vim-markdown', { 'depends': 'tabular', 'lazy': 1, 'on_ft': 'markdown' })
+    call dein#add('jtriley/vim-rst-headings', { 'lazy': 1, 'on_ft': [['python', 'rst', 'rest']] })
+    call dein#add('ekalinin/Dockerfile.vim', { 'lazy': 1, 'on_ft': [['docker', 'Dockerfile']] })
+    call dein#add('puppetlabs/puppet-syntax-vim', { 'lazy': 1, 'on_ft': 'puppet' })
+    call dein#add('rdolgushin/groovy.vim', { 'lazy': 1, 'on_ft': 'groovy' })
+    call dein#add('hashivim/vim-terraform', { 'lazy': 1, 'on_ft': [['tf', 'tfvars', 'terraform']] })
+    call dein#add('rust-lang/rust.vim', { 'lazy': 1, 'on_ft': [['rs', 'rlib']] })
+    call dein#add('bazelbuild/vim-bazel', { 'depends': 'vim-maktaba', 'lazy': 1, 'on_ft': 'bzl' })
+    call dein#add('google/vim-maktaba', { 'lazy': 1, 'on_ft': 'bzl' })
+
+    " Fzf:
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+    "call dein#add('junegunn/fzf.vim')
+    call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
+    " TODO: いつかnvim onlyになったら入れ替える https://github.com/nvim-telescope/telescope.nvim
+    "call dein#add('nvim-lua/popup.nvim')
+    "call dein#add('nvim-lua/plenary.nvim')
+    "call dein#add('nvim-telescope/telescope.nvim')
+
+    " Coc:
+    " Ref: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim#using-deinvim
+    " Install: vim -c 'CocInstall -sync coc-explorer coc-fzf-preview coc-git coc-go coc-json coc-tsserver |q'
+    call dein#add('neoclide/coc.nvim', { 'merged': 0, 'rev': 'release', 'build': 'yarn install --frozen-lockfile' })
+    call dein#add('antoinemadec/coc-fzf', { 'depends': 'fzf.vim', 'merged': 0, 'rev': 'release' })
+
     call dein#add('itchyny/lightline.vim')
     call dein#add('osyo-manga/vim-anzu', { 'depends': 'lightline.vim' })
   endif
@@ -254,56 +241,6 @@ set expandtab " replaced Tab with Indent
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
-" }}}
-" # Color Scheme {{{
-set t_Co=256
-if has("termguicolors")
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
-" For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-
-set background=dark
-
-" Add cursorline at the current window.
-augroup cch
-  autocmd!
-  autocmd WinLeave * set nocursorline
-  autocmd WinEnter,BufRead * set cursorline
-augroup END
-
-" highlighting target of long line.
-if exists('&colorcolumn')
-  set colorcolumn=+1
-  "nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<CR>
-  nnoremap <silent> <Leader>l :<C-u>set<Space>list!<Space>colorcolumn=-1<CR>
-endif
-" }}}
-" # Alt Key {{{
-" By Sir.thinca http://d.hatena.ne.jp/thinca/20101215/1292340358
-if has('unix') && !has('gui_running')
-  " TODO: もう必要ない？
-  " Use meta keys in console.
-  "function! s:use_meta_keys()  " {{{2
-  "  for i in map(
-  "    \   range(char2nr('a'), char2nr('z'))
-  "    \ + range(char2nr('A'), char2nr('Z'))
-  "    \ + range(char2nr('0'), char2nr('9'))
-  "    \ , 'nr2char(v:val)')
-  "    " <ESC>O do not map because used by arrow keys.
-  "    if i != 'O'
-  "      execute 'nmap <ESC>' . i '<M-' . i . '>'
-  "    endif
-  "  endfor
-  "endfunction  " }}}2
-
-  "call s:use_meta_keys()
-  "map <NUL> <C-Space>
-  "map! <NUL> <C-Space>
-endif
 " }}}
 " # Status Bar {{{
 set ruler
@@ -430,60 +367,8 @@ nnoremap cw ciw
 nnoremap dw diw
 inoremap <C-w> <ESC>ciw
 " }}}
-" # Buffer {{{
-" Inspaired @taku-o's Kwdb.vim
-com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
-nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
-" }}}
-" # Fold, View {{{
-nnoremap <Leader>f za
-if !has('nvim')
-  set foldcolumn=4
-  " INFO: foldlevel moved to each fplugin
-  "set foldlevel=0
-  set fillchars+=fold:-
-endif
-" Don't save options.
-set viewoptions-=options
-" }}}
-" # Directory {{{
-set autochdir
-augroup AutoChDir
-  autocmd!
-  au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
-augroup END
-" Change directory. vim-users.jp Hack #69
-nnoremap <silent> cd :<C-u>CD<CR>
-command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
-function! s:ChangeCurrentDir(directory, bang) "{{{2
-  if a:directory == ''
-    lcd %:p:h
-  else
-    execute 'lcd' . a:directory
-  endif
-
-  if a:bang == ''
-    pwd
-  endif
-endfunction "}}}
-" }}}
 " # Dictionary {{{
 set dictionary=$HOME/.vim/dict/default.dict
-" }}}
-" # Ctags {{{
-if has('path_extra') && &filetype !~ 'zsh\|conf'
-  setlocal tags=~/tags
-  setlocal tags+=.
-  if filereadable("tags")
-    setlocal tags+=tags
-  endif
-  if filereadable("tags-ja")
-    setlocal tags+=tags-ja
-  endif
-
-  set showfulltag
-  set notagbsearch
-endif
 " }}}
 " # Spell {{{
 " @see https://github.com/vim-jp/vimdoc-ja/blob/master/doc/spell.jax
@@ -516,7 +401,168 @@ if has('persistent_undo')
   endfunction "}}}
 endif
 " }}}
+if !exists('g:vscode')
+" # encoding {{{
+" Note: Kaoriya MacVim is needless encoding.
+if !has('nvim') && (!has('gui_macvim') || !has('kaoriya'))
+  " INFO: If encode is fixed, :e ++enc={encoding-name}
+  set encoding=utf-8
+  set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
+endif
+" }}}
+" # Font "{{{
+if !exists('g:vscode')
+  if has('nvim')
+    set guifont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
+    set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
+  else
+    set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
+  endif
+endif
+" }}}
+" # Color Scheme {{{
+set t_Co=256
+if has("termguicolors")
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
+" For Neovim 0.1.3 and 0.1.4
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
+set background=dark
+
+" Add cursorline at the current window.
+augroup cch
+  autocmd!
+  autocmd WinLeave * set nocursorline
+  autocmd WinEnter,BufRead * set cursorline
+augroup END
+
+" highlighting target of long line.
+if exists('&colorcolumn')
+  set colorcolumn=+1
+  "nnoremap <silent> <Leader>l :<C-u>set<Space>spell!<Space>list!<Space>colorcolumn=-1<CR>
+  nnoremap <silent> <Leader>l :<C-u>set<Space>list!<Space>colorcolumn=-1<CR>
+endif
+" }}}
+" # Buffer {{{
+  " Inspaired @taku-o's Kwdb.vim
+  com! Kwbd let kwbd_bn= bufnr("%")|enew|exe "bdel ".kwbd_bn|unlet kwbd_bn
+  nnoremap <silent> <Leader>d :<C-u>:Kwbd<CR>
+" }}}
+" # Fold, View {{{
+nnoremap <Leader>f za
+if !has('nvim')
+  set foldcolumn=4
+  " INFO: foldlevel moved to each fplugin
+  "set foldlevel=0
+  set fillchars+=fold:-
+endif
+" Don't save options.
+set viewoptions-=options
+" }}}
+" # Directory {{{
+  set autochdir
+  augroup AutoChDir
+    autocmd!
+    au BufEnter * execute ":silent! lcd " . escape(expand("%:p:h"), ' ')
+  augroup END
+  " Change directory. vim-users.jp Hack #69
+  nnoremap <silent> cd :<C-u>CD<CR>
+  command! -nargs=? -complete=dir -bang CD  call s:ChangeCurrentDir('<args>', '<bang>')
+  function! s:ChangeCurrentDir(directory, bang) "{{{2
+    if a:directory == ''
+      lcd %:p:h
+    else
+      execute 'lcd' . a:directory
+    endif
+
+    if a:bang == ''
+      pwd
+    endif
+  endfunction "}}}
+" }}}
+" # Ctags {{{
+if has('path_extra') && &filetype !~ 'zsh\|conf'
+  setlocal tags=~/tags
+  setlocal tags+=.
+  if filereadable("tags")
+    setlocal tags+=tags
+  endif
+  if filereadable("tags-ja")
+    setlocal tags+=tags-ja
+  endif
+
+  set showfulltag
+  set notagbsearch
+endif
+" }}}
+endif
+
+" My Plugin: IncrementActivator {{{
+let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {})
+let g:increment_activator_filetype_candidates['_'] = [
+  \   ['light', 'dark'],
+  \   ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
+  \   ['previous', 'current', 'next'],
+  \   ['ぬるぽ', 'ガッ'],
+  \   ['=', ':='],
+  \   ['true', 'false'],
+  \   ['月','火','水','木','金','土','日'],
+  \ ]
+" For AWS
+call add(g:increment_activator_filetype_candidates['_'], ['dedicated', 'default'])
+call add(g:increment_activator_filetype_candidates['_'], ['standard', 'io1', 'io2', 'gp2', 'gp3'])
+let g:increment_activator_filetype_candidates['php'] = [
+  \   ['private', 'protected', 'public'],
+  \   ['extends', 'implements'],
+  \   ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
+  \ ]
+let g:increment_activator_filetype_candidates['vim'] = [
+  \   ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
+  \   ['nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap'],
+  \   ['Home', 'End', 'Left', 'Right', 'Delete'],
+  \   ['has', 'has_key', 'exists'],
+  \ ]
+let g:increment_activator_filetype_candidates.go = [
+  \   ['true', 'false', 'iota', 'nil'],
+  \   ['print', 'println'],
+  \   ['byte', 'complex64', 'complex128'],
+  \   ['int', 'int8', 'int16', 'int32', 'int64'],
+  \   ['uint', 'uint8', 'uint16', 'uint32', 'uint64'],
+  \   ['float32', 'float64'],
+  \   ['interface', 'struct'],
+  \ ]
+" }}}
+" My Plugin: Project TODO {{{
+nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
+nnoremap <silent> <M-t><M-t> :<C-u>edit $HOME/TODO.rst<CR>
+" }}}
+" Plugin: indent-guides {{{
+" INFO: auto highlight indent-space.
+let g:indent_guides_color_change_percent = 30
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
+" }}}
+" Plugin: matchit.vim {{{
+" INFO: Extended % command.
+"if filereadable($HOME . '/macros/matchit.vim')
+if filereadable(s:dein_dir . '/repos/matchit.zip/plugin/matchit.vim')
+  runtime macros/matchit.vim
+  let b:match_words = 'if:endif'
+  let b:match_ignorecase = 1
+endif
+" }}}
+" My Plugin: vim-multiple-switcher {{{
+"let g:multiple_switcher_no_default_key_maps = 1
+nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
+nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
+nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
+vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
+" }}}
+if !exists('g:vscode')
 " Plugin: coc.nvim {{{
 let g:coc_global_extensions = ['coc-json', 'coc-fzf-preview', 'coc-explorer', 'coc-git']
 
@@ -525,7 +571,6 @@ nmap <silent> <D-r> <Plug>(coc-rename)
 
 " coc-go
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
-
 " }}}
 " Plugin: Fzf > https://github.com/junegunn/fzf {{{
 if has('mac')
@@ -586,45 +631,6 @@ nnoremap <silent> <D-1> :<C-u>CocCommand explorer --toggle<CR>
 " TODO: Intellij likeにしたい
 "autocmd FileType explorer nmap <buffer> <ESC> <Plug>(vimfiler_switch_to_other_window)
 "autocmd FileType explorer nmap <buffer> <D-r> <Plug>(vimfiler_rename_file)
-" }}}
-" My Plugin: IncrementActivator {{{
-let g:increment_activator_filetype_candidates = get(g:, 'increment_activator_filetype_candidates', {})
-let g:increment_activator_filetype_candidates['_'] = [
-  \   ['light', 'dark'],
-  \   ['pick', 'squash', 'edit', 'reword', 'fixup', 'exec'],
-  \   ['previous', 'current', 'next'],
-  \   ['ぬるぽ', 'ガッ'],
-  \   ['=', ':='],
-  \   ['true', 'false'],
-  \   ['月','火','水','木','金','土','日'],
-  \ ]
-" For AWS
-call add(g:increment_activator_filetype_candidates['_'], ['dedicated', 'default'])
-call add(g:increment_activator_filetype_candidates['_'], ['standard', 'io1', 'io2', 'gp2', 'gp3'])
-let g:increment_activator_filetype_candidates['php'] = [
-  \   ['private', 'protected', 'public'],
-  \   ['extends', 'implements'],
-  \   ['assert', 'depends', 'dataProvider', 'expectedException', 'group', 'test'],
-  \ ]
-let g:increment_activator_filetype_candidates['vim'] = [
-  \   ['nnoremap', 'xnoremap', 'inoremap', 'vnoremap', 'cnoremap', 'onoremap'],
-  \   ['nmap', 'xmap', 'imap', 'vmap', 'cmap', 'omap'],
-  \   ['Home', 'End', 'Left', 'Right', 'Delete'],
-  \   ['has', 'has_key', 'exists'],
-  \ ]
-let g:increment_activator_filetype_candidates.go = [
-  \   ['true', 'false', 'iota', 'nil'],
-  \   ['print', 'println'],
-  \   ['byte', 'complex64', 'complex128'],
-  \   ['int', 'int8', 'int16', 'int32', 'int64'],
-  \   ['uint', 'uint8', 'uint16', 'uint32', 'uint64'],
-  \   ['float32', 'float64'],
-  \   ['interface', 'struct'],
-  \ ]
-" }}}
-" My Plugin: Project TODO {{{
-nnoremap <silent> <D-t><D-t> :<C-u>edit $HOME/TODO.rst<CR>
-nnoremap <silent> <M-t><M-t> :<C-u>edit $HOME/TODO.rst<CR>
 " }}}
 " Plugin: vim-rooter {{{
 let g:rooter_manual_only = 1
@@ -764,21 +770,6 @@ endif
 let g:ac_smooth_scroll_du_sleep_time_msec = 1
 let g:ac_smooth_scroll_fb_sleep_time_msec = 1
 " }}}
-" Plugin: indent-guides {{{
-" INFO: auto highlight indent-space.
-let g:indent_guides_color_change_percent = 30
-let g:indent_guides_guide_size = 1
-let g:indent_guides_enable_on_vim_startup = 1
-" }}}
-" Plugin: matchit.vim {{{
-" INFO: Extended % command.
-"if filereadable($HOME . '/macros/matchit.vim')
-if filereadable(s:dein_dir . '/repos/matchit.zip/plugin/matchit.vim')
-  runtime macros/matchit.vim
-  let b:match_words = 'if:endif'
-  let b:match_ignorecase = 1
-endif
-" }}}
 " Plugin: https://github.com/hashivim/vim-terraform {{{
 let g:terraform_fmt_on_save = 1
 let g:terraform_align = 1
@@ -801,13 +792,6 @@ let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 " }}}
-" My Plugin: vim-multiple-switcher {{{
-"let g:multiple_switcher_no_default_key_maps = 1
-nnoremap <silent> ,p :<C-u>call multiple_switcher#switch('paste')<CR>
-nnoremap <silent> ,e :<C-u>call multiple_switcher#switch('expandtab')<CR>
-nnoremap <silent> ,w :<C-u>call multiple_switcher#switch('wrap')<CR>
-vnoremap <silent> ,n :<C-u>call multiple_switcher#switch('number')<CR>
-" }}}
 " Plugin: github.com/ryanoasis/vim-devicons {{{
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
@@ -824,6 +808,7 @@ else
 endif
 tnoremap <ESC> <C-\><C-n>
 " }}}
+endif
 
 " # <Leader> Mappings "{{{
 " change just before buffer

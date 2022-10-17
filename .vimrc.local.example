@@ -1,8 +1,8 @@
-set backup swapfile
+if !exists('g:vscode')
+  set shell=/opt/homebrew/bin/zsh
+  set backup swapfile
+endif
 
-" TweetVim {{{
-let g:tweetvim_display_icon = 1 " Require imagemagick
-" }}}
 " github {{{
 let g:github_user  = ''
 let g:github_token = ''
