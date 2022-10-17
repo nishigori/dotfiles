@@ -4,6 +4,10 @@
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
 #zmodload zsh/zprof
 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 export TERM="xterm-256color"
 export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR=vi
@@ -41,6 +45,7 @@ case ${OSTYPE} in
             $brew_root/opt/avr-gcc@11/bin(N-/)
             $brew_root/opt/avr-gcc@9/bin(N-/)
             $brew_root/opt/avr-gcc@8/bin(N-/)
+            $brew_root/opt/berkeley-db@4/bin(N-/)
             $brew_root/opt/binutils/bin(N-/)
             $brew_root/opt/bison/bin(N-/)
             $brew_root/opt/bzip2/bin(N-/)
@@ -71,6 +76,7 @@ case ${OSTYPE} in
             $brew_root/opt/openjdk/bin(N-/)
             $brew_root/opt/openldap/bin(N-/)
             $brew_root/opt/openldap/sbin(N-/)
+            $brew_root/opt/openssl@3/bin(N-/)
             $brew_root/opt/qmk/bin/(N-/)
             $brew_root/opt/sqlite/bin(N-/)
 
@@ -101,6 +107,9 @@ alias -g g='git'
 alias -g p='git add -p'
 alias mm='git master && git souji'
 alias master='git master && git souji'
+alias gg='git grep'
+alias gl='git grep -l'
+alias h='git hist origin/$(git default)^..@'
 alias pu='git push -u origin $(git symbolic-ref --short HEAD)'
 alias pushu='git push -u origin $(git symbolic-ref --short HEAD)'
 alias s='git status -sb'
@@ -170,31 +179,28 @@ case ${OSTYPE} in
 esac
 
 # [Theme]
-zinit ice from"gh"
-zinit load bhilburn/powerlevel9k
+zinit ice deps=1
+zinit load romkatv/powerlevel10k
 # https://github.com/bhilburn/powerlevel9k#available-prompt-segments
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_DISABLE_RPROMPT=false
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RBENV_PROMPT_ALWAYS_SHOW=false
-POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=false
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_VCS_SHOW_SUBMODULE_DIRTY=false
-POWERLEVEL9K_VCS_HIDE_TAGS=true
-POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes)
-#POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
-POWERLEVEL9K_VCS_HG_HOOKS=()
-POWERLEVEL9K_VCS_SVN_HOOKS=()
+POWERLEVEL10K_MODE='nerdfont-complete'
+POWERLEVEL10K_DISABLE_RPROMPT=false
+POWERLEVEL10K_PROMPT_ON_NEWLINE=true
+POWERLEVEL10K_RBENV_PROMPT_ALWAYS_SHOW=false
+POWERLEVEL10K_PYENV_PROMPT_ALWAYS_SHOW=false
+POWERLEVEL10K_SHORTEN_DIR_LENGTH=3
+POWERLEVEL10K_VCS_SHOW_SUBMODULE_DIRTY=false
+POWERLEVEL10K_VCS_HIDE_TAGS=true
+POWERLEVEL10K_VCS_GIT_HOOKS=(vcs-detect-changes)
+#POWERLEVEL10K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
+POWERLEVEL10K_VCS_HG_HOOKS=()
+POWERLEVEL10K_VCS_SVN_HOOKS=()
 
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL='echo @ $(git symbolic-ref --short HEAD 2>/dev/null)'
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
-POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
+POWERLEVEL10K_CUSTOM_WIFI_SIGNAL='echo @ $(git symbolic-ref --short HEAD 2>/dev/null)'
+POWERLEVEL10K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
+POWERLEVEL10K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
-#if [ -z "$ZSH_THEME" ]; then
-#    zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
-#fi
+POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
+POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 
 
 #############
@@ -232,10 +238,12 @@ compinit
 ###########
 # WordChars
 ###########
-WORDCHARS='*?_.[]~&;!#$%^(){}<>'
+export WORDCHARS=' *?.[]~-=&;!#$%^(){}<>/|,'
 
 autoload -Uz select-word-style
 select-word-style default
+zstyle ':zle:*' word-chars $WORDCHARS
+zstyle ':zle:*' word-style unspecified
 
 
 #########
@@ -403,6 +411,10 @@ typeset -U library_path
 typeset -U path PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
 #zprof

@@ -4,12 +4,13 @@ RC_FILES := $(wildcard .*rc) .tmux.conf
 
 # Internal variables that it is (maybe) you do not need to set.
 os              := $(shell uname -s)
+arch             = $(shell arch)
 credentials     := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
-links           := $(RC_FILES) .gitconfig tmp .zsh .zshenv .vim .vimperator .config/dein .config/nvim .config/gh
+links           := $(RC_FILES) .gitconfig tmp .zsh .zshenv .p10k.zsh .vim .vimperator .config/dein .config/nvim .config/gh .config/prs .config/firefox
 dir_requires    := $(HOME)/src $(HOME)/bin $(HOME)/.cache/terraform $(HOME)/.config $(HOME)/Dropbox \
 	$(foreach _v, undo swap backup unite view, $(HOME)/.cache/vim/$(_v))
 bin_requires    := $(if $(shell which diff-highlight),, bin/diff-highlight)
-gh_extensions   := mislav/gh-branch
+gh_extensions   := mislav/gh-branch dlvhdr/gh-prs
 
 
 .DEFAULT_GOAL: me
