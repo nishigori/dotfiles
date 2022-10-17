@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/bashrc.pre.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.pre.bash"
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 
@@ -109,20 +111,14 @@ alias hl='history'
 # SVN
 export SVN_EDITOR=vim
 
-# ctags
-# ctag config file is .ctags
-alias ctag='ctags -R ./'
-
-# throw watchr's path
-# for phpunit-stack
-PATH="/var/lib/gems/1.8/bin:$PATH"
-#alias phpwatchr='watchr $HOME/workspace/phpunit-stack/watchr.rb'
-alias phpwatchr='cd $HOME/workspace/phpunit-stack; watchr watchr.rb'
-
 # For golang
-export GOROOT=/usr/local/Cellar/go/1.1.2
-export GOPATH=~/.go
-export PATH=$PATH:$GOROOT/bin
+export GOPATH=$HOME
+export PATH=$GOROOT/bin:$PATH
 
 
 # vim:set foldmethod=marker ts=2 sw=2 sts=0 expandtab:
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/bashrc.post.bash" ]] && builtin source "$HOME/.fig/shell/bashrc.post.bash"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
