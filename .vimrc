@@ -78,7 +78,7 @@ nnoremap Y y$
 " }}}
 " # Directory Settings {{{
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-let s:cache_dir = s:cache_home . 'vim'
+let s:cache_dir = s:cache_home . has('nvim') ? 'nvim' : 'vim'
 if !isdirectory(s:cache_dir)
   call system('mkdir -p ' . s:cache_dir . '/{swap,backup,view,undo}')
 endif
@@ -86,11 +86,20 @@ endif
 set backup swapfile
 
 " Not use white space into the statement (Suck!!)
-set directory=~/.cache/vim/swap
-set backupdir=~/.cache/vim/backup
-set viewdir=~/.cache/vim/view
-if has('persistent_undo')
-  set undodir=~/.cache/vim/undo
+if has('nvim')
+  set directory=~/.cache/nvim/swap
+  set backupdir=~/.cache/nvim/backup
+  set viewdir=~/.cache/nvim/view
+  if has('persistent_undo')
+    set undodir=~/.cache/nvim/undo
+  endif
+else
+  set directory=~/.cache/vim/swap
+  set backupdir=~/.cache/vim/backup
+  set viewdir=~/.cache/vim/view
+  if has('persistent_undo')
+    set undodir=~/.cache/vim/undo
+  endif
 endif
 " }}}
 " # Local Dependency {{{
@@ -128,7 +137,15 @@ if dein#load_state(s:dein_dir)
   " Utility:
   call dein#add('tyru/open-browser.vim')
   call dein#add('tyru/urilib.vim')
+  " TOOD: need for nvim?
   call dein#add('LeafCage/yankround.vim')
+
+  " NeoVim More Dependencies
+  if has('nvim')
+      call dein#add('nvim-lua/popup.nvim')
+      call dein#add('nvim-lua/plenary.nvim')
+      call dein#add('MunifTanjim/nui.nvim')
+  endif
 
   " Treesitter:
   if has('nvim')
@@ -147,24 +164,31 @@ if dein#load_state(s:dein_dir)
 
     " TextOperation:
     call dein#add('vim-scripts/smartchr')
-    call dein#add('itchyny/vim-cursorword')
     call dein#add('scrooloose/nerdcommenter')
     call dein#add('thinca/vim-zenspace')
     call dein#add('vim-scripts/matchit.zip')
     call dein#add('mattn/webapi-vim')
     call dein#add('haya14busa/incsearch.vim')
-    call dein#add('bronson/vim-visual-star-search')
+    if !has('nvim')
+      call dein#add('itchyny/vim-cursorword')
+      call dein#add('bronson/vim-visual-star-search')
+    endif
 
     " Utility:
     call dein#add('nishigori/vim-multiple-switcher')
     call dein#add('itchyny/vim-parenmatch')
-    call dein#add('ryanoasis/vim-devicons')
     call dein#add('airblade/vim-rooter')
+    if has('nvim')
+      call dein#add('kyazdani42/nvim-web-devicons')
+      call dein#add('rcarriga/nvim-notify')
+    else
+      call dein#add('ryanoasis/vim-devicons')
+    endif
 
     " FileType:
     call dein#add('editorconfig/editorconfig-vim')
     call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
-    call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
+    "call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
     call dein#add('godlygeek/tabular', { 'lazy': 1, 'on_ft': 'markdown' })
     call dein#add('plasticboy/vim-markdown', { 'depends': 'tabular', 'lazy': 1, 'on_ft': 'markdown' })
     call dein#add('jtriley/vim-rst-headings', { 'lazy': 1, 'on_ft': [['python', 'rst', 'rest']] })
@@ -177,13 +201,13 @@ if dein#load_state(s:dein_dir)
     call dein#add('google/vim-maktaba', { 'lazy': 1, 'on_ft': 'bzl' })
 
     " Fzf:
-    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-    "call dein#add('junegunn/fzf.vim')
-    call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
-    " TODO: いつかnvim onlyになったら入れ替える https://github.com/nvim-telescope/telescope.nvim
-    "call dein#add('nvim-lua/popup.nvim')
-    "call dein#add('nvim-lua/plenary.nvim')
-    "call dein#add('nvim-telescope/telescope.nvim')
+    if has('nvim')
+      call dein#add('nvim-telescope/telescope.nvim')
+    else
+      call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+      "call dein#add('junegunn/fzf.vim')
+      call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
+    endif
 
     " Coc:
     " Ref: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim#using-deinvim
@@ -267,7 +291,9 @@ set nowrapscan  " Searches nowrap around.
 
 " Search cursor words
 nnoremap * *N
-vmap * <Plug>(visualstar-*)N
+if !has('nvim')
+  vmap * <Plug>(visualstar-*)N
+endif
 
 if executable("rg")
   let &grepprg = 'rg --vimgrep --hidden > /dev/null'
