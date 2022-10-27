@@ -52,6 +52,7 @@ cask 'homebrew/cask-drivers/zsa-wally'
 #cask 'gifcapture'
 #cask 'krisp'
 
+brew 'wezterm'
 brew 'openssl@1.1'
 brew 'libressl'
 #brew 'vim'

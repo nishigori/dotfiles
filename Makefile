@@ -1,6 +1,6 @@
 # Makefile in nishigori/dotfiles
 #
-RC_FILES := $(wildcard .*rc) .tmux.conf
+RC_FILES := $(wildcard .*rc) .wezterm.lua .tmux.conf
 
 # Internal variables that it is (maybe) you do not need to set.
 os              := $(shell uname -s)
