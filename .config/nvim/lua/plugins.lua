@@ -54,15 +54,20 @@ return require("packer").startup(function(use)
         tabline = {
           lualine_a = {
             -- Show git project of git
-            function () return vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t") end,
+            function() return vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t") end,
           },
           lualine_b = {
             -- The relative path under the git-root
-            function () return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), '') end,
+            function()
+              return string.gsub(
+                vim.api.nvim_buf_get_name(0),
+                vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":p"), --vim.loop.cwd(),
+                '')
+            end,
           },
           lualine_c = {
             -- Get current function name from tyru/current-func-info.vim
-            function () return vim.api.nvim_eval('cfi#format("%s", "")') end,
+            function() return vim.api.nvim_eval('cfi#format("%s", "")') end,
           },
           lualine_x = {"filetype"},
           lualine_y = {
@@ -86,7 +91,7 @@ return require("packer").startup(function(use)
         },
         sections = {
           lualine_a = {
-            function () return [[]] end,
+            function() return [[]] end,
             "mode",
           },
           lualine_b = {"branch", "diff"},
@@ -101,15 +106,6 @@ return require("packer").startup(function(use)
           component_separators = { left = "", right = "|" },
         },
       }
-    end
-  }
-  --  
-  use { "kdheepak/tabline.nvim",
-    config = function()
-      require("tabline").setup {
-        enable = false, -- used on lualine.nvim
-      }
-      vim.cmd[[set sessionoptions+=tabpages,globals]]
     end
   }
   use { "norcalli/nvim-colorizer.lua",
@@ -150,6 +146,7 @@ return require("packer").startup(function(use)
           extensions = {
             tf = "terraform",
             tfvars = "terraform",
+            tfstate = "json",
           },
           complex = {
             [".*git/config"] = "gitconfig",
@@ -175,6 +172,11 @@ return require("packer").startup(function(use)
             end
           end,
           additional_vim_regex_highlighting = false,
+        },
+        rainbow = {
+          enable = true,
+          extended_module = true,
+          max_file_lines = 2500,
         },
         indent = {
           enable = true,
@@ -204,6 +206,7 @@ return require("packer").startup(function(use)
       }
     end,
   }
+  use { "p00f/nvim-ts-rainbow" }
   use { "RRethy/vim-illuminate",
     config = function()
       require("illuminate").configure({
@@ -327,6 +330,29 @@ return require("packer").startup(function(use)
       })
     end
   }
+  use { "jayp0521/mason-null-ls.nvim",
+    requires = {"jose-elias-alvarez/null-ls.nvim", "williamboman/mason.nvim"},
+    config = function()
+      require("null-ls").setup()
+      require("mason-null-ls").setup {
+        -- https://github.com/jayp0521/mason-null-ls.nvim#available-null-ls-sources
+        ensure_installed = {
+          "buildifier", -- bzl
+          "hadolint", -- dockerfile
+          "goimports", -- go
+          "stylua", -- lua
+          "buf", -- protobuf
+          "psalm", -- php
+          "jq", -- json
+        }
+      }
+    end
+  }
+  use { "folke/trouble.nvim",
+    config = function()
+      require("trouble").setup()
+    end
+  }
   use { "glepnir/lspsaga.nvim",
     branch = "main",
     config = function()
@@ -335,6 +361,11 @@ return require("packer").startup(function(use)
       saga.init_lsp_saga({
         -- TODO: configuration
       })
+    end
+  }
+  use { "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
     end
   }
 
@@ -348,6 +379,16 @@ return require("packer").startup(function(use)
       --"hrsh7th/cmp-vsnip",
       "onsails/lspkind.nvim",
     }
+  }
+  use { "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    config = function ()
+      vim.schedule(function()
+        require("copilot").setup {
+          copilot_node_command = 'node', -- Node version must be < 18
+        }
+      end)
+    end,
   }
 
 end)
