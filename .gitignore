@@ -13,6 +13,7 @@ tmp/*
 .gvimrc.local
 .vimperatorrc.local
 .config/dein/plugins.local.toml
+.config/prs/sections.yml
 
 # Vim
 .vim/bundle/*
