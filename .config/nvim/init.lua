@@ -19,6 +19,7 @@ local options = {
   guifont = "Hack Nerd Font:h16",
   termguicolors = true,
   list = true,
+  laststatus = 3 -- https://wed.dev/blog/posts/neovim-statuline
 }
 
 for k, v in pairs(options) do
@@ -42,11 +43,11 @@ require('plugins')
 vim.cmd[[autocmd BufWritePost plugins.lua PackerCompile]]
 
 -- Tree-sitter
-vim.o.foldcolumn = "1"
+vim.o.foldcolumn = "3"
 vim.o.foldlevel = 99 -- large value depends by nvim-ufo
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
---vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Terraform
 -- TODO: move to filetype.lua ?

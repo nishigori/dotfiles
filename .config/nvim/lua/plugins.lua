@@ -15,6 +15,7 @@ return require("packer").startup(function(use)
   use "nishigori/increment-activator"
 
   -- Utility
+  use "tyru/current-func-info.vim"
   use "tyru/open-browser.vim"
   use { "rcarriga/nvim-notify",
     config = function()
@@ -39,7 +40,7 @@ return require("packer").startup(function(use)
         dark_float = true,
         comment_style = "italic",
         --keyword_style = "italic",
-        function_style = "italic",
+        --function_style = "italic",
         --variable_style = "italic",
       }
     end
@@ -50,7 +51,70 @@ return require("packer").startup(function(use)
       require("lualine").setup {
         icons_enabled = true,
         theme = "papercolor_dark", -- "auto", ...
+        tabline = {
+          lualine_a = {
+            -- Show git project of git
+            function () return vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t") end,
+          },
+          lualine_b = {
+            -- The relative path under the git-root
+            function () return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), '') end,
+          },
+          lualine_c = {
+            -- Get current function name from tyru/current-func-info.vim
+            function () return vim.api.nvim_eval('cfi#format("%s", "")') end,
+          },
+          lualine_x = {"filetype"},
+          lualine_y = {
+            {
+              "diagnostics",
+              sources = { "nvim_lsp", "nvim_diagnostic" },
+              sections = { "error", "warn", "info", "hint" },
+              colored = true,
+              update_in_insert = false,
+              always_visible = true,
+              diagnostics_color = {
+                -- Same values as the general color option can be used here.
+                error = "DiagnosticError", -- Changes diagnostics' error color.
+                warn  = "DiagnosticWarn",  -- Changes diagnostics' warn color.
+                info  = "DiagnosticInfo",  -- Changes diagnostics' info color.
+                hint  = "DiagnosticHint",  -- Changes diagnostics' hint color.
+              },
+            },
+          },
+          lualine_z = {},
+        },
+        sections = {
+          lualine_a = {
+            function () return [[]] end,
+            "mode",
+          },
+          lualine_b = {"branch", "diff"},
+          lualine_c = {},
+          lualine_x = {"location"},
+          lualine_y = {"progress"},
+          lualine_z = {},
+        },
+        options = {
+          globalstatus = true,
+          section_separators = { left = "", right = "" },
+          component_separators = { left = "", right = "|" },
+        },
       }
+    end
+  }
+  --  
+  use { "kdheepak/tabline.nvim",
+    config = function()
+      require("tabline").setup {
+        enable = false, -- used on lualine.nvim
+      }
+      vim.cmd[[set sessionoptions+=tabpages,globals]]
+    end
+  }
+  use { "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
     end
   }
   use { "kevinhwang91/nvim-ufo",
@@ -96,6 +160,7 @@ return require("packer").startup(function(use)
   }
 
   -- Text Object
+  use { "andymass/vim-matchup" } -- % で block jump をもっと高性能に
   use { "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     config = function()
@@ -131,6 +196,11 @@ return require("packer").startup(function(use)
           "typescript",
           "yaml",
         },
+        -- andymass/vim-matchup
+        matchup = {
+          enable = true,
+          disable = {},
+        }
       }
     end,
   }
@@ -207,6 +277,7 @@ return require("packer").startup(function(use)
 
       t.load_extension("notify")
       t.load_extension("fzf")
+      t.load_extension("projects")
 
     end,
   }
@@ -253,6 +324,16 @@ return require("packer").startup(function(use)
           "tsserver",
           "yamlls",
         }
+      })
+    end
+  }
+  use { "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+      local saga = require("lspsaga")
+
+      saga.init_lsp_saga({
+        -- TODO: configuration
       })
     end
   }

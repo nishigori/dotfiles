@@ -56,9 +56,12 @@ local telescope = require('telescope.builtin')
 vim.keymap.set('n', '<d-a>', telescope.builtin)
 vim.keymap.set('n', '<d-s-a>', telescope.builtin)
 --keymap('n', '<d-s-a>', ':Telescope builtin<CR>', opts)
-keymap('n', ',,', ':Telescope builtin<CR>', opts)
+keymap('n', ',,', ':Telescope builtin theme=get_dropdown<CR>', opts)
 keymap('n', 'q;', ':Telescope command_history theme=get_ivy<CR>', opts)
-vim.keymap.set('n', ',f', function() telescope.find_files({hidden=true}) end, {})
+vim.keymap.set('n', ',f', function() telescope.find_files({
+  hidden=true,
+  previewer=false,
+}) end, {})
 vim.keymap.set('n', ',g', telescope.live_grep, {})
 vim.keymap.set('n', '<C-l>', telescope.current_buffer_fuzzy_find, {})
 vim.keymap.set('n', '<C-p>', telescope.oldfiles, {})
