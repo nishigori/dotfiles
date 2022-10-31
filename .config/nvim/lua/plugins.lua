@@ -17,6 +17,22 @@ return require("packer").startup(function(use)
   -- Utility
   use "tyru/current-func-info.vim"
   use "tyru/open-browser.vim"
+  use { "uga-rosa/translate.nvim",
+    config = function()
+      require("translate").setup {
+        default = {
+          command = "deepl_free",
+        },
+        preset = {
+        output = {
+            split = {
+                append = true,
+            },
+        },
+    },
+      }
+    end,
+  }
   use { "rcarriga/nvim-notify",
     config = function()
       require("notify").setup {
@@ -26,11 +42,8 @@ return require("packer").startup(function(use)
       vim.notify = require("notify")
     end,
   }
-  use { "kevinhwang91/nvim-hlslens",
-    config = function()
-      require('hlslens').setup()
-    end,
-  }
+  use { "kevinhwang91/nvim-hlslens", config = function() require("hlslens").setup() end }
+  use { "petertriho/nvim-scrollbar", config = function() require("scrollbar").setup() end }
 
   -- Style & Color scheme
   use { "projekt0n/github-nvim-theme",
@@ -206,7 +219,15 @@ return require("packer").startup(function(use)
       }
     end,
   }
+  use { "nvim-treesitter/nvim-treesitter-context",
+    config = function()
+      require("treesitter-context").setup {
+        enable = true,
+      }
+    end,
+  }
   use { "p00f/nvim-ts-rainbow" }
+  use { "m-demare/hlargs.nvim", config = function() require("hlargs").setup() end }
   use { "RRethy/vim-illuminate",
     config = function()
       require("illuminate").configure({
@@ -249,6 +270,26 @@ return require("packer").startup(function(use)
   }
   use "gpanders/editorconfig.nvim"
 
+  -- Explorer
+  use { "nvim-tree/nvim-tree.lua",
+    tag = "nightly",
+    config = function()
+      require("nvim-tree").setup {
+        view = {
+          adaptive_size = true,
+          mappings = {
+            list = {
+              { key = ".", action = "toggle_dotfiles" },
+            },
+          },
+        },
+        filters = {
+          dotfiles = true,
+        }
+      }
+    end
+  }
+
   -- Finder
   use { "nvim-telescope/telescope.nvim",
     config = function()
@@ -281,6 +322,7 @@ return require("packer").startup(function(use)
       t.load_extension("notify")
       t.load_extension("fzf")
       t.load_extension("projects")
+      t.load_extension("frecency")
 
     end,
   }
@@ -289,9 +331,6 @@ return require("packer").startup(function(use)
   }
   use { "nvim-telescope/telescope-frecency.nvim",
     requires = {"kkharji/sqlite.lua"},
-    config = function()
-      require("telescope").load_extension("frecency")
-    end,
   }
   use { "nvim-telescope/telescope-file-browser.nvim" }
   use { "AckslD/nvim-neoclip.lua",
@@ -380,15 +419,16 @@ return require("packer").startup(function(use)
       "onsails/lspkind.nvim",
     }
   }
-  use { "zbirenbaum/copilot.lua",
-    event = "InsertEnter",
-    config = function ()
-      vim.schedule(function()
-        require("copilot").setup {
-          copilot_node_command = 'node', -- Node version must be < 18
-        }
-      end)
-    end,
-  }
+  -- TODO: Enable
+  --use { "zbirenbaum/copilot.lua",
+  --  event = "InsertEnter",
+  --  config = function ()
+  --    vim.schedule(function()
+  --      require("copilot").setup {
+  --        copilot_node_command = 'node', -- Node version must be < 18
+  --      }
+  --    end)
+  --  end,
+  --}
 
 end)

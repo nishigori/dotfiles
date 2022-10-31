@@ -27,6 +27,16 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true
 }
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+--require("lspconfig").sumneko_lua.setup {
+--  settings = {
+--    Lua = {
+--      runtime = { version = "LuaJIT" },
+--      diagnostics = { globals = {"vim"} },
+--      telemetry = { enable = false },
+--    }
+--  }
+--}
 
 require("mason-lspconfig").setup_handlers {
   function (server_name) -- default handler (optional)
