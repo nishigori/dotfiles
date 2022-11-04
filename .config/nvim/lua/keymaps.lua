@@ -47,34 +47,19 @@ keymap('c', '<C-f>', '<Right>', opts)
 keymap('c', '<C-d>', '<Delete>', opts)
 
 -- Explorer
-keymap('n', ':', ':NvimTreeToggle<CR>', opts)
+keymap('n', ':', ':NvimTreeFindFile!<CR>', opts)
 -- Translate
 keymap('x', '<C-t>', ':Translate JA<CR>', opts)
 
--- https://github.com/mgraczyk/neovim/commit/ac2b770c25c234ee3feb8e2c9fc5a5ba2ae65592
---vim.cmd([[set <D-a>={CSI sequence}]])
-
 local telescope = require('telescope.builtin')
--- TODO: Enable <D-..> key (mac command)
---       https://github.com/neovim/neovim/issues/2190
-vim.keymap.set('n', '<d-a>', telescope.builtin)
-vim.keymap.set('n', '<d-s-a>', telescope.builtin)
---keymap('n', '<d-s-a>', ':Telescope builtin<CR>', opts)
-keymap('n', ',,', ':Telescope builtin theme=get_dropdown<CR>', opts)
 keymap('n', 'q;', ':Telescope command_history theme=get_ivy<CR>', opts)
-vim.keymap.set('n', ',f', function() telescope.find_files({
-  prompt_prefix = "🔍",
-  hidden = true,
-  previewer = false,
-}) end, {})
+vim.keymap.set('n', ',f', telescope.find_files, {})
 vim.keymap.set('n', ',g', telescope.live_grep, {})
 vim.keymap.set('n', '<C-l>', telescope.current_buffer_fuzzy_find, {})
 vim.keymap.set('n', '<C-p>', telescope.oldfiles, {})
 vim.keymap.set('n', '<C-n>', telescope.buffers, {})
 --vim.keymap.set('n', '<C-g>', ..., {})
 -- Shift+command+A で actionをば
--- Shift+command+N で Go to file... をば
-
 
 -- <Leader>
 keymap('n', '<Leader>a', ':<C-u>b#<CR>', opts) -- Open previous buffer
@@ -82,5 +67,7 @@ keymap('n', '<Leader>d', ':<C-u>bd<CR>', opts) -- Close current buffer
 keymap('n', '<Leader>o', '<Plug>(openbrowser-smart-search)', { noremap = false })
 keymap('n', '<leader>t', ':Translate JA<CR>', opts)
 -- <Leader>w\w+ is send from wezterm keys
--- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
-keymap('n', '<Leader>we', ':Telescope builtin theme=get_cursor previewer=false<CR>', opts)
+keymap('n', '<Leader>wr', ':Telescope builtin<CR>', opts) -- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
+keymap('n', '<Leader>wn', ':Telescope git_files<CR>', opts)
+keymap('n', '<Leader>wa', ':Telescope builtin theme=get_dropdown<CR>', opts)
+keymap('n', '<Leader>we', ':Telescope oldfiles<CR>', opts)

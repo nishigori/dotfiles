@@ -13,6 +13,33 @@ return {
       action = act.Multiple {
         act.SendKey { key = " " },
         act.SendKey { key = "w" },
+        act.SendKey { key = "r" },
+      },
+    },
+    {
+      key = 'n',
+      mods = 'CMD|SHIFT',
+      action = act.Multiple {
+        act.SendKey { key = " " },
+        act.SendKey { key = "w" },
+        act.SendKey { key = "n" },
+      },
+    },
+    {
+      key = 'a',
+      mods = 'CMD|SHIFT',
+      action = act.Multiple {
+        act.SendKey { key = " " },
+        act.SendKey { key = "w" },
+        act.SendKey { key = "a" },
+      },
+    },
+    {
+      key = 'e',
+      mods = 'CMD|SHIFT',
+      action = act.Multiple {
+        act.SendKey { key = " " },
+        act.SendKey { key = "w" },
         act.SendKey { key = "e" },
       },
     },

@@ -1,10 +1,12 @@
-require("secrets")
+MY_SECRETS = require("secrets")
 
 local options = {
   encoding = "utf-8",
   fileencoding = "utf-8",
+  shada = "!,'2500,<50,s10,h", -- :h viminfo
   clipboard = "unnamedplus",
-  cmdheight = 2,
+  cmdheight = 0,
+  showcmd = false,
   completeopt = { "menuone", "noselect" },
   conceallevel = 0,
   hlsearch = true,
@@ -18,10 +20,10 @@ local options = {
   cursorline = true,
   number = true,
   relativenumber = true,
-  guifont = "Hack Nerd Font:h16",
+  guifont = "Fira Code Nerd Font Mono:h16", -- "Hack Nerd Font:h16"
   termguicolors = true,
   list = true,
-  laststatus = 3 -- https://wed.dev/blog/posts/neovim-statuline
+  scrolloff = 3,
 }
 
 for k, v in pairs(options) do

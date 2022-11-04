@@ -1,3 +1,5 @@
+-- vim: set fletype=lua fdm=syntax ts=2 sw=2 sts=0 expandtab:
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
@@ -33,13 +35,14 @@ return require("packer").startup(function(use)
       }
     end,
   }
-  use { "rcarriga/nvim-notify",
+  use { "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
     config = function()
-      require("notify").setup {
-        background_colour = 'FloatShadow',
-        timeout = 6000,
-      }
-      vim.notify = require("notify")
+      vim.o.cmdheight = 0
+      require("noice").setup()
     end,
   }
   use { "kevinhwang91/nvim-hlslens", config = function() require("hlslens").setup() end }
@@ -49,7 +52,7 @@ return require("packer").startup(function(use)
   use { "projekt0n/github-nvim-theme",
     config = function()
       require("github-theme").setup{
-        theme_style = "dark_colorblind", -- "dark", "dark_colorblind"
+        theme_style = "dimmed", -- "dark", "dark_colorblind", "dimmed"
         dark_float = true,
         comment_style = "italic",
         --keyword_style = "italic",
@@ -61,6 +64,7 @@ return require("packer").startup(function(use)
   use { "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = function()
+      vim.o.laststatus = 0
       require("lualine").setup {
         icons_enabled = true,
         theme = "papercolor_dark", -- "auto", ...
@@ -82,8 +86,7 @@ return require("packer").startup(function(use)
             -- Get current function name from tyru/current-func-info.vim
             function() return vim.api.nvim_eval('cfi#format("%s", "")') end,
           },
-          lualine_x = {"filetype"},
-          lualine_y = {
+          lualine_x = {
             {
               "diagnostics",
               sources = { "nvim_lsp", "nvim_diagnostic" },
@@ -100,22 +103,23 @@ return require("packer").startup(function(use)
               },
             },
           },
-          lualine_z = {},
-        },
-        sections = {
-          lualine_a = {
+          lualine_y = {"branch", "diff"},
+          lualine_z = {
             function() return [[]] end,
             "mode",
           },
-          lualine_b = {"branch", "diff"},
+        },
+        sections = {
+          lualine_a = {},
+          lualine_b = {},
           lualine_c = {},
-          lualine_x = {"location"},
-          lualine_y = {"progress"},
+          lualine_x = {},
+          lualine_y = {},
           lualine_z = {},
         },
         options = {
           globalstatus = true,
-          section_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
           component_separators = { left = "", right = "|" },
         },
       }
@@ -254,15 +258,7 @@ return require("packer").startup(function(use)
     } end
   }
 
-  -- Git, Projects, ...
-  use { "ahmedkhalf/project.nvim",
-    config = function()
-      require("project_nvim").setup {
-        patterns = { ".git" }
-        -- TODO: LSP config & with telescope
-      }
-    end
-  }
+  -- Git
   use { "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup {}
@@ -275,6 +271,12 @@ return require("packer").startup(function(use)
     tag = "nightly",
     config = function()
       require("nvim-tree").setup {
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = true,
+        },
         view = {
           adaptive_size = true,
           mappings = {
@@ -297,29 +299,57 @@ return require("packer").startup(function(use)
       t.setup {
         defaults = {
           theme = "dropdown",
+          hidden = true,
           layout_config = {
+            prompt_position = "top",
             vertical = { width = 0.5 },
           },
           path_display = {"smart"},
           file_ignore_patterns = { "%.gz", "node_modules", ".git", ".gitkeep" },
+          sorting_strategy = "descending", -- or "ascending"
         },
         pickers = {
-          colorscheme = {
-            enable_preview = true
-          }
+          colorscheme = { enable_preview = true },
+          find_files = {
+            previewer = false,
+            prompt_prefix = "🔍",
+            hidden = true,
+            no_ignore = true,
+            no_ignore_parent = true,
+          },
+          builtin = {
+            --theme = "get-cursor",
+            previewer = false,
+          },
+          -- TODO: how specify theme on pickers
+          --command_history = { theme = "get_ivy" },
         },
         extensions = {
           fzf = {
             fuzzy = true,
             override_generic_sorter = true,  -- override the generic sorter
             override_file_sorter = true,     -- override the file sorter
-            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                             -- the default case_mode is "smart_case"
-          }
+            case_mode = "smart_case",        -- "smart_case" or "ignore_case" or "respect_case"
+          },
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+              -- even more opts
+            }
+          },
+          frecency = {
+            disable_devicons = false,
+            workspaces = MY_SECRETS and MY_SECRETS["telescope_frecency_workspaces"] or {},
+          },
+          project = {
+            base_dirs = {
+              {"~/src/github.com", max_depth = 3},
+            },
+            sync_with_nvim_tree = true,
+          },
         }
       }
 
-      t.load_extension("notify")
+      t.load_extension("noice")
       t.load_extension("fzf")
       t.load_extension("projects")
       t.load_extension("frecency")
@@ -327,12 +357,47 @@ return require("packer").startup(function(use)
     end,
   }
   use { "nvim-telescope/telescope-fzf-native.nvim",
-    run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build"
+    run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release"
+          .. " && cmake --build build --config Release"
+          .. " && cmake --install build --prefix build"
   }
   use { "nvim-telescope/telescope-frecency.nvim",
     requires = {"kkharji/sqlite.lua"},
   }
   use { "nvim-telescope/telescope-file-browser.nvim" }
+  use { "ahmedkhalf/project.nvim",
+    config = function()
+      require("project_nvim").setup {
+        datapath = vim.fn.stdpath("data"),
+        patterns = { ".git" }
+        -- TODO: LSP config & with telescope
+      }
+    end
+  }
+  use { "pwntester/octo.nvim", 
+    config = function()
+      require("octo").setup {
+        reaction_viewer_hint_icon = "",
+        user_icon = " ",
+        timeline_marker = "",
+        timeline_indent = "2",
+        right_bubble_delimiter = "",
+        left_bubble_delimiter = "",
+        issues = {
+          order_by = {
+            field = "UPDATED_AT", -- or "CREATED_AT"
+            direction = "DESC", -- or "ASC"
+          },
+        },
+        pull_requests = {
+          order_by = {
+            field = "UPDATED_AT", -- or "CREATED_AT"
+            direction = "DESC", -- or "ASC"
+          },
+        },
+      }
+    end
+  }
   use { "AckslD/nvim-neoclip.lua",
     config = function()
       require("neoclip").setup {
@@ -370,13 +435,41 @@ return require("packer").startup(function(use)
     end
   }
   use { "jayp0521/mason-null-ls.nvim",
-    requires = {"jose-elias-alvarez/null-ls.nvim", "williamboman/mason.nvim"},
+    requires = {
+      "jose-elias-alvarez/null-ls.nvim", -- LSP diagnostics, code actions, ...
+      "williamboman/mason.nvim",
+    },
     config = function()
-      require("null-ls").setup()
+      -- vim辞書がなければダウンロード
+      if vim.fn.filereadable("~/.local/share/cspell/vim.txt.gz") ~= 1 then
+        io.popen("curl -fsSLo ~/.local/share/cspell/vim.txt.gz --create-dirs "
+                 .. "https://github.com/iamcco/coc-spell-checker/raw/master/dicts/vim/vim.txt.gz")
+      end
+      if vim.fn.filereadable("~/.config/cspell/user.txt") ~= 1 then
+        io.popen("mkdir -p ~/.config/cspell")
+        io.popen("touch ~/.config/cspell/user.txt")
+      end
+
+      null_ls = require("null-ls")
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.diagnostics.cspell.with({
+            extra_args = { "--config", "~/.config/cspell/cspell.json" },
+            diagnostics_postprocess = function(diagnostic)
+              diagnostic.severity = vim.diagnostic.severity["WARN"] -- default "ERROR"
+            end,
+            condition = function()
+              return vim.fn.executable('cspell') > 0
+            end,
+          })
+        },
+      }
       require("mason-null-ls").setup {
+        automatic_setup = true,
         -- https://github.com/jayp0521/mason-null-ls.nvim#available-null-ls-sources
         ensure_installed = {
           "buildifier", -- bzl
+          "cspell", -- spell checker
           "hadolint", -- dockerfile
           "goimports", -- go
           "stylua", -- lua
@@ -389,10 +482,13 @@ return require("packer").startup(function(use)
   }
   use { "folke/trouble.nvim",
     config = function()
-      require("trouble").setup()
+      require("trouble").setup {
+        fold_open = "",
+        fold_closed = "",
+      }
     end
   }
-  use { "glepnir/lspsaga.nvim",
+  use { "glepnir/lspsaga.nvim", -- light-weight lsp
     branch = "main",
     config = function()
       local saga = require("lspsaga")
@@ -402,9 +498,13 @@ return require("packer").startup(function(use)
       })
     end
   }
-  use { "j-hui/fidget.nvim",
+  use { "j-hui/fidget.nvim", -- UI for nvim-lsp progress
     config = function()
-      require("fidget").setup()
+      require("fidget").setup {
+        align = {
+          bottom = false,
+        }
+      }
     end
   }
 
@@ -413,11 +513,20 @@ return require("packer").startup(function(use)
     requires = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-path",
       --"hrsh7th/vim-vsnip",
       --"hrsh7th/cmp-vsnip",
       "onsails/lspkind.nvim",
-    }
+    },
+    config = function()
+      require("cmp").setup.cmdline(";", {
+        source = { name = "cmdline" }
+      })
+      require("cmp").setup.cmdline("/", {
+        source = { name = "buffer" }
+      })
+    end
   }
   -- TODO: Enable
   --use { "zbirenbaum/copilot.lua",

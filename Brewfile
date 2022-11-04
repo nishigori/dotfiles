@@ -39,6 +39,8 @@ cask 'messenger'
 cask 'spectacle'
 #cask 'rectangle'
 cask 'font-hack-nerd-font'
+cask 'font-victor-mono'
+cask 'font-victor-mono-nerd-font'
 cask 'notion'
 cask 'visual-studio-code'
 # now, migrated to jetbrains-toolbox
