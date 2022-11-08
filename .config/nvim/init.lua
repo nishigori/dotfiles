@@ -64,13 +64,13 @@ o.laststatus = 0 -- For lualine.nvim
 --cmd([[set grepprg=rg\ --vimgrep]])
 --cmd([[set grepformat=%f:%l:%c:%m]])
 
+g.mapleader = " "
+
 -- Plugins
 if vim.fn.exists("g:vscode") ~= 1 then
   require('plugins')
-  require('lspconfig')
   vim.cmd[[autocmd BufWritePost plugins.lua PackerCompile]]
 end
 
 -- KeyMap
-g.mapleader = " "
 require('keymaps')

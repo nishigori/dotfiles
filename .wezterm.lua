@@ -1,6 +1,19 @@
 local wezterm = require "wezterm"
 local act = wezterm.action
 
+-- for nvim
+local function emulate_command_shift(key)
+  return {
+    key = key,
+    mods = 'CMD|SHIFT',
+    action = act.Multiple {
+      act.SendKey { key = " " },
+      act.SendKey { key = "w" },
+      act.SendKey { key = key },
+    },
+  }
+end
+
 return {
   --debug_key_events = true,
   color_scheme = "GitHub Dark",
@@ -16,32 +29,9 @@ return {
         act.SendKey { key = "r" },
       },
     },
-    {
-      key = 'n',
-      mods = 'CMD|SHIFT',
-      action = act.Multiple {
-        act.SendKey { key = " " },
-        act.SendKey { key = "w" },
-        act.SendKey { key = "n" },
-      },
-    },
-    {
-      key = 'a',
-      mods = 'CMD|SHIFT',
-      action = act.Multiple {
-        act.SendKey { key = " " },
-        act.SendKey { key = "w" },
-        act.SendKey { key = "a" },
-      },
-    },
-    {
-      key = 'e',
-      mods = 'CMD|SHIFT',
-      action = act.Multiple {
-        act.SendKey { key = " " },
-        act.SendKey { key = "w" },
-        act.SendKey { key = "e" },
-      },
-    },
+    emulate_command_shift('n'),
+    emulate_command_shift('a'),
+    emulate_command_shift('e'),
+    emulate_command_shift('l'),
   }
 }
