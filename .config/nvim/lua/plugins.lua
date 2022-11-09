@@ -264,105 +264,27 @@ return require("packer").startup(function(use)
   }
 
   -- LSP
-  use { "neovim/nvim-lspconfig" }
-  use { "SmiteshP/nvim-navic" }
-  use { "williamboman/mason.nvim",
-    requires = "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        automatic_installation = true,
-        -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-        -- NOTE: different names between of `:Mason`, check `:LspInfo`
-        ensure_installed = {
-          --"actionlint", -- github actions
-          "bashls",
-          "bufls", -- probuf
-          "dockerls",
-          "erlangls",
-          "gopls",
-          "perlnavigator",
-          "sumneko_lua", -- lua-language-server
-          "terraformls",
-          "tflint",
-          "tsserver",
-          "yamlls",
-        }
-      })
-    end
-  }
-  use { "jayp0521/mason-null-ls.nvim",
-    requires = {
-      "jose-elias-alvarez/null-ls.nvim", -- LSP diagnostics, code actions, ...
+  use {
+    "neovim/nvim-lspconfig",
+    "folke/trouble.nvim", -- pretty list for showing diagnostics
+    {
       "williamboman/mason.nvim",
+      requires = {
+        "williamboman/mason-lspconfig.nvim",
+      },
     },
-    config = function()
-      -- vim辞書がなければダウンロード
-      if vim.fn.filereadable("~/.local/share/cspell/vim.txt.gz") ~= 1 then
-        io.popen("curl -fsSLo ~/.local/share/cspell/vim.txt.gz --create-dirs "
-                 .. "https://github.com/iamcco/coc-spell-checker/raw/master/dicts/vim/vim.txt.gz")
-      end
-      if vim.fn.filereadable("~/.config/cspell/user.txt") ~= 1 then
-        io.popen("mkdir -p ~/.config/cspell")
-        io.popen("touch ~/.config/cspell/user.txt")
-      end
-
-      null_ls = require("null-ls")
-      null_ls.setup {
-        sources = {
-          null_ls.builtins.diagnostics.cspell.with({
-            extra_args = { "--config", "~/.config/cspell/cspell.json" },
-            diagnostics_postprocess = function(diagnostic)
-              diagnostic.severity = vim.diagnostic.severity["WARN"] -- default "ERROR"
-            end,
-            condition = function()
-              return vim.fn.executable('cspell') > 0
-            end,
-          })
-        },
-      }
-      require("mason-null-ls").setup {
-        automatic_setup = true,
-        -- https://github.com/jayp0521/mason-null-ls.nvim#available-null-ls-sources
-        ensure_installed = {
-          "buildifier", -- bzl
-          "cspell", -- spell checker
-          "hadolint", -- dockerfile
-          "goimports", -- go
-          "stylua", -- lua
-          "buf", -- protobuf
-          "psalm", -- php
-          "jq", -- json
-        }
-      }
-    end
-  }
-  use { "folke/trouble.nvim",
-    config = function()
-      require("trouble").setup {
-        fold_open = "",
-        fold_closed = "",
-      }
-    end
-  }
-  use { "glepnir/lspsaga.nvim", -- light-weight lsp
-    branch = "main",
-    config = function()
-      local saga = require("lspsaga")
-
-      saga.init_lsp_saga({
-        -- TODO: configuration
-      })
-    end
-  }
-  use { "j-hui/fidget.nvim", -- UI for nvim-lsp progress
-    config = function()
-      require("fidget").setup {
-        align = {
-          bottom = false,
-        }
-      }
-    end
+    { -- bridge mason.nvim & null-ls
+      "jayp0521/mason-null-ls.nvim",
+      module = "mason-null-ls",
+      after = "mason.nvim",
+      requires = {
+        "jose-elias-alvarez/null-ls.nvim", -- LSP diagnostics, code actions, ...
+      },
+    },
+    { "glepnir/lspsaga.nvim", after = "nvim-lspconfig" }, -- light-weight lsp
+    -- UI for nvim-lsp progress
+    { "j-hui/fidget.nvim", config = [[require("fidget").setup { align = { bottom = false } }]] },
+    "SmiteshP/nvim-navic", -- Show your current code context
   }
 
   -- Snippets
@@ -374,7 +296,7 @@ return require("packer").startup(function(use)
     requires = {
       { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
       "hrsh7th/cmp-nvim-lsp",
-      "onsails/lspkind.nvim",
+      "onsails/lspkind.nvim", -- icons for cmp window
       { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
