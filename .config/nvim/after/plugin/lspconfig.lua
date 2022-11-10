@@ -62,6 +62,7 @@ mason_null_ls.setup {
     "jq",         -- json
   }
 }
+
 local trouble = require 'trouble'
 
 trouble.setup {
@@ -75,7 +76,6 @@ local saga = require 'lspsaga'
 saga.init_lsp_saga({
   -- TODO: configuration
 })
-
 
 local navic = require("nvim-navic")
 
