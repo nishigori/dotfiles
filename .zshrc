@@ -125,6 +125,7 @@ alias dic='git --no-pager dic'
 alias dis='git diff --stat'
 alias dis='git diff --stat'
 alias hist="git hist"
+alias ec="editorconfig-checker" # for nvim-mason-null-ls
 
 # ls using https://github.com/Peltoche/lsd
 if (( $+commands[lsd] )); then

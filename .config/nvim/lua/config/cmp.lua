@@ -17,11 +17,16 @@ cmp.setup {
 
   sources = {
     { name = 'nvim_lsp_signature_help' },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    { name = 'nvim_lsp', keyword_length = 3 },
+    { name = 'luasnip', keyword_length = 2 },
     { name = 'nvim_lua' },
     { name = 'path' },
-    { name = 'buffer' },
+    { name = 'buffer', keyword_length = 3 },
+    { name = 'git' },
+  },
+
+  window = {
+    documentation = cmp.config.window.bordered(),
   },
 
   snippet = {
@@ -31,11 +36,10 @@ cmp.setup {
   },
 
   mapping = cmp.mapping.preset.insert({
-    ["<C-p>"] = cmp.mapping.select_prev_item(), --Ctrl+pで補完欄を一つ上に移動
-    ["<C-n>"] = cmp.mapping.select_next_item(), --Ctrl+nで補完欄を一つ下に移動
-    ['<C-l>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-e>'] = cmp.mapping {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ['<C-l>'] = cmp.mapping.complete({}),
+    ['<C-;>'] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
@@ -99,3 +103,10 @@ cmp.setup.cmdline(';', {
   mapping = cmp.mapping.preset.cmdline(),
   source = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
 })
+
+--require("cmp").setup({
+--  enabled = function()
+--    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+--        or require("cmp_dap").is_dap_buffer()
+--  end
+--})

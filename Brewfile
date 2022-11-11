@@ -103,6 +103,7 @@ brew 'telnet'
 brew 'llvm'
 
 # languages
+brew 'editorconfig-checker'
 brew 'anyenv'
 #brew 'tfenv'
 #brew 'plenv'

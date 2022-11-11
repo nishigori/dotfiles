@@ -1,4 +1,4 @@
--- vim: set fletype=lua fdm=syntax ts=2 sw=2 sts=0 expandtab:
+-- vim: set fdm=syntax ts=2 sw=2 sts=0 expandtab:
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -15,20 +15,28 @@ return require("packer").startup(function(use)
     "kyazdani42/nvim-web-devicons",
   }
 
-  -- My Plugins
-  use "nishigori/increment-activator"
-
   -- Utility
   use {
-    "tyru/open-browser.vim",
+    {
+      "nishigori/increment-activator",
+      event = "VimEnter",
+    },
+    {
+      "tyru/open-browser.vim",
+      event = "VimEnter",
+    },
     {
       "petertriho/nvim-scrollbar",
       config = [[require("scrollbar").setup()]],
     },
+    {
+      "karb94/neoscroll.nvim",
+      config = [[require('neoscroll').setup()]],
+    },
     { -- notify & popup cmdline
       "folke/noice.nvim",
       requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-      config = [[require('noice').setup()]],
+      config = [[require('config.noice')]],
     },
     {
       "uga-rosa/translate.nvim",
@@ -71,7 +79,7 @@ return require("packer").startup(function(use)
     after = "nvim-treesitter",
     config = function()
       require("ufo").setup {
-        provider_selector = function(bufnr, filetype, buftype)
+        provider_selector = function(_, _, _)
           return {"treesitter", "indent"}
         end
       }
@@ -81,6 +89,7 @@ return require("packer").startup(function(use)
   -- Text Object
   use { -- % で block jump をもっと高性能に
     "andymass/vim-matchup",
+    event = "User ActuallyEditing",
     setup = [[require('config.matchup')]],
   }
   use { "nvim-treesitter/nvim-treesitter",
@@ -118,10 +127,12 @@ return require("packer").startup(function(use)
     },
     { -- 検索文字が 何個目/全部で何個 か表示してくれる
       "kevinhwang91/nvim-hlslens",
+      event = "VimEnter",
       config = [[require("hlslens").setup()]],
     },
     { -- color hightlight (#000000)
       "norcalli/nvim-colorizer.lua",
+      event = "VimEnter",
       config = [[require("colorizer").setup()]],
     },
     { -- color of indent
@@ -166,7 +177,7 @@ return require("packer").startup(function(use)
 
   -- Explorer
   use { "nvim-tree/nvim-tree.lua",
-    cmd = "NvimTreeFindFile",
+    --cmd = "NvimTreeFindFile",
     tag = "nightly",
     config = function()
       require("nvim-tree").setup {
@@ -230,7 +241,7 @@ return require("packer").startup(function(use)
   -- TODO:
 
   -- GitHub
-  use { "pwntester/octo.nvim", 
+  use { "pwntester/octo.nvim",
     cmd = { "Octo" },
     config = function()
       require("octo").setup {
@@ -266,25 +277,47 @@ return require("packer").startup(function(use)
   -- LSP
   use {
     "neovim/nvim-lspconfig",
-    "folke/trouble.nvim", -- pretty list for showing diagnostics
+    "folke/trouble.nvim",   -- pretty list for showing diagnostics
+    "glepnir/lspsaga.nvim", -- light-weight lsp
+    "SmiteshP/nvim-navic",  -- winbar shown current code context
+    "ray-x/lsp_signature.nvim", -- show function signature when you type
+    {  -- Like Intellij Structure
+      "stevearc/aerial.nvim",
+      event = "VimEnter",
+      config = [[require('aerial').setup()]],
+    },
+    { -- LSP diagnostics, code actions, ...
+      "jose-elias-alvarez/null-ls.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "neovim/nvim-lspconfig",
+      },
+    },
     {
       "williamboman/mason.nvim",
-      requires = {
-        "williamboman/mason-lspconfig.nvim",
-      },
+      requires = { "williamboman/mason-lspconfig.nvim" },
     },
-    { -- bridge mason.nvim & null-ls
+    { -- bridge mason.nvim & null-ls.nvim
       "jayp0521/mason-null-ls.nvim",
-      module = "mason-null-ls",
-      after = "mason.nvim",
       requires = {
-        "jose-elias-alvarez/null-ls.nvim", -- LSP diagnostics, code actions, ...
+        "williamboman/mason.nvim",
+        "jose-elias-alvarez/null-ls.nvim",
       },
     },
-    { "glepnir/lspsaga.nvim", after = "nvim-lspconfig" }, -- light-weight lsp
-    -- UI for nvim-lsp progress
-    { "j-hui/fidget.nvim", config = [[require("fidget").setup { align = { bottom = false } }]] },
-    "SmiteshP/nvim-navic", -- Show your current code context
+  }
+
+  -- Debugger
+  use {
+    {
+      "mfussenegger/nvim-dap",
+      event = "User ActuallyEditing",
+      config = [[require('nvim-dap').setup()]],
+    },
+    {
+      "rcarriga/nvim-dap-ui",
+      after = "nvim-dap",
+      config = [[require('dapui').setup()]],
+    },
   }
 
   -- Snippets
@@ -299,8 +332,10 @@ return require("packer").startup(function(use)
       "onsails/lspkind.nvim", -- icons for cmp window
       { "hrsh7th/cmp-nvim-lsp-signature-help", after = "nvim-cmp" },
       { "hrsh7th/cmp-path", after = "nvim-cmp" },
+      { "petertriho/cmp-git", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+      { "rcarriga/cmp-dap", after = { "nvim-cmp", "nvim-dap" } },
       { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
       { "hrsh7th/cmp-nvim-lsp-document-symbol", after = "nvim-cmp" },
       "lukas-reineke/cmp-under-comparator",
@@ -323,6 +358,8 @@ return require("packer").startup(function(use)
   --  end,
   --}
 
+  -- Plugin development
+  use "folke/neodev.nvim"
 
   -- FileType
   use { "nathom/filetype.nvim",
@@ -343,6 +380,20 @@ return require("packer").startup(function(use)
   }
 
   -- .editorconfig
-  use "gpanders/editorconfig.nvim"
+  use {
+    "gpanders/editorconfig.nvim",
+    event = "VimEnter",
+  }
+
+  -- golang
+  use {
+    "ray-x/go.nvim",
+    ft="go",
+    requires = { "ray-x/guihua.lua" },
+    setup = function()
+      vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+    end,
+    config = [[require("go").setup()]],
+  }
 
 end)

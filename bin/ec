@@ -1,0 +1,4 @@
+#!/bin/sh
+# for nvim-lsp
+
+editorconfig-checker $*

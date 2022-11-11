@@ -40,10 +40,10 @@ opt.number = true
 opt.relativenumber = true
 opt.hidden = true
 opt.guicursor = [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]]
-opt.guifont = "Fira Code Nerd Font Mono:h16" -- "Hack Nerd Font:h16"
+opt.guifont = {"Hack Nerd Font:h16"} -- "Fira Code Nerd Font Mono:h16"
 opt.termguicolors = true
 opt.list = true
-opt.scrolloff = 3
+opt.scrolloff = 8
 opt.wildignore = { '*.o', '*~', '*.pyc' }
 
 opt.shortmess:append("c")
@@ -64,12 +64,12 @@ o.laststatus = 0 -- For lualine.nvim
 --cmd([[set grepprg=rg\ --vimgrep]])
 --cmd([[set grepformat=%f:%l:%c:%m]])
 
+g.nvcode_termcolors = 256
 g.mapleader = " "
 
 -- Plugins
 if vim.fn.exists("g:vscode") ~= 1 then
   require('plugins')
-  vim.cmd[[autocmd BufWritePost plugins.lua PackerCompile]]
 end
 
 -- KeyMap
