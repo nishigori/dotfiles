@@ -41,6 +41,7 @@ opt.relativenumber = true
 opt.hidden = true
 opt.guicursor = [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]]
 opt.guifont = {"Hack Nerd Font:h16"} -- "Fira Code Nerd Font Mono:h16"
+opt.guifontwide = {"Hack Nerd Font:h16"} -- "Fira Code Nerd Font Mono:h16"
 opt.termguicolors = true
 opt.list = true
 opt.scrolloff = 8
