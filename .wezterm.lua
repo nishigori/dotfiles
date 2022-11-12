@@ -27,7 +27,7 @@ end
 
 return {
   --debug_key_events = true,
-  color_scheme = "GitHub Dark",
+  color_scheme = "GoogleDark (Gogh)", -- "GoogleDark (Gogh)", "GitHub Dark"
   font = wezterm.font "Hack Nerd Font",
   font_size = 17.5,
   keys = {
