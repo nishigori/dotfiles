@@ -52,6 +52,8 @@ keymap('i', '<c-s>', '<esc><cmd>w<cr>a', silent)
 keymap('n', ':', ':NvimTreeFindFile!<CR>', silent)
 -- Translate
 keymap('x', '<C-t>', ':Translate JA<CR>', silent)
+-- FIXME: conflict wezterm `new tab`
+keymap('x', '<C-S-t>', ':Translate EN<CR>', silent)
 
 keymap('n', 'q;', ':Telescope command_history theme=get_ivy<CR>', silent)
 keymap('n', ',f', ':Telescope find_files<CR>', silent)

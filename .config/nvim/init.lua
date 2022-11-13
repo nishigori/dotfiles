@@ -23,8 +23,7 @@ opt.shada = "!,'2500,<50,s10,h" -- :h viminfo
 opt.clipboard = "unnamedplus"
 opt.splitbelow = true
 opt.splitright = true
-opt.cmdheight = 0 -- Using noice.nvim is popup command
-opt.showcmd = false
+opt.ruler = false
 opt.completeopt = { "menuone", "noselect" }
 opt.conceallevel = 0
 opt.hlsearch = true
@@ -40,12 +39,17 @@ opt.number = true
 opt.relativenumber = true
 opt.hidden = true
 opt.guicursor = [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]]
-opt.guifont = {"Hack Nerd Font:h16"} -- "Fira Code Nerd Font Mono:h16"
-opt.guifontwide = {"Hack Nerd Font:h16"} -- "Fira Code Nerd Font Mono:h16"
+opt.guifont = {"Hack Nerd Font:h18"} -- "Fira Code Nerd Font Mono:h16"
+opt.guifontwide = {"Hack Nerd Font:h18"} -- "Fira Code Nerd Font Mono:h16"
 opt.termguicolors = true
 opt.list = true
-opt.scrolloff = 8
 opt.wildignore = { '*.o', '*~', '*.pyc' }
+opt.inccommand = "nosplit"
+opt.scrolloff = 5
+opt.sidescrolloff = 6
+opt.cmdheight = 0 -- Using noice.nvim is popup command
+opt.showcmd = false
+opt.signcolumn = "yes" -- always display diagnostic
 
 opt.shortmess:append("c")
 opt.listchars:append "space:⋅"
@@ -53,12 +57,12 @@ opt.listchars:append "eol:↴"
 
 -- Needs using Tree-sitter
 local o = vim.o
-o.foldcolumn = "3"
+o.foldcolumn = "0"
 o.foldlevel = 99 -- large value depends by nvim-ufo
 o.foldlevelstart = 99
 o.foldenable = true
 o.foldexpr = "nvim_treesitter#foldexpr()"
-o.laststatus = 0 -- For lualine.nvim
+o.laststatus = 3
 
 -- TODO: really need?
 --local cmd = vim.cmd

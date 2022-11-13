@@ -85,7 +85,6 @@ capabilities.textDocument.foldingRange = {
 
 local lspconfig = require 'lspconfig'
 local lsp_defaults = lspconfig.util.default_config
-local navic = require 'nvim-navic'
 local lsp_signature = require 'lsp_signature'
 
 lsp_defaults.capabilities = vim.tbl_deep_extend(
@@ -100,9 +99,10 @@ mason_lspconfig.setup_handlers {
     require("lspconfig")[server_name].setup {
       capabilities = lsp_defaults.capabilities, --cmpを連携
       on_attach = function(client, bufnr)
-        if client.server_capabilities.documentSymbolProvider then
-          navic.attach(client, bufnr)
-        end
+        --if client.server_capabilities.documentSymbolProvider then
+        --  TODO: change lsp saga
+        --  navic.attach(client, bufnr)
+        --end
 
         lsp_signature.on_attach({
           noice = true,
@@ -155,7 +155,11 @@ local saga = require 'lspsaga'
 saga.init_lsp_saga({
   symbol_in_winbar = {
     enable = true,
+    separator = '  ',
+    --file_formatter = "%:h", -- same as arg1 of vim.vn.expand
+    -- TODO: 変数名までは出したくない
   },
+  code_action_lightbulb = { enable = true },
 })
 
 -- https://xbgneb0083.hatenablog.com/entry/2022_6_12_avoid_conflict_lsp_hover

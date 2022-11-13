@@ -28,6 +28,11 @@ end
 return {
   --debug_key_events = true,
   color_scheme = "GoogleDark (Gogh)", -- "GoogleDark (Gogh)", "GitHub Dark"
+  colors = {
+    -- https://docs.rs/palette/0.4.1/palette/named/index.html#constants
+    cursor_bg = 'khaki',
+    cursor_fg = 'black',
+  },
   font = wezterm.font "Hack Nerd Font",
   font_size = 17.5,
   keys = {

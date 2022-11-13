@@ -7,7 +7,7 @@ return require("packer").startup(function(use)
   -- Packer can manage itself
   use "wbthomason/packer.nvim"
 
-  -- Almost dependencies
+  -- Dependencies almost plugins
   use {
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
@@ -17,22 +17,10 @@ return require("packer").startup(function(use)
 
   -- Utility
   use {
-    {
-      "nishigori/increment-activator",
-      event = "VimEnter",
-    },
-    {
-      "tyru/open-browser.vim",
-      event = "VimEnter",
-    },
-    {
-      "petertriho/nvim-scrollbar",
-      config = [[require("scrollbar").setup()]],
-    },
-    {
-      "karb94/neoscroll.nvim",
-      config = [[require('neoscroll').setup()]],
-    },
+    { "nishigori/increment-activator",  event = "VimEnter" },
+    { "tyru/open-browser.vim", event = "VimEnter" },
+    { "petertriho/nvim-scrollbar", config = [[require("scrollbar").setup()]] },
+    { "karb94/neoscroll.nvim", config = [[require('neoscroll').setup()]] },
     { -- notify & popup cmdline
       "folke/noice.nvim",
       requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
@@ -44,7 +32,7 @@ return require("packer").startup(function(use)
       config = function()
         require("translate").setup {
           default = { command = "deepl_free" },
-          preset = { output = { split = { append = true } } },
+          --preset = { output = { split = { append = true } } },
         }
       end,
     },
@@ -64,8 +52,9 @@ return require("packer").startup(function(use)
     end
   }
 
-  -- StatusLine
+  -- StatusLine, WinBar
   use { "nvim-lualine/lualine.nvim",
+    after = "lspsaga.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = [[require('config.statusline')]],
   }
@@ -279,12 +268,12 @@ return require("packer").startup(function(use)
     "neovim/nvim-lspconfig",
     "folke/trouble.nvim",   -- pretty list for showing diagnostics
     "glepnir/lspsaga.nvim", -- light-weight lsp
-    "SmiteshP/nvim-navic",  -- winbar shown current code context
+    --"SmiteshP/nvim-navic",  -- winbar shown current code context
     "ray-x/lsp_signature.nvim", -- show function signature when you type
     {  -- Like Intellij Structure
       "stevearc/aerial.nvim",
       event = "VimEnter",
-      config = [[require('aerial').setup()]],
+      config = [[require('aerial').setup({ open_automatic = true })]],
     },
     { -- LSP diagnostics, code actions, ...
       "jose-elias-alvarez/null-ls.nvim",

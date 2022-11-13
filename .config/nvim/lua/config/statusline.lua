@@ -1,29 +1,24 @@
 local lualine = require 'lualine'
+local saga_winbar = require 'lspsaga.symbolwinbar'
 
 lualine.setup {
-  icons_enabled = true,
-  theme = "papercolor_dark", -- "auto", ...
-
-  disabled_filetypes = {
-    statusline = {"packer", "NVimTree"}
+  options = {
+    icons_enabled = true,
+    theme = "auto", -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
+    globalstatus = true,
+    section_separators = { left = "", right = "" },
+    component_separators = { left = "", right = "|" },
+    disabled_filetypes = { "packer", "NvimTree" },
+    refresh = {
+      winbar = 600,
+      statusline = 2000,
+    },
   },
 
-  tabline = {
-    lualine_a = {
-      -- Show git project of git
-      function() return vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t") end,
-    },
-    lualine_b = {
-      -- The relative path under the git-root
-      function()
-        return string.gsub(
-          vim.api.nvim_buf_get_name(0),
-          vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":p"), --vim.loop.cwd(),
-          '')
-      end,
-    },
-    lualine_c = {},
+  --tabline =
 
+  winbar = {
+    lualine_c = { saga_winbar.get_symbol_node },
     lualine_x = {
       {
         "diagnostics",
@@ -41,25 +36,42 @@ lualine.setup {
         },
       },
     },
-    lualine_y = {"branch", "diff"},
-    lualine_z = {
-      function() return [[]] end,
-      "mode",
-    },
+    lualine_y = {},
   },
+  --inactive_winbar = {},
 
   sections = {
     lualine_a = {},
-    lualine_b = {},
-    lualine_c = {},
+    lualine_b = { [[""]] },
+    lualine_c = {
+      -- Show git project of git
+      [[vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t")]],
+      -- The relative path under the git-root
+      function()
+        return string.gsub(
+          vim.api.nvim_buf_get_name(0),
+          vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":p"), --vim.loop.cwd(),
+          '')
+      end,
+    },
+
     lualine_x = {},
-    lualine_y = {},
+    lualine_y = { "branch", "diff" },
     lualine_z = {},
   },
 
-  options = {
-    globalstatus = true,
-    section_separators = { left = "", right = "" },
-    component_separators = { left = "", right = "|" },
+  extensions = {
+    'aerial',
+    'quickfix',
   },
 }
+
+vim.api.nvim_create_autocmd('WinLeave', {
+  pattern = { 'NvimTree', },
+  callback = function ()
+    require('lualine').refresh({
+      scope = 'all',
+      place = 'winbar',
+    })
+  end,
+})

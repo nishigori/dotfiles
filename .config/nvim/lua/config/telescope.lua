@@ -11,7 +11,7 @@ telescope.setup {
     },
     path_display = {"smart"},
     file_ignore_patterns = { "%.gz", "node_modules", ".git", ".gitkeep" },
-    sorting_strategy = "descending", -- or "ascending"
+    sorting_strategy = "ascending", -- or "descending"
   },
 
   pickers = {
