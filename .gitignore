@@ -7,11 +7,9 @@
 
 # Local settings
 tmp/*
-.zplugrc.local
 .zshrc.local
 .vimrc.local
 .gvimrc.local
-.vimperatorrc.local
 .config/dein/plugins.local.toml
 .config/prs/sections.yml
 
@@ -26,3 +24,6 @@ tmp/*
 
 # Homebrew
 Brewfile.lock.json
+
+# deprecated local files
+.zplugrc.local

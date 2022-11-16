@@ -5,7 +5,7 @@ RC_FILES := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
 # Internal variables that it is (maybe) you do not need to set.
 os              := $(shell uname -s)
 arch             = $(shell arch)
-credentials     := .gitsecret .zshrc.local .zplugrc.local .vimrc.local .gvimrc.local
+credentials     := .gitsecret .zshrc.local .vimrc.local .gvimrc.local
 links           := $(RC_FILES) .gitconfig tmp .zsh .zshenv .p10k.zsh .vim
 links           += $(addprefix .config/, dein nvim gh prs cspell firefox tridactyl)
 dir_requires    := $(HOME)/src $(HOME)/bin $(HOME)/.cache/terraform $(HOME)/.config $(HOME)/Dropbox \
