@@ -4,29 +4,15 @@ Dotfiles
 <!-- vim: set fdm=marker sts=0 expandtab: -->
 
 ```sh
-$ git clone --recursive https://github.com/nishigori/dotfiles.git && cd dotfiles
 $ make
 $ make install
-$ git remote set-url origin ssh://git@github.com:nishigori/dotfiles.git
 ```
 
 ----
+
 Following docs is for the manually setup
 
-<!-- TOC -->
-
-- [MacOS](#macos)
-  - [Alfread](#alfread)
-- [Firefox](#firefox)
-  - [`about:config`](#aboutconfig)
-  - [Add-on: Tree Style Tab > Preferences](#add-on-tree-style-tab--preferences)
-    - [Appearance:](#appearance)
-    - [Tree Behavior](#tree-behavior)
-  - [Add-on: Vim Vixen > Preferences](#add-on-vim-vixen--preferences)
-
-<!-- /TOC -->
-
-## MacOS
+## MacOS ![](https://www.apple.com/v/mac/home/br/images/overview/compare/compare_icon_m1_pro_max__d1toavnfl1m6_large.png)
 
 ```sh
 xcode-select --install
@@ -39,12 +25,13 @@ softwareupdate --install-rosetta
 * Disable Search man Page Index in Terminal `System Preferences > Keyboard > Shortcuts > Services`
   * Fix conflict for Intellij IDEA action of Find Action
 * ⌘英かな: https://ei-kana.appspot.com/
+  * homebrew out of controll
 
-## Alfread
+## Alfread ![](https://www.alfredapp.com/media/logo4@2x.png)
 
 always keyboard en: `Preferences > Advanced > Force Keyboard` to **ABC**
 
-## Firefox
+## Firefox ![](https://www.mozilla.org/media/protocol/img/logos/firefox/logo.fedb52c912d6.svg)
 
 ### `about:config`
 
@@ -179,105 +166,6 @@ tab-item .extra-items-container::after {
 }
 :root.left tab-item tab-closebox {
   order: -1;
-}
-
-```
-
-<!-- }}} -->
-</details>
-
-### Add-on: Vim Vixen > Preferences
-
-Configure Vim-Vixen:
-
-<details>
-<summary>Use plain JSON</summary>
-<!-- {{{ -->
-
-```json
-
-{
-  "keymaps": {
-    "0": { "type": "scroll.home" },
-    ":": { "type": "command.show" },
-    ";": { "type": "command.show" },
-    "<C-p>": { "type": "tabs.prev", "count": 1 },
-    "<C-n>": { "type": "tabs.next", "count": 1 },
-    "<C-k>": { "type": "navigate.history.prev" },
-    "<C-j>": { "type": "navigate.history.next" },
-    "o": { "type": "command.show.open", "alter": false },
-    "O": { "type": "command.show.open", "alter": true },
-    "t": { "type": "command.show.tabopen", "alter": false },
-    "T": { "type": "command.show.tabopen", "alter": true },
-    "b": { "type": "command.show.buffer" },
-    "a": { "type": "command.show.addbookmark", "alter": true },
-    "k": { "type": "scroll.vertically", "count": -4 },
-    "j": { "type": "scroll.vertically", "count": 4 },
-    "h": { "type": "scroll.horizonally", "count": -2 },
-    "l": { "type": "scroll.horizonally", "count": 2 },
-    "<C-U>": { "type": "scroll.pages", "count": -0.5 },
-    "<C-D>": { "type": "scroll.pages", "count": 0.5 },
-    "<C-B>": { "type": "scroll.pages", "count": -1 },
-    "<C-F>": { "type": "scroll.pages", "count": 1 },
-    "gg": { "type": "scroll.top" },
-    "G": { "type": "scroll.bottom" },
-    "$": { "type": "scroll.end" },
-    "d": { "type": "tabs.close" },
-    "D": { "type": "tabs.close", "select": "left" },
-    "u": { "type": "tabs.reopen" },
-    "K": { "type": "tabs.prev" },
-    "J": { "type": "tabs.next" },
-    "gT": { "type": "tabs.prev" },
-    "gt": { "type": "tabs.next" },
-    "g0": { "type": "tabs.first" },
-    "g$": { "type": "tabs.last" },
-    "r": { "type": "tabs.reload", "cache": false },
-    "R": { "type": "tabs.reload", "cache": true },
-    "zp": { "type": "tabs.pin.toggle" },
-    "zd": { "type": "tabs.duplicate" },
-    "zi": { "type": "zoom.in" },
-    "zo": { "type": "zoom.out" },
-    "zz": { "type": "zoom.neutral" },
-    "f": { "type": "follow.start", "newTab": false },
-    "F": { "type": "follow.start", "newTab": true, "background": false },
-    "m": { "type": "mark.set.prefix" },
-    "'": { "type": "mark.jump.prefix" },
-    "H": { "type": "navigate.history.prev" },
-    "L": { "type": "navigate.history.next" },
-    "[[": { "type": "navigate.link.prev" },
-    "]]": { "type": "navigate.link.next" },
-    "gu": { "type": "navigate.parent" },
-    "gU": { "type": "navigate.root" },
-    "gi": { "type": "focus.input" },
-    "gf": { "type": "page.source" },
-    "gh": { "type": "page.home" },
-    "gH": { "type": "page.home", "newTab": true },
-    "y": { "type": "urls.yank" },
-    "p": { "type": "urls.paste", "newTab": false },
-    "P": { "type": "urls.paste", "newTab": true },
-    "/": { "type": "find.start" },
-    "n": { "type": "find.next" },
-    "N": { "type": "find.prev" },
-    ".": { "type": "repeat.last" },
-    "<S-Esc>": { "type": "addon.toggle.enabled" }
-  },
-  "search": {
-    "default": "google",
-    "engines": {
-      "google": "https://google.com/search?q={}",
-      "twitter": "https://twitter.com/search?q={}",
-      "wikipedia": "https://en.wikipedia.org/w/index.php?search={}"
-    }
-  },
-  "properties": {
-    "hintchars": "fjdkslieow",
-    "smoothscroll": true,
-    "complete": "sbh"
-  },
-  "blacklist": [
-    "*.slack.com",
-    "mail.google.com"
-  ]
 }
 
 ```
