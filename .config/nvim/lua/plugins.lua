@@ -226,6 +226,11 @@ return require("packer").startup(function(use)
     "crispgm/telescope-heading.nvim",
   }
 
+  -- Terminal
+  use { "akinsho/toggleterm.nvim",
+    config = [[require("toggleterm").setup()]],
+  }
+
   -- Git
   -- TODO:
 
