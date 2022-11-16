@@ -390,15 +390,15 @@ fi
 ##################
 # Local dependency
 ##################
-if [ -f ~/.zshrc.local ]; then
-    source ~/.zshrc.local
+if [ -f ~/.secrets/.zshrc.local ]; then
+    source ~/.secrets/.zshrc.local
 fi
 
 
 ##################
 # End of execution
 ##################
-if [ "$DOTFILES/.zshrc.local" -nt "~/.zshrc.local.zwc" ]; then
+if [ "$DOTFILES/.secrets/.zshrc.local" -nt "~/.secrets/.zshrc.local.zwc" ]; then
     zcompile ~/.zshrc.local
 fi
 if [ "$DOTFILES/.zshrc" -nt "~/.zshrc.zwc" ]; then

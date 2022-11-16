@@ -78,7 +78,7 @@ nnoremap Y y$
 " }}}
 " # Directory Settings {{{
 let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-let s:cache_dir = s:cache_home . has('nvim') ? 'nvim' : 'vim'
+let s:cache_dir = s:cache_home . 'vim'
 if !isdirectory(s:cache_dir)
   call system('mkdir -p ' . s:cache_dir . '/{swap,backup,view,undo}')
 endif
@@ -86,20 +86,11 @@ endif
 set backup swapfile
 
 " Not use white space into the statement (Suck!!)
-if has('nvim')
-  set directory=~/.cache/nvim/swap
-  set backupdir=~/.cache/nvim/backup
-  set viewdir=~/.cache/nvim/view
-  if has('persistent_undo')
-    set undodir=~/.cache/nvim/undo
-  endif
-else
-  set directory=~/.cache/vim/swap
-  set backupdir=~/.cache/vim/backup
-  set viewdir=~/.cache/vim/view
-  if has('persistent_undo')
-    set undodir=~/.cache/vim/undo
-  endif
+set directory=~/.cache/vim/swap
+set backupdir=~/.cache/vim/backup
+set viewdir=~/.cache/vim/view
+if has('persistent_undo')
+  set undodir=~/.cache/vim/undo
 endif
 " }}}
 " # Local Dependency {{{
@@ -109,7 +100,7 @@ set nobackup noswapfile
 let $MYVIMRC = resolve(expand($MYVIMRC))
 nnoremap <silent> e. :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> eS :<C-u>source $MYVIMRC<CR>
-let $MYVIMRC_LOCAL = $HOME . (has('nvim') ? '/.config/nvim/init.local.vim' : '/.vimrc.local')
+let $MYVIMRC_LOCAL = $HOME . '/.secrets/vimrc.local'
 if filereadable(expand($MYVIMRC_LOCAL))
   " INFO: Read more .vimrc.local.dist
   source $MYVIMRC_LOCAL
@@ -121,7 +112,7 @@ if &compatible
   set nocompatible
 endif
 
-let s:dein_dir = s:cache_home . (has('nvim') ? '/nvim/dein' : '/dein')
+let s:dein_dir = s:cache_home . '/dein'
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
@@ -140,18 +131,6 @@ if dein#load_state(s:dein_dir)
   " TOOD: need for nvim?
   call dein#add('LeafCage/yankround.vim')
 
-  " NeoVim More Dependencies
-  if has('nvim')
-      call dein#add('nvim-lua/popup.nvim')
-      call dein#add('nvim-lua/plenary.nvim')
-      call dein#add('MunifTanjim/nui.nvim')
-  endif
-
-  " Treesitter:
-  if has('nvim')
-    call dein#add('nvim-treesitter/nvim-treesitter', {'hook_post_update': 'TSUpdate'})
-  endif
-
   if !exists('g:vscode')
     " ColorSchemes:
     "call dein#add('jacoborus/tender.vim', { 'merged': 0 })
@@ -169,21 +148,14 @@ if dein#load_state(s:dein_dir)
     call dein#add('vim-scripts/matchit.zip')
     call dein#add('mattn/webapi-vim')
     call dein#add('haya14busa/incsearch.vim')
-    if !has('nvim')
-      call dein#add('itchyny/vim-cursorword')
-      call dein#add('bronson/vim-visual-star-search')
-    endif
+    call dein#add('itchyny/vim-cursorword')
+    call dein#add('bronson/vim-visual-star-search')
 
     " Utility:
     call dein#add('nishigori/vim-multiple-switcher')
     call dein#add('itchyny/vim-parenmatch')
     call dein#add('airblade/vim-rooter')
-    if has('nvim')
-      call dein#add('kyazdani42/nvim-web-devicons')
-      call dein#add('rcarriga/nvim-notify')
-    else
-      call dein#add('ryanoasis/vim-devicons')
-    endif
+    call dein#add('ryanoasis/vim-devicons')
 
     " FileType:
     call dein#add('editorconfig/editorconfig-vim')
@@ -201,13 +173,9 @@ if dein#load_state(s:dein_dir)
     call dein#add('google/vim-maktaba', { 'lazy': 1, 'on_ft': 'bzl' })
 
     " Fzf:
-    if has('nvim')
-      call dein#add('nvim-telescope/telescope.nvim')
-    else
-      call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-      "call dein#add('junegunn/fzf.vim')
-      call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
-    endif
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
+    "call dein#add('junegunn/fzf.vim')
+    call dein#add('yuki-yano/fzf-preview.vim', { 'rev': 'release/rpc' })
 
     " Coc:
     " Ref: https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim#using-deinvim
@@ -291,9 +259,7 @@ set nowrapscan  " Searches nowrap around.
 
 " Search cursor words
 nnoremap * *N
-if !has('nvim')
-  vmap * <Plug>(visualstar-*)N
-endif
+vmap * <Plug>(visualstar-*)N
 
 if executable("rg")
   let &grepprg = 'rg --vimgrep --hidden > /dev/null'
@@ -302,11 +268,7 @@ endif
 " }}}
 " # Copy & Paste {{{
 "set paste " When you're setting paste, can't use inoremap extend ;-<
-if has('nvim')
-  set clipboard=unnamed
-else
-  set clipboard=unnamed,autoselect
-endif
+set clipboard=unnamed,autoselect
 if has('clipboard')
   " For Ubuntu "+y not * (;h clipboard)
   vnoremap <C-c> "+y
@@ -430,7 +392,7 @@ endif
 if !exists('g:vscode')
 " # encoding {{{
 " Note: Kaoriya MacVim is needless encoding.
-if !has('nvim') && (!has('gui_macvim') || !has('kaoriya'))
+if !has('gui_macvim') || !has('kaoriya')
   " INFO: If encode is fixed, :e ++enc={encoding-name}
   set encoding=utf-8
   set fileencodings=utf-8,shiftjis,euc-jp,iso-2022-jp
@@ -438,12 +400,7 @@ endif
 " }}}
 " # Font "{{{
 if !exists('g:vscode')
-  if has('nvim')
-    set guifont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
-    set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
-  else
-    set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
-  endif
+  set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
 endif
 " }}}
 " # Color Scheme {{{
@@ -480,12 +437,10 @@ endif
 " }}}
 " # Fold, View {{{
 nnoremap <Leader>f za
-if !has('nvim')
-  set foldcolumn=4
-  " INFO: foldlevel moved to each fplugin
-  "set foldlevel=0
-  set fillchars+=fold:-
-endif
+set foldcolumn=4
+" INFO: foldlevel moved to each fplugin
+"set foldlevel=0
+set fillchars+=fold:-
 " Don't save options.
 set viewoptions-=options
 " }}}
@@ -827,11 +782,7 @@ if exists('g:loaded_webdevicons')
 endif
 "}}}
 " DarkPoweredPlugins: deol (terminal) {{{
-if has('nvim')
-  nnoremap <silent> <Leader>s :<C-u>Deol -split=floating<CR>
-else
-  nnoremap <silent> <Leader>s :<C-u>Deol<CR>
-endif
+nnoremap <silent> <Leader>s :<C-u>Deol<CR>
 tnoremap <ESC> <C-\><C-n>
 " }}}
 endif

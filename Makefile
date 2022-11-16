@@ -3,20 +3,23 @@
 RC_FILES := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
 
 # Internal variables that it is (maybe) you do not need to set.
-os              := $(shell uname -s)
-arch             = $(shell arch)
-credentials     := .gitsecret .zshrc.local .vimrc.local .gvimrc.local
-links           := $(RC_FILES) .gitconfig .zsh .zshenv .p10k.zsh .vim
-links           += $(addprefix .config/, dein nvim gh prs cspell firefox tridactyl)
-dir_requires    := $(addprefix $(HOME)/, src, bin, tmp, Dropbox .config, .cache/terraform) \
+os            := $(shell uname -s)
+arch           = $(shell arch)
+secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
+links         := $(RC_FILES) .gitconfig .zsh .zshenv .p10k.zsh .vim .secrets
+links         += $(addprefix .config/, dein nvim gh prs cspell firefox tridactyl)
+dir_requires  := $(addprefix $(HOME)/, src, bin, tmp, Dropbox .config, .cache/terraform) \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
-bin_requires    := $(if $(shell which diff-highlight),, bin/diff-highlight)
-gh_extensions   := mislav/gh-branch dlvhdr/gh-dash
+bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight)
+gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
+debug:
+	@echo $(wildcard .secrets/.*.example)
+	@echo $(secrets)
 
 .DEFAULT_GOAL: me
 .PHONY: me
-me: $(dir_requires) $(bin_requires) links credentials
+me: $(dir_requires) $(bin_requires) links secrets
 	@echo Make me happy :D
 
 .PHONY: all
@@ -38,15 +41,14 @@ clean: $(os)/clean
 
 update: links $(os)/update
 
-credentials: $(dir_requires) $(credentials)
+secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
 	@set -ex; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script);)
 	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
-$(credentials):
-	cp -i ./$@.example ./$@
-	ln -s $(CURDIR)/$@ ~/$@
+$(secrets):
+	cp -i $@.example $@
 	@echo "U should edit $@ just putting now"
 
 $(dir_requires):

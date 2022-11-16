@@ -44,10 +44,10 @@ endif
 " QuickStartMyGvimRC: {{{
 if exists('g:local_config')
   let $MYGVIMRC = g:local_config['dotfiles_dir'] . '/.gvimrc'
-  let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
+  let $MYGVIMRC_LOCAL = $HOME . '/.secrets/.gvimrc.local'
 else
   let $MYGVIMRC = $HOME . '/.gvimrc'
-  let $MYGVIMRC_LOCAL = $HOME . '/.gvimrc.local'
+  let $MYGVIMRC_LOCAL = $HOME . '/.secrets/.gvimrc.local'
 endif
 nnoremap e> :<C-u>edit $MYGVIMRC<CR>
 nnoremap eS :<C-u>source $MYGVIMRC<CR>
