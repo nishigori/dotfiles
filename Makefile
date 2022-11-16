@@ -11,7 +11,7 @@ links           += $(addprefix .config/, dein nvim gh prs cspell firefox tridact
 dir_requires    := $(HOME)/src $(HOME)/bin $(HOME)/.cache/terraform $(HOME)/.config $(HOME)/Dropbox \
 	$(foreach _v, undo swap backup unite view, $(HOME)/.cache/vim/$(_v))
 bin_requires    := $(if $(shell which diff-highlight),, bin/diff-highlight)
-gh_extensions   := mislav/gh-branch dlvhdr/gh-prs
+gh_extensions   := mislav/gh-branch dlvhdr/gh-dash
 
 
 .DEFAULT_GOAL: me
