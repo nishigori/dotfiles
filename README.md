@@ -12,7 +12,7 @@ $ make install
 
 Following docs is for the manually setup
 
-## MacOS ![](https://www.apple.com/v/mac/home/br/images/overview/compare/compare_icon_m1_pro_max__d1toavnfl1m6_large.png)
+## MacOS
 
 ```sh
 xcode-select --install
@@ -27,11 +27,11 @@ softwareupdate --install-rosetta
 * ⌘英かな: https://ei-kana.appspot.com/
   * homebrew out of controll
 
-## Alfread ![](https://www.alfredapp.com/media/logo4@2x.png)
+## Alfread
 
 always keyboard en: `Preferences > Advanced > Force Keyboard` to **ABC**
 
-## Firefox ![](https://www.mozilla.org/media/protocol/img/logos/firefox/logo.fedb52c912d6.svg)
+## Firefox
 
 ### `about:config`
 
