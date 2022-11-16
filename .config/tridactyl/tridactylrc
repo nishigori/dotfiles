@@ -1,6 +1,16 @@
+" vim: filetype=vim
+" https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files
+
 colorscheme dark
 
+" Just use a blank page for new tab. It would be nicer to use the standard
+" Firefox homepage, but Tridactyl doesn't support this yet.
+set newtab about:blank
+
 set allowautofocus false
+set searchengine g
+set tabopencontaineraware true
+set visualenterauto false
 set hintfiltermode vimperator-reflow
 bind --mode=normal ; fillcmdline_notrail
 
@@ -18,10 +28,9 @@ set blacklistkeys ["<M-t>", "<D-t>"]
 set leavegithubalone false
 
 " Tab
-"set newtab about:blank<CR>
 "nativeopen open about:blank
 bind <D-t> nativeopen open about:blank
-bind <M-t> tabopen www.yahoo.co.jp
+bind <M-t> tabopen google.com
 bind --mode=normal <C-p> tabprev
 bind --mode=normal <C-n> tabnext
 
