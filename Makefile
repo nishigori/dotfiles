@@ -8,8 +8,8 @@ arch             = $(shell arch)
 credentials     := .gitsecret .zshrc.local .vimrc.local .gvimrc.local
 links           := $(RC_FILES) .gitconfig .zsh .zshenv .p10k.zsh .vim
 links           += $(addprefix .config/, dein nvim gh prs cspell firefox tridactyl)
-dir_requires    := $(HOME)/src $(HOME)/bin $(HOME)/.cache/terraform $(HOME)/.config $(HOME)/Dropbox \
-	$(foreach _v, undo swap backup unite view, $(HOME)/.cache/vim/$(_v))
+dir_requires    := $(addprefix $(HOME)/, src, bin, tmp, Dropbox .config, .cache/terraform) \
+	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
 bin_requires    := $(if $(shell which diff-highlight),, bin/diff-highlight)
 gh_extensions   := mislav/gh-branch dlvhdr/gh-dash
 
