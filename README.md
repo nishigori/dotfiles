@@ -84,10 +84,8 @@ EOT
 * `When a new tree appears, collapse others automatically` to `check-off`
 * `When tab gets focus, expand its tree '` to ``
 
-about:addons > Tre Style Tab > Preferences > Advanced:
-
 <details>
-<summary>Written at the custom-style-rules</summary>
+<summary>custom-style-rules at about:addons > Tre Style Tab > Preferences > Advanced:</summary>
 <!-- {{{ -->
 Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x
 
@@ -173,3 +171,7 @@ tab-item .extra-items-container::after {
 
 <!-- }}} -->
 </details>
+
+### Add-on: Most Recent Tab > Preferences
+
+Keyboard shortcut: `MacCtrl+9` (<C-,>) as switch back to recently selected tab.
