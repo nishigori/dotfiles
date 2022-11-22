@@ -29,7 +29,8 @@ softwareupdate --install-rosetta
 
 ## Alfread
 
-always keyboard en: `Preferences > Advanced > Force Keyboard` to **ABC**
+* always keyboard en: `Preferences > Advanced > Force Keyboard` to **ABC**
+* `Appearance > Options > Show Alfred on` **mouse screen** or **active screen**
 
 ## Firefox
 
