@@ -2,7 +2,7 @@
 #
 # For Darwin
 #
-EDITOR := vscode
+EDITOR := nvim
 ifeq (arm64,$(arch))
 BREW   := /opt/homebrew/bin/brew
 VSCODE := /opt/homebrew/bin/code
