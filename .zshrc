@@ -11,6 +11,7 @@ fi
 export TERM="xterm-256color"
 export XDG_CONFIG_HOME=$HOME/.config
 export EDITOR=vi
+export LESS="-XRF --shift 8 --LONG-PROMPT"
 
 path=(
     $HOME/bin(N-/)
@@ -357,6 +358,8 @@ if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 if (( $+commands[bat] )); then
     alias c='bat'
     export BAT_THEME=Dracula
+    export BAT_PAGER="less -XRF --shift 4 --LONG-PROMPT"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
 # like vimrc alpaca_tags settings
