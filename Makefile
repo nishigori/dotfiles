@@ -13,10 +13,6 @@ dir_requires  := $(addprefix $(HOME)/, src, bin, tmp, Dropbox .config, .cache/te
 bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight)
 gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
-debug:
-	@echo $(wildcard .secrets/.*.example)
-	@echo $(secrets)
-
 .DEFAULT_GOAL: me
 .PHONY: me
 me: $(dir_requires) $(bin_requires) links secrets
@@ -58,6 +54,8 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(@D)
 	@ls -dF ~/$@
 
+terminal: $(os)/terminal
+
 zsh: $(HOME)/.zinit $(HOME)/.zsh_history ## Configure ZSH
 
 $(HOME)/.zsh_history:
@@ -81,9 +79,6 @@ ifneq (,$(shell which go 2>/dev/null))
 	go install golang.org/x/tools/gopls@latest
 	go install github.com/sourcegraph/go-langserver@latest
 endif
-#ifneq (,$(shell which pip3 2>/dev/null))
-#	pip3 install python-language-server
-#endif
 
 vim:
 ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
@@ -112,4 +107,3 @@ goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimpo
 	go get -u github.com/pwaller/goimports-update-ignore
 	rm -f $$GOPATH/src/.goimportsignore
 	goimports-update-ignore
-

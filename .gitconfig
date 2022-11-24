@@ -17,7 +17,7 @@
 
 [grep]
 	lineNumber = true
-;
+
 ;; brew install git-delta
 ;; delta is https://github.com/dandavison/delta
 [delta]
@@ -110,13 +110,15 @@
 	new = green bold
 	whitespace = magenta reverse
 
-[include]
-	path = ~/.secrets/.gitsecret
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 [user]
 	name = nishigori
 	email = nishigori.tak@gmail.com
+
+[include]
+	path = ~/.secrets/.gitsecret

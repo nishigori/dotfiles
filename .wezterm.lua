@@ -1,6 +1,11 @@
 local wezterm = require "wezterm"
 local act = wezterm.action
 
+-- Change this to match your heuristics for whether the executable path is an editor
+function is_an_editor(name)
+   return name:find("nvim")
+end
+
 -- for nvim
 local function emulate_command_shift(key)
   return {
@@ -26,6 +31,7 @@ local function emulate_command(key)
 end
 
 return {
+  --use_ime = false, -- awaiting fixed https://github.com/wez/wezterm/issues/2771
   --debug_key_events = true,
   color_scheme = "GoogleDark (Gogh)", -- "GoogleDark (Gogh)", "GitHub Dark"
   colors = {

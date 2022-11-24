@@ -23,6 +23,14 @@ Darwin/update: brew/update brew/upgrade
 
 Darwin/clean: brew/cleanup
 
+Darwin/terminal: # https://wezfurlong.org/wezterm/install/macos.html
+ifeq (,$(shell which wezterm 2>/dev/null))
+	brew tap wez/wezterm
+	brew install --cask wez/wezterm/wezterm-nightly
+endif
+	brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest
+
+
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	#which mas 2>/dev/null || $(BREW) install mas
