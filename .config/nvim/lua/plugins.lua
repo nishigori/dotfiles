@@ -24,7 +24,11 @@ return require("packer").startup(function(use)
     { -- notify & popup cmdline
       "folke/noice.nvim",
       requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-      config = [[require('config.noice')]],
+      config = function()
+        require("notify").setup({ background_colour = "#22272e" })
+        require "config.noice"
+        vim.api.nvim_set_hl(0, "NoiceMini", { bg = "none" })
+      end,
     },
     {
       "uga-rosa/translate.nvim",
@@ -47,8 +51,14 @@ return require("packer").startup(function(use)
           enable = true,
           extra_groups = {
             "StatusLine",
+            "NvimTreeNormal",
+          },
+          excludes = {
+            "NoiceCmdlinePopup",
+            "NoiceMini",
+            "NoicePopup",
             "NvimTreeStatusLine",
-          }
+          },
         }
       end,
     },
