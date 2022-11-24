@@ -56,7 +56,6 @@ cask 'homebrew/cask-drivers/zsa-wally'
 #cask 'krisp'
 
 brew 'openssl@1.1'
-brew 'libressl'
 #brew 'vim'
 brew 'macvim'
 brew 'pcre'
@@ -113,24 +112,11 @@ brew 'go'
 brew 'rebar3'
 
 brew 'rust'
-# Powerful 'ps' https://github.com/dalance/procs
-brew 'procs'
-# Powerful 'cat' https://github.com/sharkdp/bat
-brew 'bat'
-# bat-extras: https://github.com/eth-p/bat-extras
-#brew 'eth-p/software/bat-extras'
-brew 'bat-extras'
-brew 'bat-extras-batdiff'
-brew 'bat-extras-batgrep'
-brew 'bat-extras-batman'
-brew 'bat-extras-batpipe'
-brew 'bat-extras-batwatch'
-brew 'bat-extras-prettybat'
-# Powerful 'find' https://github.com/sharkdp/fd
-brew 'fd'
-# Powerful 'grep' https://github.com/BurntSushi/ripgrep
-brew 'ripgrep'
-
+brew 'procs'            # Powerful 'ps' https://github.com/dalance/procs
+brew 'bat'              # Powerful 'cat' https://github.com/sharkdp/bat
+brew 'bat-extras'       # https://github.com/eth-p/bat-extras/blob/master/README.md
+brew 'fd'               # Powerful 'find' https://github.com/sharkdp/fd
+brew 'ripgrep'          # Powerful 'grep' https://github.com/BurntSushi/ripgrep
 
 # self-installed
 brew 'cpanminus'
