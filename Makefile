@@ -69,7 +69,7 @@ github: $(gh_extensions)
 $(gh_extensions):
 	$(if $(filter $@, $(shell gh extension list)),, gh extension install $@)
 
-bin/diff-highlight:
+bin/diff-highlight: $(HOME)/bin
 	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
 	make -C /tmp/git/contrib/diff-highlight/
 	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
