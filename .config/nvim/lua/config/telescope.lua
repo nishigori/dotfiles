@@ -26,6 +26,7 @@ telescope.setup {
     buffers = {
       ignore_current_buffer = true,
       sort_lastused = true,
+      hidden = true,
       previewer = false,
     },
     -- TODO: how specify theme on pickers

@@ -41,7 +41,7 @@ secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
 	@set -ex; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script);)
-	ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
+	@ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
 $(secrets):
 	cp -i $@.example $@
@@ -55,6 +55,8 @@ $(links):
 	@ls -dF ~/$@
 
 terminal: $(os)/terminal
+
+shell: zsh
 
 zsh: $(HOME)/.zinit $(HOME)/.zsh_history ## Configure ZSH
 

@@ -15,11 +15,9 @@ tmp/*
 
 # Vim
 .vim/bundle/*
-.vim/neobundle.vim.git
 .vim/view
 .vim/ref/*
 .vim/tmp/*
-.vim/bundle.vim.local
 .*sw[op]
 
 # Homebrew

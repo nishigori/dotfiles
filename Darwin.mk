@@ -20,7 +20,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # NOTE: brew/bundle is heavy run, skipped on CI
 Darwin/install: $(BREW) brew/tap $(if $(CI),,brew/bundle)
 
-Darwin/update: brew/update brew/upgrade
+Darwin/update: brew/update brew/upgrade Darwin/terminal
 
 Darwin/clean: brew/cleanup
 
@@ -39,9 +39,6 @@ $(BREW):
 
 brew/%:
 	brew $(@F)
-
-brew/bundle:
-	brew bundle
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
 vscode: $(VSCODE)

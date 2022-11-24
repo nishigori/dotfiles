@@ -16,10 +16,12 @@ tap 'homebrew/cask-fonts'
 tap 'sanemat/font'
 tap 'universal-ctags/universal-ctags'
 tap 'aws/tap'
+tap 'wez/wezterm'
 
 ######
 # Cask
 ######
+cask 'wez/wezterm/wezterm-nightly'
 cask 'abyssoft-teleport'
 cask 'dash'
 cask 'deepl'
@@ -53,7 +55,6 @@ cask 'homebrew/cask-drivers/zsa-wally'
 #cask 'gifcapture'
 #cask 'krisp'
 
-brew 'wezterm'
 brew 'openssl@1.1'
 brew 'libressl'
 #brew 'vim'
