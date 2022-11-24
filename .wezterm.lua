@@ -39,8 +39,9 @@ return {
     cursor_bg = 'khaki',
     cursor_fg = 'black',
   },
+  window_background_opacity = 0.84, -- transparency
   font = wezterm.font "Hack Nerd Font",
-  font_size = 17.5,
+  font_size = 18,
   keys = {
     { key = '\r', mods = 'CTRL', action = act.Multiple {
         act.SendKey { key = " " },

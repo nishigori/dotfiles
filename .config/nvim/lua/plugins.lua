@@ -39,17 +39,32 @@ return require("packer").startup(function(use)
   }
 
   -- ColorScheme
-  use { "projekt0n/github-nvim-theme",
-    config = function()
-      require("github-theme").setup{
-        theme_style = "dimmed", -- "dark", "dark_colorblind", "dimmed"
-        dark_float = true,
-        comment_style = "italic",
-        --keyword_style = "italic",
-        --function_style = "italic",
-        --variable_style = "italic",
-      }
-    end
+  use {
+    {
+      "xiyaowong/nvim-transparent",
+      config = function()
+        require("transparent").setup {
+          enable = true,
+          extra_groups = {
+            "StatusLine",
+            "NvimTreeStatusLine",
+          }
+        }
+      end,
+    },
+    {
+      "projekt0n/github-nvim-theme",
+      config = function()
+        require("github-theme").setup {
+          theme_style = "dimmed", -- "dark", "dark_colorblind", "dimmed"
+          dark_float = true,
+          comment_style = "italic",
+          --keyword_style = "italic",
+          --function_style = "italic",
+          --variable_style = "italic",
+        }
+      end,
+    },
   }
 
   -- StatusLine, WinBar
