@@ -1,3 +1,5 @@
+require("notify").setup({ background_colour = "#22272e" })
+
 require('noice').setup {
   views = {
     -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#display-the-cmdline-and-popupmenu-together
@@ -54,3 +56,5 @@ require('noice').setup {
     }
   },
 }
+
+vim.api.nvim_set_hl(0, "NoiceMini", { bg = "none" })

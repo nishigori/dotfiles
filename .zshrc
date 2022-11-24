@@ -127,6 +127,7 @@ alias dis='git diff --stat'
 alias dis='git diff --stat'
 alias hist="git hist"
 alias ec="editorconfig-checker" # for nvim-mason-null-ls
+alias lazygit="lazygit --use-config-dir ~/.config/lazygit"
 
 # ls using https://github.com/Peltoche/lsd
 if (( $+commands[lsd] )); then

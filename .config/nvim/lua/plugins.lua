@@ -24,11 +24,7 @@ return require("packer").startup(function(use)
     { -- notify & popup cmdline
       "folke/noice.nvim",
       requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-      config = function()
-        require("notify").setup({ background_colour = "#22272e" })
-        require "config.noice"
-        vim.api.nvim_set_hl(0, "NoiceMini", { bg = "none" })
-      end,
+      config = [[require("config.noice")]],
     },
     {
       "uga-rosa/translate.nvim",
@@ -253,7 +249,23 @@ return require("packer").startup(function(use)
 
   -- Terminal
   use { "akinsho/toggleterm.nvim",
-    config = [[require("toggleterm").setup()]],
+    config = function ()
+      require("toggleterm").setup {
+        highlights = {
+          Normal = { guibg = "#22272e" }
+        },
+      }
+
+      -- https://github.com/akinsho/toggleterm.nvim#custom-terminal-usage
+      local Terminal = require("toggleterm.terminal").Terminal
+      local lazygit = Terminal:new({ cmd = "lazygit -ucd ~/.config/lazygit", direction = "float", hidden = true })
+
+      function _lazygit_toggle()
+        lazygit:toggle()
+      end
+
+      vim.api.nvim_set_keymap("n", "<C-g>", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+    end
   }
 
   -- Git

@@ -1,0 +1,10 @@
+# vim: set fletype=yaml ts=2 sw=2 sts=0 expandtab:
+#
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+reporting: "off"
+disableStartupPopups: true
+onfirmOnQuit: true
+
+os:
+  editCommand: "nvim"
