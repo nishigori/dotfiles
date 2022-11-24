@@ -1,0 +1,12 @@
+name: macos
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  install:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: make
