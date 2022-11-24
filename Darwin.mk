@@ -17,7 +17,8 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 .PHONY: Darwin/* brew/*
 
-Darwin/install: $(BREW) brew/tap brew/bundle
+# NOTE: brew/bundle is heavy run, skipped on CI
+Darwin/install: $(BREW) brew/tap $(if $(CI),,brew/bundle)
 
 Darwin/update: brew/update brew/upgrade
 

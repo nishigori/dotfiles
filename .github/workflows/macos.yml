@@ -10,3 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: make
+      - run: make install
+
+  terminal:
+    runs-on: macos-latest
+    needs:
+      - install
+    steps:
+      - run: make terminal
+
+  shell:
+    runs-on: macos-latest
+    needs:
+      - install
+    steps:
+      - run: make zsh
