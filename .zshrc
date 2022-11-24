@@ -151,14 +151,21 @@ setopt interactive_comments
 #######
 # zinit
 #######
-if [ ! -d ~/.zinit ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
-fi
-source $HOME/.zinit/bin/zinit.zsh
+case ${OSTYPE} in
+    darwin*)
+        # zinit installed by homebrew
+        source $brew_root/opt/zinit/zinit.zsh
+        ;;
+    linux*)
+        if [ ! -d ~/.zinit ]; then
+            bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+        fi
+        source $HOME/.zinit/bin/zinit.zsh
+        ;;
+esac
+
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-### End of zinit's installer chunk
-zcompile $HOME/.zinit/bin/zinit.zsh 2>/dev/null
 
 zinit ice wait'0'
 zinit light zsh-users/zsh-autosuggestions
@@ -171,14 +178,12 @@ zinit light aenda/zsh-diff-so-fancy
 
 case ${OSTYPE} in
     darwin*)
-        #zinit snippet OMZ::plugins/osx/osx.plugin.zsh
-        ;;
-    freebsd*)
         ;;
     linux*)
         zinit snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
         ;;
 esac
+
 
 # [Theme]
 zinit ice deps=1

@@ -56,20 +56,10 @@ $(links):
 
 terminal: $(os)/terminal
 
-shell: zsh
-
-zsh: $(HOME)/.zinit $(HOME)/.zsh_history ## Configure ZSH
-
-$(HOME)/.zsh_history:
-	fc -p $@
-
-$(HOME)/.zinit:
-	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
-
 github: $(gh_extensions)
 
 $(gh_extensions):
-	$(if $(filter $@, $(shell gh extension list)),, gh extension install $@)
+	$(if $(filter $@, $(shell gh extension list 2>/dev/null)),, gh extension install $@)
 
 bin/diff-highlight: $(HOME)/bin
 	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git

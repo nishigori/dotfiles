@@ -136,6 +136,7 @@ brew 'ripgrep'
 brew 'cpanminus'
 
 brew 'zsh'
+brew 'zinit'
 brew 'cscope'
 
 ########

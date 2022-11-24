@@ -3,6 +3,8 @@ Dotfiles
 
 <!-- vim: set fdm=marker sts=0 expandtab: -->
 
+[![macos](https://github.com/nishigori/dotfiles/actions/workflows/macos.yml/badge.svg)](https://github.com/nishigori/dotfiles/actions/workflows/macos.yml)
+
 ```sh
 $ make
 $ make install
