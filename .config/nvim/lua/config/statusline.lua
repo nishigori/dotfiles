@@ -1,12 +1,11 @@
 local lualine = require 'lualine'
-local saga_winbar = require 'lspsaga.symbolwinbar'
 
 lualine.setup {
   options = {
     icons_enabled = true,
     theme = "auto", -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
     globalstatus = true,
-    section_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     component_separators = { left = "", right = "|" },
     disabled_filetypes = { "packer", "NvimTree" },
     refresh = {
@@ -17,9 +16,9 @@ lualine.setup {
 
   --tabline =
 
-  winbar = {
-    lualine_c = { saga_winbar.get_symbol_node },
-    lualine_x = {
+  sections = {
+    lualine_a = { [[""]] },
+    lualine_b = {
       {
         "diagnostics",
         sources = { "nvim_lsp", "nvim_diagnostic" },
@@ -36,13 +35,6 @@ lualine.setup {
         },
       },
     },
-    lualine_y = {},
-  },
-  --inactive_winbar = {},
-
-  sections = {
-    lualine_a = {},
-    lualine_b = { [[""]] },
     lualine_c = {
       -- Show git project of git
       [[vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t")]],
