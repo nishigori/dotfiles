@@ -362,8 +362,10 @@ if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 
 # Powerful & Colorful command(s)
 if (( $+commands[bat] )); then
+    # https://github.com/sharkdp/bat
     alias c='bat'
-    export BAT_THEME=Dracula
+    #export BAT_THEME=Dracula
+    export BAT_THEME="Monokai Extended Light"
     export BAT_PAGER="less -XRF --shift 4 --LONG-PROMPT"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
