@@ -33,15 +33,19 @@ end
 return {
   --use_ime = false, -- awaiting fixed https://github.com/wez/wezterm/issues/2771
   --debug_key_events = true,
-  color_scheme = "GoogleDark (Gogh)", -- "GoogleDark (Gogh)", "GitHub Dark"
-  colors = {
-    -- https://docs.rs/palette/0.4.1/palette/named/index.html#constants
-    cursor_bg = 'khaki',
-    cursor_fg = 'black',
-  },
-  window_background_opacity = 0.90, -- transparency
   font = wezterm.font "Hack Nerd Font",
   font_size = 20,
+  color_scheme = "Google (light) (terminal.sexy)",  -- "Google (light) (terminal.sexy)", "GoogleDark (Gogh)", "GoogleDark (Gogh)", "GitHub Dark"
+  colors = {
+    -- https://docs.rs/palette/0.4.1/palette/named/index.html#constants
+    --cursor_bg = 'khaki',
+    --cursor_fg = 'black',
+    --background = 'snow',
+    tab_bar = {
+      background = 'silver',
+    }
+  },
+  window_background_opacity = 0.92, -- transparency
   keys = {
     { key = '\r', mods = 'CTRL', action = act.Multiple {
         act.SendKey { key = " " },
