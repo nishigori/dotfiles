@@ -43,8 +43,10 @@ links: $(dir_requires) $(links)
 	@set -ex; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script);)
 	@ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
 
+.PHONY: $(secrets)
 $(secrets):
-	cp -i $@.example $@
+	$(if $(wildcard $@),,cp -i $@.example $@)
+	ln -sf $(CURDIR)/$@ $(HOME)/
 	@echo "U should edit $@ just putting now"
 
 $(dir_requires):
