@@ -3,8 +3,7 @@
 	editor       = vim
 	excludesfile = ~/.gitignore
 	quotepath    = false
-	#pager        = delta
-	#pager        = diff-so-fancy | less --no-init --quit-if-one-screen --tabs=4 -RFX
+	pager        = delta
 
 [color]
 	ui     = true
@@ -21,15 +20,20 @@
 ;; brew install git-delta
 ;; delta is https://github.com/dandavison/delta
 [delta]
-	plus-style = "syntax #012800"
-	minus-style = "syntax #340001"
-	;; $ delta --list-syntax-themes
-	syntax-theme = Solarized (dark)
-	line-numbers = true
 	navigate = true
+	;; $ delta --list-syntax-themes
+	light = true
+	syntax-theme = GitHub
+	;syntax-theme = Solarized (dark)
+	;plus-style = "syntax #012800"
+	;minus-style = "syntax #340001"
+	line-numbers = true
 
 [interactive]
 	diffFilter = delta --color-only
+
+[diff]
+	colorMoved = default
 
 [pager]
 	#log   = delta | less -RFXS
