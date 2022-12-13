@@ -1,7 +1,7 @@
 " vim: filetype=vim
 " https://github.com/tridactyl/tridactyl/wiki/Exemplar-.tridactylrc-files
 
-colorscheme dark
+colorscheme shydactyl
 
 " Just use a blank page for new tab. It would be nicer to use the standard
 " Firefox homepage, but Tridactyl doesn't support this yet.
