@@ -54,6 +54,9 @@ return require("packer").startup(function(use)
             "NoiceMini",
             "NoicePopup",
             "NvimTreeStatusLine",
+            "Pmenu",
+            "ToggleTerm",
+            "ToggleTermBuffer",
           },
         }
       end,
@@ -62,9 +65,10 @@ return require("packer").startup(function(use)
       "projekt0n/github-nvim-theme",
       config = function()
         require("github-theme").setup {
-          theme_style = "dimmed", -- "dark", "dark_colorblind", "dimmed"
-          dark_float = true,
+          theme_style = "light", -- "dark", "dark_colorblind", "dimmed"
           comment_style = "italic",
+          --transparent = true,
+          --dark_float = true,
           --keyword_style = "italic",
           --function_style = "italic",
           --variable_style = "italic",
