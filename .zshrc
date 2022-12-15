@@ -131,11 +131,11 @@ alias lazygit="lazygit --use-config-dir ~/.config/lazygit"
 
 # ls using https://github.com/Peltoche/lsd
 if (( $+commands[lsd] )); then
-    alias ls='lsd --group-dirs=first'
-    alias  l='lsd --group-dirs=first -l'
-    alias ll='lsd --group-dirs=first -l'
-    alias la='lsd --group-dirs=first -la'
-    alias al='lsd --group-dirs=first -la'
+    alias ls='lsd'
+    alias  l='lsd -l'
+    alias ll='lsd -l'
+    alias la='lsd -la'
+    alias al='lsd -la'
 else
     alias ls="ls -G"
     alias  l='ls -l'

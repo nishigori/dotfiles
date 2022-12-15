@@ -7,7 +7,7 @@ os            := $(shell uname -s)
 arch           = $(shell arch)
 secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
 links         := $(RC_FILES) .gitconfig .zsh .zshenv .p10k.zsh .vim .secrets
-links         += $(addprefix .config/, dein nvim gh prs cspell firefox tridactyl)
+links         += $(addprefix .config/, dein lsd nvim gh prs cspell firefox tridactyl)
 dir_requires  := $(addprefix $(HOME)/, src bin tmp Dropbox .config .cache/terraform) \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
 bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight)

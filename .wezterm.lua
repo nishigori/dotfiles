@@ -35,7 +35,7 @@ return {
   --debug_key_events = true,
   font = wezterm.font "Hack Nerd Font",
   font_size = 20,
-  color_scheme = "Google (light) (terminal.sexy)",  -- "Google (light) (terminal.sexy)", "GoogleDark (Gogh)", "GoogleDark (Gogh)", "GitHub Dark"
+  color_scheme = "Raycast_Light",  -- "Google (light) (terminal.sexy)", "GoogleDark (Gogh)", "GoogleDark (Gogh)", "GitHub Dark"
   colors = {
     -- https://docs.rs/palette/0.4.1/palette/named/index.html#constants
     --cursor_bg = 'khaki',
@@ -43,9 +43,9 @@ return {
     --background = 'snow',
     tab_bar = {
       background = 'silver',
-    }
+    },
   },
-  window_background_opacity = 0.92, -- transparency
+  window_background_opacity = 0.93, -- transparency
   keys = {
     { key = '\r', mods = 'CTRL', action = act.Multiple {
         act.SendKey { key = " " },

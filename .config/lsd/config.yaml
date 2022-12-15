@@ -1,0 +1,10 @@
+# https://github.com/Peltoche/lsd#config-file-content
+
+classic: false
+color:
+  theme: my-light
+icons:
+  theme: "fancy" # or "unicode"
+date: '+%Y/%m/%d %X'
+sorting:
+  dir-grouping: first
