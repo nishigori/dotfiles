@@ -63,6 +63,7 @@
 	fv        = fetch --verbose --prune
 	hist      = log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'
 	logpretty = log --decorate --graph --name-status --oneline
+	pf        = push --force-with-lease --force-if-includes
 	pv        = pull --verbose
 	rb        = rebase --verbose
 	st        = status
