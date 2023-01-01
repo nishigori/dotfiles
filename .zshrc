@@ -46,6 +46,7 @@ case ${OSTYPE} in
             $brew_root/opt/avr-gcc@11/bin(N-/)
             $brew_root/opt/avr-gcc@9/bin(N-/)
             $brew_root/opt/avr-gcc@8/bin(N-/)
+            $brew_root/opt/gawk/libexec/gnubin(N-/)
             $brew_root/opt/berkeley-db@4/bin(N-/)
             $brew_root/opt/binutils/bin(N-/)
             $brew_root/opt/bison/bin(N-/)
