@@ -49,7 +49,7 @@ keymap('c', '<C-d>', '<Delete>', silent)
 keymap('i', '<c-s>', '<esc><cmd>w<cr>a', silent)
 
 -- Explorer
-keymap('n', ':', ':NvimTreeFindFile!<CR>', silent)
+keymap('n', ':', ':Neotree toggle reveal<CR>', silent)
 -- Translate
 keymap('x', '<C-t>', ':Translate JA<CR>', silent)
 -- FIXME: conflict wezterm `new tab`
@@ -70,11 +70,11 @@ keymap('n', '<Leader>o', '<Plug>(openbrowser-smart-search)', { noremap = false }
 keymap('n', '<leader>t', ':Translate JA<CR>', silent)
 -- <Leader>w\w+ is send from wezterm keys
 keymap('n', '<Leader>w-rc', ':Telescope builtin<CR>', silent) -- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
-keymap('n', '<Leader>w-ra', ':Lspsaga code_action<CR>', silent) -- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
+keymap('n', '<Leader>w-ra', ':Lspsaga code_action<CR>', silent)
 keymap('n', '<Leader>wn', ':Telescope git_files<CR>', silent)
 keymap('n', '<Leader>wa', ':Telescope builtin theme=get_dropdown<CR>', silent)
 keymap('n', '<Leader>wl', ':Telescope current_buffer_fuzzy_find<CR>', silent)
-keymap('n', '<Leader>we', ':Telescope oldfiles<CR>', silent)
+keymap('n', '<Leader>we', ':Telescope oldfiles only_cwd=true<CR>', silent)
 keymap('n', '<Leader>w1', ':NvimTreeFindFile!<CR>', silent)
 keymap('n', '<Leader>w6', ':TroubleToggle<CR>', silent)
 keymap('n', '<Leader>w7', ':AerialToggle! right<CR>', silent)

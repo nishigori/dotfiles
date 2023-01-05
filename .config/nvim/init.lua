@@ -51,18 +51,9 @@ opt.cmdheight = 0 -- Using noice.nvim is popup command
 opt.showcmd = false
 opt.signcolumn = "yes" -- always display diagnostic
 
-opt.shortmess:append("c")
+opt.shortmess:append("cI")
 opt.listchars:append "space:⋅"
 opt.listchars:append "eol:↴"
-
--- Needs using Tree-sitter
-local o = vim.o
-o.foldcolumn = "0"
-o.foldlevel = 99 -- large value depends by nvim-ufo
-o.foldlevelstart = 99
-o.foldenable = true
-o.foldexpr = "nvim_treesitter#foldexpr()"
-o.laststatus = 3
 
 -- TODO: really need?
 --local cmd = vim.cmd
@@ -74,7 +65,21 @@ g.mapleader = " "
 
 -- Plugins
 if vim.fn.exists("g:vscode") ~= 1 then
-  require('plugins')
+  -- https://github.com/folke/lazy.nvim#-installation
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable", -- latest stable release
+      lazypath,
+    })
+  end
+  vim.opt.rtp:prepend(lazypath)
+
+  require("lazy").setup("plugins")
 end
 
 -- KeyMap

@@ -9,8 +9,8 @@ telescope.setup {
       prompt_position = "top",
       vertical = { width = 0.5 },
     },
-    path_display = {"smart"},
-    file_ignore_patterns = { "%.gz", "node_modules", ".git", ".gitkeep" },
+    path_display = { "smart" }, -- smart, shorten, truncate
+    --file_ignore_patterns = { "%.gz", "node_modules", ".git", ".gitkeep" },
     sorting_strategy = "ascending", -- or "descending"
   },
 
@@ -47,6 +47,7 @@ telescope.setup {
     },
     frecency = {
       disable_devicons = false,
+      default_workspace = "CWD",
       workspaces = MY_SECRETS and MY_SECRETS["telescope_frecency_workspaces"] or {},
     },
     heading = { treesitter = true },

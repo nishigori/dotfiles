@@ -55,13 +55,6 @@ require("nvim-treesitter.configs").setup {
     enable = true,
   },
 
-  -- p00f/nvim-ts-rainbow
-  rainbow = {
-    enable = true,
-    extended_module = true,
-    max_file_lines = 2500,
-  },
-
 }
 
 require("treesitter-context").setup {

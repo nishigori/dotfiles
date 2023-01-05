@@ -1,2 +1,3 @@
 plugin/packer_*
 lua/secrets.lua
+lazy-lock.json

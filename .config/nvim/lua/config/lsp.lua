@@ -1,8 +1,6 @@
 -- https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 -- https://gist.github.com/VonHeikemen/8fc2aa6da030757a5612393d0ae060bd
 
-require('neodev').setup { lspconfig = { cmd = { 'lua-language-server' }, prefer_null_ls = true } }
-
 local mason = require 'mason'
 local mason_lspconfig = require 'mason-lspconfig'
 
@@ -41,7 +39,7 @@ mason_null_ls.setup {
     "staticcheck",  -- go
     "stylua",       -- lua
     "buf",          -- protobuf
-    "psalm",        -- php
+    --"psalm",        -- php
     "jq",           -- json
   }
 }
@@ -151,15 +149,8 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-local trouble = require 'trouble'
-
-trouble.setup {
-  fold_open = "",
-  fold_closed = "",
-}
-
 -- UI: light-weight lsp
--- TOOD: diagnostic 自動表示、lspsagaで表示してリッチにしたい
+-- TODO: diagnostic 自動表示、lspsagaで表示してリッチにしたい
 local saga = require 'lspsaga'
 saga.init_lsp_saga({
   symbol_in_winbar = {
