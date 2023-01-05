@@ -71,11 +71,12 @@ return {
       --preset = { output = { split = { append = true } } },
     },
   },
-  --{
-  --  "glepnir/dashboard-nvim",
-  --  lazy = false,
-  --  priority = 800,
-  --},
+  {
+    "glepnir/dashboard-nvim",
+    enabled = false,
+    lazy = false,
+    priority = 800,
+  },
   { "folke/noice.nvim",
     lazy = false,
     priority = 700,
