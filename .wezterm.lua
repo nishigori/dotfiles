@@ -34,12 +34,12 @@ return {
   --use_ime = false, -- awaiting fixed https://github.com/wez/wezterm/issues/2771
   --debug_key_events = true,
   font = wezterm.font "Hack Nerd Font",
-  font_size = 20,
+  font_size = 23,
   color_scheme = "Raycast_Light",  -- "Google (light) (terminal.sexy)", "GoogleDark (Gogh)", "GoogleDark (Gogh)", "GitHub Dark"
   colors = {
     -- https://docs.rs/palette/0.4.1/palette/named/index.html#constants
-    --cursor_bg = 'khaki',
-    --cursor_fg = 'black',
+    cursor_bg = 'deeppink',
+    cursor_fg = 'greenyellow',
     --background = 'snow',
     tab_bar = {
       background = 'silver',
@@ -66,10 +66,10 @@ return {
     emulate_command('1'),
     emulate_command('6'),
     emulate_command('7'),
+    emulate_command('e'),
     emulate_command('r'),
     emulate_command_shift('n'),
     emulate_command_shift('a'),
-    emulate_command_shift('e'),
     emulate_command_shift('l'),
   }
 }
