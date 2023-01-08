@@ -18,20 +18,7 @@ lualine.setup {
 
   sections = {
     lualine_a = { [[""]] },
-    lualine_b = { "branch", "diff" },
-    lualine_c = {
-      -- Show git project of git
-      [[vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t")]],
-      -- The relative path under the git-root
-      function()
-        return string.gsub(
-          vim.api.nvim_buf_get_name(0),
-          vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":p"), --vim.loop.cwd(),
-          '')
-      end,
-    },
-
-    lualine_x = {
+    lualine_b = {
       {
         "diagnostics",
         sources = { "nvim_lsp", "nvim_diagnostic" },
@@ -48,6 +35,19 @@ lualine.setup {
         },
       },
     },
+    lualine_c = {
+      -- Show git project of git
+      [[vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t")]],
+      -- The relative path under the git-root
+      function()
+        return string.gsub(
+          vim.api.nvim_buf_get_name(0),
+          vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":p"), --vim.loop.cwd(),
+          '')
+      end,
+    },
+
+    lualine_x = { "branch", "diff" },
     lualine_y = {
       { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = { fg = "#ff9e64" } },
     },

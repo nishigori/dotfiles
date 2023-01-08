@@ -2,6 +2,11 @@ require("notify").setup({ background_colour = "#22272e" })
 
 require('noice').setup {
 
+  messages = {
+    view = "mini",
+    view_warn = "mini",
+  },
+
   views = {
     -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#display-the-cmdline-and-popupmenu-together
     cmdline_popup = {
@@ -24,6 +29,14 @@ require('noice').setup {
     },
     { -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#hide-written-messages-1
       filter = { event = "msg_show", kind = "", find = "written" },
+      opts = { skip = true },
+    },
+    {
+      filter = {
+        event = "msg_show",
+        kind = "emsg",
+        find = "E486: Pattern not found",
+      },
       opts = { skip = true },
     },
   },
