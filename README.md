@@ -12,44 +12,44 @@ $ make install
 
 ----
 
-Following docs is for the manually setup
+Following docs is for manually setup
 
-## MacOS
+<details>
+    <summary>Mac OS</summary>
 
-```sh
-xcode-select --install
-sudo xcodebuild -license accept
-# for M1 Mac, needed rosetta
-softwareupdate --install-rosetta
-```
-
-* Switch Ctrl <-> Caps Lock: `システム環境設定 > キーボード > 装飾キー`
+* Switch Ctrl <-> Caps Lock: `System Preferences > Keyboard > Modifier Keys...`
 * Disable Search man Page Index in Terminal `System Preferences > Keyboard > Shortcuts > Services`
-  * Fix conflict for Intellij IDEA action of Find Action
-* ⌘英かな: https://ei-kana.appspot.com/
-  * homebrew out of controll
+    * Fix conflict for Intellij IDEA action of Find Action
+* ⌘英かな: https://ei-kana.appspot.com/ (not managed by homebrew)
 
-## Alfread
+</details>
+
+<details>
+    <summary>Alfread</summary>
 
 * always keyboard en: `Preferences > Advanced > Force Keyboard` to **ABC**
 * `Appearance > Options > Show Alfred on` **mouse screen** or **active screen**
 
-## Firefox
+</details>
 
-### `about:config`
+<details><summary>Firefox</summary><blockquote>
+
+<details><summary>about:config</summary><blockquote>
 
 * `browser.autofocus` to **false**
 * `browser.ctrlTab.recentlyUsedOrder` to **false**
 * `browser.tabs.insertRelatedAfterCurrent` to **true**
 * `accessibility.typeaheadfind.enablesound` to **false**
 * `toolkit.legacyUserProfileCustomizations.stylesheets` to **true**
-  * from [treetabstyle wiki](https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#on-firefox-69-and-later)
+    * from [treetabstyle wiki](https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#on-firefox-69-and-later)
 * `svg.context-properties.content.enabled` to **true**
-  * from [Simple Tab Groups](https://addons.mozilla.org/ja/firefox/addon/simple-tab-groups/)
+    * from [Simple Tab Groups](https://addons.mozilla.org/ja/firefox/addon/simple-tab-groups/)
 * `privacy.resistFingerprinting.block_mozAddonManager` to **true**
-  * from trydactyl work on addons.mozilla.org
+    * from trydactyl work on addons.mozilla.org
 
-### Hide Top tab-bar(s)
+</blockquote></details>
+
+<details><summary>Hide Top tab-bar(s)</summary><blockquote>
 
 Reference of searching my-profile: https://support.mozilla.org/ja/kb/profiles-where-firefox-stores-user-data
 
@@ -71,26 +71,33 @@ $ cat <<EOT >> chrome/userChrome.css
 EOT
 ```
 
-### Add-on: Tree Style Tab > Preferences
+</blockquote></details>
+
+<details><summary>Add-on: Most Recent Tab > Preferences</summary><blockquote>
+
+Keyboard shortcut: `MacCtrl+9` (<C-,>) as switch back to recently selected tab.
+
+</blockquote></details>
+
+<details><summary>Add-on: Tree Style Tab > Preferences</summary><blockquote>
 
 `Unlock Expert Options` to `check-on`
 
-#### Appearance:
-
+### Appearance:
 * `Enable animation effects` to `check-off`
 * `Too long label of tabs:` to select `Crop with "..." (Better Performance)`
 
-#### Tree Behavior
+### Tree Behavior:
 
 * *all auto collapse options* to `check-off`
 * `When a new tree appears, collapse others automatically` to `check-off`
 * `When tab gets focus, expand its tree '` to ``
 
-<details>
-<summary>custom-style-rules at about:addons > Tre Style Tab > Preferences > Advanced:</summary>
-<!-- {{{ -->
-Ref: https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x
+### Advanced:
 
+custom-style-rules (https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#for-version-2x)
+
+<!-- {{{ -->
 ```css
 
 /* https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules#disable-all-animation */
@@ -170,10 +177,8 @@ tab-item .extra-items-container::after {
 }
 
 ```
-
 <!-- }}} -->
-</details>
 
-### Add-on: Most Recent Tab > Preferences
+</blockquote></details>
 
-Keyboard shortcut: `MacCtrl+9` (<C-,>) as switch back to recently selected tab.
+</blockquote></detials><!-- fin firefox -->

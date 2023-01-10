@@ -11,14 +11,15 @@ BREW   := /usr/local/bin/brew
 VSCODE := /usr/local/bin/code
 endif
 
-DEFAULT_ARCH := $(shell uname -m)
+DEFAULT_ARCH      := $(shell uname -m)
+XCODE_REQ_INSTALL  = $(shell xcode-select -p 1>/dev/null || echo "not installed")
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 .PHONY: Darwin/* brew/*
 
 # NOTE: brew/bundle is heavy run, skipped on CI
-Darwin/install: $(BREW) brew/tap $(if $(CI),,brew/bundle)
+Darwin/install: xcode-select $(BREW) brew/tap $(if $(CI),,brew/bundle)
 
 Darwin/update: brew/update brew/upgrade Darwin/terminal
 
@@ -31,6 +32,8 @@ ifeq (,$(shell which wezterm 2>/dev/null))
 endif
 	brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest
 
+xcode-select:
+	$(if $(XCODE_REQ_INSTALL), xcode-select --install && sudo xcodebuild -license accept)
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
