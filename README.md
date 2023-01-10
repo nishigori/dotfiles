@@ -1,4 +1,4 @@
-Dotfiles
+dotfiles
 ========
 
 <!-- vim: set fdm=marker sts=0 expandtab: -->
