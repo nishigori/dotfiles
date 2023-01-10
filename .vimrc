@@ -41,7 +41,6 @@ if has('gui_macvim') || exists('g:vscode')
         \ $HOME . '/.anyenv/envs/goenv/shims',
         \ $HOME . '/.anyenv/envs/pyenv/shims',
         \ $HOME . '/.anyenv/envs/nodenv/shims',
-        \ $HOME . '/.anyenv/envs/tfenv/bin',
         \ $PATH,
         \ ], ':')
 endif
@@ -158,19 +157,11 @@ if dein#load_state(s:dein_dir)
     call dein#add('ryanoasis/vim-devicons')
 
     " FileType:
-    call dein#add('editorconfig/editorconfig-vim')
     call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
-    "call dein#add('cespare/vim-toml', { 'lazy': 1, 'on_ft': 'toml' })
     call dein#add('godlygeek/tabular', { 'lazy': 1, 'on_ft': 'markdown' })
     call dein#add('plasticboy/vim-markdown', { 'depends': 'tabular', 'lazy': 1, 'on_ft': 'markdown' })
     call dein#add('jtriley/vim-rst-headings', { 'lazy': 1, 'on_ft': [['python', 'rst', 'rest']] })
     call dein#add('ekalinin/Dockerfile.vim', { 'lazy': 1, 'on_ft': [['docker', 'Dockerfile']] })
-    call dein#add('puppetlabs/puppet-syntax-vim', { 'lazy': 1, 'on_ft': 'puppet' })
-    call dein#add('rdolgushin/groovy.vim', { 'lazy': 1, 'on_ft': 'groovy' })
-    call dein#add('hashivim/vim-terraform', { 'lazy': 1, 'on_ft': [['tf', 'tfvars', 'terraform']] })
-    call dein#add('rust-lang/rust.vim', { 'lazy': 1, 'on_ft': [['rs', 'rlib']] })
-    call dein#add('bazelbuild/vim-bazel', { 'depends': 'vim-maktaba', 'lazy': 1, 'on_ft': 'bzl' })
-    call dein#add('google/vim-maktaba', { 'lazy': 1, 'on_ft': 'bzl' })
 
     " Fzf:
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
@@ -746,32 +737,6 @@ endif
 if !exists('g:vscode')
   let g:alpaca_powertabline_enable = 1
 endif
-" }}}
-" Plugin: accelerated-smooth-scroll {{{
-let g:ac_smooth_scroll_du_sleep_time_msec = 1
-let g:ac_smooth_scroll_fb_sleep_time_msec = 1
-" }}}
-" Plugin: https://github.com/hashivim/vim-terraform {{{
-let g:terraform_fmt_on_save = 1
-let g:terraform_align = 1
-let g:terraform_fold_sections = 0
-let g:hcl_align = 1
-let g:hcl_fold_sections = 0
-" }}}
-" Plugin: https://github.com/editorconfig/editorconfig-vim {{{
-au FileType gitcommit let b:EditorConfig_disable = 1
-au FileType gitrebase let b:EditorConfig_disable = 1
-"}}}
-" Plugin: vim-go {{{
-let g:go_get_update = 0
-
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
 " }}}
 " Plugin: github.com/ryanoasis/vim-devicons {{{
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
