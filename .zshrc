@@ -243,7 +243,7 @@ zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
 
 autoload -Uz compinit
-compinit
+compinit -C
 
 
 ###########
@@ -261,8 +261,8 @@ zstyle ':zle:*' word-style unspecified
 # History
 #########
 HISTFILE=$HOME/.zsh-history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=25000
+SAVEHIST=25000
 HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
 setopt share_history 
 setopt share_history
@@ -273,7 +273,7 @@ setopt hist_no_store
 setopt EXTENDED_HISTORY
 
 incremental_search_history() {
-  selected=`history -E 1 | fzf | cut -b 26-`
+  selected=`history -E 1 | sk | cut -b 26-`
   BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
   CURSOR=${#BUFFER}
   zle redisplay
@@ -310,6 +310,8 @@ if (( $+commands[plenv] )); then
     export PERL_MM_OPT="INSTALL_BASE=~/perl5"
 fi
 
+# rust
+[ ! -f "$HOME/.cargo/env" ] || . "$HOME/.cargo/env"
 
 #####
 # Git
@@ -320,7 +322,7 @@ bindkey '^O' move_ghq_directories
 bindkey '^G' select-git-branch
 
 move_ghq_directories() {
-    selected=`ghq list | fzf --query "$LBUFFER"`
+    selected=`ghq list | sk --query "$LBUFFER"`
     if [ -n "${#selected}" ]; then
         target_dir="`ghq root`/$selected"
         echo "cd $target_dir"
@@ -337,7 +339,7 @@ select-git-branch() {
     perl -pe 's/^\h+//g' |
     perl -pe 's#^remotes/origin/###' |
     perl -nle 'print if !$c{$_}++' |
-    fzf |
+    sk |
     xargs git checkout
 }
 zle -N select-git-branch
@@ -360,6 +362,7 @@ export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 # https://github.com/junegunn/fzf#environment-variables
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+export SKIM_DEFAULT_OPTIONS="--reverse --inline-info"
 
 if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 
@@ -424,8 +427,6 @@ typeset -U ld_library_path
 typeset -T LIBRARY_PATH library_path
 typeset -U library_path
 typeset -U path PATH
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

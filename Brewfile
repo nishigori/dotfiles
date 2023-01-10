@@ -175,6 +175,7 @@ brew 'stern'
 brew 'terraform_landscape'
 brew 'hashicorp/tap/terraform-ls'
 brew 'fzf'
+brew 'sk' -- fzf alternative rust
 brew 'tmux'
 brew 'jq'
 brew 'yq'
