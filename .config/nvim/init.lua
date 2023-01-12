@@ -43,6 +43,7 @@ opt.guifont = {"Hack Nerd Font:h19"} -- "Fira Code Nerd Font Mono:h16"
 opt.guifontwide = {"Hack Nerd Font:h19"} -- "Fira Code Nerd Font Mono:h16"
 opt.termguicolors = true
 opt.list = true
+opt.wrapscan = false
 opt.wildignore = { '*.o', '*~', '*.pyc' }
 opt.inccommand = "nosplit"
 opt.scrolloff = 5
@@ -52,8 +53,8 @@ opt.showcmd = false
 opt.signcolumn = "yes" -- always display diagnostic
 
 opt.shortmess:append("cI")
-opt.listchars:append "space:⋅"
-opt.listchars:append "eol:↴"
+opt.listchars:append "trail:⋅"
+--opt.listchars:append "eol:↴"
 
 -- TODO: really need?
 --local cmd = vim.cmd

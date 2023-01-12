@@ -13,3 +13,6 @@
 tags
 # Persistent undo
 [._]*.un~
+
+# plugins
+sessions/
