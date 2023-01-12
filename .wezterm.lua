@@ -2,6 +2,7 @@ local wezterm = require "wezterm"
 local act = wezterm.action
 
 -- Change this to match your heuristics for whether the executable path is an editor
+function IS_AN_EDITOR(name)
    return name:find("nvim")
 end
 
