@@ -277,7 +277,7 @@ setopt hist_no_store
 setopt EXTENDED_HISTORY
 
 incremental_search_history() {
-  selected=`history -E 1 | sk | cut -b 26-`
+  selected=`history -E 1 | fzf | cut -b 26-`
   BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
   CURSOR=${#BUFFER}
   zle redisplay
@@ -290,8 +290,13 @@ bindkey "^R" incremental_search_history
 # Languages
 ###########
 if (( $+commands[anyenv] )); then
-    test -d .config/anyenv/anyenv-install || anyenv install --init
-    eval "$(anyenv init - zsh)"
+    test -d $XDG_CONFIG_HOME/anyenv/anyenv-install || anyenv install --init
+
+    if [[ ! -f $XDG_CACHE_HOME/anyenv.cache ]]; then
+    	anyenv init - zsh > $XDG_CACHE_HOME/anyenv.cache
+	zcompile $XDG_CACHE_HOME/anyenv.cache
+    fi
+    source $XDG_CACHE_HOME/anyenv.cache
 
     mkdir -p ~/.anyenv/plugins
     test -d ~/.anyenv/plugins/anyenv-update || git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
@@ -326,7 +331,7 @@ bindkey '^O' move_ghq_directories
 bindkey '^G' select-git-branch
 
 move_ghq_directories() {
-    selected=`ghq list | sk --query "$LBUFFER"`
+    selected=`ghq list | fzf --query "$LBUFFER"`
     if [ -n "${#selected}" ]; then
         target_dir="`ghq root`/$selected"
         echo "cd $target_dir"
@@ -343,7 +348,7 @@ select-git-branch() {
     perl -pe 's/^\h+//g' |
     perl -pe 's#^remotes/origin/###' |
     perl -nle 'print if !$c{$_}++' |
-    sk |
+    fzf |
     xargs git checkout
 }
 zle -N select-git-branch
@@ -366,7 +371,6 @@ export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
 export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 # https://github.com/junegunn/fzf#environment-variables
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
-export SKIM_DEFAULT_OPTIONS="--reverse --inline-info"
 
 if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 
