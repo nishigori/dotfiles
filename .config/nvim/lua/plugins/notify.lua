@@ -14,6 +14,7 @@ return {
 
   {
     "folke/noice.nvim",
+    version = "*",
     lazy = false,
     priority = load_priority,
     dependencies = {

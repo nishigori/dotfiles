@@ -23,6 +23,16 @@ return {
     cmd = "Lspsaga",
     event = "BufReadPre",
     dependencies = "williamboman/mason-lspconfig.nvim",
+    opts = {
+      -- TODO: diagnostic 自動表示、lspsagaで表示してリッチにしたい
+      symbol_in_winbar = {
+        enable = true,
+        separator = '  ',
+        --file_formatter = "%:h", -- same as arg1 of vim.vn.expand
+        -- TODO: 変数名までは出したくない
+      },
+      code_action_lightbulb = { enable = true },
+    },
     config = function()
       -- https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
       -- https://gist.github.com/VonHeikemen/8fc2aa6da030757a5612393d0ae060bd
@@ -162,19 +172,6 @@ return {
           }
         end,
       }
-
-      -- UI: light-weight lsp
-      -- TODO: diagnostic 自動表示、lspsagaで表示してリッチにしたい
-      local saga = require 'lspsaga'
-      saga.init_lsp_saga({
-        symbol_in_winbar = {
-          enable = true,
-          separator = '  ',
-          --file_formatter = "%:h", -- same as arg1 of vim.vn.expand
-          -- TODO: 変数名までは出したくない
-        },
-        code_action_lightbulb = { enable = true },
-      })
 
       -- https://xbgneb0083.hatenablog.com/entry/2022_6_12_avoid_conflict_lsp_hover
       local function on_cursor_hold()
