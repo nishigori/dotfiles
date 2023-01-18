@@ -182,7 +182,6 @@ zinit light zsh-users/zsh-syntax-highlighting
 # https://qiita.com/mollifier/items/81b18c012d7841ab33c3
 #zinit light mollifier/anyframe
 zinit ice wait'0' as'program' pick'bin/git-dsf'
-zinit light aenda/zsh-diff-so-fancy
 
 case ${OSTYPE} in
     darwin*)
@@ -292,14 +291,16 @@ bindkey "^R" incremental_search_history
 if (( $+commands[anyenv] )); then
     test -d $XDG_CONFIG_HOME/anyenv/anyenv-install || anyenv install --init
 
+    if [[ ! -d ~/.anyenv/plugins/anyenv-update ]]; then
+    	mkdir -p ~/.anyenv/plugins
+    	git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
+    fi
+
     if [[ ! -f $XDG_CACHE_HOME/anyenv.cache ]]; then
     	anyenv init - zsh > $XDG_CACHE_HOME/anyenv.cache
 	zcompile $XDG_CACHE_HOME/anyenv.cache
     fi
     source $XDG_CACHE_HOME/anyenv.cache
-
-    mkdir -p ~/.anyenv/plugins
-    test -d ~/.anyenv/plugins/anyenv-update || git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
 fi
 
 export GOPATH=$HOME
