@@ -263,23 +263,24 @@ zstyle ':zle:*' word-style unspecified
 #########
 # History
 #########
+HISTORY_IGNORE="(pwd|l[sal]|exit|mm|kill|pu)"
 HISTFILE=$HOME/.zsh-history
 HISTSIZE=25000
 SAVEHIST=25000
 HISTTIMEFORMAT='%Y-%m-%d %H:%M:%S '
-setopt share_history 
 setopt share_history
 setopt inc_append_history
-setopt hist_reduce_blanks
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
 setopt hist_ignore_dups
-setopt hist_no_store
+setopt hist_reduce_blanks
+#setopt hist_no_store
 setopt EXTENDED_HISTORY
 
 incremental_search_history() {
-  selected=`history -E 1 | fzf | cut -b 26-`
-  BUFFER=`[ ${#selected} -gt 0 ] && echo $selected || echo $BUFFER`
+  BUFFER=$(history -n -r 1 | fzf --exact --query="$LBUFFER" --prompt="History > ")
   CURSOR=${#BUFFER}
-  zle redisplay
+  #zle redisplay
 }
 zle -N incremental_search_history
 bindkey "^R" incremental_search_history
