@@ -21,16 +21,15 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # NOTE: brew/bundle is heavy run, skipped on CI
 Darwin/install: xcode-select $(BREW) brew/tap $(if $(CI),,brew/bundle)
 
-Darwin/update: brew/update brew/upgrade Darwin/terminal
+Darwin/update: brew/update brew/upgrade
 
 Darwin/clean: brew/cleanup
 
 Darwin/terminal: # https://wezfurlong.org/wezterm/install/macos.html
 ifeq (,$(shell which wezterm 2>/dev/null))
 	brew tap wez/wezterm
-	brew install --cask wez/wezterm/wezterm-nightly
+	brew install --cask wezterm
 endif
-	brew upgrade --cask wezterm-nightly --no-quarantine --greedy-latest
 
 xcode-select:
 	$(if $(XCODE_REQ_INSTALL), xcode-select --install && sudo xcodebuild -license accept)

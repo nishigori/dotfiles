@@ -56,7 +56,7 @@ return {
       background = 'silver',
     },
   },
-  window_background_opacity = 0.94, -- transparency
+  window_background_opacity = 1.00, -- transparency
   keys = {
     { key = '\r', mods = 'CTRL', action = act.Multiple {
         act.SendKey { key = " " },

@@ -21,7 +21,7 @@ tap 'wez/wezterm'
 ######
 # Cask
 ######
-cask 'wez/wezterm/wezterm-nightly'
+cask 'wezterm'
 cask 'abyssoft-teleport'
 cask 'dash'
 cask 'deepl'
