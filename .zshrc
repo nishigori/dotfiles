@@ -401,18 +401,14 @@ if (( $+commands[copilot] )); then source <(copilot completion zsh); fi
 ############
 # gcloud SDK
 ############
-if [ -d /opt/homebrew/Caskroom/google-cloud-sdk ]; then
-    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-    source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-elif [ -d /usr/local/Caskroom/google-cloud-sdk ]; then
-    source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
-    source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-elif [ -d ~/google-cloud-sdk ]; then
-    source ~/google-cloud-sdk/path.zsh.inc
-    source ~/google-cloud-sdk/completion.zsh.inc
-    path=( $HOME/google-cloud-sdk/bin(N-/) $path )
-fi
-
+case ${OSTYPE} in
+    darwin*)
+        source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+        source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+        ;;
+    linux*)
+        ;;
+esac
 
 ##################
 # Local dependency
