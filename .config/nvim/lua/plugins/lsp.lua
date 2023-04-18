@@ -53,7 +53,7 @@ return {
           "erlangls",
           "gopls",
           "perlnavigator",
-          "sumneko_lua", -- lua-language-server
+          "lua_ls", -- lua-language-server
           "terraformls",
           "tflint",
           "tsserver",
