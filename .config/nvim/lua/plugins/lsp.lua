@@ -77,33 +77,33 @@ return {
           "buf",          -- protobuf
           --"psalm",        -- php
           "jq",           -- json
+        },
+        handlers = {
+          function() end, -- disables automatic setup of all null-ls sources
+          function (source_name, methods)
+            -- all sources with no handler get passed here
+            -- Keep original functionality of `automatic_setup = true`
+            require('mason-null-ls.automatic_setup')(source_name, methods)
+          end,
+          cspell = function (_, _)
+            -- download vim official dictionary
+            if vim.fn.filereadable("~/.local/share/cspell/vim.txt.gz") ~= 1 then
+              io.popen("curl -fsSLo ~/.local/share/cspell/vim.txt.gz --create-dirs "
+                .. "https://github.com/iamcco/coc-spell-checker/raw/master/dicts/vim/vim.txt.gz")
+            end
+            if vim.fn.filereadable("~/.config/cspell/user.txt") ~= 1 then
+              io.popen("mkdir -p ~/.config/cspell")
+              io.popen("touch ~/.config/cspell/user.txt")
+            end
+            null_ls.register(null_ls.builtins.diagnostics.cspell.with({
+              extra_args = { "--config", "~/.config/cspell/cspell.json" },
+              diagnostics_postprocess = function(diagnostic)
+                diagnostic.severity = vim.diagnostic.severity["WARN"] -- default "ERROR"
+              end,
+              condition = function() return vim.fn.executable('cspell') > 0 end,
+            }))
+          end,
         }
-      }
-
-      mason_null_ls.setup_handlers {
-        function (source_name, methods)
-          -- all sources with no handler get passed here
-          -- Keep original functionality of `automatic_setup = true`
-          require('mason-null-ls.automatic_setup')(source_name, methods)
-        end,
-        cspell = function (_, _)
-          -- download vim official dictionary
-          if vim.fn.filereadable("~/.local/share/cspell/vim.txt.gz") ~= 1 then
-            io.popen("curl -fsSLo ~/.local/share/cspell/vim.txt.gz --create-dirs "
-              .. "https://github.com/iamcco/coc-spell-checker/raw/master/dicts/vim/vim.txt.gz")
-          end
-          if vim.fn.filereadable("~/.config/cspell/user.txt") ~= 1 then
-            io.popen("mkdir -p ~/.config/cspell")
-            io.popen("touch ~/.config/cspell/user.txt")
-          end
-          null_ls.register(null_ls.builtins.diagnostics.cspell.with({
-            extra_args = { "--config", "~/.config/cspell/cspell.json" },
-            diagnostics_postprocess = function(diagnostic)
-              diagnostic.severity = vim.diagnostic.severity["WARN"] -- default "ERROR"
-            end,
-            condition = function() return vim.fn.executable('cspell') > 0 end,
-          }))
-        end,
       }
 
       -- will setup any installed and configured sources above
