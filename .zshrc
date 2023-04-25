@@ -216,9 +216,6 @@ POWERLEVEL10K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
 POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
 POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 
-POWERLEVEL10K_INSTANT_PROMPT=quiet
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
 
 #############
 # Completions
@@ -439,6 +436,7 @@ typeset -U path PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
