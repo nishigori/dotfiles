@@ -10,7 +10,7 @@ links         := $(RC_FILES) .gitconfig .zsh .p10k.zsh .vim .secrets
 links         += $(addprefix .config/, dein lsd nvim gh prs cspell firefox tridactyl)
 dir_requires  := $(addprefix $(HOME)/, src bin tmp Dropbox .config .cache/terraform) \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
-bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight)
+bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight) bin/git-delete-squashed-branches
 gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
 .DEFAULT_GOAL: me
@@ -32,6 +32,7 @@ $(os)/%:
 
 # Alias
 install: me $(os)/install
+bin: $(bin_requires)
 
 clean: $(os)/clean
 
@@ -67,6 +68,10 @@ bin/diff-highlight: $(HOME)/bin
 	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
 	make -C /tmp/git/contrib/diff-highlight/
 	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
+
+bin/git-delete-squashed-branches:
+	curl -SsL -o $@ https://raw.githubusercontent.com/tj/git-extras/master/bin/git-delete-squashed-branches
+	chmod +x $@
 
 lsp: # language-server
 ifneq (,$(shell which go 2>/dev/null))
