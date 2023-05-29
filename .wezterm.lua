@@ -74,6 +74,21 @@ return {
         act.SendKey { key = "a" },
       },
     },
+    {
+      key = 'd',
+      mods = 'CMD',
+      action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+    },
+    {
+      key = '[',
+      mods = 'CMD',
+      action = act.ActivatePaneDirection 'Prev',
+    },
+    {
+      key = ']',
+      mods = 'CMD',
+      action = act.ActivatePaneDirection 'Next',
+    },
     emulate_command('1'),
     emulate_command('6'),
     emulate_command('7'),
