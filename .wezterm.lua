@@ -6,6 +6,32 @@ function IS_AN_EDITOR(name)
    return name:find("nvim")
 end
 
+-- https://wezfurlong.org/wezterm/config/lua/window-events/format-tab-title.html
+function tab_title(tab_info)
+  local title = tab_info.tab_title
+  -- if the tab title is explicitly set, take that
+  if title and #title > 0 then
+    return title
+  end
+  -- Otherwise, use the title from the active pane
+  -- in that tab
+  return tab_info.active_pane.title
+end
+
+wezterm.on(
+  'format-tab-title',
+  function(tab, tabs, panes, config, hover, max_width)
+    local title = tab_title(tab)
+    if tab.is_active then
+      return {
+        { Background = { Color = 'green' } },
+        { Text = ' ' .. title .. ' ' },
+      }
+    end
+    return title
+  end
+)
+
 local custom = wezterm.color.get_builtin_schemes()['Catppuccin Latte']
 --custom.background = "#000000"
 custom.tab_bar.background = "#040404"
@@ -53,7 +79,8 @@ return {
     cursor_fg = 'greenyellow',
     --background = 'snow',
     tab_bar = {
-      background = 'silver',
+      background = '#0bbb22',
+      --inactive_tab_edge = '#ffffff',
     },
   },
   window_background_opacity = 1.00, -- transparency
