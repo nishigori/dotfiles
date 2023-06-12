@@ -1,3 +1,7 @@
+if vim.g.vscode then
+  return {}
+end
+
 local load_priority = 700
 
 return {

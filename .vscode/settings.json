@@ -1,6 +1,11 @@
 {
-  "workbench.colorTheme": "GitHub Dark Colorblind (Beta)",
+  "workbench.colorTheme": "GitHub Light Colorblind (Beta)",
   "files.autoSave": "afterDelay",
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.prettier": true
+  },
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "editor.wordWrap": "on",
@@ -13,11 +18,13 @@
   "terminal.integrated.env.osx": {
     "PATH": "$HOME/bin:/opt/homebrew/bin:$PATH"
   },
+  "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.profiles.osx": {
     "zsh": {
-      "path": "zsh",
+      "path": "/usr/bin/arch",
       "args": [
-        "-l"
+        "-arm64",
+        "/bin/zsh"
       ]
     },
     "tmux": {
@@ -54,187 +61,21 @@
   "vim.useCtrlKeys": true,
   "vim.leader": "<space>",
   "vim.normalModeKeyBindings": [],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": [
-        ";"
-      ],
-      "after": [
-        ":"
-      ]
-    },
-    {
-      "before": [
-        ":"
-      ],
-      "after": [
-        ";"
-      ]
-    },
-    {
-      "before": [
-        "ctrl+a"
-      ],
-      "after": [
-        "ctrl+o",
-        "0"
-      ]
-    },
-    {
-      "before": [
-        "<tab>"
-      ],
-      "commands": [
-        ":tabnext"
-      ]
-    },
-    {
-      "before": [
-        "<shift+tab>"
-      ],
-      "commands": [
-        ":tabprevious"
-      ]
-    },
-    // "c", "i", "w" しても動かない https://github.com/VSCodeVim/Vim/issues/2975
-    {
-      "before": [
-        "c",
-        "w"
-      ],
-      "after": [
-        "i",
-        "w"
-      ]
-    },
-    {
-      "before": [
-        "c",
-        "w"
-      ],
-      "after": [
-        "i",
-        "w"
-      ]
-    },
-    {
-      "before": [
-        "d",
-        "w"
-      ],
-      "after": [
-        "i",
-        "w"
-      ]
-    },
-    {
-      "before": [
-        "j"
-      ],
-      "after": [
-        "g",
-        "j"
-      ]
-    },
-    {
-      "before": [
-        "k"
-      ],
-      "after": [
-        "g",
-        "k"
-      ]
-    },
-    {
-      "before": [
-        "Y"
-      ],
-      "after": [
-        "y",
-        "$"
-      ]
-    },
-    {
-      "before": [
-        "t",
-        "n"
-      ],
-      "commands": [
-        ":tabnew "
-      ]
-    },
-    {
-      "before": [
-        "<Tab>"
-      ],
-      "commands": [
-        ":tabnext<CR>"
-      ]
-    },
-    // increment-activator
-    {
-      "before": [
-        "ctrl+a"
-      ],
-      "commands": [
-        ":call increment_activator#increment()"
-      ],
-    },
-    {
-      "before": [
-        "ctrl+x"
-      ],
-      "commands": [
-        ":call increment_activator#decrement()"
-      ],
-    },
-  ],
+  "vim.normalModeKeyBindingsNonRecursive": [],
   "vim.insertModeKeyBindings": [],
-  "vim.insertModeKeyBindingsNonRecursive": [
-    {
-      "before": [
-        "ctrl+a"
-      ],
-      "after": [
-        "ctrl+o",
-        "0"
-      ]
-    },
-    {
-      "before": [
-        "ctrl+e"
-      ],
-      "after": [
-        "ctrl+o",
-        "$"
-      ]
-    },
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": [
-        ";"
-      ],
-      "after": [
-        ":"
-      ]
-    },
-    {
-      "before": [
-        ":"
-      ],
-      "after": [
-        ";"
-      ]
-    },
-  ],
+  "vim.insertModeKeyBindingsNonRecursive": [],
+  "vim.visualModeKeyBindingsNonRecursive": [],
   // Languages
   "go.alternateTools": {
     "go": "/opt/homebrew/bin/go"
   },
   "[markdown]": {
     "editor.tabSize": 2,
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
     "editor.quickSuggestionsDelay": 0,
   },
   "vsicons.dontShowNewVersionMessage": true,
@@ -242,5 +83,5 @@
   "window.zoomLevel": 2,
   "workbench.iconTheme": "vscode-icons",
   "explorer.confirmDragAndDrop": false,
-  "terminal.integrated.defaultProfile.osx": "zsh",
+  "deepl.apiKey": "${env:DEEPL_API_AUTH_KEY}",
 }

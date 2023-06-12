@@ -50,9 +50,15 @@ keymap('c', '<C-d>', '<Delete>', silent)
 keymap('i', '<c-s>', '<esc><cmd>w<cr>a', silent)
 
 -- Explorer
-keymap('n', ':', ':Neotree toggle reveal<CR>', silent)
-keymap('n', '<C-t>', '<cmd>ToggleTerm<CR>', silent)
+if vim.g.vscode then
+  keymap('n', ':', "<Cmd>call VSCodeNotify('workbench.view.explorer')<CR>", silent)
+else
+  keymap('n', ':', ':Neotree toggle reveal<CR>', silent)
+  keymap('n', '<C-t>', '<cmd>ToggleTerm<CR>', silent)
+end
+
 -- Translate
+-- FIXME: conflict vscode `refactoring`
 keymap('x', '<C-t>', '<cmd>Translate JA<CR>', silent)
 -- FIXME: conflict wezterm `new tab`
 keymap('x', '<C-S-t>', '<cmd>Translate EN<CR>', silent)
@@ -66,18 +72,23 @@ keymap('n', '<C-n>', '<cmd>Telescope buffers<CR>', silent)
 -- Shift+command+A で actionをば
 
 -- <Leader>
-keymap('n', '<Leader>a', '<cmd>b#<CR>', silent) -- Open previous buffer
 --keymap('n', '<Leader>d', '<cmd>bd<CR>', silent) -- Close current buffer (override from mini.bufremove)
 keymap('n', '<Leader>o', '<Plug>(openbrowser-smart-search)', { noremap = false })
 keymap('n', '<leader>t', '<cmd>Translate JA<CR>', silent)
--- <Leader>w\w+ is send from wezterm keys
-keymap('n', '<Leader>w-rc', '<cmd>Telescope builtin<CR>', silent) -- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
-keymap('n', '<Leader>w-ra', '<cmd>Lspsaga code_action<CR>', silent)
-keymap('n', '<Leader>wn', '<cmd>Telescope git_files<CR>', silent)
-keymap('n', '<Leader>wa', '<cmd>Telescope builtin theme=get_dropdown<CR>', silent)
-keymap('n', '<Leader>wl', '<cmd>Telescope current_buffer_fuzzy_find<CR>', silent)
-keymap('n', '<Leader>we', '<cmd>Telescope oldfiles only_cwd=true<CR>', silent)
-keymap('n', '<Leader>w1', '<cmd>NvimTreeFindFile!<CR>', silent)
-keymap('n', '<Leader>w6', '<cmd>TroubleToggle<CR>', silent)
-keymap('n', '<Leader>w7', '<cmd>AerialToggle! right<CR>', silent)
-keymap('n', '<Leader>wr', '<cmd>Lspsaga rename<CR>', silent)
+keymap('x', '<leader>t', '<cmd>Translate JA<CR>', silent)
+
+if not vim.g.vscode then
+  keymap('n', '<Leader>a', '<cmd>b#<CR>', silent) -- Open previous buffer
+
+  -- <Leader>w\w+ is send from wezterm keys
+  keymap('n', '<Leader>w-rc', '<cmd>Telescope builtin<CR>', silent) -- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
+  keymap('n', '<Leader>w-ra', '<cmd>Lspsaga code_action<CR>', silent)
+  keymap('n', '<Leader>wn', '<cmd>Telescope git_files<CR>', silent)
+  keymap('n', '<Leader>wa', '<cmd>Telescope builtin theme=get_dropdown<CR>', silent)
+  keymap('n', '<Leader>wl', '<cmd>Telescope current_buffer_fuzzy_find<CR>', silent)
+  keymap('n', '<Leader>we', '<cmd>Telescope oldfiles only_cwd=true<CR>', silent)
+  keymap('n', '<Leader>w1', '<cmd>NvimTreeFindFile!<CR>', silent)
+  keymap('n', '<Leader>w6', '<cmd>TroubleToggle<CR>', silent)
+  keymap('n', '<Leader>w7', '<cmd>AerialToggle! right<CR>', silent)
+  keymap('n', '<Leader>wr', '<cmd>Lspsaga rename<CR>', silent)
+end
