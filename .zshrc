@@ -107,12 +107,14 @@ case ${OSTYPE} in
         ;;
 esac
 
+bindkey -e
 alias k='kubectl'
 alias tailf='tail -f'
 alias -g g='git'
 alias -g p='git add -p'
 alias mm='git master && git souji && git-delete-squashed-branches'
 alias master='git master && git souji && git-delete-squashed-branches'
+alias lg='lazygit'
 alias gg='git grep'
 alias gl='git grep -l'
 alias h='git hist origin/$(git default)^..@'

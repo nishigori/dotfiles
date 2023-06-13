@@ -84,4 +84,29 @@
   "workbench.iconTheme": "vscode-icons",
   "explorer.confirmDragAndDrop": false,
   "deepl.apiKey": "${env:DEEPL_API_AUTH_KEY}",
+  "githubPullRequests.queries": [
+    {
+      "label": "Reviews: me",
+      "query": "is:open review-requested:${user}"
+    },
+    {
+      "label": "Assignee: me",
+      "query": "is:open assignee:${user}"
+    },
+    {
+      "label": "Author: me",
+      "query": "is:open author:${user}"
+    }
+  ],
+  "githubIssues.queries": [
+    {
+      "label": "Assignee: me",
+      "query": "default"
+    },
+    {
+      "label": "Author: me",
+      "query": "author:${user} state:open repo:${owner}/${repository}  sort:updated-desc"
+    }
+  ],
+  "git.autofetch": true,
 }
