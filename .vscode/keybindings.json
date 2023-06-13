@@ -5,28 +5,50 @@
  *
  * when: https://code.visualstudio.com/docs/getstarted/keybindings#_contexts
  */
-[
-    {
-        "when": "editorTextFocus && vim.mode == 'Insert'",
-        "key": "ctrl+]",
-        "command": "extension.vim_escape",
-    },
-    {
-        "when": "editorTextFocus && vim.mode == 'Insert'",
-        "key": "ctrl+[",
-        "command": "extension.vim_escape",
-    },
-    // https://code.visualstudio.com/docs/getstarted/keybindings#_editorwindow-management
-    {
-        "when": "editorFocus && vim.mode == 'Normal'",
-        "key": "ctrl+w ctrl+w",
-        "command": "workbench.action.navigateEditorGroups",
-    },
-    {
-        //{"before": ["ctrl+w"], "after": ["esc", "c", "i", "w"]},
-        "when": "editorTextFocus && vim.mode == 'Insert'",
-        "key": "ctrl+w",
-        "command": "type",
-        "args": { "text": "<esc>ciw" },
-    },
+ [
+   {
+     "when": "editorTextFocus && neovim.mode == 'normal'",
+     "key": "ctrl+t",
+     "command": "editor.action.goToReferences",
+   },
+   {
+     "when": "editorTextFocus && neovim.mode == 'insert'",
+     "key": "ctrl+]",
+     "command": "vscode-neovim.escape",
+   },
+   {
+     "when": "editorTextFocus && neovim.mode == 'insert'",
+     "key": "ctrl+[",
+     "command": "vscode-neovim.escape",
+   },
+   // https://code.visualstudio.com/docs/getstarted/keybindings#_editorwindow-management
+   {
+     "when": "editorFocus && vim.mode == 'Normal'",
+     "key": "ctrl+w ctrl+w",
+     "command": "workbench.action.navigateEditorGroups",
+   },
+   {
+     //{"before": ["ctrl+w"], "after": ["esc", "c", "i", "w"]},
+     "when": "editorTextFocus && neovim.mode == 'insert'",
+     "key": "ctrl+w",
+     "command": "type",
+     "args": { "text": "<esc>ciw" },
+   },
+
+   // Switch focus
+   {
+     "key": "esc",
+     "command": "workbench.action.focusActiveEditorGroup",
+     "when": "terminalFocus"
+   },
+   {
+     "key": "ctrl+`",
+     "command": "workbench.action.focusActiveEditorGroup",
+     "when": "terminalFocus"
+   },
+   {
+     "key": "ctrl+`",
+     "command": "workbench.action.terminal.focus",
+     "when": "editorFocus"
+   },
 ]

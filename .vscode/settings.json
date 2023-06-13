@@ -109,4 +109,5 @@
     }
   ],
   "git.autofetch": true,
+  "terraform.codelens.referenceCount": true,
 }
