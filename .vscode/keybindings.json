@@ -57,7 +57,8 @@
   // Switch focus
   {
     "key": "escape",
-    "command": "workbench.action.focusFirstEditorGroup"
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "neovim.mode != 'insert'",
   },
   {
     "key": "ctrl+cmd+t",
