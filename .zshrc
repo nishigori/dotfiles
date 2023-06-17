@@ -248,9 +248,6 @@ zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
 #zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
 zstyle ':completion:*:options' description 'yes'
 
-autoload -Uz compinit
-compinit -C
-
 
 ###########
 # WordChars
@@ -326,6 +323,12 @@ fi
 
 # rust
 [ ! -f "$HOME/.cargo/env" ] || . "$HOME/.cargo/env"
+# https://rust-lang.github.io/rustup/installation/index.html#enable-tab-completion-for-bash-fish-zsh-or-powershell
+if [ ! -e ~/.zfunc/_rustup -a $commands[rustup] ]; then
+  mkdir -p ~/.zfunc
+  rustup completions zsh > ~/.zfunc/_rustup
+  fpath+=~/.zfunc
+fi
 
 #####
 # Git
@@ -441,6 +444,8 @@ typeset -U path PATH
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+autoload -Uz compinit
+compinit -C
 
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
 #zprof

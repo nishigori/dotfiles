@@ -65,19 +65,6 @@
   "vim.insertModeKeyBindings": [],
   "vim.insertModeKeyBindingsNonRecursive": [],
   "vim.visualModeKeyBindingsNonRecursive": [],
-  // Languages
-  "go.alternateTools": {
-    "go": "/opt/homebrew/bin/go"
-  },
-  "[markdown]": {
-    "editor.tabSize": 2,
-    "editor.quickSuggestions": {
-      "comments": "on",
-      "strings": "on",
-      "other": "on"
-    },
-    "editor.quickSuggestionsDelay": 0,
-  },
   "vsicons.dontShowNewVersionMessage": true,
   "restructuredtext.confPath": "",
   "window.zoomLevel": 2,
@@ -114,4 +101,22 @@
   "editor.tabSize": 2,
   "workbench.editor.tabCloseButton": "left",
   "explorer.autoReveal": "focusNoScroll",
+  // Languages
+  "go.alternateTools": {
+    "go": "/opt/homebrew/bin/go"
+  },
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    },
+    "editor.quickSuggestionsDelay": 0,
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+    "editor.formatOnSave": true,
+  },
+  "rust-analyzer.checkOnSave.command": "clippy",
 }
