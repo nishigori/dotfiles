@@ -5,50 +5,129 @@
  *
  * when: https://code.visualstudio.com/docs/getstarted/keybindings#_contexts
  */
- [
-   {
-     "when": "editorTextFocus && neovim.mode == 'normal'",
-     "key": "ctrl+t",
-     "command": "editor.action.goToReferences",
-   },
-   {
-     "when": "editorTextFocus && neovim.mode == 'insert'",
-     "key": "ctrl+]",
-     "command": "vscode-neovim.escape",
-   },
-   {
-     "when": "editorTextFocus && neovim.mode == 'insert'",
-     "key": "ctrl+[",
-     "command": "vscode-neovim.escape",
-   },
-   // https://code.visualstudio.com/docs/getstarted/keybindings#_editorwindow-management
-   {
-     "when": "editorFocus && vim.mode == 'Normal'",
-     "key": "ctrl+w ctrl+w",
-     "command": "workbench.action.navigateEditorGroups",
-   },
-   {
-     //{"before": ["ctrl+w"], "after": ["esc", "c", "i", "w"]},
-     "when": "editorTextFocus && neovim.mode == 'insert'",
-     "key": "ctrl+w",
-     "command": "type",
-     "args": { "text": "<esc>ciw" },
-   },
-
-   // Switch focus
-   {
-     "key": "esc",
-     "command": "workbench.action.focusActiveEditorGroup",
-     "when": "terminalFocus"
-   },
-   {
-     "key": "ctrl+`",
-     "command": "workbench.action.focusActiveEditorGroup",
-     "when": "terminalFocus"
-   },
-   {
-     "key": "ctrl+`",
-     "command": "workbench.action.terminal.focus",
-     "when": "editorFocus"
-   },
+[
+  {
+    "when": "editorTextFocus && neovim.mode == 'normal'",
+    "key": "ctrl+t",
+    "command": "editor.action.goToReferences",
+  },
+  {
+    "when": "editorTextFocus && neovim.mode == 'insert'",
+    "key": "ctrl+]",
+    "command": "vscode-neovim.escape",
+  },
+  {
+    "when": "editorTextFocus && neovim.mode == 'insert'",
+    "key": "ctrl+[",
+    "command": "vscode-neovim.escape",
+  },
+  // https://code.visualstudio.com/docs/getstarted/keybindings#_editorwindow-management
+  {
+    "when": "editorFocus && vim.mode == 'Normal'",
+    "key": "ctrl+w ctrl+w",
+    "command": "workbench.action.navigateEditorGroups",
+  },
+  {
+    //{"before": ["ctrl+w"], "after": ["esc", "c", "i", "w"]},
+    "when": "editorTextFocus && neovim.mode == 'insert'",
+    "key": "ctrl+w",
+    "command": "type",
+    "args": {
+      "text": "<escape>ciw"
+    },
+  },
+  {
+    "key": "tab",
+    "when": "editorFocus && neovim.mode == 'normal'",
+    //"command": "workbench.action.showNextWindowTab",
+    "command": "type",
+    "args": {
+      "text": "gt"
+    },
+  },
+  {
+    "key": "shift+tab",
+    "when": "editorFocus && neovim.mode == 'normal'",
+    //"command": "workbench.action.showNextWindowTab",
+    "command": "type",
+    "args": {
+      "text": "gT"
+    },
+  },
+  // Switch focus
+  {
+    "key": "escape",
+    "command": "workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "ctrl+cmd+t",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "cmd+d",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+  },
+  {
+    "key": "shift+cmd+e",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "cmd+1",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.findInFiles",
+  },
+  {
+    "key": "shift+cmd+f",
+    "command": "workbench.files.action.showActiveFileInExplorer",
+    "when": "editorFocus && neovim.mode == 'normal'"
+  },
+  // Disable default keybindings
+  {
+    "key": "cmd+d",
+    "command": "-editor.action.addSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
+  {
+    "key": "cmd+\\",
+    "command": "-workbench.action.terminal.split",
+    "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "-workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "cmd+1",
+    "command": "-workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "shift+cmd+e",
+    "command": "-workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "cmd+b",
+    "command": "-workbench.action.toggleSidebarVisibility"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.mode == 'visual'"
+  },
+  {
+    "key": "shift+cmd+f",
+    "command": "-workbench.action.findInFiles"
+  },
+  {
+    "key": "shift+alt+f",
+    "command": "-filesExplorer.findInFolder",
+    "when": "explorerResourceIsFolder && filesExplorerFocus && foldersViewVisible && !inputFocus"
+  },
 ]

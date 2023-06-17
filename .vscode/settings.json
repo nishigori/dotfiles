@@ -110,4 +110,8 @@
   ],
   "git.autofetch": true,
   "terraform.codelens.referenceCount": true,
+  "workbench.editor.wrapTabs": true,
+  "editor.tabSize": 2,
+  "workbench.editor.tabCloseButton": "left",
+  "explorer.autoReveal": "focusNoScroll",
 }
