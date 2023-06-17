@@ -19,7 +19,7 @@ me: $(dir_requires) $(bin_requires) links secrets
 	@echo Make me happy :D
 
 .PHONY: all
-all: install lsp golang
+all: install lsp golang rust
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -86,6 +86,10 @@ ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
 	git clone --depth 1 https://github.com/wbthomason/packer.nvim \
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim
 endif
+
+rust:
+	rustup component add clippy rust-analysis rust-src rust-docs rustfmt rust-analyzer
+	rustup component list --installed
 
 golang: ## Setup Go language
 	# Standard
