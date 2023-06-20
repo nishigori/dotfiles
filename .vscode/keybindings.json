@@ -58,7 +58,7 @@
   {
     "key": "escape",
     "command": "workbench.action.focusFirstEditorGroup",
-    "when": "neovim.mode != 'insert'",
+    "when": "! editorFocus",
   },
   {
     "key": "ctrl+cmd+t",
@@ -71,15 +71,6 @@
     "when": "terminalFocus && terminalProcessSupported || terminalFocus && terminalWebExtensionContributedProfile"
   },
   {
-    "key": "shift+cmd+e",
-    "command": "workbench.view.explorer",
-    "when": "viewContainer.workbench.view.explorer.enabled"
-  },
-  {
-    "key": "cmd+1",
-    "command": "workbench.action.toggleSidebarVisibility"
-  },
-  {
     "key": "ctrl+shift+f",
     "command": "workbench.action.findInFiles",
   },
@@ -88,7 +79,21 @@
     "command": "workbench.files.action.showActiveFileInExplorer",
     "when": "editorFocus && neovim.mode == 'normal'"
   },
-  // Disable default keybindings
+  // cmd + number
+  {
+    "key": "cmd+1",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+  },
+  {
+    "key": "cmd+6",
+    "command": "workbench.actions.view.problems",
+    "when": "workbench.panel.markers.view.active"
+  },
+  {
+    "key": "cmd+7",
+    "command": "outline.focus"
+  },
   {
     "key": "cmd+d",
     "command": "-editor.action.addSelectionToNextFindMatch",
@@ -109,11 +114,6 @@
     "command": "-workbench.action.focusFirstEditorGroup"
   },
   {
-    "key": "shift+cmd+e",
-    "command": "-workbench.view.explorer",
-    "when": "viewContainer.workbench.view.explorer.enabled"
-  },
-  {
     "key": "cmd+b",
     "command": "-workbench.action.toggleSidebarVisibility"
   },
@@ -130,5 +130,28 @@
     "key": "shift+alt+f",
     "command": "-filesExplorer.findInFolder",
     "when": "explorerResourceIsFolder && filesExplorerFocus && foldersViewVisible && !inputFocus"
+  },
+  {
+    "key": "cmd+r",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "f2",
+    "command": "-editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+7",
+    "command": "-workbench.action.focusSeventhEditorGroup"
+  },
+  {
+    "key": "shift+cmd+m",
+    "command": "-workbench.actions.view.problems",
+    "when": "workbench.panel.markers.view.active"
+  },
+  {
+    "key": "cmd+6",
+    "command": "-workbench.action.focusSixthEditorGroup"
   },
 ]

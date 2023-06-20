@@ -12,9 +12,8 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.renderLineHighlight": "line",
   "editor.fontFamily": "'Hack Nerd Font Mono', 'Hack Nerd Font', Menlo, monospace",
-  "editor.fontSize": 16,
+  "editor.fontSize": 13,
   "editor.scrollBeyondLastLine": false,
-  "terminal.integrated.fontSize": 13,
   "terminal.integrated.env.osx": {
     "PATH": "$HOME/bin:/opt/homebrew/bin:$PATH"
   },
