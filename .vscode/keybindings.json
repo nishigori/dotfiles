@@ -6,6 +6,12 @@
  * when: https://code.visualstudio.com/docs/getstarted/keybindings#_contexts
  */
 [
+  /*
+   * よく使うdefault keymap:
+   *
+   * - cmd+.: ヒント（ランプ）表示
+   */
+
   {
     "when": "editorTextFocus && neovim.mode == 'normal'",
     "key": "ctrl+t",
@@ -28,15 +34,6 @@
     "command": "workbench.action.navigateEditorGroups",
   },
   {
-    //{"before": ["ctrl+w"], "after": ["esc", "c", "i", "w"]},
-    "when": "editorTextFocus && neovim.mode == 'insert'",
-    "key": "ctrl+w",
-    "command": "type",
-    "args": {
-      "text": "<escape>ciw"
-    },
-  },
-  {
     "key": "tab",
     "when": "editorFocus && neovim.mode == 'normal'",
     //"command": "workbench.action.showNextWindowTab",
@@ -54,7 +51,17 @@
       "text": "gT"
     },
   },
+
+  // Refactoring
+
+  {
+    "key": "cmd+r",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+
   // Switch focus
+
   {
     "key": "escape",
     "command": "workbench.action.focusFirstEditorGroup",
@@ -79,7 +86,9 @@
     "command": "workbench.files.action.showActiveFileInExplorer",
     "when": "editorFocus && neovim.mode == 'normal'"
   },
+
   // cmd + number
+
   {
     "key": "cmd+1",
     "command": "workbench.view.explorer",
@@ -94,6 +103,9 @@
     "key": "cmd+7",
     "command": "outline.focus"
   },
+
+  // Disable defaults
+
   {
     "key": "cmd+d",
     "command": "-editor.action.addSelectionToNextFindMatch",
@@ -108,10 +120,6 @@
     "key": "ctrl+`",
     "command": "-workbench.action.terminal.toggleTerminal",
     "when": "terminal.active"
-  },
-  {
-    "key": "cmd+1",
-    "command": "-workbench.action.focusFirstEditorGroup"
   },
   {
     "key": "cmd+b",
@@ -132,14 +140,17 @@
     "when": "explorerResourceIsFolder && filesExplorerFocus && foldersViewVisible && !inputFocus"
   },
   {
-    "key": "cmd+r",
-    "command": "editor.action.rename",
-    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
-  },
-  {
     "key": "f2",
     "command": "-editor.action.rename",
     "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "cmd+1",
+    "command": "-workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "cmd+6",
+    "command": "-workbench.action.focusSixthEditorGroup"
   },
   {
     "key": "cmd+7",
@@ -149,9 +160,5 @@
     "key": "shift+cmd+m",
     "command": "-workbench.actions.view.problems",
     "when": "workbench.panel.markers.view.active"
-  },
-  {
-    "key": "cmd+6",
-    "command": "-workbench.action.focusSixthEditorGroup"
   },
 ]

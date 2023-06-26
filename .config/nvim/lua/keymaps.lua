@@ -14,6 +14,10 @@ keymap('v', ':', ';', { noremap = true })
 keymap('n', 'q;', 'q:', silent)
 keymap('v', 'q;', 'q:', silent)
 
+keymap('i', '<c-w>', '<esc>ciw', silent)
+keymap('n', 'cw', 'ciw', silent)
+keymap('n', 'dw', 'diw', silent)
+
 -- Search cursor words
 keymap('n', '*', '*N', silent)
 
