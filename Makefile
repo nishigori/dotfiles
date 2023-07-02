@@ -35,6 +35,9 @@ install: me $(os)/install
 bin: $(bin_requires)
 
 clean: $(os)/clean
+ifneq (,$(shell which docker 2>/dev/null))
+	docker image prune -a --filter "until=$$(date '+%Y-%m-%d' --date '365 days ago')"
+endif
 
 update: links $(os)/update
 
