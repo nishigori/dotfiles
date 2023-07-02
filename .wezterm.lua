@@ -32,7 +32,16 @@ wezterm.on(
   end
 )
 
-local custom = wezterm.color.get_builtin_schemes()['Catppuccin Latte']
+local function scheme_for_appearance(appearance)
+  if appearance:find "Dark" then
+    return "Catppuccin Mocha"
+  else
+    return "Catppuccin Latte"
+  end
+end
+
+local scheme = scheme_for_appearance(wezterm.gui.get_appearance())
+local custom = wezterm.color.get_builtin_schemes()[scheme]
 --custom.background = "#000000"
 custom.tab_bar.background = "#040404"
 custom.tab_bar.inactive_tab.bg_color = "#0f0f0f"
