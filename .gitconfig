@@ -3,7 +3,7 @@
 	editor       = vim
 	excludesfile = ~/.gitignore
 	quotepath    = false
-	pager        = delta
+	pager        = delta --features "$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dark-mode || echo light-mode)"
 
 [color]
 	ui     = true
@@ -21,13 +21,16 @@
 ;; delta is https://github.com/dandavison/delta
 [delta]
 	navigate = true
-	;; $ delta --list-syntax-themes
-	light = true
-	syntax-theme = GitHub
-	;syntax-theme = Solarized (dark)
-	;plus-style = "syntax #012800"
-	;minus-style = "syntax #340001"
 	line-numbers = true
+
+[delta "light-mode"]
+	;; $ delta --list-syntax-themes
+    light = true
+    syntax-theme = GitHub
+
+[delta "dark-mode"]
+    light = false
+    syntax-theme = Visual Studio Dark+
 
 [interactive]
 	diffFilter = delta --color-only
