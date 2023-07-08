@@ -72,6 +72,8 @@
 	st        = status
 	stv       = status --verbose
 	wc        = whatchanged
+	# tree (usage alias at .zshrc)
+	tree      = ls-tree -r --name-only @
 	# shown default branch
 	default   = !git show-ref --verify --quiet refs/heads/master && echo master || git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
 	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
