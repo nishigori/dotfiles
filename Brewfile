@@ -22,7 +22,6 @@ tap 'wez/wezterm'
 # Cask
 ######
 cask 'wezterm'
-cask 'abyssoft-teleport'
 cask 'dash'
 cask 'deepl'
 #cask 'rambox'
