@@ -2,7 +2,7 @@
 
 classic: false
 color:
-  theme: my-light
+  theme: "custom"
 icons:
   theme: "fancy" # or "unicode"
 date: '+%Y/%m/%d %X'
