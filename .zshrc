@@ -108,7 +108,7 @@ case ${OSTYPE} in
 esac
 
 # Dark / Light
-local system_appearance=`defaults read -g AppleInterfaceStyle`
+local system_appearance=`defaults read -g AppleInterfaceStyle 2>/dev/null`
 
 bindkey -e
 alias k='kubectl'
@@ -398,7 +398,7 @@ fi
 
 # lsd (next gen ls command)
 if [ -d $XDG_CONFIG_HOME/lsd ]; then
-  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${system_appearance:l}.yaml ./colors.yaml)
+  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${(L)system_appearance:-dark}.yaml ./colors.yaml)
 fi
 
 # like vimrc alpaca_tags settings
