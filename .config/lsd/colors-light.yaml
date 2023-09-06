@@ -1,0 +1,28 @@
+# https://github.com/Peltoche/lsd#color-theme-file-content
+user: 178
+group: 175
+permission:
+  read: dark_green
+  write: dark_yellow
+  exec: dark_red
+  exec-sticky: 5
+  no-access: 239
+  octal: 6
+  acl: dark_cyan
+  context: cyan
+date:
+  hour-old: 34
+  day-old: 34
+  older: 30
+size:
+  none: 239
+  small: 175
+  medium: 210
+  large: 166
+inode:
+  valid: 13
+  invalid: 239
+links:
+  valid: 13
+  invalid: 239
+tree-edge: 239

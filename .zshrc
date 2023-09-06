@@ -396,6 +396,11 @@ if (( $+commands[bat] )); then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
+# lsd (next gen ls command)
+if [ -d $XDG_CONFIG_HOME/lsd ]; then
+  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${system_appearance:l}.yaml ./colors.yaml)
+fi
+
 # like vimrc alpaca_tags settings
 local ctags_default_opt='-R --exclude=".git*" --sort=yes'
 alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
