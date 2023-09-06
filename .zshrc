@@ -107,6 +107,9 @@ case ${OSTYPE} in
         ;;
 esac
 
+# Dark / Light
+local system_appearance=`defaults read -g AppleInterfaceStyle`
+
 bindkey -e
 alias k='kubectl'
 alias tailf='tail -f'
@@ -388,8 +391,7 @@ if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 if (( $+commands[bat] )); then
     # https://github.com/sharkdp/bat
     alias c='bat'
-    #export BAT_THEME=Dracula
-    export BAT_THEME="Monokai Extended Light"
+    export BAT_THEME="Monokai Extended ${system_appearance:-Dark}"
     export BAT_PAGER="less -XRF --shift 4 --LONG-PROMPT"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
