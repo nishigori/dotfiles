@@ -3,7 +3,7 @@
 	editor       = vim
 	excludesfile = ~/.gitignore
 	quotepath    = false
-	pager        = delta --features "$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dark-mode || echo light-mode)"
+	pager        = git delta --features "$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dark-mode || echo light-mode)"
 
 [color]
 	ui     = true
@@ -22,6 +22,7 @@
 [delta]
 	navigate = true
 	line-numbers = true
+	side-by-side = true
 
 [delta "light-mode"]
 	;; $ delta --list-syntax-themes
@@ -33,7 +34,7 @@
     syntax-theme = Visual Studio Dark+
 
 [interactive]
-	diffFilter = delta --color-only
+	diffFilter = git delta --color-only
 
 [diff]
 	colorMoved = default
@@ -63,6 +64,7 @@
 	br        = branch --verbose
 	bra       = branch --verbose --all
 	brd       = branch --delete -vv
+	delta     = !delta $(defaults read -g AppleInterfaceStyle &>/dev/null || echo --light)
 	fv        = fetch --verbose --prune
 	hist      = log --graph --pretty='format:%C(green)%h%C(black blue)%d%Creset %s %C(cyan)%ci%Creset %C(magenta ul)By %cn%Creset'
 	logpretty = log --decorate --graph --name-status --oneline
