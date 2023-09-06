@@ -108,7 +108,7 @@ case ${OSTYPE} in
 esac
 
 # Dark / Light
-local system_appearance=`defaults read -g AppleInterfaceStyle 2>/dev/null`
+local system_appearance=${$(defaults read -g AppleInterfaceStyle 2>/dev/null):-Light}
 
 bindkey -e
 alias k='kubectl'
@@ -391,14 +391,14 @@ if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 if (( $+commands[bat] )); then
     # https://github.com/sharkdp/bat
     alias c='bat'
-    export BAT_THEME="Monokai Extended ${system_appearance:-Dark}"
+    export BAT_THEME="Monokai Extended ${system_appearance}"
     export BAT_PAGER="less -XRF --shift 4 --LONG-PROMPT"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
 # lsd (next gen ls command)
 if [ -d $XDG_CONFIG_HOME/lsd ]; then
-  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${(L)system_appearance:-dark}.yaml ./colors.yaml)
+  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${(L)system_appearance}.yaml ./colors.yaml)
 fi
 
 # like vimrc alpaca_tags settings
