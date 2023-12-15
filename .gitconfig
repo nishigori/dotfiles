@@ -22,7 +22,7 @@
 [delta]
 	navigate = true
 	line-numbers = true
-	side-by-side = true
+	#side-by-side = true
 
 [delta "light-mode"]
 	;; $ delta --list-syntax-themes
