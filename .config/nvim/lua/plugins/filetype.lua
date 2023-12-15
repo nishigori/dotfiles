@@ -9,11 +9,13 @@ return {
     config = {
       overrides = {
         extensions = {
-          tf = "terraform",
-          tfvars = "terraform",
+          hcl = "tf",
+          --tf = "terraform",
+          tfvars = "tf",
           tfstate = "json",
           json5 = "json",
           jsonc = "json",
+          sh    = "bash",
         },
         complex = {
           [".*git/config"] = "gitconfig",
