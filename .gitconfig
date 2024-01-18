@@ -132,5 +132,13 @@
 	name = nishigori
 	email = nishigori.tak@gmail.com
 
+# NOTE: Enable when GitHub HTTPS protocal is gone (use SSH protocol)
+#
+#[url "https://"]
+#    insteadOf = git://
+#
+#[url "ssh://git@github.com/"]
+#    insteadOf = https://github.com/
+
 [include]
 	path = ~/.secrets/.gitsecret
