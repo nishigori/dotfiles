@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://github.com/nishigori/dotfiles/wiki/img/mycat1.gif" alt="My Cat">
 
-  <h3 align="center">Two things are aethetically perfect in the world - *dotfiles* and 😺</h3>
+  <h3 align="center">2 things are aethetically perfect in the world - *dotfiles* & 😺</h3>
 
   &nbsp;<br>
   
@@ -13,4 +13,3 @@
   <p>Run&nbsp;»&nbsp;<code>$ make</code> and <code>$ make install</code></p>
   <p><a href="https://github.com/nishigori/dotfiles/wiki">Wiki&nbsp;»</a>&nbsp;Other manual setups can be found</p>
 </div>
-
