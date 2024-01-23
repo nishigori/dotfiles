@@ -391,7 +391,7 @@ endif
 " }}}
 " # Font "{{{
 if !exists('g:vscode')
-  set printfont=MonaspiceAr\ Nerd\ Font:h16,\ Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
+  set printfont=Hack\ Nerd\ Font:h16,\ Ricty\ Discord\ for\ Powerline:h16,\ Ricty:h16,\ Monaco:h16
 endif
 " }}}
 " # Color Scheme {{{

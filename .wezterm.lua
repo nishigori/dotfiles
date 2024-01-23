@@ -74,8 +74,8 @@ end
 return {
   --use_ime = false, -- awaiting fixed https://github.com/wez/wezterm/issues/2771
   --debug_key_events = true,
-  --font = wezterm.font "Hack Nerd Font",
-  font = wezterm.font "MonaspiceXe Nerd Font",
+  font = wezterm.font "Hack Nerd Font",
+  --font = wezterm.font "MonaspiceXe Nerd Font",
   font_size = 22,
   line_height = 1.1,
   color_schemes = {
