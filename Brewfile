@@ -164,17 +164,16 @@ brew 'bsdmake'
 brew 'cmake'
 brew 'curl'
 brew 'direnv'
+brew 'fzf'
 brew 'ghq'
 brew 'hub'
-#brew 'lab'
+brew 'jq'
 brew 'lsd'
-brew 'wget'
-# Tail multiple Kubernetes pods & their containers
-brew 'stern'
+brew 'netmask'
+brew 'sk' -- fzf alternative rust
+brew 'stern' --  Tail multiple Kubernetes pods & their containers
 brew 'terraform_landscape'
 brew 'hashicorp/tap/terraform-ls'
-brew 'fzf'
-brew 'sk' -- fzf alternative rust
 brew 'tmux'
-brew 'jq'
 brew 'yq'
+brew 'wget'
