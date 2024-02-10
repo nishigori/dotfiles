@@ -183,13 +183,12 @@ esac
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit ice wait'0'
-zinit light zsh-users/zsh-autosuggestions
-zinit ice wait'0'
+zinit wait lucid atload'_zsh_autosuggest_start' light-mode for zsh-users/zsh-autosuggestions
+zinit ice wait
 zinit light zsh-users/zsh-syntax-highlighting
 # https://qiita.com/mollifier/items/81b18c012d7841ab33c3
 #zinit light mollifier/anyframe
-zinit ice wait'0' as'program' pick'bin/git-dsf'
+zinit ice wait as'program' pick'bin/git-dsf'
 
 case ${OSTYPE} in
     darwin*)
