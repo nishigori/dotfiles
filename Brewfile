@@ -22,6 +22,7 @@ tap 'wez/wezterm'
 # Cask
 ######
 cask 'wezterm'
+cask 'raycast'
 cask 'dash'
 cask 'deepl'
 #cask 'rambox'
