@@ -119,4 +119,7 @@
   },
   "rust-analyzer.checkOnSave.command": "clippy",
   "go.toolsManagement.autoUpdate": true,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
 }
