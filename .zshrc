@@ -281,13 +281,25 @@ setopt hist_reduce_blanks
 #setopt hist_no_store
 setopt EXTENDED_HISTORY
 
-incremental_search_history() {
-  BUFFER=$(history -n -r 1 | fzf --exact --query="$LBUFFER" --prompt="History > ")
-  CURSOR=${#BUFFER}
-  #zle redisplay
+function fzf-select-history() {
+    BUFFER=$(history -n -r 1 | fzf --no-sort --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle reset-prompt
 }
-zle -N incremental_search_history
-bindkey "^R" incremental_search_history
+zle -N fzf-select-history
+bindkey '^r' fzf-select-history
+
+function fzf-cdr() {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N fzf-cdr
+setopt noflowcontrol
+bindkey '^q' fzf-cdr
 
 
 ###########
