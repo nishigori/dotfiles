@@ -58,8 +58,10 @@
 	cob       = switch -c
 	ci        = commit --verbose
 	cim       = commit --verbose -m
+	default   = !git show-ref --verify --quiet refs/heads/main && echo main || git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@' # Show default remote-branch
 	di        = diff --ignore-space-change
 	dic       = diff --cached --ignore-space-change
+	dim       = !git diff --ignore-space-change $(git default)
 	dis       = diff --stat
 	br        = branch --verbose
 	bra       = branch --verbose --all
@@ -76,8 +78,6 @@
 	wc        = whatchanged
 	# tree (usage alias at .zshrc)
 	tree      = ls-tree -r --name-only @
-	# shown default branch
-	default   = !git show-ref --verify --quiet refs/heads/main && echo main || git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
 	jump      = !git checkout $(git branch | sed 's/*//g' | sed 's/ //g' | peco)
 	souji     = !git branch --merged | grep -v -e '^[*]' -e "$(git default)" | xargs -r git branch -d
 	master    = !git switch $(git default) && git fv && git rebase origin/$(git default) -v
