@@ -9,10 +9,16 @@
 #cask 'intellij-idea' # now, migrated to jetbrains-toolbox
 cask 'jetbrains-toolbox'
 
+# multi app manager
+#cask 'franz'
+
+cask 'google-chrome'
+
 cask 'deepl'
 cask 'dropbox'
 cask 'kindle'
 cask 'notion'
+cask 'messenger'
 cask 'visual-studio-code'
 cask 'homebrew/cask-drivers/zsa-wally' # ZSA Kayboard the EZ way
 cask 'font-victor-mono'
