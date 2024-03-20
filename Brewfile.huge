@@ -1,0 +1,21 @@
+# vim: set ft=config expandtab:
+#
+# Brewfile huge
+
+#mas 'Slack', id: 803453959
+#mas '1Password', id: 443987910
+#mas 'TweetDeck', id: 485812721
+
+#cask 'intellij-idea' # now, migrated to jetbrains-toolbox
+cask 'jetbrains-toolbox'
+
+cask 'deepl'
+cask 'dropbox'
+cask 'kindle'
+cask 'notion'
+cask 'visual-studio-code'
+cask 'homebrew/cask-drivers/zsa-wally' # ZSA Kayboard the EZ way
+cask 'font-victor-mono'
+cask 'font-victor-mono-nerd-font'
+#cask 'gifcapture'
+#cask 'krisp'

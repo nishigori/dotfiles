@@ -1,6 +1,7 @@
 # Makefile in nishigori/dotfiles
 #
 RC_FILES := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
+IS_HUGE  :=
 
 # Internal variables that it is (maybe) you do not need to set.
 os            := $(shell uname -s)
@@ -8,8 +9,9 @@ arch           = $(shell arch)
 secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
 links         := $(RC_FILES) .gitconfig .zsh .p10k.zsh .vim .secrets
 links         += $(addprefix .config/, dein lsd nvim gh gh-dash prs cspell firefox tridactyl)
-dir_requires  := $(addprefix $(HOME)/, src bin tmp Dropbox .config .cache/terraform) \
-	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
+dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform) \
+	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
+	$(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
 bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight) bin/git-delete-squashed-branches
 gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
@@ -45,7 +47,7 @@ secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
 	@set -ex; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script);)
-	@ln -sf ~/Dropbox/TODO.rst ~/TODO.rst
+	@$(if $(IS_HUGE), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
 
 .PHONY: $(secrets)
 $(secrets):

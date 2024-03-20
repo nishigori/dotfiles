@@ -24,6 +24,7 @@ Darwin/install: xcode-select $(BREW) brew/tap $(if $(CI),,brew/bundle)
 Darwin/update: brew/update brew/upgrade
 
 Darwin/clean: brew/cleanup
+	rm -f Brewfile
 
 Darwin/terminal: # https://wezfurlong.org/wezterm/install/macos.html
 ifeq (,$(shell which wezterm 2>/dev/null))
@@ -39,7 +40,10 @@ $(BREW):
 	#which mas 2>/dev/null || $(BREW) install mas
 	brew tap Homebrew/bundle
 
-brew/%:
+Brewfile: Brewfile.normal $(if $(IS_HUGE), Brewfile.huge)
+	cat $^ > $@
+
+brew/%: Brewfile
 	brew $(@F)
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
