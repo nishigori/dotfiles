@@ -73,6 +73,7 @@ bin/diff-highlight: $(HOME)/bin
 	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
 	make -C /tmp/git/contrib/diff-highlight/
 	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
+	rm -rf /tmp/git
 
 bin/git-delete-squashed-branches:
 	curl -SsL -o $@ https://raw.githubusercontent.com/tj/git-extras/master/bin/git-delete-squashed-branches
