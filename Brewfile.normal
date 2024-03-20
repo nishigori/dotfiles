@@ -149,8 +149,8 @@ brew 'hub'
 brew 'jq'
 brew 'lsd'
 brew 'netmask'
-brew 'sk' -- fzf alternative rust
-brew 'stern' --  Tail multiple Kubernetes pods & their containers
+brew 'sk' # fzf alternative rust
+brew 'stern' #  Tail multiple Kubernetes pods & their containers
 brew 'terraform_landscape'
 brew 'hashicorp/tap/terraform-ls'
 brew 'tmux'
