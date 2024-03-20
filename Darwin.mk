@@ -21,7 +21,7 @@ export PATH := $(basename $(BREW)):$(PATH)
 .PHONY: Darwin/* brew/*
 
 # NOTE: brew/bundle is heavy run, skipped on CI
-Darwin/install: xcode-select $(BREW) brew/tap $(if $(CI),,brew/bundle)
+Darwin/install: xcode-select brew/tap $(if $(CI),,brew/bundle)
 
 Darwin/update: brew/update brew/upgrade
 
@@ -40,13 +40,13 @@ xcode-select:
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	#which mas 2>/dev/null || $(BREW) install mas
-	brew tap Homebrew/bundle
+	$@ tap Homebrew/bundle
 
 Brewfile: Brewfile.normal $(if $(IS_HUGE), Brewfile.huge)
 	cat $^ > $@
 
-brew/%: Brewfile
-	brew $(@F)
+brew/%: $(BREW) Brewfile
+	$< $(@F)
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
 vscode: $(VSCODE)
