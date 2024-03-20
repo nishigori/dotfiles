@@ -15,6 +15,8 @@ DEFAULT_ARCH      := $(shell uname -m)
 XCODE_REQ_INSTALL  = $(shell xcode-select -p 1>/dev/null || echo "not installed")
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+# For one-step install
+export PATH := $(basename $(BREW)):$(PATH)
 
 .PHONY: Darwin/* brew/*
 
