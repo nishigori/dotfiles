@@ -1,5 +1,6 @@
 # My zshrc
 #
+# vim: set ts=2 sw=2 sts=0 expandtab:
 
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
 #zmodload zsh/zprof
@@ -18,93 +19,93 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 path=(
-    $HOME/bin(N-/)
-    $HOME/.anyenv/bin(N-/)
-    $HOME/.composer/vendor/bin(N-/)
-    $path
+  $HOME/bin(N-/)
+  $HOME/.anyenv/bin(N-/)
+  $HOME/.composer/vendor/bin(N-/)
+  $path
 )
 
 case ${OSTYPE} in
-    darwin*)
-        if [[ "arm64" == "$(uname -m)" ]]; then
-            brew_root=/opt/homebrew
-        else
-            brew_root=/usr/local
-        fi
+  darwin*)
+    if [[ "arm64" == "$(uname -m)" ]]; then
+      brew_root=/opt/homebrew
+    else
+      brew_root=/usr/local
+    fi
 
-        manpath=(
-            $brew_root/opt/coreutils/libexec/gnuman(N-/)
-            $brew_root/opt/findutils/libexec/gnuman(N-/)
-            $brew_root/opt/gnu-sed/libexec/gnuman(N-/)
-            $brew_root/opt/gnu-tar/libexec/gnuman(N-/)
-            $brew_root/opt/gnu-time/libexec/gnuman(N-/)
-            $brew_root/opt/gnu-which/libexec/gnuman(N-/)
-            $brew_root/opt/grep/libexec/gnuman(N-/)
-            $manpath
-        )
+    manpath=(
+      $brew_root/opt/coreutils/libexec/gnuman(N-/)
+      $brew_root/opt/findutils/libexec/gnuman(N-/)
+      $brew_root/opt/gnu-sed/libexec/gnuman(N-/)
+      $brew_root/opt/gnu-tar/libexec/gnuman(N-/)
+      $brew_root/opt/gnu-time/libexec/gnuman(N-/)
+      $brew_root/opt/gnu-which/libexec/gnuman(N-/)
+      $brew_root/opt/grep/libexec/gnuman(N-/)
+      $manpath
+    )
 
-        path=(
-            $brew_root/bin(N-/)
-            $brew_root/sbin(N-/)
-            $brew_root/opt/apr/bin(N-/)
-            $brew_root/opt/avr-gcc@11/bin(N-/)
-            $brew_root/opt/avr-gcc@9/bin(N-/)
-            $brew_root/opt/avr-gcc@8/bin(N-/)
-            $brew_root/opt/gawk/libexec/gnubin(N-/)
-            $brew_root/opt/berkeley-db@4/bin(N-/)
-            $brew_root/opt/binutils/bin(N-/)
-            $brew_root/opt/bison/bin(N-/)
-            $brew_root/opt/bzip2/bin(N-/)
-            $brew_root/opt/coreutils/libexec/gnubin(N-/)
-            $brew_root/opt/curl/bin(N-/)
-            $brew_root/opt/curl-openssl/bin(N-/)
-            $brew_root/opt/findutils/libexec/gnubin(N-/)
-            $brew_root/opt/gcc/bin(N-/)
-            $brew_root/opt/gettext/bin(N-/)
-            $brew_root/opt/git/share/git-core/contrib/diff-highlight(N-/)
-            $brew_root/opt/gnu-sed/libexec/gnubin(N-/)
-            $brew_root/opt/gnu-tar/libexec/gnubin(N-/)
-            $brew_root/opt/gnu-time/libexec/gnubin(N-/)
-            $brew_root/opt/gnu-which/libexec/gnubin(N-/)
-            $brew_root/opt/go/bin(N-/)
-            $brew_root/opt/grep/libexec/gnubin(N-/)
-            $brew_root/opt/icu4c/bin(N-/)
-            $brew_root/opt/icu4c/sbin(N-/)
-            $brew_root/opt/libarchive/bin(N-/)
-            $brew_root/opt/libpq/bin(N-/)
-            $brew_root/opt/libressl/bin(N-/)
-            $brew_root/opt/libxml2/bin(N-/)
-            $brew_root/opt/libxslt/bin(N-/)
-            $brew_root/opt/llvm/bin(N-/)
-            $brew_root/opt/ncurses/bin(N-/)
-            $brew_root/opt/make/libexec/gnubin(N-/)
-            $brew_root/opt/mysql-client/bin(N-/)
-            $brew_root/opt/openjdk/bin(N-/)
-            $brew_root/opt/openldap/bin(N-/)
-            $brew_root/opt/openldap/sbin(N-/)
-            $brew_root/opt/openssl@3/bin(N-/)
-            $brew_root/opt/qmk/bin/(N-/)
-            $brew_root/opt/sqlite/bin(N-/)
+    path=(
+      $brew_root/bin(N-/)
+      $brew_root/sbin(N-/)
+      $brew_root/opt/apr/bin(N-/)
+      $brew_root/opt/avr-gcc@11/bin(N-/)
+      $brew_root/opt/avr-gcc@9/bin(N-/)
+      $brew_root/opt/avr-gcc@8/bin(N-/)
+      $brew_root/opt/gawk/libexec/gnubin(N-/)
+      $brew_root/opt/berkeley-db@4/bin(N-/)
+      $brew_root/opt/binutils/bin(N-/)
+      $brew_root/opt/bison/bin(N-/)
+      $brew_root/opt/bzip2/bin(N-/)
+      $brew_root/opt/coreutils/libexec/gnubin(N-/)
+      $brew_root/opt/curl/bin(N-/)
+      $brew_root/opt/curl-openssl/bin(N-/)
+      $brew_root/opt/findutils/libexec/gnubin(N-/)
+      $brew_root/opt/gcc/bin(N-/)
+      $brew_root/opt/gettext/bin(N-/)
+      $brew_root/opt/git/share/git-core/contrib/diff-highlight(N-/)
+      $brew_root/opt/gnu-sed/libexec/gnubin(N-/)
+      $brew_root/opt/gnu-tar/libexec/gnubin(N-/)
+      $brew_root/opt/gnu-time/libexec/gnubin(N-/)
+      $brew_root/opt/gnu-which/libexec/gnubin(N-/)
+      $brew_root/opt/go/bin(N-/)
+      $brew_root/opt/grep/libexec/gnubin(N-/)
+      $brew_root/opt/icu4c/bin(N-/)
+      $brew_root/opt/icu4c/sbin(N-/)
+      $brew_root/opt/libarchive/bin(N-/)
+      $brew_root/opt/libpq/bin(N-/)
+      $brew_root/opt/libressl/bin(N-/)
+      $brew_root/opt/libxml2/bin(N-/)
+      $brew_root/opt/libxslt/bin(N-/)
+      $brew_root/opt/llvm/bin(N-/)
+      $brew_root/opt/ncurses/bin(N-/)
+      $brew_root/opt/make/libexec/gnubin(N-/)
+      $brew_root/opt/mysql-client/bin(N-/)
+      $brew_root/opt/openjdk/bin(N-/)
+      $brew_root/opt/openldap/bin(N-/)
+      $brew_root/opt/openldap/sbin(N-/)
+      $brew_root/opt/openssl@3/bin(N-/)
+      $brew_root/opt/qmk/bin/(N-/)
+      $brew_root/opt/sqlite/bin(N-/)
 
-            $path
-        )
+      $path
+    )
 
-        fpath=(
-            $brew_root/opt/git/share/zsh/site-functions(N-/)
-            $fpath
-        )
+    fpath=(
+      $brew_root/opt/git/share/zsh/site-functions(N-/)
+      $fpath
+    )
 
-        # local version specify even if
-        #Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
-        #path=( /usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin $path )
-        #export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
-        #export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
-        #export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
+    # local version specify even if
+    #Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
+    #path=( /usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin $path )
+    #export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
+    #export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
+    #export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
 
-        export HOMEBREW_NO_AUTO_UPDATE=1
-        export CURL_CONFIG=$brew_root/opt/curl/bin/curl-config(N-/)
-        export GROOVY_HOME=$brew_root/opt/groovy/libexec(N-/)
-        ;;
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export CURL_CONFIG=$brew_root/opt/curl/bin/curl-config(N-/)
+    export GROOVY_HOME=$brew_root/opt/groovy/libexec(N-/)
+    ;;
 esac
 
 # Dark / Light
@@ -112,7 +113,6 @@ local system_appearance=${$(defaults read -g AppleInterfaceStyle 2>/dev/null):-L
 
 bindkey -e
 alias k='kubectl'
-alias tailf='tail -f'
 alias -g g='git'
 alias -g p='git add -p'
 alias mm='git master && git souji && git-delete-squashed-branches'
@@ -120,7 +120,7 @@ alias master='git master && git souji && git-delete-squashed-branches'
 alias lg='lazygit'
 alias gg='git grep'
 alias gl='git grep -l'
-alias gtree='git tree | tree --fromfile | bat -p'
+alias git-tree='git tree | tree --fromfile | bat -p'
 alias gt='gtree'
 alias h='git hist origin/$(git default)^..@'
 alias hn='git hist --name-only origin/$(git default)^..@'
@@ -128,34 +128,34 @@ alias pu='git push -u origin $(git branch --show-current)'
 alias pf='git push --force-with-lease --force-if-includes'
 alias pushu='git push -u origin $(git symbolic-ref --short HEAD)'
 alias pushf='git push --force-with-lease --force-if-includes'
-alias s='git status -sb'
-alias st='git status'
-alias co='git switch'
-alias cob='git cob'
-alias fv='git fv'
-alias pv='git pv'
+alias br='git br'
+alias bra='git bra'
 alias ci='git commit'
 alias cim='git commit -m'
+alias co='git switch'
+alias cob='git cob'
 alias di='git --no-pager di'
 alias dic='git --no-pager dic'
-alias dis='git diff --stat'
-alias dis='git diff --stat'
+alias fv='git fv'
 alias hist="git hist"
+alias pv='git pv'
+alias s='git status -sb'
+alias st='git status'
 alias ec="editorconfig-checker" # for nvim-mason-null-ls
 alias lazygit="lazygit --use-config-dir ~/.config/lazygit"
 
 # ls using https://github.com/Peltoche/lsd
 if (( $+commands[lsd] )); then
-    alias ls='lsd'
-    alias  l='lsd -l'
-    alias ll='lsd -l'
-    alias la='lsd -la'
-    alias al='lsd -la'
+  alias ls='lsd'
+  alias  l='lsd -l'
+  alias ll='lsd -l'
+  alias la='lsd -la'
+  alias al='lsd -la'
 else
-    alias ls="ls -G"
-    alias  l='ls -l'
-    alias ll='ls -l'
-    alias la='ls -al'
+  alias ls="ls -G"
+  alias  l='ls -l'
+  alias ll='ls -l'
+  alias la='ls -al'
 fi
 
 setopt auto_cd
@@ -168,16 +168,16 @@ setopt interactive_comments
 # zinit
 #######
 case ${OSTYPE} in
-    darwin*)
-        # zinit installed by homebrew
-        source $brew_root/opt/zinit/zinit.zsh
-        ;;
-    linux*)
-        if [ ! -d ~/.zinit ]; then
-            bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-        fi
-        source $HOME/.zinit/bin/zinit.zsh
-        ;;
+  darwin*)
+    # zinit installed by homebrew
+    source $brew_root/opt/zinit/zinit.zsh
+    ;;
+  linux*)
+    if [ ! -d ~/.zinit ]; then
+      bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+    fi
+    source $HOME/.zinit/bin/zinit.zsh
+    ;;
 esac
 
 autoload -Uz _zinit
@@ -191,11 +191,11 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait as'program' pick'bin/git-dsf'
 
 case ${OSTYPE} in
-    darwin*)
-        ;;
-    linux*)
-        zinit snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
-        ;;
+  darwin*)
+    ;;
+  linux*)
+    zinit snippet OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh
+    ;;
 esac
 
 
@@ -282,59 +282,83 @@ setopt hist_reduce_blanks
 setopt EXTENDED_HISTORY
 
 function fzf-select-history() {
-    BUFFER=$(history -n -r 1 | fzf --no-sort --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle reset-prompt
+  BUFFER=$(history -n -r 1 | fzf --no-sort --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle reset-prompt
 }
 zle -N fzf-select-history
 bindkey '^r' fzf-select-history
 
 function fzf-cdr() {
-    local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf)
-    if [ -n "$selected_dir" ]; then
-        BUFFER="cd ${selected_dir}"
-        zle accept-line
-    fi
-    zle clear-screen
+  local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf)
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
 }
 zle -N fzf-cdr
 setopt noflowcontrol
 bindkey '^q' fzf-cdr
 
 
+#####################
+# CommandLine Tool(s)
+#####################
+# https://github.com/junegunn/fzf#environment-variables
+export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
+#export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
+#export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
+
+if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
+
+# bat (Powerful & Colorful commands)
+if (( $+commands[bat] )); then
+  # https://github.com/sharkdp/bat
+  alias c='bat'
+  export BAT_THEME="Monokai Extended ${system_appearance}"
+  export BAT_PAGER="less -XRF --shift 4 --LONG-PROMPT"
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
+# lsd (next gen ls command)
+if [ -d $XDG_CONFIG_HOME/lsd ]; then
+  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${(L)system_appearance}.yaml ./colors.yaml)
+fi
+
 ###########
 # Languages
 ###########
 if (( $+commands[anyenv] )); then
-    test -d $XDG_CONFIG_HOME/anyenv/anyenv-install || anyenv install --init
+  test -d $XDG_CONFIG_HOME/anyenv/anyenv-install || anyenv install --init
 
-    if [[ ! -d ~/.anyenv/plugins/anyenv-update ]]; then
-    	mkdir -p ~/.anyenv/plugins
-    	git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
-    fi
+  if [[ ! -d ~/.anyenv/plugins/anyenv-update ]]; then
+    mkdir -p ~/.anyenv/plugins
+    git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
+  fi
 
-    if [[ ! -f $XDG_CACHE_HOME/anyenv.cache ]]; then
-    	anyenv init - zsh > $XDG_CACHE_HOME/anyenv.cache
-	zcompile $XDG_CACHE_HOME/anyenv.cache
-    fi
-    source $XDG_CACHE_HOME/anyenv.cache
+  if [[ ! -f $XDG_CACHE_HOME/anyenv.cache ]]; then
+    anyenv init - zsh > $XDG_CACHE_HOME/anyenv.cache
+    zcompile $XDG_CACHE_HOME/anyenv.cache
+  fi
+  source $XDG_CACHE_HOME/anyenv.cache
 fi
 
 export GOPATH=$HOME
 path=( $GOPATH/bin(N-/) $path)
 
 if (( $+commands[go] )); then
-    export GOROOT=$(go env GOROOT);
-    path=($(go env GOPATH)/bin(N-/) $path)
+  export GOROOT=$(go env GOROOT);
+  path=($(go env GOPATH)/bin(N-/) $path)
 fi
 
 # phpenv loading is very slow. use brew php@x.x and declare PATH via direnv
 #if (( $+commands[phpenv] )); then ...; fi
 
 if (( $+commands[plenv] )); then
-    eval "$(plenv init - zsh)"
-    export PERL_MB_OPT="--install_base \"~/perl5\""
-    export PERL_MM_OPT="INSTALL_BASE=~/perl5"
+  eval "$(plenv init - zsh)"
+  export PERL_MB_OPT="--install_base \"~/perl5\""
+  export PERL_MM_OPT="INSTALL_BASE=~/perl5"
 fi
 
 # rust
@@ -355,14 +379,14 @@ bindkey '^O' move_ghq_directories
 bindkey '^G' select-git-branch
 
 move_ghq_directories() {
-    selected=`ghq list | fzf --query "$LBUFFER"`
-    if [ -n "${#selected}" ]; then
-        target_dir="`ghq root`/$selected"
-        echo "cd $target_dir"
-        BUFFER="cd $target_dir"
-        zle accept-line
-    fi
-    zle clear-screen
+  selected=`ghq list | fzf --query "$LBUFFER"`
+  if [ -n "${#selected}" ]; then
+    target_dir="`ghq root`/$selected"
+    echo "cd $target_dir"
+    BUFFER="cd $target_dir"
+    zle accept-line
+  fi
+  zle clear-screen
 }
 zle -N move_ghq_directories
 
@@ -388,36 +412,6 @@ zle -N select-git-branch
 #fi
 
 
-#####################
-# CommandLine Tool(s)
-#####################
-export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
-export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
-# https://github.com/junegunn/fzf#environment-variables
-export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
-
-if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
-
-# Powerful & Colorful command(s)
-if (( $+commands[bat] )); then
-    # https://github.com/sharkdp/bat
-    alias c='bat'
-    export BAT_THEME="Monokai Extended ${system_appearance}"
-    export BAT_PAGER="less -XRF --shift 4 --LONG-PROMPT"
-    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
-
-# lsd (next gen ls command)
-if [ -d $XDG_CONFIG_HOME/lsd ]; then
-  (cd $XDG_CONFIG_HOME/lsd/ && ln -sf ./colors-${(L)system_appearance}.yaml ./colors.yaml)
-fi
-
-# like vimrc alpaca_tags settings
-local ctags_default_opt='-R --exclude=".git*" --sort=yes'
-alias ctags_go="${ctags_default_opt} --langdef=Go --langmap=Go:.go --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/d,func/ --regex-Go=/type[ \t]+([a-zA-Z_][a-zA-Z0-9_]+)/\1/d,type/"
-alias ctags_py="${ctags_default_opt} --python-kinds=-i --exclude=\"*/build/*\""
-
-
 #####
 # AWS
 #####
@@ -428,19 +422,19 @@ if (( $+commands[copilot] )); then source <(copilot completion zsh); fi
 # gcloud SDK
 ############
 case ${OSTYPE} in
-    darwin*)
-        source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
-        source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-        ;;
-    linux*)
-        ;;
+  darwin*)
+    source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+    source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+    ;;
+  linux*)
+    ;;
 esac
 
 ##################
 # Local dependency
 ##################
 if [ -f ~/.secrets/.zshrc.local ]; then
-    source ~/.secrets/.zshrc.local
+  source ~/.secrets/.zshrc.local
 fi
 
 
@@ -448,10 +442,10 @@ fi
 # End of execution
 ##################
 if [ "$DOTFILES/.secrets/.zshrc.local" -nt "~/.secrets/.zshrc.local.zwc" ]; then
-    zcompile ~/.zshrc.local
+  zcompile ~/.zshrc.local
 fi
 if [ "$DOTFILES/.zshrc" -nt "~/.zshrc.zwc" ]; then
-    zcompile ~/.zshrc
+  zcompile ~/.zshrc
 fi
 
 typeset -T LD_LIBRARY_PATH ld_library_path
