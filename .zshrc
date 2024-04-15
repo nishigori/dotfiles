@@ -336,6 +336,11 @@ if (( $+commands[go] )); then
   path=($(go env GOPATH)/bin(N-/) $path)
 fi
 
+if (( $+commands[rye] )); then
+  test -f ~/.rye/env || rye
+  source ~/.rye/env
+fi
+
 if (( $+commands[composer] )); then
   path=($HOME/.composer/vendor/bin(N-/) $path)
 fi

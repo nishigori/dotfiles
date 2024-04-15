@@ -84,6 +84,7 @@ brew 'cpanminus'
 #brew 'rebar3'
 #brew 'rust' # from mise
 #brew 'ghc'
+brew 'rye'
 brew 'python'
 brew 'terraform_landscape' # lsp
 brew 'terraform-ls' # lsp
