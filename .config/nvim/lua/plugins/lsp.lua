@@ -54,7 +54,7 @@ return {
           "bashls",
           "bufls", -- probuf
           "dockerls",
-          "erlangls",
+          --"erlangls",
           "gopls",
           "perlnavigator",
           "lua_ls", -- lua-language-server
@@ -153,28 +153,28 @@ return {
             end,
           }
         end,
-        ["sumneko_lua"] = function (_)
-          -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
-          lspconfig.sumneko_lua.setup {
-            settings = {
-              Lua = {
-                runtime = { version = "LuaJIT" },
-                diagnostics = { globals = {"vim"} },
-                telemetry = { enable = false },
-                workspace = { check_third_party = false },
-              }
-            }
-          }
-          lspconfig.yamlls.setup {
-            settings = {
-              yaml = {
-                schemas = {
-                  ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*"
-                },
-              }
-            }
-          }
-        end,
+        --["sumneko_lua"] = function (_)
+        --  -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sumneko_lua
+        --  lspconfig.sumneko_lua.setup {
+        --    settings = {
+        --      Lua = {
+        --        runtime = { version = "LuaJIT" },
+        --        diagnostics = { globals = {"vim"} },
+        --        telemetry = { enable = false },
+        --        workspace = { check_third_party = false },
+        --      }
+        --    }
+        --  }
+        --  lspconfig.yamlls.setup {
+        --    settings = {
+        --      yaml = {
+        --        schemas = {
+        --          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*"
+        --        },
+        --      }
+        --    }
+        --  }
+        --end,
       }
 
       -- https://xbgneb0083.hatenablog.com/entry/2022_6_12_avoid_conflict_lsp_hover
