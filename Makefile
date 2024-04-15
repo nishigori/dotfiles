@@ -14,6 +14,7 @@ dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform) \
 	$(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
 bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight) bin/git-delete-squashed-branches
 gh_extensions := mislav/gh-branch dlvhdr/gh-dash
+anyenv_envs   := $(addprefix anyenv/, tfenv nodenv)
 
 .DEFAULT_GOAL: me
 .PHONY: me
@@ -33,10 +34,10 @@ $(os)/%:
 .PHONY: clean install update $(links) shell/*
 
 # Alias
-install: me $(os)/install
+install: me $(os)/install $(anyenv_envs)
 bin: $(bin_requires)
 
-clean: $(os)/clean
+clean: $(os)/clean anyenv/clean
 ifneq (,$(shell which docker 2>/dev/null))
 	docker image prune -a --filter "until=$$(date '+%Y-%m-%d' --date '365 days ago')"
 endif
@@ -68,6 +69,15 @@ github: $(gh_extensions)
 
 $(gh_extensions):
 	$(if $(filter $@, $(shell gh extension list 2>/dev/null)),, gh extension install $@)
+
+anyenv: $(anyenv_envs)
+
+$(anyenv_envs):
+	which anyenv
+	anyenv install --skip-existing $(@F)
+
+anyenv/clean:
+	rm -f ~/.cache/anyenv.cache*
 
 bin/diff-highlight: $(HOME)/bin
 	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
