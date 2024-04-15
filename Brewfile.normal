@@ -29,7 +29,6 @@ cask 'font-hack-nerd-font'
 
 brew 'apr-util'
 brew 'arm-none-eabi-binutils'
-brew 'cargo-binutils'
 #brew 'binutils' # perl buildでldflagsコケるかも https://anatofuz.hatenablog.com/entry/2019/02/12/160854
 brew 'coreutils'
 brew 'diffutils'
@@ -44,7 +43,6 @@ brew 'watch'
 brew 'gawk'
 brew 'jq'
 brew 'make'
-brew 'rust'
 brew 'webp'
 brew 'mas'
 brew 'sqlite'
@@ -77,22 +75,17 @@ brew 'llvm'
 
 # languages
 brew 'editorconfig-checker'
-brew 'anyenv'
-#brew 'tfenv' # may include anyenv
-#brew 'plenv' # may include anyenv
-#brew 'php'
-brew 'go'
+brew 'mise' # alternative anyenv, asdf
+brew 'cargo-binstall'
+brew 'cpanminus'
 #brew 'rebar3'
+#brew 'rust'
 
-brew 'rust'
 brew 'procs'            # Powerful 'ps' https://github.com/dalance/procs
 brew 'bat'              # Powerful 'cat' https://github.com/sharkdp/bat
 brew 'bat-extras'       # https://github.com/eth-p/bat-extras/blob/master/README.md
 brew 'fd'               # Powerful 'find' https://github.com/sharkdp/fd
 brew 'ripgrep'          # Powerful 'grep' https://github.com/BurntSushi/ripgrep
-
-# self-installed
-brew 'cpanminus'
 
 brew 'zsh'
 brew 'zinit'
@@ -136,8 +129,9 @@ brew 'bsdmake'
 #brew 'ghc'
 brew 'cmake'
 brew 'curl'
-brew 'direnv'
+brew 'direnv' # will be migrate to https://mise.jdx.dev/direnv.html
 brew 'fzf'
+brew 'gh'
 brew 'ghq'
 brew 'hub'
 brew 'jq'

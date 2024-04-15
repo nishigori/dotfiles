@@ -7,22 +7,18 @@ IS_HUGE  :=
 os            := $(shell uname -s)
 arch           = $(shell arch)
 secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
-links         := $(RC_FILES) .gitconfig .zsh .p10k.zsh .vim .secrets
-links         += $(addprefix .config/, dein lsd nvim gh gh-dash prs cspell firefox tridactyl)
-dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform) \
-	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
-	$(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
-bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight) bin/git-delete-squashed-branches
-gh_extensions := mislav/gh-branch dlvhdr/gh-dash
-anyenv_envs   := $(addprefix anyenv/, tfenv nodenv)
+links         := $(RC_FILES) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .p10k.zsh
+dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
+dir_requires  += $(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
+dir_requires  += $(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
 
 .DEFAULT_GOAL: me
 .PHONY: me
-me: $(dir_requires) $(bin_requires) links secrets
+me: $(dir_requires) links secrets
 	# make me happy :D
 
 .PHONY: all
-all: me install lsp golang rust
+all: me install update
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -34,21 +30,30 @@ $(os)/%:
 .PHONY: clean install update $(links) shell/*
 
 # Alias
-install: me $(os)/install $(anyenv_envs)
-bin: $(bin_requires)
+install: me $(os)/install bin lang gh
+update: links $(os)/update bin lang gh
+lang: mise rustup
 
-clean: $(os)/clean anyenv/clean
+clean: $(os)/clean
 ifneq (,$(shell which docker 2>/dev/null))
 	docker image prune -a --filter "until=$$(date '+%Y-%m-%d' --date '365 days ago')"
 endif
-
-update: links $(os)/update
+	$(if $(shell which cargo), cargo cache -a)
 
 secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
-	@set -e; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script) && ls -F ~/$(_script);)
 	@$(if $(IS_HUGE), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
+
+.PHONY: bin
+bin_externals := bin/diff-highlight bin/git-delete-squashed-branches
+
+bin: ~/.local/bin $(bin_externals) # NOTE: `for..in` is (delay) considered for deploying from other make-target.
+	@for b in `cd bin && /bin/ls *`; do \
+		set -e; \
+		test -L $</$$b || (set -x; ln -sf $(CURDIR)/bin/$$b $</$$b); \
+		ls -F $</$$b; \
+	done
 
 .PHONY: $(secrets)
 $(secrets):
@@ -63,37 +68,33 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(@D)
 	@ls -dF ~/$@
 
-terminal: $(os)/terminal
+.PHONY: gh
+gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
-github: $(gh_extensions)
+gh: $(gh_extensions)
+	gh extension upgrade --all
+	gh version
 
 $(gh_extensions):
 	$(if $(filter $@, $(shell gh extension list 2>/dev/null)),, gh extension install $@)
 
-anyenv: $(anyenv_envs)
+.PHONY: mise
+mise: .config/mise
+	mise -C ~/$< install
 
-$(anyenv_envs):
-	which anyenv
-	anyenv install --skip-existing $(@F)
 
-anyenv/clean:
-	rm -f ~/.cache/anyenv.cache*
-
-bin/diff-highlight: $(HOME)/bin
-	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
-	make -C /tmp/git/contrib/diff-highlight/
-	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
-	rm -rf /tmp/git
+bin/diff-highlight: # NOTE: `if..which` is (delay) considered for deploying from other make-target.
+	@if [ -z "`which $(@F)`" ]; then \
+		set -ex; \
+		git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git; \
+		make -C /tmp/git/contrib/diff-highlight/; \
+		mv /tmp/git/contrib/diff-highlight/diff-highlight $@; \
+		rm -rf /tmp/git; \
+	fi
 
 bin/git-delete-squashed-branches:
 	curl -SsL -o $@ https://raw.githubusercontent.com/tj/git-extras/master/bin/git-delete-squashed-branches
 	chmod +x $@
-
-lsp: # language-server
-ifneq (,$(shell which go 2>/dev/null))
-	go install golang.org/x/tools/gopls@latest
-	go install github.com/sourcegraph/go-langserver@latest
-endif
 
 vim:
 ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
@@ -103,26 +104,8 @@ ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim
 endif
 
-rust:
-	rustup component add clippy rust-analysis rust-src rust-docs rustfmt rust-analyzer
+rustup:
+ifneq (,$(shell which rustup))
+	rustup show
 	rustup component list --installed
-
-golang: ## Setup Go language
-	# Standard
-	go get -u golang.org/x/tools/cmd/...
-	go get -u golang.org/x/tools/cmd/godoc
-	# REPL
-	go get -u github.com/mdempsky/gocode
-	go get -u github.com/k0kubun/pp
-	go get -u github.com/mightyguava/ecsq
-	go get -u github.com/d4l3k/go-pry
-	go install -i github.com/d4l3k/go-pry
-	# Others
-	go install golang.org/x/lint/golint@latest
-	go install github.com/monochromegane/dragon-imports/...@latest
-
-goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
-	go get -u golang.org/x/tools/cmd/goimports
-	go get -u github.com/pwaller/goimports-update-ignore
-	rm -f $$GOPATH/src/.goimportsignore
-	goimports-update-ignore
+endif

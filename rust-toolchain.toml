@@ -1,0 +1,15 @@
+[toolchain]
+#channel = ""
+components = [
+  "rustc",
+  "cargo",
+  "clippy",
+  "rls",
+  "rust-analysis",
+  "rust-analyzer",
+  "rust-docs",
+  "rust-src",
+  "rustfmt",
+]
+profile = "default" # https://rust-lang.github.io/rustup/concepts/profiles.html?ref=trap.jp
+#targets = []

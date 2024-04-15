@@ -18,12 +18,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-path=(
-  $HOME/bin(N-/)
-  $HOME/.anyenv/bin(N-/)
-  $HOME/.composer/vendor/bin(N-/)
-  $path
-)
+path=( $HOME/.local/bin(N-/) $HOME/bin(N-/)  $path )
 
 case ${OSTYPE} in
   darwin*)
@@ -312,6 +307,12 @@ export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
 
 if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+  alias asdf=mise
+  alias mx="mise x --"
+fi
+
 # bat (Powerful & Colorful commands)
 if (( $+commands[bat] )); then
   # https://github.com/sharkdp/bat
@@ -329,31 +330,15 @@ fi
 ###########
 # Languages
 ###########
-if (( $+commands[anyenv] )); then
-  test -d $XDG_CONFIG_HOME/anyenv/anyenv-install || anyenv install --init
-
-  if [[ ! -d ~/.anyenv/plugins/anyenv-update ]]; then
-    mkdir -p ~/.anyenv/plugins
-    git clone https://github.com/znz/anyenv-update.git ~/.anyenv/plugins/anyenv-update
-  fi
-
-  if [[ ! -f $XDG_CACHE_HOME/anyenv.cache ]]; then
-    anyenv init - zsh > $XDG_CACHE_HOME/anyenv.cache
-    zcompile $XDG_CACHE_HOME/anyenv.cache
-  fi
-  source $XDG_CACHE_HOME/anyenv.cache
-fi
-
-export GOPATH=$HOME
-path=( $GOPATH/bin(N-/) $path)
-
 if (( $+commands[go] )); then
+  export GOPATH=$HOME
   export GOROOT=$(go env GOROOT);
   path=($(go env GOPATH)/bin(N-/) $path)
 fi
 
-# phpenv loading is very slow. use brew php@x.x and declare PATH via direnv
-#if (( $+commands[phpenv] )); then ...; fi
+if (( $+commands[composer] )); then
+  path=($HOME/.composer/vendor/bin(N-/) $path)
+fi
 
 if (( $+commands[plenv] )); then
   eval "$(plenv init - zsh)"
