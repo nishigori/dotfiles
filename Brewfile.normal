@@ -1,32 +1,31 @@
 # vim: set ft=config expandtab:
 cask_args appdir: '/Applications'
 
+# Tap of the head
 tap 'homebrew/bundle'
-
 tap 'homebrew/cask-versions'
 tap 'homebrew/cask-fonts'
 tap 'sanemat/font'
-tap 'universal-ctags/universal-ctags'
 tap 'aws/tap'
 tap 'wez/wezterm'
 tap 'hashicorp/tap'
 
-######
-# Cask
-######
-cask 'wezterm'
-cask 'raycast'
-cask 'dash'
-#cask 'alfred'
-cask 'macvim'
-cask 'session-manager-plugin'
-cask 'aws-vault'
-cask 'firefox'
-cask 'google-japanese-ime'
-cask 'spectacle'
-#cask 'rectangle'
-cask 'font-hack-nerd-font'
+# Homebrew utils
+brew 'mas'
 
+# Desktop App
+cask 'wezterm'
+cask 'dash'
+cask 'firefox'
+cask 'spectacle' # Migrated from rectangle
+cask 'raycast' # launcher Migrated from spotlight, and alfred
+
+# Font, IME
+cask 'google-japanese-ime'
+cask 'font-hack-nerd-font'
+brew 'fontconfig'
+
+# Common Utils
 brew 'apr-util'
 brew 'arm-none-eabi-binutils'
 #brew 'binutils' # perl buildでldflagsコケるかも https://anatofuz.hatenablog.com/entry/2019/02/12/160854
@@ -35,67 +34,72 @@ brew 'diffutils'
 brew 'docutils'
 brew 'findutils'
 
-#brew 'openssl@1.1'
-#brew 'vim'
-brew 'macvim'
-brew 'pcre'
-brew 'watch'
+# GNU alternative
 brew 'gawk'
-brew 'jq'
-brew 'make'
-brew 'webp'
-brew 'mas'
-brew 'sqlite'
-brew 'gettext'
-brew 'mysql-client'
-brew 'pkg-config'
-brew 'tidy-html5'
-brew 'awscli'
-brew 'git'
-brew 'git-delta'
-brew 'lazygit'
-brew 'tig'
-brew 'glib'
-brew 'libidn2'
-brew 'libyaml'
-brew 'nghttp2'
-brew 'python'
-brew 'tmux'
-brew 'tree'
-brew 'fontconfig'
-brew 'unixodbc'
-brew 'gcc'
 brew 'gnutls'
 brew 'gnu-sed'
 brew 'gnu-tar'
 brew 'gnu-time'
 brew 'gnu-which'
-brew 'telnet'
-brew 'llvm'
 
-# languages
+
+#######################
+# Compiler, Build-tools
+#######################
+brew 'automake'
+brew 'bazel'
+#brew 'bsdmake'
+brew 'cmake'
+brew 'glib'
+brew 'gcc'
+brew 'llvm'
+brew 'make'
+brew 'pcre'
+brew 'pkg-config'
+
+
+#######
+# Shell
+#######
+brew 'zsh'
+brew 'zinit'
+
+
+#####
+# VCS
+#####
+brew 'git'
+brew 'git-delta'
+brew 'lazygit'
+brew 'tig'
+
+
+######################
+# Languages, Toolchain
+######################
 brew 'editorconfig-checker'
 brew 'mise' # alternative anyenv, asdf
 brew 'cargo-binstall'
 brew 'cpanminus'
 #brew 'rebar3'
-#brew 'rust'
+#brew 'rust' # from mise
+#brew 'ghc'
+brew 'python'
+brew 'terraform_landscape' # lsp
+brew 'terraform-ls' # lsp
 
-brew 'procs'            # Powerful 'ps' https://github.com/dalance/procs
-brew 'bat'              # Powerful 'cat' https://github.com/sharkdp/bat
-brew 'bat-extras'       # https://github.com/eth-p/bat-extras/blob/master/README.md
-brew 'fd'               # Powerful 'find' https://github.com/sharkdp/fd
-brew 'ripgrep'          # Powerful 'grep' https://github.com/BurntSushi/ripgrep
 
-brew 'zsh'
-brew 'zinit'
-brew 'cscope'
-
-########
-# Editor
-########
+#############
+# Editor, IDE
+#############
+cask 'macvim'
 brew 'tree-sitter'
 brew 'neovim'
+#brew 'vim'
+
+# 'vscode --install-extension'
+#vscode "GitHub.codespaces"
+
 
 ###########
 # Container
@@ -103,44 +107,62 @@ brew 'neovim'
 # NOTE: Docker installed from web as the preview ver.
 #cask 'docker'
 #brew 'docker-compose'
+brew 'stern' #  Tail multiple Kubernetes pods & their containers
 
-#####
-# AWS
-#####
+
+######
+# HTTP
+######
+cask 'httpie'
+brew 'nghttp2'
+
+
+##########
+# Database
+##########
+brew 'sqlite'
+brew 'mysql-client'
+
+
+########
+# GitHub
+########
+brew 'gh'
+brew 'ghq'
+brew 'hub'
+
+
+#######
+# Cloud
+#######
+cask 'aws-vault'
 brew 'awscli'
 #brew 'aws/tap/copilot-cli'
 cask 'session-manager-plugin'
 
+cask 'google-cloud-sdk'
+
 brew 'packer'
 
-#####
-# GCP
-#####
-cask 'google-cloud-sdk'
 
 ####################
 # CommandLine Tools
 ###################
-# github actions runner on local
-brew 'act'
-brew 'automake'
-brew 'bash'
-brew 'bsdmake'
-#brew 'ghc'
-brew 'cmake'
+brew 'procs'       # Powerful 'ps' https://github.com/dalance/procs
+brew 'bat'         # Powerful 'cat' https://github.com/sharkdp/bat
+brew 'bat-extras'  # https://github.com/eth-p/bat-extras/blob/master/README.md
+brew 'fd'          # Powerful 'find' https://github.com/sharkdp/fd
+brew 'ripgrep'     # Powerful 'grep' https://github.com/BurntSushi/ripgrep
+brew 'lsd'         # Powerful 'ls' https://github.com/lsd-rs/lsd
+brew 'act'         # github actions runner on local
 brew 'curl'
-brew 'direnv' # will be migrate to https://mise.jdx.dev/direnv.html
-brew 'fzf'
-brew 'gh'
-brew 'ghq'
-brew 'hub'
+brew 'direnv'      # will be migrate to https://mise.jdx.dev/direnv.etml
+brew 'fzf'         # Migrated from sk
 brew 'jq'
-brew 'lsd'
-brew 'netmask'
-brew 'sk' # fzf alternative rust
-brew 'stern' #  Tail multiple Kubernetes pods & their containers
-brew 'terraform_landscape'
-brew 'terraform-ls'
-brew 'tmux'
 brew 'yq'
+brew 'netmask'
+brew 'tmux'
 brew 'wget'
+brew 'watch'
+brew 'tree'
+brew 'telnet'

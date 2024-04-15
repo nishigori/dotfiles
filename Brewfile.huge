@@ -2,9 +2,9 @@
 #
 # Brewfile huge
 
-#mas 'Slack', id: 803453959
-#mas '1Password', id: 443987910
-#mas 'TweetDeck', id: 485812721
+mas 'Slack', id: 803_453_959
+mas '1Password', id: 443_987_910
+#mas 'TweetDeck', id: 485_812_721
 
 #cask 'intellij-idea' # now, migrated to jetbrains-toolbox
 cask 'jetbrains-toolbox'
