@@ -30,8 +30,8 @@ $(os)/%:
 .PHONY: clean install update $(links) shell/*
 
 # Alias
-install: me $(os)/install bin lang gh
-update: links $(os)/update bin lang gh
+install: me $(os)/install bin lang $(if $(IS_HUGE), gh)
+update: links $(os)/update bin lang $(if $(IS_HUGE), gh)
 lang: mise rustup
 
 clean: $(os)/clean
