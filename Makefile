@@ -19,10 +19,10 @@ anyenv_envs   := $(addprefix anyenv/, tfenv nodenv)
 .DEFAULT_GOAL: me
 .PHONY: me
 me: $(dir_requires) $(bin_requires) links secrets
-	@echo Make me happy :D
+	# make me happy :D
 
 .PHONY: all
-all: install lsp golang rust
+all: me install lsp golang rust
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -47,14 +47,14 @@ update: links $(os)/update
 secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
-	@set -ex; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script);)
+	@set -e; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script) && ls -F ~/$(_script);)
 	@$(if $(IS_HUGE), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
 
 .PHONY: $(secrets)
 $(secrets):
-	$(if $(wildcard $@),,cp -i $@.example $@)
-	ln -sf $(CURDIR)/$@ $(HOME)/
-	@echo "U should edit $@ just putting now"
+	$(if $(wildcard $@),,cp -i $@.example $@ && echo "U should edit $@ just putting now")
+	@ln -sf $(CURDIR)/$@ ~/
+	@ls -dF ~/$@
 
 $(dir_requires):
 	@mkdir -p $@
