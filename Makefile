@@ -9,8 +9,8 @@ arch           = $(shell arch)
 secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
 links         := $(RC_FILES) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .p10k.zsh
 dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
-dir_requires  += $(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
-dir_requires  += $(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
+	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
+	$(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
 
 .DEFAULT_GOAL: me
 .PHONY: me
