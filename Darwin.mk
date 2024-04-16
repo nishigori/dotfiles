@@ -3,7 +3,7 @@
 # For Darwin
 #
 EDITOR    := nvim
-BREW_ROOT := $(if $(filter arm64,$(shell arch)), /opt/homebrew, /usr/local)
+BREW_ROOT := $(if $(filter arm64,$(shell arch)),/opt/homebrew,/usr/local)
 BREW      := $(BREW_ROOT)/bin/brew
 VSCODE    := $(BREW_ROOT)/bin/code
 
