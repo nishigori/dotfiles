@@ -34,7 +34,7 @@ $(os)/%:
 .PHONY: clean install update $(links) shell/*
 
 # Alias
-install: me $(os)/install $(anyenv_envs)
+install: me $(os)/install
 bin: $(bin_requires)
 
 clean: $(os)/clean anyenv/clean
