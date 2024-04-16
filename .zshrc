@@ -337,7 +337,7 @@ if (( $+commands[go] )); then
 fi
 
 if (( $+commands[rye] )); then
-  test -f ~/.rye/env || rye
+  test -f ~/.rye/env || rye self install -y
   source ~/.rye/env
 fi
 
