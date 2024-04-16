@@ -34,15 +34,15 @@ $(os)/%:
 .PHONY: clean install update $(links) shell/*
 
 # Alias
-install: me $(os)/install
-bin: $(bin_requires)
+install: me $(os)/install bin lang gh
+update: links $(os)/update bin lang gh
+lang: mise rustup
 
-clean: $(os)/clean anyenv/clean
+clean: $(os)/clean
 ifneq (,$(shell which docker 2>/dev/null))
 	docker image prune -a --filter "until=$$(date '+%Y-%m-%d' --date '365 days ago')"
 endif
-
-update: links $(os)/update
+	$(if $(shell which cargo), cargo cache -a)
 
 secrets: $(dir_requires) $(secrets)
 
