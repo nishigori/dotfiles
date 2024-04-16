@@ -15,8 +15,7 @@ export PATH := $(basename $(BREW)):$(BREW_ROOT)/opt/git/share/git-core/contrib/d
 
 .PHONY: Darwin/* brew/*
 
-# NOTE: brew/bundle is heavy run, skipped on CI
-Darwin/install: xcode-select brew/tap $(if $(CI),,brew/bundle)
+Darwin/install: xcode-select brew/tap brew/bundle
 
 Darwin/update: brew/update brew/upgrade
 
