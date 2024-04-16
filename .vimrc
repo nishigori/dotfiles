@@ -38,9 +38,9 @@ if has('gui_macvim') || exists('g:vscode')
         \ '/opt/homebrew/bin',
         \ '/opt/homebrew/sbin',
         \ $GOPATH . '/bin',
-        \ $HOME . '/.anyenv/envs/goenv/shims',
-        \ $HOME . '/.anyenv/envs/pyenv/shims',
-        \ $HOME . '/.anyenv/envs/nodenv/shims',
+        \ $HOME . '/.local/share/mise/installs/go/latest/bin',
+        \ $HOME . '/.local/share/mise/installs/node/latest/bin',
+        \ $HOME . '/.local/share/mise/installs/python/latest/bin',
         \ $PATH,
         \ ], ':')
 endif

@@ -2,21 +2,16 @@
 #
 # For Darwin
 #
-EDITOR := nvim
-ifeq (arm64,$(arch))
-BREW   := /opt/homebrew/bin/brew
-VSCODE := /opt/homebrew/bin/code
-else
-BREW   := /usr/local/bin/brew
-VSCODE := /usr/local/bin/code
-endif
+EDITOR    := nvim
+BREW_ROOT := $(if $(filter arm64,$(shell arch)), /opt/homebrew, /usr/local)
+BREW      := $(BREW_ROOT)/bin/brew
+VSCODE    := $(BREW_ROOT)/bin/code
 
-DEFAULT_ARCH      := $(shell uname -m)
-XCODE_REQ_INSTALL  = $(shell xcode-select -p 1>/dev/null || echo "not installed")
+XCODE_REQ_INSTALL = $(shell xcode-select -p 1>/dev/null || echo "not installed")
 
 export HOMEBREW_NO_AUTO_UPDATE=1
-# For one-step install
-export PATH := $(basename $(BREW)):$(PATH)
+# HACK: For one-step make install
+export PATH := $(basename $(BREW)):$(BREW_ROOT)/opt/git/share/git-core/contrib/diff-highlight/:$(PATH)
 
 .PHONY: Darwin/* brew/*
 
@@ -27,12 +22,6 @@ Darwin/update: brew/update brew/upgrade
 
 Darwin/clean: brew/cleanup
 	rm -f Brewfile
-
-Darwin/terminal: # https://wezfurlong.org/wezterm/install/macos.html
-ifeq (,$(shell which wezterm 2>/dev/null))
-	brew tap wez/wezterm
-	brew install --cask wezterm
-endif
 
 xcode-select:
 	$(if $(XCODE_REQ_INSTALL), xcode-select --install && sudo xcodebuild -license accept)

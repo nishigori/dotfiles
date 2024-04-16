@@ -1,0 +1,49 @@
+# https://mise.jdx.dev/configuration.html#global-config-config-mise-config-toml
+
+[env]
+# supports arbitrary env vars so mise can be used like direnv/dotenv
+#NODE_ENV = 'production'
+
+[tools]
+# global tool versions go here
+# you can set these with `mise use -g`
+go = 'latest'
+node = 'lts'
+python = ['latest', '3.12']
+rust = 'latest'
+terraform = ['latest', '1.7.5']
+watchexec = 'latest'
+
+# TODO: rust,go toolchain(s) の動きはまだ決まっていない
+#       https://github.com/jdx/mise/discussions/1639
+#
+#"cargo:cargo-binstall" = "latest"
+#'cargo:clippy' = 'latest'
+#
+# Alternative `go install ...`
+## Go standard
+'go:golang.org/x/tools/cmd/godoc' = 'latest'
+'go:golang.org/x/lint/golint' = 'latest'
+## Go repl
+'go:github.com/mdempsky/gocode' = 'latest'
+#'go:github.com/k0kubun/pp' = 'latest'
+'go:github.com/mightyguava/ecsq' = 'latest'
+'go:github.com/d4l3k/go-pry' = 'latest'
+## Go lsp
+'go:golang.org/x/tools/gopls' = 'latest'
+##'Go:github.com/sourcegraph/go-langserver' = 'latest'
+
+[plugins]
+# specify a custom repo url
+# note this will only be used if the plugin does not already exist
+python = 'https://github.com/asdf-community/asdf-python'
+
+[settings]
+
+# configure `mise install` to always keep the downloaded archive
+always_keep_download = false        # deleted after install by default
+always_keep_install = false         # deleted on failure by default
+
+env_file = '.env' # load env vars from a dotenv file, see `MISE_ENV_FILE`
+
+experimental = true # enable experimental features
