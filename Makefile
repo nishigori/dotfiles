@@ -7,22 +7,18 @@ IS_HUGE  :=
 os            := $(shell uname -s)
 arch           = $(shell arch)
 secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
-links         := $(RC_FILES) .gitconfig .zsh .p10k.zsh .vim .secrets
-links         += $(addprefix .config/, dein lsd nvim gh gh-dash prs cspell firefox tridactyl)
-dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform) \
-	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
-	$(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
-bin_requires  := $(if $(shell which diff-highlight),, bin/diff-highlight) bin/git-delete-squashed-branches
-gh_extensions := mislav/gh-branch dlvhdr/gh-dash
-anyenv_envs   := $(addprefix anyenv/, tfenv nodenv)
+links         := $(RC_FILES) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .p10k.zsh
+dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
+dir_requires  += $(addprefix $(HOME)/.cache/vim/, undo swap backup unite view)
+dir_requires  += $(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
 
 .DEFAULT_GOAL: me
 .PHONY: me
-me: $(dir_requires) $(bin_requires) links secrets
+me: $(dir_requires) bin links secrets
 	# make me happy :D
 
 .PHONY: all
-all: me install lsp golang rust
+all: me install update
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -47,8 +43,17 @@ endif
 secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
-	@set -e; $(foreach _script, $(wildcard bin/*), ln -sf $(CURDIR)/$(_script) ~/$(_script) && ls -F ~/$(_script);)
 	@$(if $(IS_HUGE), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
+
+.PHONY: bin
+bin_externals := bin/diff-highlight bin/git-delete-squashed-branches
+
+bin: ~/.local/bin $(bin_externals) # NOTE: `for..in` is (delay) considered for deploying from other make-target.
+	@for b in `cd bin && /bin/ls *`; do \
+		set -e; \
+		test -L $</$$b || (set -x; ln -sf $(CURDIR)/bin/$$b $</$$b); \
+		ls -F $</$$b; \
+	done
 
 .PHONY: $(secrets)
 $(secrets):
