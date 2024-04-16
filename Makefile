@@ -63,37 +63,33 @@ $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(@D)
 	@ls -dF ~/$@
 
-terminal: $(os)/terminal
+.PHONY: gh
+gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
-github: $(gh_extensions)
+gh: $(gh_extensions)
+	gh extension upgrade --all
+	gh version
 
 $(gh_extensions):
 	$(if $(filter $@, $(shell gh extension list 2>/dev/null)),, gh extension install $@)
 
-anyenv: $(anyenv_envs)
+.PHONY: mise
+mise: .config/mise
+	mise -C ~/$< install
 
-$(anyenv_envs):
-	which anyenv
-	anyenv install --skip-existing $(@F)
 
-anyenv/clean:
-	rm -f ~/.cache/anyenv.cache*
-
-bin/diff-highlight: $(HOME)/bin
-	git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git
-	make -C /tmp/git/contrib/diff-highlight/
-	mv /tmp/git/contrib/diff-highlight/diff-highlight $@
-	rm -rf /tmp/git
+bin/diff-highlight: # NOTE: `if..which` is (delay) considered for deploying from other make-target.
+	@if [ -z "`which $(@F)`" ]; then \
+		set -ex; \
+		git clone --depth=1 --no-single-branch --no-tags https://github.com/git/git /tmp/git; \
+		make -C /tmp/git/contrib/diff-highlight/; \
+		mv /tmp/git/contrib/diff-highlight/diff-highlight $@; \
+		rm -rf /tmp/git; \
+	fi
 
 bin/git-delete-squashed-branches:
 	curl -SsL -o $@ https://raw.githubusercontent.com/tj/git-extras/master/bin/git-delete-squashed-branches
 	chmod +x $@
-
-lsp: # language-server
-ifneq (,$(shell which go 2>/dev/null))
-	go install golang.org/x/tools/gopls@latest
-	go install github.com/sourcegraph/go-langserver@latest
-endif
 
 vim:
 ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
@@ -103,26 +99,8 @@ ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim
 endif
 
-rust:
-	rustup component add clippy rust-analysis rust-src rust-docs rustfmt rust-analyzer
+rustup:
+ifneq (,$(shell which rustup))
+	rustup show
 	rustup component list --installed
-
-golang: ## Setup Go language
-	# Standard
-	go get -u golang.org/x/tools/cmd/...
-	go get -u golang.org/x/tools/cmd/godoc
-	# REPL
-	go get -u github.com/mdempsky/gocode
-	go get -u github.com/k0kubun/pp
-	go get -u github.com/mightyguava/ecsq
-	go get -u github.com/d4l3k/go-pry
-	go install -i github.com/d4l3k/go-pry
-	# Others
-	go install golang.org/x/lint/golint@latest
-	go install github.com/monochromegane/dragon-imports/...@latest
-
-goimports-update-ignore: ## Scan $GOPATH/src/ and generate a $GOPATH/src/.goimportsignore
-	go get -u golang.org/x/tools/cmd/goimports
-	go get -u github.com/pwaller/goimports-update-ignore
-	rm -f $$GOPATH/src/.goimportsignore
-	goimports-update-ignore
+endif
