@@ -21,7 +21,7 @@ Darwin/install: xcode-select brew/tap $(if $(CI),,brew/bundle)
 Darwin/update: brew/update brew/upgrade
 
 Darwin/clean: brew/cleanup
-	rm -f Brewfile
+	rm -f Brewfile.*
 
 xcode-select:
 	$(if $(XCODE_REQ_INSTALL), xcode-select --install && sudo xcodebuild -license accept)
@@ -31,11 +31,16 @@ $(BREW):
 	#which mas 2>/dev/null || $(BREW) install mas
 	$@ tap Homebrew/bundle
 
-Brewfile: Brewfile.normal $(if $(IS_HUGE), Brewfile.huge)
-	cat $^ > $@
-
-brew/%: $(BREW) Brewfile
+brew/%: $(BREW)
 	$< $(@F)
+
+brew/bundle: $(BREW) Brewfile.$(FEATURE)
+	$< $(@F) --file Brewfile.$(FEATURE)
+
+Brewfile.%: Brewfile
+	# assert
+	grep -q "# @@ End of mode-$*" Brewfile
+	sed "/@@ End of mode-$*/q" Brewfile > $@
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
 vscode: $(VSCODE)

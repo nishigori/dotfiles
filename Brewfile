@@ -1,29 +1,16 @@
+# Brewfile
+#
+# HACK: via Makefile, split for mode tiny|normal|huge
+#
 # vim: set ft=config expandtab:
-cask_args appdir: '/Applications'
 
 # Tap of the head
 tap 'homebrew/bundle'
-tap 'homebrew/cask-versions'
-tap 'homebrew/cask-fonts'
-tap 'sanemat/font'
-tap 'aws/tap'
-tap 'wez/wezterm'
-tap 'hashicorp/tap'
 
-# Homebrew utils
-brew 'mas'
-
-# Desktop App
-cask 'wezterm'
-cask 'dash'
-cask 'firefox'
-cask 'spectacle' # Migrated from rectangle
-cask 'raycast' # launcher Migrated from spotlight, and alfred
-
-# Font, IME
-cask 'google-japanese-ime'
-cask 'font-hack-nerd-font'
-brew 'fontconfig'
+brew 'git'
+brew 'mise' # alternative anyenv, asdf
+brew 'curl'
+brew 'jq'
 
 # Common Utils
 brew 'apr-util'
@@ -42,6 +29,37 @@ brew 'gnu-tar'
 brew 'gnu-time'
 brew 'gnu-which'
 
+# Shell
+brew 'zsh'
+brew 'zinit'
+
+##############################################################
+# HACK: Don't remove '@@' above line cause handled by Makefile
+# @@ End of mode-tiny
+##############################################################
+
+cask_args appdir: '/Applications'
+
+# Tap of the head
+tap 'homebrew/cask-versions'
+tap 'homebrew/cask-fonts'
+tap 'sanemat/font'
+tap 'aws/tap'
+tap 'wez/wezterm'
+tap 'hashicorp/tap'
+
+# Desktop App
+cask 'wezterm'
+cask 'dash'
+cask 'firefox'
+cask 'spectacle' # Migrated from rectangle
+cask 'raycast' # launcher Migrated from spotlight, and alfred
+
+# Font, IME
+cask 'google-japanese-ime'
+cask 'font-hack-nerd-font'
+brew 'fontconfig'
+
 
 #######################
 # Compiler, Build-tools
@@ -58,17 +76,9 @@ brew 'pcre'
 brew 'pkg-config'
 
 
-#######
-# Shell
-#######
-brew 'zsh'
-brew 'zinit'
-
-
 #####
 # VCS
 #####
-brew 'git'
 brew 'git-delta'
 brew 'lazygit'
 brew 'tig'
@@ -78,7 +88,6 @@ brew 'tig'
 # Languages, Toolchain
 ######################
 brew 'editorconfig-checker'
-brew 'mise' # alternative anyenv, asdf
 brew 'cargo-binstall'
 brew 'cpanminus'
 #brew 'rebar3'
@@ -156,11 +165,9 @@ brew 'fd'          # Powerful 'find' https://github.com/sharkdp/fd
 brew 'ripgrep'     # Powerful 'grep' https://github.com/BurntSushi/ripgrep
 brew 'lsd'         # Powerful 'ls' https://github.com/lsd-rs/lsd
 brew 'act'         # github actions runner on local
-brew 'curl'
 brew 'direnv'      # will be migrate to https://mise.jdx.dev/direnv.etml
 brew 'fzf'         # Migrated from sk
 brew 'pre-commit'  # TODO: recommended to migrate 'lefthook' (written in mise)
-brew 'jq'
 brew 'yq'
 brew 'netmask'
 brew 'tmux'
@@ -168,3 +175,41 @@ brew 'wget'
 brew 'watch'
 brew 'tree'
 brew 'telnet'
+
+##############################################################
+# HACK: Don't remove '@@' above line cause handled by Makefile
+# @@ End of mode-normal
+##############################################################
+
+
+brew 'mas' # brew utils
+
+mas 'Slack', id: 803_453_959
+#mas '1Password', id: 443_987_910
+#mas 'TweetDeck', id: 485_812_721
+
+#cask 'intellij-idea' # now, migrated to jetbrains-toolbox
+cask 'jetbrains-toolbox'
+
+# multi app manager
+#cask 'franz'
+
+cask 'google-chrome'
+
+cask 'deepl'
+cask 'dropbox'
+cask 'kindle'
+cask 'notion'
+cask 'messenger'
+cask 'visual-studio-code'
+cask 'homebrew/cask-drivers/zsa-wally' # ZSA Kayboard the EZ way
+cask 'font-victor-mono'
+cask 'font-victor-mono-nerd-font'
+#cask 'gifcapture'
+#cask 'krisp'
+
+
+##############################################################
+# HACK: Don't remove '@@' above line cause handled by Makefile
+# @@ End of mode-huge
+##############################################################

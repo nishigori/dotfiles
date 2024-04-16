@@ -1,16 +1,22 @@
 # Makefile in nishigori/dotfiles
 #
-RC_FILES := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
-IS_HUGE  :=
+FEATURE := $(if $(CI),tiny,normal)
+
+ifeq (,$(filter $(FEATURE), tiny normal huge))
+ 	# may outputs "*** recipe commences before first target.  Stop."
+	$(error invalid FEATURE)
+endif
 
 # Internal variables that it is (maybe) you do not need to set.
+huge          := $(findstring huge, $(FEATURE))
 os            := $(shell uname -s)
 arch           = $(shell arch)
 secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
-links         := $(RC_FILES) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .p10k.zsh
+rc_files      := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
+links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .p10k.zsh
 dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
-	$(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
+	$(if $(huge), $(addprefix $(HOME)/, Dropbox))
 
 .DEFAULT_GOAL: me
 .PHONY: me
@@ -30,8 +36,8 @@ $(os)/%:
 .PHONY: clean install update $(links) shell/*
 
 # Alias
-install: me $(os)/install bin lang $(if $(IS_HUGE), gh)
-update: links $(os)/update bin lang $(if $(IS_HUGE), gh)
+install: me $(os)/install bin lang $(if $(huge), gh)
+update: links $(os)/update bin lang $(if $(huge), gh)
 lang: mise rustup
 
 clean: $(os)/clean
@@ -43,7 +49,7 @@ endif
 secrets: $(dir_requires) $(secrets)
 
 links: $(dir_requires) $(links)
-	@$(if $(IS_HUGE), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
+	@$(if $(huge), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
 
 .PHONY: bin
 bin_externals := bin/diff-highlight bin/git-delete-squashed-branches
