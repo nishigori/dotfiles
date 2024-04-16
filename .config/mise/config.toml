@@ -32,6 +32,8 @@ watchexec = 'latest'
 ## Go lsp
 'go:golang.org/x/tools/gopls' = 'latest'
 ##'Go:github.com/sourcegraph/go-langserver' = 'latest'
+## Alternative pre-commit
+'go:github.com/evilmartians/lefthook' = 'latest'
 
 [plugins]
 # specify a custom repo url
