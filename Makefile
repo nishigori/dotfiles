@@ -14,7 +14,7 @@ dir_requires  += $(if $(IS_HUGE), $(addprefix $(HOME)/, Dropbox))
 
 .DEFAULT_GOAL: me
 .PHONY: me
-me: $(dir_requires) bin links secrets
+me: $(dir_requires) links secrets
 	# make me happy :D
 
 .PHONY: all
