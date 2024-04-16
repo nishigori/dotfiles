@@ -85,17 +85,7 @@ case ${OSTYPE} in
       $path
     )
 
-    fpath=(
-      $brew_root/opt/git/share/zsh/site-functions(N-/)
-      $fpath
-    )
-
-    # local version specify even if
-    #Z_PROTOBUF_VER=${Z_PROTOBUF_VER:-3.13.0_1}
-    #path=( /usr/local/opt/protobuf@$Z_PROTOBUF_VER/bin $path )
-    #export LDFLAGS="-L/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib"
-    #export CPPFLAGS="-I/usr/local/opt/protobuf@$Z_PROTOBUF_VER/include"
-    #export PKG_CONFIG_PATH="/usr/local/opt/protobuf@$Z_PROTOBUF_VER/lib/pkgconfig"
+    fpath=( $brew_root/share/zsh/site-functions(N-/) $fpath )
 
     export HOMEBREW_NO_AUTO_UPDATE=1
     export CURL_CONFIG=$brew_root/opt/curl/bin/curl-config(N-/)
@@ -219,35 +209,6 @@ POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
 POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
 
 
-#############
-# Completions
-#############
-setopt complete_in_word      # カーソル位置で補完する。
-#setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
-setopt glob_complete         # globを展開しないで候補の一覧から補完する。
-setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
-setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
-
-zstyle ':completion:*' completer _complete
-# Select complations list like emacs
-zstyle ':completion:*:default' menu select=1
-# Coloring for completion candidates
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' keep-prefix
-zstyle ':completion:*' recent-dirs-insert both
-
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-# 補完関数の表示を過剰にする編
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
-zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
-#zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
-#zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
-#zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
-zstyle ':completion:*:options' description 'yes'
-
-
 ###########
 # WordChars
 ###########
@@ -353,18 +314,11 @@ fi
 
 # rust
 [ ! -f "$HOME/.cargo/env" ] || . "$HOME/.cargo/env"
-# https://rust-lang.github.io/rustup/installation/index.html#enable-tab-completion-for-bash-fish-zsh-or-powershell
-if [ ! -e ~/.zfunc/_rustup -a $commands[rustup] ]; then
-  mkdir -p ~/.zfunc
-  rustup completions zsh > ~/.zfunc/_rustup
-  fpath+=~/.zfunc
-fi
+
 
 #####
 # Git
 #####
-if (( $+commands[gh] )); then eval "$(gh completion -s zsh)"; fi
-
 bindkey '^O' move_ghq_directories
 bindkey '^G' select-git-branch
 
@@ -397,7 +351,6 @@ zle -N select-git-branch
 ##################
 # Currently I'm not using k8s
 #if (( $+commands[kubectl] )); then
-#    source <(kubectl completion zsh)
 #    alias kc=kubectl
 #fi
 
@@ -427,10 +380,6 @@ if [ -f ~/.secrets/.zshrc.local ]; then
   source ~/.secrets/.zshrc.local
 fi
 
-
-##################
-# End of execution
-##################
 if [ "$DOTFILES/.secrets/.zshrc.local" -nt "~/.secrets/.zshrc.local.zwc" ]; then
   zcompile ~/.zshrc.local
 fi
@@ -438,6 +387,52 @@ if [ "$DOTFILES/.zshrc" -nt "~/.zshrc.zwc" ]; then
   zcompile ~/.zshrc
 fi
 
+#############
+# Completions
+#############
+setopt complete_in_word      # カーソル位置で補完する。
+#setopt auto_param_slash      # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt glob_complete         # globを展開しないで候補の一覧から補完する。
+setopt magic_equal_subst     # コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt globdots              # 明確なドットの指定なしで.から始まるファイルをマッチ
+
+zstyle ':completion:*' completer _complete
+# Select complations list like emacs
+zstyle ':completion:*:default' menu select=1
+# Coloring for completion candidates
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' keep-prefix
+zstyle ':completion:*' recent-dirs-insert both
+
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+# 補完関数の表示を過剰にする編
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format $YELLOW'%d'$DEFAULT
+#zstyle ':completion:*:warnings' format $RED'No matches for:'$YELLOW' %d'$DEFAULT
+#zstyle ':completion:*:descriptions' format $YELLOW'completing %B%d%b'$DEFAULT
+#zstyle ':completion:*:corrections' format $YELLOW'%B%d '$RED'(errors: %e)%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+
+if (( $+commands[brew] )); then
+  mkdir -p ~/.zfunc
+  fpath+=~/.zfunc
+
+  if [ ! -e ~/.zfunc/_rustup -a $commands[rustup] ]; then
+    rustup completions zsh > ~/.zfunc/_rustup
+  fi
+fi
+
+autoload -Uz compinit
+compinit -C
+
+if (( $+commands[gh] )); then eval "$(gh completion -s zsh)"; fi
+if (( $+commands[kubectl] )); then source <(kubectl completion zsh); fi
+
+##################
+# End of execution
+##################
 typeset -T LD_LIBRARY_PATH ld_library_path
 typeset -U ld_library_path
 typeset -T LIBRARY_PATH library_path
@@ -447,9 +442,6 @@ typeset -U path PATH
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
-autoload -Uz compinit
-compinit -C
 
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
 #zprof
