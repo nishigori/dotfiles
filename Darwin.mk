@@ -17,7 +17,7 @@ export PATH := $(basename $(BREW)):$(BREW_ROOT)/opt/git/share/git-core/contrib/d
 
 Darwin/install: xcode-select brew/tap brew/bundle
 
-Darwin/update: brew/update brew/upgrade
+Darwin/update: brew/update brew/upgrade brew/bundle
 
 Darwin/clean: brew/cleanup
 	rm -f Brewfile.*
