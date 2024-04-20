@@ -15,10 +15,10 @@ export PATH := $(basename $(BREW)):$(BREW_ROOT)/opt/git/share/git-core/contrib/d
 
 .PHONY: Darwin/* brew/*
 
-Darwin/install: xcode-select brew/tap brew/bundle
+Darwin/install: xcode-select brew/tap brew/bundle $(if $(CI),, firefox)
 
 # NOTE: CI has brew's more pkgs, and conflict when brew/update
-Darwin/update: $(if $(CI),, brew/update brew/upgrade) brew/bundle
+Darwin/update: brew/bundle $(if $(CI),, brew/update brew/upgrade firefox)
 
 Darwin/clean: brew/cleanup
 	rm -f Brewfile.*
@@ -41,6 +41,22 @@ Brewfile.%: Brewfile
 	# assert
 	grep -q "# @@ End of mode-$*" Brewfile
 	sed "/@@ End of mode-$*/q" Brewfile > $@
+
+# https://support.mozilla.org/ja/kb/profiles-where-firefox-stores-user-data
+firefox: .mozilla/firefox/profiles
+	@(set -e; for p in `ls $</ | grep .default`; do \
+		: 'Hide Top tab-bar (proton)'; \
+		mkdir -p $</$$p/chrome/; \
+		ln -sf $(CURDIR)/$(<D)/userChrome.css $</$$p/chrome/; \
+		ls -dF $</$$p/chrome/userChrome.css; \
+		: 'link to user.js for custom about:config'; \
+		ln -sf $(CURDIR)/$(<D)/user.js $</$$p/; \
+		ls -dF $</$$p/user.js; \
+	done)
+
+.mozilla/firefox/profiles: # I don't like directory with space
+	@ln -sf ~/Library/Application\ Support/Firefox/Profiles/ $@
+	@ls -dF $@
 
 vscode: json_dir := $(HOME)/Library/Application\ Support/Code/User
 vscode: $(VSCODE)
