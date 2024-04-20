@@ -131,7 +131,7 @@ return {
     emulate_command('7'),
     emulate_command('e'),
     emulate_command('r'),
-    emulate_command_shift('n'),
+    emulate_command_shift('o'),
     emulate_command_shift('a'),
     emulate_command_shift('l'),
   }

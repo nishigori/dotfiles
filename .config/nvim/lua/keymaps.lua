@@ -87,7 +87,7 @@ if not vim.g.vscode then
   -- <Leader>w\w+ is send from wezterm keys
   keymap('n', '<Leader>w-rc', '<cmd>Telescope builtin<CR>', silent) -- TODO: たぶん builtin よりもっと適切なコマンドあるはず (maybe lsp_*)
   keymap('n', '<Leader>w-ra', '<cmd>Lspsaga code_action<CR>', silent)
-  keymap('n', '<Leader>wn', '<cmd>Telescope git_files<CR>', silent)
+  keymap('n', '<Leader>wo', '<cmd>Telescope git_files<CR>', silent)
   keymap('n', '<Leader>wa', '<cmd>Telescope builtin theme=get_dropdown<CR>', silent)
   keymap('n', '<Leader>wl', '<cmd>Telescope current_buffer_fuzzy_find<CR>', silent)
   keymap('n', '<Leader>we', '<cmd>Telescope oldfiles only_cwd=true<CR>', silent)
