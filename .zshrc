@@ -11,13 +11,6 @@ export XDG_CACHE_HOME=$HOME/.cache
 export EDITOR=vi
 export LESS="-XRF --shift 8 --LONG-PROMPT"
 #
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 path=( $HOME/.local/bin(N-/) $HOME/bin(N-/)  $path )
 
 case ${OSTYPE} in
@@ -185,28 +178,11 @@ esac
 
 
 # [Theme]
-zinit ice deps=1
-zinit load romkatv/powerlevel10k
-# https://github.com/bhilburn/powerlevel9k#available-prompt-segments
-POWERLEVEL10K_MODE='nerdfont-complete'
-POWERLEVEL10K_DISABLE_RPROMPT=false
-POWERLEVEL10K_PROMPT_ON_NEWLINE=true
-POWERLEVEL10K_RBENV_PROMPT_ALWAYS_SHOW=false
-POWERLEVEL10K_PYENV_PROMPT_ALWAYS_SHOW=false
-POWERLEVEL10K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL10K_VCS_SHOW_SUBMODULE_DIRTY=false
-POWERLEVEL10K_VCS_HIDE_TAGS=true
-POWERLEVEL10K_VCS_GIT_HOOKS=(vcs-detect-changes)
-#POWERLEVEL10K_VCS_GIT_HOOKS=(vcs-detect-changes git-untracked git-aheadbehind git-stash git-remotebranch git-tagname)
-POWERLEVEL10K_VCS_HG_HOOKS=()
-POWERLEVEL10K_VCS_SVN_HOOKS=()
-
-POWERLEVEL10K_CUSTOM_WIFI_SIGNAL='echo @ $(git symbolic-ref --short HEAD 2>/dev/null)'
-POWERLEVEL10K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
-POWERLEVEL10K_CUSTOM_WIFI_SIGNAL_FOREGROUND="gray"
-
-POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(status time dir custom_wifi_signal)
-POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(os_icon context)
+# https://github.com/zdharma-continuum/zinit#plugins-and-snippets
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 
 
 ###########
@@ -438,10 +414,6 @@ typeset -U ld_library_path
 typeset -T LIBRARY_PATH library_path
 typeset -U library_path
 typeset -U path PATH
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # DEBUG: https://stevenvanbael.com/profiling-zsh-startup
 #zprof
