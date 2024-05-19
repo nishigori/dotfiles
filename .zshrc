@@ -395,7 +395,7 @@ if (( $+commands[brew] )); then
   mkdir -p ~/.zfunc
   fpath+=~/.zfunc
 
-  if [ ! -e ~/.zfunc/_rustup -a $commands[rustup] ]; then
+  if [ ! -e ~/.zfunc/_rustup -a $+commands[rustup] ]; then
     rustup completions zsh > ~/.zfunc/_rustup
   fi
 fi
