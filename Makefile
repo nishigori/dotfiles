@@ -78,11 +78,11 @@ $(links):
 gh_extensions := mislav/gh-branch dlvhdr/gh-dash
 
 gh: $(gh_extensions)
-	gh extension upgrade --all
+	GH_HOST=github.com gh extension upgrade --all
 	gh version
 
 $(gh_extensions):
-	$(if $(filter $@, $(shell gh extension list 2>/dev/null)),, gh extension install $@)
+	$(if $(filter $@, $(shell gh extension list 2>/dev/null)),, GH_HOST=github.com gh extension install $@)
 
 .PHONY: mise
 mise: .config/mise
