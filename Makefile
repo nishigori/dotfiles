@@ -86,7 +86,8 @@ $(gh_extensions):
 
 .PHONY: mise
 mise: .config/mise
-	mise -C ~/$< install
+	mise -C ~/$< install -y
+	mise upgrade -y
 
 
 bin/diff-highlight: # NOTE: `if..which` is (delay) considered for deploying from other make-target.
