@@ -169,6 +169,7 @@ brew 'direnv'      # will be migrate to https://mise.jdx.dev/direnv.etml
 brew 'fzf'         # Migrated from sk
 brew 'pre-commit'  # TODO: recommended to migrate 'lefthook' (written in mise)
 brew 'yq'
+brew 'xq'
 brew 'netmask'
 brew 'tmux'
 brew 'wget'
