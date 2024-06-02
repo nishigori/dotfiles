@@ -46,6 +46,7 @@ direnv
 disablerepo
 distro
 docomo
+dont
 dpkg
 dsp
 dsps
@@ -114,6 +115,7 @@ imagetools
 imobile
 influxdata
 iops
+ioreg
 
 journalctl
 
@@ -162,11 +164,13 @@ nodisplay
 nosniff
 numcpus
 numrows
+nvram
 
 ondemand
 onpremise
 openrtb
 optout
+osascript
 
 packagecloud
 parsedmarc
@@ -206,6 +210,7 @@ secretmanager
 setcookie
 shibuya
 shiguredo
+softbank
 somaxconn
 spap
 specfile
