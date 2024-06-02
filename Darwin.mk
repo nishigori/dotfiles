@@ -15,16 +15,20 @@ export PATH := $(basename $(BREW)):$(BREW_ROOT)/opt/git/share/git-core/contrib/d
 
 .PHONY: Darwin/* brew/*
 
-Darwin/install: xcode-select brew/tap brew/bundle $(if $(CI),, firefox)
+Darwin/install: xcode-select brew/tap brew/bundle $(if $(CI),, firefox .macos-installed)
 
 # NOTE: CI has brew's more pkgs, and conflict when brew/update
-Darwin/update: brew/bundle $(if $(CI),, brew/update brew/upgrade firefox)
+Darwin/update: brew/bundle $(if $(CI),, brew/update brew/upgrade firefox .macos-installed)
 
 Darwin/clean: brew/cleanup
-	rm -f Brewfile.*
+	rm -f Brewfile.* .macos-installed
 
 xcode-select:
 	$(if $(XCODE_REQ_INSTALL), xcode-select --install && sudo xcodebuild -license accept)
+
+.macos-installed: .macos
+	./$<
+	@touch $@
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
