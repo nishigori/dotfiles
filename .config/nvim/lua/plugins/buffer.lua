@@ -4,11 +4,6 @@ end
 
 return {
 
-  { -- TODO: remove if unused at long time
-    "romgrk/barbar.nvim",
-    enabled = false,
-  },
-
   {
     "echasnovski/mini.bufremove",
     -- stylua: ignore

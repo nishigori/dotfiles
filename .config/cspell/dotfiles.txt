@@ -1,11 +1,18 @@
+aarch
 amazonaws
+amazonlinux
 amzn
+apac
 apne
 appmesh
+asdf
+auditctl
+auditd
 autoscale
 autoscaler
 awsdns
 awscli
+awscliv2
 awsconfig
 awsvpc
 
@@ -22,6 +29,7 @@ cloudinit
 codecommit
 copytruncate
 cpanfile
+cpio
 crit
 crossorigin
 cwlog
@@ -32,22 +40,35 @@ datadoghq
 datapoints
 dateext
 debuginfo
+deregistration
+devel
 direnv
+disablerepo
+distro
 docomo
+dpkg
 dsp
 dsps
 
 ebpf
 ecspresso
 elasticache
+elastigroup
+elbv2
+elif
 elrepo
 emerg
 emobile
+enablerepo
+endef
 endscript
 envrc
+epel
+epmd
 errfile
 errline
 errmode
+esac
 extcache
 
 failover
@@ -55,28 +76,48 @@ fastopen
 fbit
 fcgi
 fcreate
+fpath
+fprintd
 
+gcloud
 gcp
+geoip
 gitmodules
+goarch
+godoc
 goflags
+goimports
+golint
+gomod
+gopath
+gopls
 gpgkey
 grafana
 grafanadb
+graviton
+gsutil
 
 hayoyare
 healthcheck
+helm
 hijk
 hoge
 httpcode
 huga
 
+idmap
 ifcfg
+ifeq
+ifneq
 imp
 imagetools
 imobile
 influxdata
 iops
 
+journalctl
+
+kaizen
 kaniko
 kayac
 keepalived
@@ -86,6 +127,7 @@ kinesisfirehose
 lambroll
 langfile
 lastweek
+ldflags
 libcloud
 libdb
 libevent
@@ -96,12 +138,17 @@ libsonnet
 loadbalancer
 loadbalancing
 localdomain
+luarc
 
 matome
+mbstring
 memdb
 metalink
 mirrorlist
 mkfs
+moby
+modifyvm
+msgmnb
 multilog
 
 netdev
@@ -123,6 +170,11 @@ optout
 
 packagecloud
 parsedmarc
+pecl
+pkg
+pkgs
+phar
+phpfpm
 plackup
 postun
 prereq
@@ -136,6 +188,14 @@ pubsub
 pulldown
 puppetserver
 
+rakuten
+rcfile
+remi
+rhel
+rmem
+rpcbind
+rpm
+rsyslog
 rtb
 retcode
 rockylinux
@@ -146,6 +206,7 @@ secretmanager
 setcookie
 shibuya
 shiguredo
+somaxconn
 spap
 specfile
 spotinst
@@ -155,18 +216,24 @@ srpm
 srpms
 svscan
 svstat
+sysconf
+sysconfdir
+syslogd
 sysrq
 
 tailf
 targetgroup
 terraform
+terraformrc
 tfcmt
+tfenv
 tfsec
 tfstate
 tfvars
 thirdparty
 timedatectl
 tmax
+tmp
 tmppath
 tmpwatch
 tradedesk
@@ -174,13 +241,20 @@ tzdata
 
 ulimit
 unitcode
+umcd
+urandom
 
 vcpu
 voyagegroup
 vpce
+vscode
+vscodevim
 
 websafe
+wezterm
+wmem
 
+xcodebuild
 xlarge
 xvda
 xvdf
@@ -188,4 +262,6 @@ xvdf
 yourdomain
 yumrepos
 
+zcat
 zenhankaku
+zfunc

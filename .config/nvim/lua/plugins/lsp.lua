@@ -79,7 +79,7 @@ return {
           "staticcheck",  -- go
           "stylua",       -- lua
           "buf",          -- protobuf
-          --"psalm",        -- php
+          --"psalm",      -- php
           "jq",           -- json
         },
         handlers = {
@@ -188,7 +188,8 @@ return {
 
       local function enable_diagnostics_hover()
         vim.api.nvim_create_augroup(diagnostic_hover_augroup_name, { clear = true })
-        vim.api.nvim_create_autocmd({ "CursorHold" }, { group = diagnostic_hover_augroup_name, callback = on_cursor_hold })
+        -- onetime debug
+        --vim.api.nvim_create_autocmd({ "CursorHold" }, { group = diagnostic_hover_augroup_name, callback = on_cursor_hold })
       end
 
       local function disable_diagnostics_hover()
