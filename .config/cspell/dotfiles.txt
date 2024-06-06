@@ -60,6 +60,7 @@ elif
 elrepo
 emerg
 emobile
+emsg
 enablerepo
 endef
 endscript
