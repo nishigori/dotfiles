@@ -26,12 +26,12 @@ return {
       "rcarriga/nvim-notify",
     },
     config = function()
-      local ignore_msg = function (kind, msg)
+      local ignore_msg = function (msg, kind)
         return {
           opts = { skip = true },
           filter = {
             event = "msg_show",
-            kind = kind,
+            kind = kind or "",
             find = msg,
           }
         }
@@ -60,11 +60,13 @@ return {
         },
 
         routes = {
-          ignore_msg("search_count", nil), -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#hide-search-virtual-text
+          ignore_msg("search_count"), -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#hide-search-virtual-text
           ignore_msg("", "written"), -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes#hide-written-messages-1
-          ignore_msg("emsg", "E433: No tags file"),
-          ignore_msg("emsg", "E486: Pattern not found"),
-          ignore_msg("emsg", "E555: at bottom of tag stack"),
+          ignore_msg(".*E384.*", "emsg"), -- Search hit *
+          ignore_msg(".*E385.*", "emsg"), -- Search hit *
+          ignore_msg(".*E433.*", "emsg"), -- No tags file
+          ignore_msg(".*E486.*", "emsg"), -- Pattern not found
+          ignore_msg(".*E555.*", "emsg"), -- at bottom of tag stack
         },
 
         lsp = {
