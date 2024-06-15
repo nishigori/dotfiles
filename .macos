@@ -87,7 +87,7 @@ defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool "false"
 
 : "Finder: Display full POSIX path as Finder window title"
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool false
 
 : "Finder: Keep folders on top when sorting by name"
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
