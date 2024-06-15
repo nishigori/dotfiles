@@ -21,8 +21,8 @@ tmp/*
 .*sw[op]
 
 # Homebrew (Brewfile.(tiny|normal|...) is split from Brewfile via make)
-Brewfile.*
+Brewfile
 Brewfile.lock.json
 
-# .macos flag
-.macos-installed
+# makefile flag(s)
+.*-installed

@@ -21,7 +21,7 @@ Darwin/install: xcode-select brew/tap brew/bundle $(if $(CI),, firefox .macos-in
 Darwin/update: brew/bundle $(if $(CI),, brew/update brew/upgrade firefox .macos-installed)
 
 Darwin/clean: brew/cleanup
-	rm -f Brewfile.* .macos-installed
+	rm -f Brewfile .*-installed
 
 xcode-select:
 	$(if $(XCODE_REQ_INSTALL), xcode-select --install && sudo xcodebuild -license accept)
@@ -38,13 +38,12 @@ $(BREW):
 brew/%: $(BREW)
 	$< $(@F)
 
-brew/bundle: $(BREW) Brewfile.$(FEATURE)
-	$< $(@F) --file Brewfile.$(FEATURE)
+brew/bundle: $(BREW) Brewfile
+	$< $(@F)
 
-Brewfile.%: Brewfile
-	# assert
-	grep -q "# @@ End of mode-$*" Brewfile
-	sed "/@@ End of mode-$*/q" Brewfile > $@
+Brewfile: .Brewfile
+	grep -q "# @@ End of mode-$(FEATURE)" $< # assert
+	sed "/@@ End of mode-$(FEATURE)/q" $< > $@
 
 # https://support.mozilla.org/ja/kb/profiles-where-firefox-stores-user-data
 firefox: .mozilla/firefox/profiles
