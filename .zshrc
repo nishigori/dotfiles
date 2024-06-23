@@ -125,6 +125,7 @@ alias lazygit="lazygit --use-config-dir ~/.config/lazygit"
 function i() { # install-for-current-dir
   if [ -f "$PWD/.tool-versions" ]; then (set -x; mise install -y); fi
   if [ -f "$PWD/.lefthook.yml" ]; then (set -x; lefthook install); fi
+  if [ -f "$PWD/rust-toolchain.toml" ]; then (set -x; rustup update); fi
   if [ -f "$PWD/bun.lockb" ]; then
     (set -x; bun install)
   elif [ -f "$PWD/package-lock.json" ]; then
