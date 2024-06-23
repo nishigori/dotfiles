@@ -122,6 +122,16 @@ alias st='git status'
 alias ec="editorconfig-checker" # for nvim-mason-null-ls
 alias lazygit="lazygit --use-config-dir ~/.config/lazygit"
 
+function i() { # install-for-current-dir
+  if [ -f "$PWD/.tool-versions" ]; then (set -x; mise install -y); fi
+  if [ -f "$PWD/.lefthook.yml" ]; then (set -x; lefthook install); fi
+  if [ -f "$PWD/bun.lockb" ]; then
+    (set -x; bun install)
+  elif [ -f "$PWD/package-lock.json" ]; then
+    (set -x; npm ci)
+  fi
+}
+
 # ls using https://github.com/Peltoche/lsd
 if (( $+commands[lsd] )); then
   alias ls='lsd'
