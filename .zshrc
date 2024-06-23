@@ -10,7 +10,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export EDITOR=vi
 export LESS="-XRF --shift 8 --LONG-PROMPT"
-#
+
 path=( $HOME/.local/bin(N-/) $HOME/bin(N-/)  $path )
 
 case ${OSTYPE} in
@@ -239,8 +239,6 @@ bindkey '^q' fzf-cdr
 #####################
 # https://github.com/junegunn/fzf#environment-variables
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info"
-#export ANT_ARGS="-logger org.apache.tools.ant.listener.AnsiColorLogger"
-#export ANT_OPTS="$ANT_OPTS -Dant.logger.defaults=$HOME/.antrc_logger"
 
 if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
 
