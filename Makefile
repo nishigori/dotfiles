@@ -113,6 +113,7 @@ endif
 
 rustup:
 ifneq (,$(shell which rustup))
+	rustup update
 	rustup show
 	rustup component list --installed
 endif
