@@ -116,9 +116,10 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture 2
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerTapGesture 2
 
-: "Trackpad: silent click"
-defaults write com.apple.AppleMultitouchTrackpad ActuationStrength 0
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad ActuationStrength 0
+# FIXME: crash on macOS Sonoma
+#: "Trackpad: silent click"
+#defaults write com.apple.AppleMultitouchTrackpad ActuationStrength 0
+#defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad ActuationStrength 0
 
 #########
 # Finally
