@@ -167,6 +167,7 @@ brew 'lsd'         # Powerful 'ls' https://github.com/lsd-rs/lsd
 brew 'act'         # github actions runner on local
 brew 'direnv'      # will be migrate to https://mise.jdx.dev/direnv.etml
 brew 'fzf'         # Migrated from sk
+brew 'atuin'       # Shell history with a SQLite database
 brew 'pre-commit'  # TODO: recommended to migrate 'lefthook' (written in mise)
 brew 'yq'
 brew 'xq'

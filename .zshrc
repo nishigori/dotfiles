@@ -244,7 +244,6 @@ zle -N fzf-cdr
 setopt noflowcontrol
 bindkey '^q' fzf-cdr
 
-
 #####################
 # CommandLine Tool(s)
 #####################
@@ -257,6 +256,16 @@ if (( $+commands[mise] )); then
   eval "$(mise activate zsh)"
   alias asdf=mise
   alias mx="mise x --"
+fi
+
+# history enhancement
+if (( $+commands[atuin] )); then
+  export ATUIN_NOBIND="true"
+  eval "$(atuin init zsh)"
+
+  bindkey '^R' atuin-search
+  bindkey "^[[A" atuin-up-search
+  #bindkey "^[OA" atuin-up-search
 fi
 
 # bat (Powerful & Colorful commands)
