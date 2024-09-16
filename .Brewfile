@@ -87,6 +87,7 @@ brew 'tig'
 ######################
 # Languages, Toolchain
 ######################
+brew 'editorconfig'
 brew 'editorconfig-checker'
 brew 'cargo-binstall'
 brew 'cpanminus'

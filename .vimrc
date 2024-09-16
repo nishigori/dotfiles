@@ -157,7 +157,10 @@ if dein#load_state(s:dein_dir)
     call dein#add('ryanoasis/vim-devicons')
 
     " FileType:
+    call dein#add('editorconfig/editorconfig-vim')
     call dein#add('elzr/vim-json', { 'lazy': 1, 'on_ft': 'json' })
+    call dein#add('neoclide/jsonc.vim', { 'lazy': 1, 'on_ft': 'jsonc' })
+    call dein#add('google/vim-jsonnet', { 'lazy': 1, 'on_ft': 'jsonnet '})
     call dein#add('godlygeek/tabular', { 'lazy': 1, 'on_ft': 'markdown' })
     call dein#add('plasticboy/vim-markdown', { 'depends': 'tabular', 'lazy': 1, 'on_ft': 'markdown' })
     call dein#add('jtriley/vim-rst-headings', { 'lazy': 1, 'on_ft': [['python', 'rst', 'rest']] })
@@ -619,6 +622,9 @@ nnoremap <silent> gh :<C-u>GH<CR> :<C-u>pwd<CR>
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_no_extensions_in_markdown = 1
+" }}}
+" Plugin: editorconfig-vim {{{
+au FileType gitcommit let b:EditorConfig_disable = 1
 " }}}
 " Plugin: lightline.vim {{{
 if !exists('g:vscode')
