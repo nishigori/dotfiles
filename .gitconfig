@@ -47,6 +47,9 @@
 	grep  = less --no-init --quit-if-one-screen
 	stash = false
 
+[init]
+	defaultBranch = main
+
 [fetch]
 	prune = true
 	verbose = true
