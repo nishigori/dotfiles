@@ -38,7 +38,7 @@ $(os)/%:
 
 # Alias
 install: me $(os)/install bin lang $(if $(huge), gh)
-update: links $(os)/update bin lang $(if $(huge), gh)
+update: me $(os)/update bin lang $(if $(huge), gh)
 lang: mise rustup
 
 clean: $(os)/clean
