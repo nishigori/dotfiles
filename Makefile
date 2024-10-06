@@ -15,17 +15,18 @@ secrets       := $(subst .example/,/.,$(wildcard .secrets.example/*))
 rc_files      := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
 links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig
 config_moves  := $(wildcard *.config.toml)
-dir_requires  := $(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
+dir_requires  := secrets \
+	$(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
 	$(if $(huge), $(addprefix $(HOME)/, Dropbox))
 
 .DEFAULT_GOAL: me
 .PHONY: me
-me: $(dir_requires) config_moves links secrets
+me: $(dir_requires) config_move link secret
 	# make me happy :D
 
-.PHONY: all
-all: me install update
+.PHONY: up
+up: me install update
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -47,9 +48,9 @@ ifneq (,$(shell which docker 2>/dev/null))
 endif
 	$(if $(shell which cargo), cargo cache -a)
 
-secrets: $(dir_requires) $(secrets)
+secret: $(dir_requires) $(secrets)
 
-links: $(dir_requires) $(links)
+link: $(dir_requires) $(links)
 	@$(if $(huge), ln -sf ~/Dropbox/TODO.rst, touch) $(HOME)/TODO.rst
 
 .PHONY: bin
@@ -62,19 +63,14 @@ bin: ~/.local/bin $(bin_externals) # NOTE: `for..in` is (delay) considered for d
 		ls -F $</$$b; \
 	done
 
-config_moves: $(patsubst %.config.toml, ~/.config/%/config.toml, $(config_moves))
+config_move: $(patsubst %.config.toml, ~/.config/%/config.toml, $(config_moves))
 
 ~/.config/%/config.toml: %.config.toml
 	@mkdir -p $(@D)
 	cp $< $@
 
-
-debug: $(secrets)
-
-.PHONY: $(secrets)
 $(secrets):
-	mkdir -p $(@D)
-	cp $(subst $(@D)/.,$(@D).example/,$(@F)) $@
+	@test -f $@ || cp $(subst $(@D)/.,$(@D).example/,$(@F)) $@
 	@ln -sf $(CURDIR)/$@ ~/
 	@ls -dF ~/$@
 
