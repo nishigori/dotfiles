@@ -11,7 +11,7 @@ endif
 huge          := $(findstring huge, $(FEATURE))
 os            := $(shell uname -s)
 arch           = $(shell arch)
-secrets       := $(subst .example,,$(wildcard .secrets/.*.example))
+secrets       := $(subst .example/,/.,$(wildcard .secrets.example/*))
 rc_files      := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
 links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig
 config_moves  := $(wildcard *.config.toml)
@@ -68,9 +68,13 @@ config_moves: $(patsubst %.config.toml, ~/.config/%/config.toml, $(config_moves)
 	@mkdir -p $(@D)
 	cp $< $@
 
+
+debug: $(secrets)
+
 .PHONY: $(secrets)
 $(secrets):
-	$(if $(wildcard $@),,cp -i $@.example $@ && echo "U should edit $@ just putting now")
+	mkdir -p $(@D)
+	cp $(subst $(@D)/.,$(@D).example/,$(@F)) $@
 	@ln -sf $(CURDIR)/$@ ~/
 	@ls -dF ~/$@
 

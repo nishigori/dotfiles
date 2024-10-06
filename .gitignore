@@ -1,5 +1,5 @@
-# Git
-.gitsecret
+# My credentials
+.secrets
 
 # Jetbrains IDE
 *.iml
@@ -7,9 +7,6 @@
 
 # Local settings
 tmp/*
-.zshrc.local
-.vimrc.local
-.gvimrc.local
 .config/dein/plugins.local.toml
 .config/prs/sections.yml
 
