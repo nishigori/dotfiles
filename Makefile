@@ -17,7 +17,7 @@ secrets       := $(subst .example/,/.,$(wildcard .secrets.example/*))
 rc_files      := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
 links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig
 config_moves  := $(wildcard *.config.toml)
-dir_requires  := secrets \
+dir_requires  := \
 	$(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
 	$(if $(huge), $(addprefix $(HOME)/, Dropbox))
@@ -72,12 +72,13 @@ config_move: $(patsubst %.config.toml, ~/.config/%/config.toml, $(config_moves))
 	cp $< $@
 
 $(secrets):
-	@test -f $@ || cp $(@D).example/$(subst .,,$(@F)) $@
+	@mkdir -p $(@D) # NOTE: do not including $dir_requires cause duplicated in $links
+	$(if $(wildcard $@),, cp $(@D).example/$(@F) $@)
 	@ln -sf $(CURDIR)/$@ ~/
 	@ls -dF ~/$@
 
 $(dir_requires):
-	@mkdir -p $@
+	mkdir -p $@
 
 $(links):
 	@ln -sf $(CURDIR)/$@ ~/$(@D)
