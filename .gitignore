@@ -1,5 +1,6 @@
 # My credentials
 .secrets
+.env
 
 # Jetbrains IDE
 *.iml

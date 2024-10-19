@@ -1,6 +1,8 @@
 # Makefile in nishigori/dotfiles
 #
-FEATURE := $(if $(CI),tiny,normal)
+-include .env
+
+FEATURE ?= $(if $(CI),tiny,normal)
 
 ifeq (,$(filter $(FEATURE), tiny normal huge))
 	# may outputs "*** recipe commences before first target.  Stop."
