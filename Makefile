@@ -72,7 +72,7 @@ config_move: $(patsubst %.config.toml, ~/.config/%/config.toml, $(config_moves))
 	cp $< $@
 
 $(secrets):
-	@test -f $@ || cp $(subst $(@D)/.,$(@D).example/,$(@F)) $@
+	@test -f $@ || cp $(@D).example/$(subst .,,$(@F)) $@
 	@ln -sf $(CURDIR)/$@ ~/
 	@ls -dF ~/$@
 
