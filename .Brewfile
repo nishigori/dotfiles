@@ -197,6 +197,7 @@ cask 'jetbrains-toolbox'
 # multi app manager
 #cask 'franz'
 
+cask 'microsoft-edge@beta'
 cask 'google-chrome'
 
 cask 'deepl'
