@@ -201,6 +201,7 @@ cask 'microsoft-edge@beta'
 cask 'google-chrome'
 
 cask 'deepl'
+cask 'discord'
 cask 'dropbox'
 cask 'kindle'
 cask 'notion'
