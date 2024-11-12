@@ -72,7 +72,8 @@ local function emulate_command(key)
 end
 
 return {
-  --use_ime = false, -- awaiting fixed https://github.com/wez/wezterm/issues/2771
+  use_ime = true,
+  macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL',
   --debug_key_events = true,
   font = wezterm.font "Hack Nerd Font",
   --font = wezterm.font "MonaspiceXe Nerd Font",
