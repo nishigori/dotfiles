@@ -91,9 +91,10 @@ return {
     --background = 'snow',
     tab_bar = {
       background = '#0bbb22',
-      --inactive_tab_edge = '#ffffff',
+      inactive_tab_edge = '#00cc33',
     },
   },
+  window_decorations = "RESIZE",
   window_background_opacity = 1.00, -- transparency
   keys = {
     { key = '\r', mods = 'CTRL', action = act.Multiple {
