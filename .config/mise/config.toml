@@ -34,6 +34,8 @@ watchexec = 'latest'
 ##'Go:github.com/sourcegraph/go-langserver' = 'latest'
 ## Alternative pre-commit
 'go:github.com/evilmartians/lefthook' = 'latest'
+# Sampling telemetry
+'go:github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen' = 'latest'
 
 [plugins]
 # specify a custom repo url
