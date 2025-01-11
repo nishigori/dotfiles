@@ -49,6 +49,7 @@ tap 'wez/wezterm'
 tap 'hashicorp/tap'
 
 # Desktop App
+cask 'ghostty'
 cask 'wezterm'
 cask 'dash'
 cask 'firefox'
