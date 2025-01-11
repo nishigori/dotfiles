@@ -109,15 +109,17 @@ defaults write NSGlobalDomain com.apple.mouse.scaling -float "5"
 : "Trackpad: click weight (threshold)"
 defaults write com.apple.AppleMultitouchTrackpad "FirstClickThreshold" -int "0"
 
-: "Trackpad: enable tap to click for this user and for the login screen"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-
 : "Trackpad: 調べる＆データ検出 < 3本指で"
-defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerTapGesture 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerTapGesture 2
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerTapGesture" 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadThreeFingerTapGesture" 2
 
-# FIXME: crash on macOS Sonoma
-#: "Trackpad: silent click"
+: "Trackpad: click (0: light, 1: medium, 2: firm)"
+defaults write com.apple.AppleMultitouchTrackpad "SecondClickThreshold" -int 1
+
+: "Trackpad: enable tap to click for this user and for the login screen"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "Clicking" -bool true
+
+# CAUTION: crash cause deprecated domains
 #defaults write com.apple.AppleMultitouchTrackpad ActuationStrength 0
 #defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad ActuationStrength 0
 
