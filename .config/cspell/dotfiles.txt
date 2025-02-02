@@ -22,11 +22,13 @@ bizdev
 bpftool
 
 cachedir
+ccoe
 ccpa
 certname
 circleci
 cloudinit
 codecommit
+coe
 copytruncate
 cpanfile
 cpio
@@ -75,6 +77,7 @@ esac
 extcache
 
 failover
+fastly
 fastopen
 fbit
 fcgi
@@ -85,6 +88,9 @@ fprintd
 gcloud
 gcp
 geoip
+ghe
+ghec
+ghes
 gitmodules
 goarch
 godoc
@@ -109,6 +115,7 @@ hoge
 httpcode
 huga
 
+ichigo
 idmap
 ifcfg
 ifeq
@@ -122,6 +129,9 @@ ioreg
 
 journalctl
 
+k3s
+k8s
+k9s
 kaizen
 kaniko
 kayac
@@ -246,6 +256,7 @@ tmax
 tmp
 tmppath
 tmpwatch
+toset
 tradedesk
 tzdata
 
