@@ -91,6 +91,7 @@ geoip
 ghe
 ghec
 ghes
+ghostty
 gitmodules
 goarch
 godoc
