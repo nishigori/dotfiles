@@ -1,0 +1,19 @@
+# $ ghostty +list-themes
+# "BlulocoDark" "catppuccin-mocha" "Ayu Mirage" "carbonfox" "jubi" "nord"
+theme = "Ayu Mirage"
+
+font-family = "Hack Nerd Font Mono"
+font-size = 16.0
+font-feature = -calt
+font-feature = -dlig
+
+macos-titlebar-style = hidden
+
+cursor-opacity = 0.7
+cursor-style = block
+cursor-style-blink = false
+
+#fullscreen = true
+
+resize-overlay = always
+resize-overlay-position = bottom-right
