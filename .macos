@@ -123,6 +123,9 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "Clicking" -bo
 #defaults write com.apple.AppleMultitouchTrackpad ActuationStrength 0
 #defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad ActuationStrength 0
 
+: "Mouse window moves with Ctrl + Command"
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 #########
 # Finally
 #########
