@@ -6,13 +6,7 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
-    event = {
-      "InsertEnter",
-      "CursorHold",
-      "FocusLost",
-      "BufRead",
-      "BufNewFile",
-    },
+    event = { "BufReadPre", "BufNewFile", "FocusLost" },
     dependencies = {
       "kyazdani42/nvim-web-devicons",
     },
@@ -44,7 +38,11 @@ return {
         },
 
         sections = {
-          lualine_a = { [[""]] },
+          lualine_a = {
+            [[""]],
+            -- Show git project of git
+            [[vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t")]],
+          },
           lualine_b = {
             {
               "diagnostics",
@@ -63,8 +61,6 @@ return {
             },
           },
           lualine_c = {
-            -- Show git project of git
-            [[vim.fn.fnamemodify(vim.fn.finddir(".git/..", ".;"), ":t")]],
             -- The relative path under the git-root
             function()
               return string.gsub(

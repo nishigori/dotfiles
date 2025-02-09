@@ -25,7 +25,7 @@ return {
   { -- lsp: ui
     "glepnir/lspsaga.nvim",
     cmd = "Lspsaga",
-    event = "BufReadPre",
+    event = "LspAttach",
     dependencies = "williamboman/mason-lspconfig.nvim",
     opts = {
       -- TODO: diagnostic 自動表示、lspsagaで表示してリッチにしたい

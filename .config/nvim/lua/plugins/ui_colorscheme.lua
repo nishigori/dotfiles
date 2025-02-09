@@ -4,19 +4,19 @@ end
 
 return {
 
-  --{
-  --  "folke/tokyonight.nvim",
-  --  enabled = true,
-  --  lazy = false,
-  --  priority = 1000,
-  --  opts = { style = "moon" },
-  --  --init = function() vim.opt.background = "light" end,
-  --  --opts = function(_, opts)
-  --  --  local tokyonight = require("tokyonight")
-  --  --  tokyonight.setup(opts)
-  --  --  tokyonight.load()
-  --  --end,
-  --},
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    enabled = true,
+    priority = 1000,
+    opts = { style = "moon" },
+    --init = function() vim.opt.background = "light" end,
+    --opts = function(_, opts)
+    --  local tokyonight = require("tokyonight")
+    --  tokyonight.setup(opts)
+    --  tokyonight.load()
+    --end,
+  },
 
   {
     "catppuccin/nvim",
@@ -35,21 +35,18 @@ return {
         integrations = {
           -- https://github.com/catppuccin/nvim#integrations
           aerial = true,
+          overseer = true,
           mason = true,
-          neotree = true,
           noice = true,
           cmp = true,
           gitsigns = true, -- not using yet
-          notify = true,
+          lsp_trouble = true,
+          notify = false,
+          slacks = false,
           treesitter = true,
           treesitter_context = true,
-          telescope = true,
           illuminate = true,
           which_key = true,
-          indent_blankline = {
-            enabled = true,
-            colored_indent_levels = false,
-          },
           native_lsp = {
             enabled = true,
           },
@@ -65,14 +62,5 @@ return {
       vim.cmd.colorscheme "catppuccin"
     end
   },
-
-  --{
-  --  "rmehri01/onenord.nvim",
-  --  enabled = false,
-  --  lazy = false,
-  --  priority = 1000,
-  --  init = function() vim.opt.background = "light" end,
-  --  opts = true,
-  --},
 
 }

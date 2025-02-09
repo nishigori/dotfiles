@@ -4,15 +4,17 @@ end
 
 return {
 
-  {
-    "echasnovski/mini.bufremove",
-    -- stylua: ignore
-    keys = {
-      { "<leader>d", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-      { "<leader><S-d>", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
-    },
-  },
+  -- I'm using Snacks.bufdelete()
+  --{
+  --  "echasnovski/mini.bufremove",
+  --  -- stylua: ignore
+  --  keys = {
+  --    { "<Leader>d", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+  --    { "<Leader><S-d>", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
+  --  },
+  --},
 
+  -- Layout like tab bar
   {
     "akinsho/nvim-bufferline.lua",
     event = "BufAdd",
@@ -49,5 +51,5 @@ return {
     }
     end,
   },
-
 }
+
