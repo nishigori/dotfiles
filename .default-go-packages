@@ -1,0 +1,21 @@
+# https://mise.jdx.dev/lang/go.html#default-packages
+# Go versions default assets
+
+# Standard
+golang.org/x/tools/cmd/godoc
+golang.org/x/lint/golint
+
+# Repl
+github.com/mdempsky/gocode
+
+# Lsp
+golang.org/x/tools/gopls
+
+github.com/mightyguava/ecsq
+github.com/d4l3k/go-pry
+
+# Alternative pre-commit
+github.com/evilmartians/lefthook
+
+# Sampling telemetry
+github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen

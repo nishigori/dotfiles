@@ -15,7 +15,7 @@ os            := $(shell uname -s)
 arch           = $(shell arch)
 secrets       := $(subst .example/,/.,$(wildcard .secrets.example/*))
 rc_files      := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
-links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig
+links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .default-go-packages
 config_moves  := $(wildcard *.config.toml)
 dir_requires  := \
 	$(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
@@ -96,6 +96,7 @@ $(gh_extensions):
 
 .PHONY: mise
 mise: .config/mise
+	#mise self-update #=> manged by another tools (e.g. homebrew)
 	mise -C ~/$< install -y
 	mise upgrade -y
 

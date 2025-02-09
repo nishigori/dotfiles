@@ -8,6 +8,7 @@
 # global tool versions go here
 # you can set these with `mise use -g`
 go = 'latest'
+lua = "5.1"
 node = 'lts'
 python = ['latest', '3.12']
 rust = 'latest'
@@ -20,27 +21,14 @@ watchexec = 'latest'
 #"cargo:cargo-binstall" = "latest"
 #'cargo:clippy' = 'latest'
 #
-# Alternative `go install ...`
-## Go standard
-'go:golang.org/x/tools/cmd/godoc' = 'latest'
-'go:golang.org/x/lint/golint' = 'latest'
-## Go repl
-'go:github.com/mdempsky/gocode' = 'latest'
-#'go:github.com/k0kubun/pp' = 'latest'
-'go:github.com/mightyguava/ecsq' = 'latest'
-'go:github.com/d4l3k/go-pry' = 'latest'
-## Go lsp
-'go:golang.org/x/tools/gopls' = 'latest'
-##'Go:github.com/sourcegraph/go-langserver' = 'latest'
-## Alternative pre-commit
-'go:github.com/evilmartians/lefthook' = 'latest'
-# Sampling telemetry
-'go:github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen' = 'latest'
+# Alternative `go install ...` defined at $HOME/.go-default-packages
+# See: https://mise.jdx.dev/lang/go.html#default-packages
+#'go:golang.org/x/tools/cmd/godoc' = 'latest'
 
-[plugins]
+[alias]
 # specify a custom repo url
 # note this will only be used if the plugin does not already exist
-python = 'https://github.com/asdf-community/asdf-python'
+python = 'asdf:https://github.com/asdf-community/asdf-python'
 
 [settings]
 
