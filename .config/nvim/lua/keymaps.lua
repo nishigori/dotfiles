@@ -56,7 +56,9 @@ keymap('i', '<c-s>', '<esc><cmd>w<cr>a', silent)
 -- Explorer
 if vim.g.vscode then
   keymap('n', ':', "<Cmd>call VSCodeNotify('workbench.view.explorer')<CR>", silent)
---else -- Defined by snacks.nvim
+else
+  -- TODO: on keys in plugins/ui_explorer.nvim
+  keymap('n', ':', ':Neotree toggle reveal<CR>', silent)
 end
 
 -- Translate
@@ -69,10 +71,12 @@ keymap('x', '<C-S-t>', '<cmd>Translate EN<CR>', silent)
 --vim.keymap.del("n", "<Leader>d")
 
 if not vim.g.vscode then
-  keymap('n', '<Leader>a', '<cmd>b#<CR>', silent) -- Open previous buffer
+  keymap('n', '<Leader>a', '<cmd>b#<CR>', {
+    noremap = true,
+    silent = true,
+    desc = "Open previous buffer",
+  })
 
-  --keymap('n', ',f', '<cmd>TransparentToggle<CR>', silent)
-  keymap('n', ',g', '<cmd>Telescope live_grep<CR>', silent)
   -- Shift+command+A で actionをば
 
   -- TODO: Delete after migrated snacks.nvim

@@ -53,14 +53,20 @@ return {
         enabled = true,
         animate = { enabled = true },
       },
-      explorer = { enabled = true },
+      explorer = { enabled = false }, -- Using neo-tree.nvim
       indent = { enabled = true },
       input = { enabled = true },
       notifier = {
         enabled = true,
         timeout = 3300,
       },
-      picker = { enabled = true },
+      picker = {
+        enabled = true,
+        matcher = {
+          frecency = true,
+          history_bonus = true,
+        },
+      },
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = true },
@@ -78,14 +84,18 @@ return {
     },
 
     keys = {
-      -- My Alias
+      -- My Alias: https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
+      { "?", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+      { "<C-a>", function() Snacks.picker.pickers() end, desc = "Picker list" },
       { "<C-n>", function() Snacks.picker.buffers() end, desc = "Buffers" },
       { "<C-p>", function() Snacks.picker.recent() end, desc = "Recent" },
       { "<C-g>", function() Snacks.lazygit() end, desc = "Lazygit" },
       { "q:", function() Snacks.picker.command_history() end, desc = "Command History" },
-      { "?", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+      { "qy", function() Snacks.picker.cliphist() end, desc = "Clip (yank) history" },
       { "<c-/>", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
       { "<leader>d", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+      { "<LocalLeader>f", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+      { "<LocalLeader>g", function() Snacks.picker.git_grep() end, desc = "Find Git Files" },
 
       -- Top Pickers & Explorer
       { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
@@ -93,8 +103,7 @@ return {
       { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
       { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-      { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
-      { ":", function() Snacks.explorer() end, desc = "File Explorer" },
+      --{ "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
       { "<C-e>", function() Snacks.explorer() end, desc = "File Explorer" },
 
       -- find
@@ -109,7 +118,7 @@ return {
       { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
       { "<leader>gl", function() Snacks.picker.git_log() end, desc = "Git Log" },
       { "<leader>gL", function() Snacks.picker.git_log_line() end, desc = "Git Log Line" },
-      { "<leader>gs", function() Snacks.picker.gGt_status() end, desc = "Git Status" },
+      { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
       { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
       { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
       { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },

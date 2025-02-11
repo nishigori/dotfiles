@@ -5,24 +5,21 @@ end
 return {
 
   -- I'm using Snacks.bufdelete()
-  --{
-  --  "echasnovski/mini.bufremove",
-  --  -- stylua: ignore
-  --  keys = {
-  --    { "<Leader>d", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
-  --    { "<Leader><S-d>", function() require("mini.bufremove").delete(0, true) end, desc = "Delete Buffer (Force)" },
-  --  },
-  --},
+  --"echasnovski/mini.bufremove",
 
-  -- Layout like tab bar
-  {
+  { -- Layout like tab bar
     "akinsho/nvim-bufferline.lua",
+
     event = "BufAdd",
+
     init = function()
       vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>bnext<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprevious<CR>', { noremap = true, silent = true })
     end,
-    config = function() -- use `config` (no-use `opts` by lazy.nvim) cause highlights executable after set colorscheme: catppuccin
+
+    -- No used `opts` for lazy.nvim
+    -- highlights executable after set colorscheme: catppuccin
+    config = function()
       require("bufferline").setup {
       highlights = require("catppuccin.groups.integrations.bufferline").get(),
       options = {
@@ -41,7 +38,7 @@ return {
         end,
         offsets = {
           {
-            filetype = "neo-tree",
+            filetype = "snacks_picker_list",
             text = " File Explorer",
             highlight = "Directory",
             text_align = "left",
@@ -51,5 +48,6 @@ return {
     }
     end,
   },
+
 }
 
