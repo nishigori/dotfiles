@@ -1,3 +1,8 @@
-plugin/packer_*
-lua/secrets.lua
-lazy-lock.json
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data

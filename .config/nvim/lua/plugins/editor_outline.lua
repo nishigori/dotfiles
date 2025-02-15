@@ -3,24 +3,16 @@ if vim.g.vscode then
 end
 
 return {
-
   -- Diagnostics shows list and others (like Intellij `Problems`)
   {
     "folke/trouble.nvim",
-    cmd = "Trouble",
-
-    keys = {
-      ",d",
-      "<cmd>Trouble diagnostics toggle<cr>",
-      desc = "Diagnostics (Trouble)",
-    },
-
     opts = {
-      modes = {
-        diagnostics = { auto_open = true },
-      }
+      auto_oepn = true,
+      use_diagnostic_signs = true,
     },
-
+    keys = {
+      { ",d", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+    },
     -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#trouble
     specs = {
       "folke/snacks.nvim",
@@ -31,7 +23,7 @@ return {
             win = {
               input = {
                 keys = {
-                  ["<c-t>"] = { "trouble_open", mode = { "n", "i" }, },
+                  ["<c-t>"] = { "trouble_open", mode = { "n", "i" } },
                 },
               },
             },
@@ -40,5 +32,4 @@ return {
       end,
     },
   },
-
 }

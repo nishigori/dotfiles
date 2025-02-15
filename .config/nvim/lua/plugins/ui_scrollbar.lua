@@ -3,11 +3,9 @@ if vim.g.vscode then
 end
 
 return {
-
-    {
-      "petertriho/nvim-scrollbar",
-      event = { "CmdwinLeave", "WinScrolled" },
-      config = true,
-    },
-
+  {
+    "petertriho/nvim-scrollbar",
+    event = { "CmdwinLeave", "WinScrolled" },
+    config = true,
+  },
 }
