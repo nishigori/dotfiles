@@ -29,9 +29,11 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.coding.yanky" },
 
     -- Extras > dap
+    { import = "lazyvim.plugins.extras.dap.core" },
 
     -- Extras > editor
     { import = "lazyvim.plugins.extras.editor.aerial" },
+    { import = "lazyvim.plugins.extras.editor.inc-rename" },
     { import = "lazyvim.plugins.extras.editor.outline" },
     { import = "lazyvim.plugins.extras.editor.overseer" },
     -- TODO: need? or already covered by lazyvim?
