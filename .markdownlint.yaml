@@ -1,0 +1,9 @@
+# Configuration: https://github.com/DavidAnson/markdownlint-cli2?tab=readme-ov-file#configuration
+# Rules: https://github.com/DavidAnson/markdownlint/tree/main/doc
+default: true
+
+#MD012: true # no-multiple-blanks
+MD013: false # line-length
+MD014: false # commands-show-output ($...)
+MD033: false # no-inline-html
+MD034: false # no-bare-urls (<url>)

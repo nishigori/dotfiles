@@ -15,7 +15,8 @@ os            := $(shell uname -s)
 arch           = $(shell arch)
 secrets       := $(subst .example/,/.,$(wildcard .secrets.example/*))
 rc_files      := $(wildcard .*rc) .luarc.json .wezterm.lua .tmux.conf
-links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets .gitconfig .default-go-packages
+links         := $(rc_files) $(wildcard .config/*) .zsh .vim .secrets
+links         += .gitconfig .default-go-packages .markdownlint.yaml
 config_moves  := $(wildcard *.config.toml)
 dir_requires  := \
 	$(addprefix $(HOME)/, src bin tmp .config .cache/terraform .local/bin) \
