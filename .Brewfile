@@ -97,8 +97,9 @@ brew 'cpanminus'
 #brew 'ghc'
 brew 'rye'
 brew 'python'
-brew 'terraform_landscape' # lsp
-brew 'terraform-ls' # lsp
+# lsp managed by lazyvim
+#brew 'terraform_landscape' # lsp
+#brew 'terraform-ls' # lsp
 
 
 #############
@@ -155,6 +156,9 @@ cask 'session-manager-plugin'
 cask 'google-cloud-sdk'
 
 brew 'packer'
+
+brew 'fastly/tap/fastly'
+brew 'falko' # Fastly VCL developer tool
 
 brew 'fastly/tap/fastly'
 brew 'falco' # Fastly's VCL developer tool
