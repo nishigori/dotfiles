@@ -158,10 +158,7 @@ cask 'google-cloud-sdk'
 brew 'packer'
 
 brew 'fastly/tap/fastly'
-brew 'falko' # Fastly VCL developer tool
-
-brew 'fastly/tap/fastly'
-brew 'falco' # Fastly's VCL developer tool
+brew 'falco' # Fastly VCL developer tool
 
 
 ####################
