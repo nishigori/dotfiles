@@ -28,6 +28,7 @@ brew 'gnu-sed'
 brew 'gnu-tar'
 brew 'gnu-time'
 brew 'gnu-which'
+brew 'gpg'
 
 # Shell
 brew 'zsh'
