@@ -97,6 +97,10 @@ $(gh_extensions):
 
 .PHONY: mise
 mise: .config/mise
+ifneq (,$(CI))
+	# NOTE: lua5.1 has error on macos github-actions
+	rm -f $</conf.d/nvim.*
+endif
 	#mise self-update #=> manged by another tools (e.g. homebrew)
 	mise -C ~/$< install -y
 	mise upgrade -y

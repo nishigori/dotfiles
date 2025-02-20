@@ -8,11 +8,10 @@
 # global tool versions go here
 # you can set these with `mise use -g`
 go = 'latest'
-lua = "5.1"
 node = 'lts'
-python = ['latest', '3.12']
+python = 'latest'
 rust = 'latest'
-terraform = ['latest', '1.7.5']
+terraform = 'latest'
 watchexec = 'latest'
 
 # TODO: rust,go toolchain(s) の動きはまだ決まっていない
@@ -33,8 +32,8 @@ python = 'asdf:https://github.com/asdf-community/asdf-python'
 [settings]
 
 # configure `mise install` to always keep the downloaded archive
-always_keep_download = false        # deleted after install by default
-always_keep_install = false         # deleted on failure by default
+always_keep_download = false # deleted after install by default
+always_keep_install = false  # deleted on failure by default
 
 env_file = '.env' # load env vars from a dotenv file, see `MISE_ENV_FILE`
 
