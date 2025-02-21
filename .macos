@@ -17,7 +17,6 @@ sudo nvram SystemAudioVolume=" "
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 defaults write com.apple.screencapture disable-shadow -boolean "true"
 
-
 ##################
 # Keyboard & input
 ##################
@@ -28,6 +27,9 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 20
 
 : "keyboard: spell auto fixer"
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool "false"
+
+: "keyboard: option + tab shortcut for same windows movement"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 27 "<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>65535</integer><integer>48</integer><integer>524288</integer></array><key>type</key><string>standard</string></dict></dict>"
 
 # get string like : 1452-630-0 for keyboard_id (ref: http://freewing.starfree.jp/software/macos_keyboard_setting_terminal_commandline)
 : "keyboard: CapsLock <-> Ctrl"
