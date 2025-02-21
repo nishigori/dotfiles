@@ -118,9 +118,8 @@ brew 'neovim'
 ###########
 # Container
 ###########
-# NOTE: Docker installed from web as the preview ver.
-#cask 'docker'
-#brew 'docker-compose'
+cask 'docker'
+brew 'k9s'
 brew 'stern' #  Tail multiple Kubernetes pods & their containers
 
 
@@ -194,7 +193,7 @@ brew 'telnet'
 brew 'mas' # brew utils
 
 mas 'Slack', id: 803_453_959
-#mas '1Password', id: 443_987_910
+cask '1password' #mas '1Password', id: 443_987_910
 #mas 'TweetDeck', id: 485_812_721
 
 #cask 'intellij-idea' # now, migrated to jetbrains-toolbox
