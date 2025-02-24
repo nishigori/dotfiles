@@ -118,7 +118,7 @@ brew 'neovim'
 ###########
 # Container
 ###########
-cask 'docker'
+#cask 'docker'
 brew 'k9s'
 brew 'stern' #  Tail multiple Kubernetes pods & their containers
 
