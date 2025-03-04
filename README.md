@@ -10,6 +10,6 @@
   </a>
   
   &nbsp;<br>
-  <p>Run&nbsp;»&nbsp;<code>$ make</code> and <code>$ make install</code></p>
+  <p>Run&nbsp;»&nbsp;<code>$ make</code> and <code>$ make me</code></p>
   <p><a href="https://github.com/nishigori/dotfiles/wiki">Wiki&nbsp;»</a>&nbsp;Other manual setups can be found</p>
 </div>

@@ -23,13 +23,10 @@ dir_requires  := \
 	$(addprefix $(HOME)/.cache/vim/, undo swap backup unite view) \
 	$(if $(huge), $(addprefix $(HOME)/, Dropbox))
 
-.DEFAULT_GOAL: me
-.PHONY: me
-me: $(dir_requires) config_move link secret
+.DEFAULT_GOAL: __
+.PHONY: __
+__: $(dir_requires) config_move link secret
 	# make me happy :D
-
-.PHONY: up
-up: me install update
 
 # Declared on $(os).mk, It's template
 $(os)/%:
@@ -38,11 +35,11 @@ $(os)/%:
 -include $(os).mk
 
 
-.PHONY: clean install update $(links) shell/*
+.PHONY: clean me up $(links) shell/*
 
 # Alias
-install: me $(os)/install bin lang $(if $(huge), gh)
-update: me $(os)/update bin lang $(if $(huge), gh)
+me: __ $(os)/install bin lang $(if $(huge), gh)
+up: __ $(os)/update bin lang $(if $(huge), gh)
 lang: mise rustup
 
 clean: $(os)/clean
