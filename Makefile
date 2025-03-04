@@ -38,8 +38,8 @@ $(os)/%:
 .PHONY: clean me up $(links) shell/*
 
 # Alias
-me: __ $(os)/install bin lang $(if $(huge), gh)
-up: __ $(os)/update bin lang $(if $(huge), gh)
+me: __ $(os)/install bin $(if $(CI),, lang $(if $(huge), gh))
+up: __ $(os)/update bin $(if $(CI),, lang $(if $(huge), gh))
 lang: mise rustup
 
 clean: $(os)/clean
@@ -95,10 +95,6 @@ $(gh_extensions):
 
 .PHONY: mise
 mise: .config/mise
-ifneq (,$(CI))
-	# NOTE: lua5.1 has error on macos github-actions
-	rm -f $</conf.d/nvim.*
-endif
 	#mise self-update #=> manged by another tools (e.g. homebrew)
 	mise -C ~/$< install -y
 	mise upgrade -y
