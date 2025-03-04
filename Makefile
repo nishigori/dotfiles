@@ -59,8 +59,9 @@ link: $(dir_requires) $(links)
 .PHONY: bin
 bin_externals := bin/diff-highlight bin/git-delete-squashed-branches
 
-bin: ~/.local/bin $(bin_externals) # NOTE: `for..in` is (delay) considered for deploying from other make-target.
-	@for b in `cd bin && /bin/ls *`; do \
+# NOTE: no use $(wildcard ...) cause following loop is needs dynamically
+bin: ~/.local/bin $(bin_externals)
+	@for b in `cd bin && ls`; do \
 		set -e; \
 		test -L $</$$b || (set -x; ln -sf $(CURDIR)/bin/$$b $</$$b); \
 		ls -F $</$$b; \
