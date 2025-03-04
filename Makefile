@@ -127,9 +127,8 @@ ifeq (,$(wildcard ~/.local/share/nvim/site/pack/packer/start/packer.nvim))
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim
 endif
 
+rustup: _rustup = $(or $(shell which rustup 2>/dev/null),~/.local/share/mise/installs/rust/latest/bin/rustup)
 rustup: # dynamic `which rustup` cause guard when upgraded rust self
-ifneq (,$(shell which rustup))
-	`which rustup` update
-	`which rustup` show
-	`which rustup` component list --installed
-endif
+	$(_rustup) update
+	$(_rustup) show
+	$(_rustup) component list --installed
