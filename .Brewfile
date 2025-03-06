@@ -8,6 +8,7 @@
 tap 'homebrew/bundle'
 
 brew 'git'
+brew 'git-lfs'
 brew 'mise' # alternative anyenv, asdf
 brew 'curl'
 brew 'jq'
